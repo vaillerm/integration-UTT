@@ -1,0 +1,47 @@
+<?php
+
+class Newcomer extends Eloquent {
+
+    public $table = 'newcomers';
+    public $timestamps = true;
+
+    public $primaryKey = 'id';
+
+    public function getDates()
+    {
+        return ['created_at', 'update_at', 'birth'];
+    }
+
+    public $fillable = [
+        'first_name',
+        'last_name',
+        'password',
+        'sex',
+        'email',
+        'phone',
+        'birth',
+        'level',
+        'referral',
+        'team'
+    ];
+
+    /**
+     * Define the One-to-One relation with Team.
+     *
+     * @return Eloquent
+     */
+    public function team()
+    {
+        return $this->belongsTo('Team');
+    }
+
+    /**
+     * Define the One-to-One relation with Referral.
+     *
+     * @return Eloquent
+     */
+    public function referral()
+    {
+        return $this->belongsTo('Referral');
+    }
+}
