@@ -7,11 +7,6 @@ Route::get('/', [
 	'uses' => 'PagesController@getHomepage'
 ]);
 
-Route::get('/dashboard/newcomers/{id}', [
-	'as'   => 'dashboard.newcomers.profile',
-	'uses' => 'NewcomersController@show',
-]);
-
 Route::group(['before' => 'oauth'], function()
 {
 	Route::get('/menu', [
@@ -92,10 +87,10 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.newcomers',
 				'uses' => 'NewcomersController@index'
 			]);
-			// Route::get('{id}', [
-			// 	'as'   => 'dashboard.newcomers.profile',
-			// 	'uses' => 'NewcomersController@show',
-			// ]);
+			Route::get('/{id}', [
+				'as'   => 'dashboard.newcomers.profile',
+				'uses' => 'NewcomersController@show',
+			]);
 		});
 
 		// Teams management.
