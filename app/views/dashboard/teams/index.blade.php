@@ -51,6 +51,7 @@
         <table class="table table-hover">
             <tbody>
                 <tr>
+                    <th>Membres</th>
                     <th>Nom</th>
                     <th>Description</th>
                     <th>Image</th>
@@ -58,6 +59,7 @@
                 </tr>
                 @foreach ($teams as $team)
                     <tr>
+                        <td>{{{ $team->newcomers()->count() }}}</td>
                         <td>{{{ $team->name }}}</td>
                         <td>{{{ $team->description }}}</td>
                         @if ($team->img_url)
