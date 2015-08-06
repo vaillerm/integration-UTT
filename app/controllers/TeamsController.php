@@ -67,7 +67,6 @@ class TeamsController extends \BaseController {
         return $this->error('Impossible de mettre à jour l\'équipe');
     }
 
-
     /**
      * Destroy a team.
      *
@@ -83,6 +82,22 @@ class TeamsController extends \BaseController {
             return $this->success('Équipe supprimée !');
         }
         return $this->error('Équipe inconnue !');
+    }
+
+    /**
+     * Members of a team.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function members($id)
+    {
+        $team = Team::findOrFail($id);
+        $members = $team->newcomers()->orderBy('level', 'DESC')->get();
+        return View::make('dashboard.teams.members', [
+            'team'    => $team,
+            'newcomers' => $members
+        ]);
     }
 
 }

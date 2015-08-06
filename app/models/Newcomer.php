@@ -44,4 +44,12 @@ class Newcomer extends Eloquent {
     {
         return $this->belongsTo('Referral');
     }
+
+    /**
+     * @return string
+     */
+    public function fullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

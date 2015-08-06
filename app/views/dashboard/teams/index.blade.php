@@ -66,6 +66,7 @@
                             <td>Aucune !</td>
                         @endif
                         <td>
+                            <a href="{{ route('dashboard.teams.members', ['id' => $team->id ]) }}" class="btn btn-xs btn-success">Membres</a>
                             <a href="{{ route('dashboard.teams.edit', ['id' => $team->id ]) }}" class="btn btn-xs btn-warning">Modifier</a>
                             <a href="{{ route('dashboard.teams.destroy', ['id' => $team->id ]) }}" class="btn btn-xs btn-danger">Supprimer</a>
                         </td>

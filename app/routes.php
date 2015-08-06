@@ -116,6 +116,10 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.teams.destroy',
 				'uses' => 'TeamsController@destroy'
 			]);
+			Route::get('/{id}/members', [
+				'as'   => 'dashboard.teams.members',
+				'uses' => 'TeamsController@members'
+			]);
 		});
 	});
 });
