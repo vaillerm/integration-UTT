@@ -120,6 +120,10 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.teams.members',
 				'uses' => 'TeamsController@members'
 			]);
+			Route::post('/{id}/members', [
+				'as'   => 'dashboard.teams.members',
+				'uses' => 'TeamsController@addMember'
+			]);
 		});
 	});
 });

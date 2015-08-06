@@ -94,10 +94,25 @@ class TeamsController extends \BaseController {
     {
         $team = Team::findOrFail($id);
         $members = $team->newcomers()->orderBy('level', 'DESC')->get();
+        $withoutTeam = Newcomer::where('team_id', null)->get();
         return View::make('dashboard.teams.members', [
-            'team'    => $team,
-            'newcomers' => $members
+            'team'      => $team,
+            'newcomers' => $members,
+            'alones'    => $withoutTeam
         ]);
+    }
+
+    public function addMember($id)
+    {
+        $team = Team::find($id);
+        if ($team)
+        {
+            $newcomer = Newcomer::findOrFail((int)Input::get('newcomer'));
+            $newcomer->team_id = $id;
+            $newcomer->save();
+            return $this->success('Le nouveau a été ajouté à l\'équipe !');
+        }
+        return $this->error('Équipe inconnue !');
     }
 
 }
