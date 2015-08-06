@@ -11,6 +11,22 @@
 
 @include('display-errors')
 
+<div class="box box-default collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Ajouter un noveau</h3>
+        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="box-body text-center">
+        <form class="" action="{{ route('dashboard.newcomers.create') }}" method="post">
+            <input type="text" name="first_name" class="form-control" value="" placeholder="Prénom">
+            <input type="text" name="last_name" class="form-control" value="" placeholder="Nom">
+            <input type="text" name="email" class="form-control" value="" placeholder="Adresse email">
+            <input type="text" name="level" class="form-control" value="" placeholder="Niveau (ex. TC, ISI...)">
+            <input type="submit" class="btn btn-success form-control" value="Créer le nouveau">
+        </form>
+    </div>
+</div>
+
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Liste des nouveaux</h3>

@@ -87,6 +87,10 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.newcomers',
 				'uses' => 'NewcomersController@index'
 			]);
+			Route::post('/', [
+				'as'   => 'dashboard.newcomers.create',
+				'uses' => 'NewcomersController@create'
+			]);
 			Route::get('/{id}', [
 				'as'   => 'dashboard.newcomers.profile',
 				'uses' => 'NewcomersController@show',

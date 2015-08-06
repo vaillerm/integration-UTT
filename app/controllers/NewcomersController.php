@@ -32,4 +32,19 @@ class NewcomersController extends \BaseController {
         return View::make('letter', [ 'newcomer' => $newcomer ]);
     }
 
+    /**
+     * Create a newcomer.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $newcomer = Newcomer::create(Input::all());
+        if ($newcomer->save())
+        {
+            return $this->success('L\'utilisateur a été créé !');
+        }
+        return $this->error('Impossible de créer l\'utilisateur !');
+    }
+
 }
