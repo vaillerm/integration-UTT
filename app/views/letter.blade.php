@@ -10,15 +10,19 @@
 
 <body>
     <img alt="map" height="792" width="1123" id="map" src="{{ asset('img/letter/map.jpg') }}">
-    <img alt="avatar" height="96" width="76" id="avatar" src="{{ asset('referrals/' . $newcomer->referral->student_id . '.jpg') }}">
+    @if ($newcomer->referral->surname != 'BDE PMOM')
+        <img alt="avatar" height="96" width="76" id="avatar" src="{{ asset('referrals/' . $newcomer->referral->student_id . '.jpg') }}">
+    @endif
     <img alt="anneaux" height="96" width="76" id="anneaux" src="{{ asset('img/letter/anneaux.png') }}">
     <h1 id="name">{{ $newcomer->referral->first_name . ' ' . $newcomer->referral->last_name }}</h1>
     <p id="descParrain">
         Cette personne, c'est ton
         <strong>parrain</strong>. Son rôle est de te guider durant toute l'intégration et au delà. Il est conseillé de prendre contact avec lui rapidement :)
     </p>
+    @if ($newcomer->referral->surname != 'BDE PMOM')
     <p id="phone">{{ $newcomer->referral->phone }}</p>
     <p id="mail">{{ $newcomer->referral->email }}</p>
+    @endif
     <h1 id="motParrainTitre">Le mot de ton parrain</h1>
     <p id="motParrain">{{{ $newcomer->referral->free_text }}}</p>
     <h2 id="plusInfosTitre">Plus d'infos ?</h2>
