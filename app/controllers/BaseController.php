@@ -3,7 +3,7 @@
 /**
  * Base controller, to be used by every controller.
  *
- * It implements basic wrappers for responses, ...
+ * It implements basic wrappers for responses...
  *
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
@@ -28,7 +28,7 @@ class BaseController extends Controller {
 	 *
 	 * @param  string $message
 	 * @param  array  $data
-	 * @return array
+	 * @return array|RedirectResponse
 	 */
 	public function success($message = '', $data = [])
 	{
@@ -36,14 +36,14 @@ class BaseController extends Controller {
 		{
 			return ['status' => 'success', 'message' => $message, 'data' => $data];
 		}
-		return Redirect::back()->withSuccess($message);
+		return Redirect::back()->withSuccess($message)->with(['data' => $data]);
 	}
 
 	/**
 	 * Error response wrapper.
 	 *
 	 * @param  string $message
-	 * @return array
+	 * @return array|RedirectResponse
 	 */
 	public function error($message = '')
 	{

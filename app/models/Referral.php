@@ -28,6 +28,14 @@ class Referral extends Eloquent {
         'double_degree',
     ];
 
+    public $hidden = [
+        'created_at',
+        'updated_at',
+        'free_text',
+        'started_validation_at',
+        'referral'
+    ];
+
     /**
      * Define the One-to-Many relation with Newcomer;
      * @return Eloquent

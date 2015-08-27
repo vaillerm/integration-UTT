@@ -37,12 +37,10 @@ class RenderNewcomers extends Command {
 	 */
 	public function fire()
 	{
-		$newcomers = Newcomer::where('level', 'TC')->get();
-		// $newcomers = Newcomer::where('level', '!=', 'TC')->where('level', '!=', 'MMAPP')->get();
+		$newcomers = Newcomer::all();
 		foreach ($newcomers as $newcomer)
 		{
-			echo system('/usr/local/bin/wkhtmltopdf -B 0 -L 0 -R 0 -T 0 -O "Landscape" -s "A4" http://integration.utt.fr/dashboard/newcomers/' . $newcomer->id . ' ~/Workspace/parrainages/public/render/' . escapeshellarg($newcomer->last_name . ' ' . $newcomer->first_name) .'.pdf');
-			$this->info('Done:' . $newcomer->first_name . ' ' . $newcomer->last_name);
+			echo 'php app/console  etu:users:create --login "adm' . $newcomer->id . '" --password="'.$newcomer->password.'" --firstName "'. addslashes($newcomer->first_name) .'" --lastName "' . addslashes($newcomer->last_name). '" --email "'.$newcomer->email.'" --branch "'.$newcomer->level.'"'."\n";
 		}
 	}
 

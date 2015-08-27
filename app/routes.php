@@ -129,6 +129,61 @@ Route::group(['prefix' => 'dashboard'], function()
 				'uses' => 'TeamsController@addMember'
 			]);
 		});
+
+		// WEI registrations
+		Route::group(['prefix' => 'wei'], function()
+		{
+			Route::get('/', [
+				'as'   => 'dashboard.wei',
+				'uses' => 'WEIRegistrationsController@index'
+			]);
+			Route::post('/', [
+				'as'   => 'dashboard.wei.create',
+				'uses' => 'WEIRegistrationsController@create'
+			]);
+			Route::get('{id}', [
+				'as'   => 'dashboard.wei.edit',
+				'uses' => 'WEIRegistrationsController@edit'
+			]);
+			Route::post('{id}', [
+				'as'   => 'dashboard.wei.update',
+				'uses' => 'WEIRegistrationsController@update'
+			]);
+			Route::get('{id}/destroy', [
+				'as'   => 'dashboard.wei.destroy',
+				'uses' => 'WEIRegistrationsController@destroy'
+			]);
+		});
+
+		// Checks handling.
+		Route::group(['prefix' => 'payments'], function()
+		{
+			Route::get('/', [
+				'as'   => 'dashboard.payments',
+				'uses' => 'PaymentsController@index'
+			]);
+			Route::post('/', [
+				'as'   => 'dashboard.payments.create',
+				'uses' => 'PaymentsController@create'
+			]);
+			Route::get('/{id}/destroy', [
+				'as'   => 'dashboard.payments.destroy',
+				'uses' => 'PaymentsController@destroy'
+			]);
+		});
+
+		// Export.
+		Route::group(['prefix' => 'exports'], function()
+		{
+			Route::get('/', [
+				'as'   => 'dashboard.exports',
+				'uses' => 'PagesController@getExports'
+			]);
+			Route::get('/referrals', [
+				'as'   => 'dashboard.exports.referrals',
+				'uses' => 'PagesController@getExportReferrals'
+			]);
+		});
 	});
 });
 
@@ -149,5 +204,4 @@ Route::group(['prefix' => 'oauth'], function()
 		'before' => 'oauth',
 		'uses'   => 'OAuthController@logout'
 	]);
-
 });

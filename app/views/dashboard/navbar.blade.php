@@ -14,6 +14,8 @@
                 <li><a href="{{ route('dashboard.administrators') }}">Administrateurs</a></li>
                 <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li>
                 <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li>
+                <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
+                <li><a href="{{ route('dashboard.exports') }}">Export</a></li>
             </ul>
         </div>
 
