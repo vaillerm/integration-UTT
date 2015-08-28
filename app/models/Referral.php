@@ -33,7 +33,13 @@ class Referral extends Eloquent {
         'updated_at',
         'free_text',
         'started_validation_at',
-        'referral'
+        'referral',
+        'student_id',
+        'postal_code',
+        'city',
+        'country',
+        'max',
+        'double_degree'
     ];
 
     /**

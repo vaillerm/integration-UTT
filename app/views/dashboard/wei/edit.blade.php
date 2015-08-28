@@ -103,6 +103,7 @@
             var birthdate = $('#picker').data('DateTimePicker').date();
             var start = moment($('#start').val(), 'YYYY/MM/DD');
             var diff = start.diff(birthdate, 'years', true);
+            $('#parental-authorization').hide();
             if (diff < 18)
             {
                 $('#parental-authorization').show();

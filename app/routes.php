@@ -183,6 +183,10 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.exports.referrals',
 				'uses' => 'PagesController@getExportReferrals'
 			]);
+			Route::get('/newcomers', [
+				'as'   => 'dashboard.exports.newcomers',
+				'uses' => 'PagesController@getExportNewcomers'
+			]);
 		});
 
 		Route::group(['prefix' => 'championship'], function()

@@ -55,11 +55,38 @@ class PagesController extends \BaseController {
                 $referral['Fillot '.$i] = $newcomer['first_name'].' '.$newcomer['last_name'];
             }
         }
-        return Excel::create('Parrains et fillots', function($file) use ($referrals)
+        return Excel::create('Parrains', function($file) use ($referrals)
         {
             $file->sheet('', function($sheet) use ($referrals)
             {
                 $sheet->fromArray($referrals);
+            });
+        })->export('csv');
+    }
+
+    /**
+     * Export the newcomers.
+     *
+     * @return string
+     */
+    public function getExportNewcomers()
+    {
+        $newcomers = Newcomer::whereNotNull('referral_id')->orderBy('last_name')->get();
+        $data = [['Fillot', 'Parrain', 'Email parrain', 'Téléphone parrain']];
+        foreach ($newcomers as $newcomer)
+        {
+            $data[] = [$newcomer->last_name.' '.$newcomer->first_name, $newcomer->email,
+                       $newcomer->referral->last_name.' '.$newcomer->referral->first_name,
+                       $newcomer->referral->email,
+                       $newcomer->referral->phone
+            ];
+        }
+
+        return Excel::create('Fillots', function($file) use ($data)
+        {
+            $file->sheet('', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
             });
         })->export('csv');
     }
