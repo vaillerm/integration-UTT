@@ -34,7 +34,6 @@ class Referral extends Eloquent {
         'free_text',
         'started_validation_at',
         'referral',
-        'student_id',
         'postal_code',
         'city',
         'country',
