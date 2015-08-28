@@ -37,11 +37,17 @@ class WEIRegistration extends Eloquent {
         return ['created_at', 'updated_at', 'birthdate'];
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function deposit()
     {
         return $this->belongsTo('Payment');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function payment()
     {
         return $this->belongsTo('Payment');

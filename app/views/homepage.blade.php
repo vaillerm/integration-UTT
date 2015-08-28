@@ -14,6 +14,7 @@
                     <h1>Patience, le site de l'intégration ouvrira bientôt ses portes...</h1><br>
 
                     <a href="{{ route('menu') }}" class="btn btn-default">Non, moi je veux devenir parrain !</a>
+                    <a href="{{ route('championship.display') }}" class="btn btn-success">Tableau des scores</a>
                 </div>
             </div>
 

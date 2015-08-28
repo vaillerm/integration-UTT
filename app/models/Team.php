@@ -15,11 +15,20 @@ class Team extends Eloquent {
 
     /**
      * Define the One-to-Many relation with Newcomer;
-     * @return Eloquent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function newcomers()
     {
         return $this->hasMany('Newcomer');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function faction()
+    {
+        return $this->belongsTo('Faction');
     }
 
 }

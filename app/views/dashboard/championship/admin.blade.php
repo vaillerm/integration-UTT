@@ -1,0 +1,41 @@
+@extends('layouts.dashboard')
+
+@section('title')
+<h1>
+    Factions
+    <small>Gestion des points</small>
+</h1>
+@endsection
+
+@section('content')
+
+@include('display-errors')
+
+<form action="{{ route('dashboard.championship.edit') }}" method="post">
+@foreach ($factions as $faction)
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ $faction->name }}</h3>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tr>
+                    <th>Équipe</th>
+                    <th>Points</th>
+                </tr>
+                @foreach($faction->teams as $team)
+                    <tr>
+                        <td style="width:50%">{{{ $team->name }}}</td>
+                        <td style="width:50%">
+                            <input type="number" min="0" name="team-{{ $team->id }}" value="{{ $team->points }}">
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    </div>
+@endforeach
+<input type="submit" class="btn form-control btn-success" value="Modifier les points">
+</form>
+
+@endsection

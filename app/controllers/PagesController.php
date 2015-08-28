@@ -64,4 +64,43 @@ class PagesController extends \BaseController {
         })->export('csv');
     }
 
+    /**
+     * List all the factions and their teams.
+     *
+     * @return Response
+     */
+    public function getChampionship()
+    {
+        return View::make('dashboard.championship.admin', [
+            'factions' => Faction::all()
+        ]);
+    }
+
+    /**
+     * Update the new points for all the teams.
+     *
+     * @return RedirectResponse
+     */
+    public function postChampionship()
+    {
+        foreach (Team::whereNotNull('faction_id')->get() as $team)
+        {
+            $input = Input::get('team-'.$team->id);
+            if ($input !== null)
+            {
+                $team->points = $input;
+                $team->save();
+            }
+        }
+        return $this->success('Les points ont été mis à jour !');
+    }
+
+    /**
+     * @return Response
+     */
+    public function getScores()
+    {
+        return View::make('scores')->with(['factions' => Faction::all()]);
+    }
+
 }

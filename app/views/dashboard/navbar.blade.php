@@ -16,6 +16,7 @@
                 <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li>
                 <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
                 <li><a href="{{ route('dashboard.exports') }}">Export</a></li>
+                <li><a href="{{ route('dashboard.championship') }}">Factions</a></li>
             </ul>
         </div>
 

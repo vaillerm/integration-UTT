@@ -184,8 +184,25 @@ Route::group(['prefix' => 'dashboard'], function()
 				'uses' => 'PagesController@getExportReferrals'
 			]);
 		});
+
+		Route::group(['prefix' => 'championship'], function()
+		{
+			Route::get('/', [
+				'as'   => 'dashboard.championship',
+				'uses' => 'PagesController@getChampionship'
+			]);
+			Route::post('/', [
+				'as'   => 'dashboard.championship.edit',
+				'uses' => 'PagesController@postChampionship'
+			]);
+		});
 	});
 });
+
+Route::get('/scores', [
+	'as'   => 'championship.display',
+	'uses' => 'PagesController@getScores'
+]);
 
 Route::group(['prefix' => 'oauth'], function()
 {

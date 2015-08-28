@@ -28,7 +28,7 @@ class Newcomer extends Eloquent {
     /**
      * Define the One-to-One relation with Team.
      *
-     * @return Eloquent
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function team()
     {
@@ -38,7 +38,7 @@ class Newcomer extends Eloquent {
     /**
      * Define the One-to-One relation with Referral.
      *
-     * @return Eloquent
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function referral()
     {
