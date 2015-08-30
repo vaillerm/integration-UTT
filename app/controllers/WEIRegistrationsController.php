@@ -34,6 +34,7 @@ class WEIRegistrationsController extends \BaseController {
     {
         $input = Input::only(['first_name', 'last_name']);
         $registration = WEIRegistration::create($input);
+        $registration->birthdate = '1997-01-01 00:00:00';
         if ($registration->save())
         {
             return Redirect::route('dashboard.wei.edit', [$registration->id]);
