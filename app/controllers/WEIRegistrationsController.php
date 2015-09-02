@@ -60,13 +60,15 @@ class WEIRegistrationsController extends \BaseController {
      */
     public function update($id)
     {
-        $input = Input::only('phone', 'email', 'gave_parental_authorization', 'birthdate');
+        $input = Input::only('is_orga', 'allergy', 'phone', 'email', 'gave_parental_authorization', 'birthdate');
 
         // Convert to timestamp (for Carbon usage).
         $date = new DateTime($input['birthdate']);
         $input['birthdate'] = $date->getTimestamp();
 
         $input['gave_parental_authorization'] = ($input['gave_parental_authorization'] === null) ? false : true;
+        $input['is_orga'] = ($input['is_orga'] === null) ? false : true;
+
 
         $registration = WEIRegistration::findOrFail($id);
         $registration->update($input);

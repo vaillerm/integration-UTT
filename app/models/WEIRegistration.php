@@ -17,7 +17,9 @@ class WEIRegistration extends Eloquent {
         'phone',
         'email',
         'gave_parental_authorization',
-        'birthdate'
+        'birthdate',
+        'is_orga',
+        'allergy'
     ];
 
     /**

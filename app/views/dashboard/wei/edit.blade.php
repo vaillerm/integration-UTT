@@ -51,6 +51,10 @@
                 <br>
             </div>
 
+            <label for="is_orga">Organisateur / CE : </label>
+            <input type="checkbox" name="is_orga" id="is_orga" @if ($registration->is_orga) checked @endif>
+            <br>
+
             <h2>Paiements</h3>
 
             <h4>Paiement du week-end</h4>
@@ -73,6 +77,10 @@
             <input type="text" name="deposit_bank" class="form-control" placeholder="Banque" value="@if($registration->deposit){{$registration->deposit->bank}}@endif">
             <input type="text" name="deposit_emitter" class="form-control" placeholder="Émetteur" value="@if($registration->deposit){{$registration->deposit->emitter}}@endif">
             <input type="text" name="deposit_number" class="form-control" placeholder="Numéro de chèque" value="@if($registration->deposit){{$registration->deposit->number}}@endif">
+            <br>
+            <h4>Allergies</h4>
+            <input type="text" name="allergy" class="form-control" placeholder="Demande à la personne ses allergies." value="{{ $registration->allergy }}">
+
             <br>
             <input type="submit" class="btn btn-success form-control" value="Modifier">
 
