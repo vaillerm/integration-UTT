@@ -1,11 +1,28 @@
 html {
   margin:0;
   padding:0;
-  background: url("/img/background.jpg") no-repeat center fixed !important;
-  -webkit-background-size: cover;
-  background-size: cover;
+  background: url("/img/background.jpg") black no-repeat center top fixed !important;
+/*  -webkit-background-size: cover !important;
+  background-size: cover !important; */
 }
 
 body {
     background: none !important;
+}
+
+.container {
+    margin-top: 300px;
+}
+.container h1 {
+    color: #333;
+}
+
+@media screen and (max-height: 700px) {
+    html {
+        background-position: center -190px !important;
+    }
+
+    .container {
+        margin-top: 110px;
+    }
 }
