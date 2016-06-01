@@ -9,7 +9,7 @@
                 <div class="text-center">
 
                     <p>
-                    <h1>Parrainage 2015</h1>
+                    <h1>Parrainage</h1>
 
                     Comme chaque année, nous te proposons de remplir un formulaire
                     avec tes informations basiques afn de te permettre d'avoir un fillot !

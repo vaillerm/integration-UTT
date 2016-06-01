@@ -12,7 +12,7 @@
     <body>
         <div class="container">
             <div class="text-center">
-                <h1>Intégration 2015</h1>
+                <h1>Intégration</h1>
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">

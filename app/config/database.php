@@ -53,7 +53,7 @@ return array(
 			'password'  => $_ENV['DATABASE_CONNECTIONS_MYSQL_PASSWORD'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'    => 'inte2015_',
+			'prefix'    => 'inte_',
 		),
 
 	),

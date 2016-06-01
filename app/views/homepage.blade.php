@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Intégration UTT 2015</title>
+        <title>Intégration UTT</title>
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
         <meta name=viewport content="width=device-width, initial-scale=1">
@@ -11,10 +11,10 @@
         <div class="container">
             <div class="row">
                 <div class="text-center">
-                    <h1>Patience, le site de l'intégration ouvrira bientôt ses portes...</h1><br>
+                    <h1>Bienvenue sur le site de l'intégration</h1><br>
 
-                    <a href="{{ route('menu') }}" class="btn btn-default">Non, moi je veux devenir parrain !</a>
-                    <br><br>
+                    <a href="{{ route('menu') }}" class="btn btn-default">Devenir parrain !</a>
+<!--                    <br><br>
                     <a href="{{ route('championship.display') }}" class="btn btn-success">Tableau des scores</a>
                 </div>
             </div>
@@ -28,5 +28,6 @@
                 </div>
             </div>
         </div>
+-->
     </body>
 </html>
