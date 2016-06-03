@@ -6,6 +6,6 @@
         <meta http-equiv="refresh" content="1; url=http://integration.utt.fr" />
     </head>
     <body>
-        <iframe src="https://etu.utt.fr/user/disconnect" width="0" height="0"></iframe>
+        <iframe src="https://etu.utt.fr/user/logout" width="0" height="0"></iframe>
     </body>
 </html>
