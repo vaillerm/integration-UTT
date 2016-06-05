@@ -33,6 +33,7 @@
                     <th>Nom complet</th>
                     <th>Adresse</th>
                     <th>Niveau</th>
+                    <th>Max</th>
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>
@@ -41,6 +42,9 @@
                     $waiting = 0;
                     $incomplete = 0;
                     $levels = [];
+                    $max = [];
+                    $levelsV = [];
+                    $maxV = [];
                 ?>
                 @foreach ($referrals as $referral)
                     <tr>
@@ -48,12 +52,30 @@
                         <td>{{{ $referral->first_name . ' ' . $referral->last_name }}}</td>
                         <td>{{{ $referral->email }}}</td>
                         <td>{{{ $referral->level }}}</td>
+                        <td>{{{ $referral->max }}}</td>
                         <?php
                             $branch = preg_replace('/[^A-Z]+/', '', $referral->level);
+
                             if(empty($levels[$branch])) {
                                 $levels[$branch] = 0;
                             }
                             $levels[$branch]++;
+
+                            if(empty($max[$branch])) {
+                                $max[$branch] = 0;
+                            }
+                            $max[$branch] += $referral->max;
+                            if($referral->validated) {
+                                if(empty($levelsV[$branch])) {
+                                    $levelsV[$branch] = 0;
+                                }
+                                $levelsV[$branch]++;
+
+                                if(empty($maxV[$branch])) {
+                                    $maxV[$branch] = 0;
+                                }
+                                $maxV[$branch] += $referral->max;
+                            }
                         ?>
                         <td>
                             @if ($referral->validated)
@@ -87,8 +109,33 @@
             </tr>
             <tr>
                 <td colspan="6">
+                    Parrains :
                     @foreach ($levels as $level => $count)
                         {{ $count }} {{ $level }} |
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    Maximum de fillots attentus :
+                    @foreach ($max as $branch => $count)
+                        {{ $count }} {{ $branch }} |
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    Parrains validés :
+                    @foreach ($levelsV as $level => $count)
+                        {{ $count }} {{ $level }} |
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    Maximum de fillots attentus par les parrains validés :
+                    @foreach ($maxV as $branch => $count)
+                        {{ $count }} {{ $branch }} |
                     @endforeach
                 </td>
             </tr>
