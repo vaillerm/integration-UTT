@@ -32,6 +32,7 @@
                     <th>Numéro étudiant</th>
                     <th>Nom complet</th>
                     <th>Adresse</th>
+                    <th>Niveau</th>
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>
@@ -39,12 +40,21 @@
                     $validated = 0;
                     $waiting = 0;
                     $incomplete = 0;
+                    $levels = [];
                 ?>
                 @foreach ($referrals as $referral)
                     <tr>
                         <td>{{ $referral->student_id }}</td>
                         <td>{{{ $referral->first_name . ' ' . $referral->last_name }}}</td>
                         <td>{{{ $referral->email }}}</td>
+                        <td>{{{ $referral->level }}}</td>
+                        <?php
+                            $branch = preg_replace('/[^A-Z]+/', '', $referral->level);
+                            if(empty($levels[$branch])) {
+                                $levels[$branch] = 0;
+                            }
+                            $levels[$branch]++;
+                        ?>
                         <td>
                             @if ($referral->validated)
                                 <span class="label label-success">Validé</span>
@@ -66,13 +76,22 @@
                         </td>
                     </tr>
                 @endforeach
-                <tr>
-                    <th colspan="5">{{ $waiting + $incomplete + $validated }} Parrains
-                        ({{ $validated }} validés,
-                        {{ $waiting }} en attente
-                        et {{ $validated }} incomplets)</th>
-                </tr>
             </tbody>
+            <tr>
+                <td colspan="6">
+                    {{ $waiting + $incomplete + $validated }} Parrains
+                    ({{ $validated }} validés,
+                    {{ $waiting }} en attente
+                    et {{ $validated }} incomplets)</td>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @foreach ($levels as $level => $count)
+                        {{ $count }} {{ $level }} |
+                    @endforeach
+                </td>
+            </tr>
         </table>
     </div>
 </div>
