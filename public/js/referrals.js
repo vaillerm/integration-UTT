@@ -11,7 +11,7 @@ $(document).ready(function() {
             method: 'POST',
             data: $(this).serialize(),
         }).done(function(res) {
-            noty({ type: res.type, text: res.message });
+            noty({ type: res.status, text: res.message });
         });
     });
 

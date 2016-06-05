@@ -40,6 +40,22 @@ class BaseController extends Controller {
 	}
 
 	/**
+	 * Warning response wrapper.
+	 *
+	 * @param  string $message
+	 * @param  array  $data
+	 * @return array|RedirectResponse
+	 */
+	public function warning($message = '', $data = [])
+	{
+		if (Request::ajax())
+		{
+			return ['status' => 'warning', 'message' => $message, 'data' => $data];
+		}
+		return Redirect::back()->withSuccess($message)->with(['data' => $data]);
+	}
+
+	/**
 	 * Error response wrapper.
 	 *
 	 * @param  string $message
@@ -49,7 +65,7 @@ class BaseController extends Controller {
 	{
 		if (Request::ajax())
 		{
-			return ['status' => 'error', 'message' => $message];
+			return ['status' => 'danger', 'message' => $message];
 		}
 		return Redirect::back()->withError($message);
 	}

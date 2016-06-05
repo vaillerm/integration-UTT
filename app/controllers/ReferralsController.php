@@ -56,7 +56,24 @@ class ReferralsController extends \BaseController {
 
         if ($referral->update(Input::all()))
         {
-            return $this->success('Ton profil a été mis à jour, merci ! :-)');
+            if(strlen($referral->phone) < 5) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton numéro de téléphone :/');
+            }
+            else if(strlen($referral->email) < 5) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton email :/');
+            }
+            if(strlen($referral->phone) < 5) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton numéro de téléphone :/');
+            }
+            if(strlen($referral->postal_code) < 5) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton code postal :/');
+            }
+            else if(strlen($referral->free_text) < 140) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas écris un texte assez long :/');
+            }
+            else {
+                return $this->success('Ton profil a été mis à jour, merci ! :-)');
+            }
         }
 
         return $this->error('Ton profil n\'a pas pu être mis à jour !');
