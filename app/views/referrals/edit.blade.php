@@ -61,16 +61,16 @@
                             </div>
 
                             <div class="form-group">
-                              <label for="postal_code" class="col-lg-2 control-label">Code postal</label>
+                              <label for="postal_code" class="col-lg-2 control-label">Code postal de ta ville d'origine</label>
                               <div class="col-lg-10">
-                                <input class="form-control" name="postal_code" id="postal_code" placeholder="Code postal" type="text" value="{{{ $referral->postal_code }}}">
+                                <input class="form-control" name="postal_code" id="postal_code" placeholder="Code postal de ta ville d'origine" type="text" value="{{{ $referral->postal_code }}}">
                               </div>
                             </div>
 
                             <div class="form-group">
-                              <label for="country" class="col-lg-2 control-label">Pays</label>
+                              <label for="country" class="col-lg-2 control-label">Pays d'origine</label>
                               <div class="col-lg-10">
-                                <input class="form-control" name="country" id="country" placeholder="Pays" type="text" value="{{{ $referral->country }}}">
+                                <input class="form-control" name="country" id="country" placeholder="Pays d'origine" type="text" value="{{{ $referral->country }}}">
                               </div>
                             </div>
 
