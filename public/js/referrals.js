@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $.noty.defaults.theme = 'relax';
     $.noty.defaults.type  = 'success';
-    $.noty.defaults.timeout = 1000;
+    $.noty.defaults.timeout = 2000;
 
     $('form').on('submit', function(e) {
         e.preventDefault();
