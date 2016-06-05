@@ -54,9 +54,9 @@
                             </div>
 
                             <div class="form-group">
-                              <label for="city" class="col-lg-2 control-label">Ville</label>
+                              <label for="city" class="col-lg-2 control-label">Ville d'origine</label>
                               <div class="col-lg-10">
-                                <input class="form-control" name="city" id="city" placeholder="Ville" type="text" value="{{{ $referral->city }}}">
+                                <input class="form-control" name="city" id="city" placeholder="Ville d'origine" type="text" value="{{{ $referral->city }}}">
                               </div>
                             </div>
 
