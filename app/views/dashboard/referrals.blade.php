@@ -35,6 +35,11 @@
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>
+                <?php
+                    $validated = 0;
+                    $waiting = 0;
+                    $incomplete = 0;
+                ?>
                 @foreach ($referrals as $referral)
                     <tr>
                         <td>{{ $referral->student_id }}</td>
@@ -43,10 +48,13 @@
                         <td>
                             @if ($referral->validated)
                                 <span class="label label-success">Validé</span>
+				<?php $validated++; ?>
                             @elseif (empty($referral->free_text) || empty($referral->phone) || empty($referral->email))
                                 <span class="label label-danger">Incomplet</span>
+				<?php $incomplete++; ?>
                             @else
                                 <span class="label label-warning">En attente</span>
+				<?php $waiting++; ?>
                             @endif
                         </td>
                         <td>
@@ -58,6 +66,12 @@
                         </td>
                     </tr>
                 @endforeach
+                <tr>
+                    <th colspan="5">{{ $waiting + $incomplete + $validated }} Parrains
+                        ({{ $validated }} validés,
+                        {{ $waiting }} en attente
+                        et {{ $validated }} incomplets)</th>
+                </tr>
             </tbody>
         </table>
     </div>
