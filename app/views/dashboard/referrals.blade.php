@@ -104,7 +104,7 @@
                     {{ $waiting + $incomplete + $validated }} Parrains
                     ({{ $validated }} validés,
                     {{ $waiting }} en attente
-                    et {{ $validated }} incomplets)</td>
+                    et {{ $incomplete }} incomplets)</td>
                 </td>
             </tr>
             <tr>
