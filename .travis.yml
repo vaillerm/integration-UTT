@@ -17,9 +17,9 @@ cache:
   - "$HOME/.composer/cache"
 
 before_script:
+  - cp .env.test .env
   - composer self-update
   - composer install --ignore-platform-reqs --no-interaction --prefer-dist
-  - cp .env.test .env
   - php artisan key:generate
   - mysql -e 'create database integration_test;'
   - php artisan migrate
