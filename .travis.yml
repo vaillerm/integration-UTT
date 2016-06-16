@@ -22,6 +22,7 @@ before_script:
   - cp .env.test .env
   - php artisan key:generate
   - mysql -e 'create database integration_test;'
+  - php artisan migrate
 script:
   - phpunit
 
