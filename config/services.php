@@ -45,4 +45,8 @@ return [
              'secret' => $_ENV['ETUUTT_CLIENT_SECRET'],
          ]
     ],
+
+    'version' => [
+         'hash' => env('VERSION_HASH', 'none'),
+    ],
 ];
