@@ -19,8 +19,6 @@
     </p>
 </div>
 
-
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Liste des parrains</h3>
@@ -45,6 +43,12 @@
                     $max = [];
                     $levelsV = [];
                     $maxV = [];
+
+                    $emailsValidated = '';
+                    $emailsIncomplete = '';
+                    $emailsWaiting = '';
+                    $emailsValidatedTC = '';
+                    $emailsValidatedBranch = '';
                 ?>
                 @foreach ($referrals as $referral)
                     <tr>
@@ -55,6 +59,7 @@
                         <td>{{{ $referral->max }}}</td>
                         <?php
                             $branch = preg_replace('/[^A-Z]+/', '', $referral->level);
+                            $emailEntry = $referral->first_name . ' ' . $referral->last_name.' <'.$referral->email.'>, '."\n";
 
                             if(empty($levels[$branch])) {
                                 $levels[$branch] = 0;
@@ -66,11 +71,22 @@
                             }
                             $max[$branch] += $referral->max;
                             if($referral->validated) {
+                                // Add email to lists
+                                $emailsValidated .= $emailEntry;
+                                if(strtolower($branch) == 'tc') {
+                                    $emailsValidatedTC .= $emailEntry;
+                                }
+                                else {
+                                    $emailsValidatedBranch .= $emailEntry;
+                                }
+
+                                // Increase number of referrals in the branch
                                 if(empty($levelsV[$branch])) {
                                     $levelsV[$branch] = 0;
                                 }
                                 $levelsV[$branch]++;
 
+                                // Increase number of fillots in the branch
                                 if(empty($maxV[$branch])) {
                                     $maxV[$branch] = 0;
                                 }
@@ -80,13 +96,19 @@
                         <td>
                             @if ($referral->validated)
                                 <span class="label label-success">Validé</span>
-				<?php $validated++; ?>
+                                <?php $validated++; ?>
                             @elseif (empty($referral->free_text) || empty($referral->phone) || empty($referral->email))
                                 <span class="label label-danger">Incomplet</span>
-				<?php $incomplete++; ?>
+                				<?php
+                                $incomplete++;
+                                $emailsIncomplete .= $emailEntry;
+                                ?>
                             @else
                                 <span class="label label-warning">En attente</span>
-				<?php $waiting++; ?>
+	                            <?php
+                                $waiting++;
+                                $emailsWaiting .= $emailEntry;
+                                ?>
                             @endif
                         </td>
                         <td>
@@ -140,6 +162,30 @@
                 </td>
             </tr>
         </table>
+    </div>
+</div>
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Listes d'adresses email</h3>
+    </div>
+    <div class="box-body">
+        <h4>Tous les profils validés</h4>
+        <textarea class="form-control" readonly>{{ $emailsValidated }}</textarea>
+
+        <h4>Tous les profils incomplets</h4>
+        <p><em>Note: Les personnes qui sont dans cette liste ont parfois juste regardé le formulaire.<br/>
+        Il ne veulent donc pas forcément devenir parrain. Prennez celà en compte si vous leur écrivez un email.</em></p>
+        <textarea class="form-control" readonly>{{ $emailsIncomplete }}</textarea>
+
+        <h4>Tous les profils en attente</h4>
+        <textarea class="form-control" readonly>{{ $emailsWaiting }}</textarea>
+
+        <h4>Tous les profils validés de TC</h4>
+        <textarea class="form-control" readonly>{{ $emailsValidatedTC }}</textarea>
+
+        <h4>Tous les profils validés de branche</h4>
+        <textarea class="form-control" readonly>{{ $emailsValidatedBranch }}</textarea>
     </div>
 </div>
 @endsection
