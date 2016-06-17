@@ -40,10 +40,14 @@ return [
     ],
 
     'etuutt' => [
+         'baseuri' => [
+             'api'    => env('ETUUTT_BASEURI_API', 'https://etu.utt.fr'),
+             'public' => env('ETUUTT_BASEURI_PUBLIC', 'https://etu.utt.fr'),
+         ],
          'client' => [
-             'id'     => $_ENV['ETUUTT_CLIENT_ID'],
-             'secret' => $_ENV['ETUUTT_CLIENT_SECRET'],
-         ]
+             'id'     => env('ETUUTT_CLIENT_ID'),
+             'secret' => env('ETUUTT_CLIENT_SECRET'),
+         ],
     ],
 
     'version' => [

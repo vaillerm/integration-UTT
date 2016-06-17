@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Referral;
 
+use App;
 use Request;
 use View;
 use Redirect;
@@ -26,7 +27,7 @@ class OAuthController extends BaseController {
     public function auth()
     {
         $id = Config::get('services.etuutt.client.id');
-        return Redirect::to('https://etu.utt.fr/api/oauth/authorize?client_id=' . $id . '&scopes=public&response_type=code&state=xyz');
+        return Redirect::to(Config::get('services.etuutt.baseuri.public').'/api/oauth/authorize?client_id=' . $id . '&scopes=public&response_type=code&state=xyz');
     }
 
     /**
@@ -45,7 +46,7 @@ class OAuthController extends BaseController {
         }
 
         $client = new \GuzzleHttp\Client([
-            'base_uri' => 'https://etu.utt.fr',
+            'base_uri' => Config::get('services.etuutt.baseuri.api'),
             'auth' => [
                 Config::get('services.etuutt.client.id'),
                 Config::get('services.etuutt.client.secret')
@@ -66,7 +67,7 @@ class OAuthController extends BaseController {
             // An error 400 from the server is usual when the authorization_code
             // has expired. Redirect the user to the OAuth gateway to be sure
             // to regenerate a new authorization_code for him :-)
-            if ($e->getResponse()->getStatusCode() === 400)
+            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 400)
             {
                 return $this->auth();
             }
