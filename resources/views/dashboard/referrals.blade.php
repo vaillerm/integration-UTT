@@ -48,6 +48,7 @@
                     $emailsIncomplete = '';
                     $emailsWaiting = '';
                     $emailsValidatedTC = '';
+                    $emailsValidatedTC4 = '';
                     $emailsValidatedBranch = '';
                 ?>
                 @foreach ($referrals as $referral)
@@ -75,6 +76,9 @@
                                 $emailsValidated .= $emailEntry;
                                 if(strtolower($branch) == 'tc') {
                                     $emailsValidatedTC .= $emailEntry;
+                                    if(in_array(strtolower($referral->level), ['tc04', 'tc05', 'tc06'])) {
+                                        $emailsValidatedTC4 .= $emailEntry;
+                                    }
                                 }
                                 else {
                                     $emailsValidatedBranch .= $emailEntry;
@@ -186,6 +190,9 @@
 
         <h4>Tous les profils validés de branche</h4>
         <textarea class="form-control" readonly>{{ $emailsValidatedBranch }}</textarea>
+
+        <h4>Tous les profils validés de TC4, TC5, TC6</h4>
+        <textarea class="form-control" readonly>{{ $emailsValidatedTC4 }}</textarea>
     </div>
 </div>
 @endsection
