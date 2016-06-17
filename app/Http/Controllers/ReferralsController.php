@@ -128,7 +128,7 @@ class ReferralsController extends BaseController {
      */
     public function index()
     {
-        $referrals = Referral::all();
+        $referrals = Referral::orderBy('created_at', 'asc')->get();
         return View::make('dashboard.referrals', [
             'referrals' => $referrals,
         ]);
