@@ -76,7 +76,7 @@
                                 $emailsValidated .= $emailEntry;
                                 if(strtolower($branch) == 'tc') {
                                     $emailsValidatedTC .= $emailEntry;
-                                    if(in_array(strtolower($referral->level), ['tc04', 'tc05', 'tc06'])) {
+                                    if(in_array(strtolower($referral->level), ['tc4', 'tc5', 'tc6'])) {
                                         $emailsValidatedTC4 .= $emailEntry;
                                     }
                                 }
