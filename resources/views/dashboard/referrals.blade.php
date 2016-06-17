@@ -60,7 +60,7 @@
                         <td>{{{ $referral->max }}}</td>
                         <?php
                             $branch = preg_replace('/[^A-Z]+/', '', $referral->level);
-                            $emailEntry = $referral->first_name . ' ' . $referral->last_name.' <'.$referral->email.'>, '."\n";
+                            $emailEntry = $referral->first_name . ' ' . $referral->last_name.' <'.$referral->email.'>,'."\n";
 
                             if(empty($levels[$branch])) {
                                 $levels[$branch] = 0;
