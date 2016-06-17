@@ -73,7 +73,11 @@ find . -type d -exec chmod 755 {} \;
 find . -type d -exec chmod ug+s {} \;
 find . -type f -exec chmod 644 {} \;
 sudo chgrp -R www-data storage bootstrap/cache
-sudo chmod -R ug+rwx storage bootstrap/cache
+sudo chmod -R ug+rw storage bootstrap/cache
+
+# For Centos/Redhat (SELinux)
+chcon -Rt httpd_sys_content_t .
+chcon -Rt httpd_sys_rw_content_t storage bootstrap/cache .git .env
 ```
 
 ## Week-end d'intégration
