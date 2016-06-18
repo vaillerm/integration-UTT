@@ -89,7 +89,7 @@ class OAuthController extends BaseController {
         $json = json_decode($response->getBody()->getContents(), true)['response']['data'];
 
         // If the user is new, import some values from the API response.
-        $student = Student::find(Session::get('student_id'));
+        $student = Student::find($json['studentId']);
         if ($student === null)
         {
             $student = new Student([
@@ -101,8 +101,7 @@ class OAuthController extends BaseController {
                 'facebook'      => $json['facebook'],
                 'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL,
                 'branch'        => $json['branch'],
-                'level'         => $json['level'],
-                'last_login '   => new \DateTime()
+                'level'         => $json['level']
             ]);
 
             $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
@@ -115,6 +114,7 @@ class OAuthController extends BaseController {
                 $student->sex = Student::SEX_FEMALE;
             }
 
+            $student->last_login = new \DateTime();
             $student->save();
         }
         // Else only update login datetime
