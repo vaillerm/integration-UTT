@@ -27,7 +27,7 @@
     <div class="box-body">
         <form action="{{ route('dashboard.validation') }}" method="post">
             <input type="hidden" name="student-id" value="{{ $referral->student_id }}">
-            <textarea name="free-text" class="form-control" cols="30" rows="10">{{{ $referral->free_text }}}</textarea>
+            <textarea name="free-text" class="form-control" cols="30" rows="10">{{{ $referral->referral_text }}}</textarea>
             <input type="submit" class="btn btn-success form-control" value="Valider !">
         </form>
     </div>

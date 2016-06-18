@@ -6,7 +6,7 @@ use Closure;
 use Session;
 use Redirect;
 use View;
-use App\Models\Referral;
+use App\Models\Student;
 
 class OAuth
 {
@@ -25,10 +25,10 @@ class OAuth
                 return Redirect::route('oauth.auth');
         }
 
-        $referral = Referral::find(Session::get('student_id'));
-        if ($referral)
+        $student = Student::find(Session::get('student_id'));
+        if ($student)
         {
-                View::share('referral', $referral);
+            View::share('student', $student);
         }
 
         return $next($request);

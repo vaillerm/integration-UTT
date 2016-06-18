@@ -55,9 +55,9 @@
         <footer class="main-footer">
             <div class="container">
                 <div class="pull-right hidden-xs">
-                    <b>Version</b> 0.0.1
+                    <b>Version</b> 0.0.42
                 </div>
-                <strong>En cas de problème,</strong> contacter <a href="mailto:thomas@chauchefoin.fr">flan</a> (pas trop non plus hein) (non mais c'est censé marcher) (t'as rebooté ?).
+                <strong>En cas de problème,</strong> contacter <a href="mailto:aurelien.labate@utt.fr>Alaabate</a> (pas trop non plus hein) (non mais c'est censé marcher) (t'as rebooté ?).
             </div>
         </footer>
     </div>

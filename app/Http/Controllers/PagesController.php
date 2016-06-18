@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Referral;
+use App\Models\Student;
 use App\Models\Team;
 use App\Models\Faction;
 use App\Models\Newcomer;
@@ -39,7 +39,7 @@ class PagesController extends BaseController {
     public function getMenu()
     {
         return View::make('menu')
-            ->with(['referral' => Referral::find(Session::get('student_id'))]);
+            ->with(['student' => Student::find(Session::get('student_id'))]);
     }
 
     /**

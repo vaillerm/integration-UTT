@@ -105,6 +105,7 @@ dans la table `checks`.
 
 Les parrains, CE et admins sont identifiés via le site etudiant EtuUTT. Il faut
 donc créer une application sur le site avec comme URL de redirection `https://integration.utt.fr/oauth/callback`.
+Vous devez aussi cocher le scope `Données privées`
 
 Ensuite il faut configurer les champs suivants dans le fichier `.env` :
 

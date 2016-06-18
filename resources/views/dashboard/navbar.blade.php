@@ -12,7 +12,6 @@
                 @if (Session::get('student_id') != 0)
                     <li><a href="{{ route('dashboard.referrals') }}">Parrains</a></li>
                     <li><a href="{{ route('dashboard.validation') }}">Validation</a></li>
-                    <li><a href="{{ route('dashboard.administrators') }}">Administrateurs</a></li>
                     <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li>
                     <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li>
                     <li><a href="{{ route('dashboard.exports') }}">Export</a></li>

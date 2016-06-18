@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Referral;
+use App\Models\Student;
 
 use App;
 use Request;
@@ -27,7 +27,7 @@ class OAuthController extends BaseController {
     public function auth()
     {
         $id = Config::get('services.etuutt.client.id');
-        return Redirect::to(Config::get('services.etuutt.baseuri.public').'/api/oauth/authorize?client_id=' . $id . '&scopes=public&response_type=code&state=xyz');
+        return Redirect::to(Config::get('services.etuutt.baseuri.public').'/api/oauth/authorize?client_id=' . $id . '&scopes=private_user_account&response_type=code&state=xyz');
     }
 
     /**
@@ -79,7 +79,7 @@ class OAuthController extends BaseController {
         try
         {
             // Yes. $json['response']['access_token']. Hope it'll be fixed in the v2 :-)
-            $response = $client->get('/api/public/user/account?access_token=' . $json['response']['access_token']);
+            $response = $client->get('/api/private/user/account?access_token=' . $json['response']['access_token']);
         }
         catch(\GuzzleHttp\Exception\GuzzleException $e)
         {
@@ -88,10 +88,41 @@ class OAuthController extends BaseController {
 
         $json = json_decode($response->getBody()->getContents(), true)['response']['data'];
 
+        // If the user is new, import some values from the API response.
+        $student = Student::find(Session::get('student_id'));
+        if ($student === null)
+        {
+            $student = new Student([
+                'student_id'    => $json['studentId'],
+                'first_name'    => $json['firstName'],
+                'last_name'     => $json['lastName'],
+                'surname'       => $json['surname'],
+                'email'         => $json['email'],
+                'facebook'      => $json['facebook'],
+                'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL,
+                'branch'        => $json['branch'],
+                'level'         => $json['level'],
+                'last_login '   => new \DateTime()
+            ]);
+
+            if($json['sex'] == 'male') {
+                $student->sex = Student::SEX_MALE;
+            }
+            else if($json['sex'] == 'female') {
+                $student->sex = Student::SEX_FEMALE;
+            }
+
+            $student->save();
+        }
+        // Else only update login datetime
+        else {
+            $student->last_login = new \DateTime();
+            $student->save();
+        }
+
         // Remember the user accross the whole website.
-        // It'll be used for authentication purposes, like dashboard access, ...
         Session::set('student_id', $json['studentId']);
-        Session::set('student_data', $json);
+        Session::forget('newcomer_id');
 
         return Redirect::route('menu');
     }

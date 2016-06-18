@@ -6,6 +6,7 @@ use Closure;
 use DB;
 use Session;
 use Redirect;
+use EtuUTT;
 
 class Admin
 {
@@ -18,9 +19,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-
-        $user = DB::table('administrators')->where('student_id', Session::get('student_id'))->first();
-        if ($user === null)
+        if (!EtuUTT::isAuth() || !EtuUTT::student()->isAdmin())
         {
             return Redirect::route('index');
         }

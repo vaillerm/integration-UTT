@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\AttachTeam::class,
-        Commands\ImportReferralPictures::class,
+        Commands\ImportStudentPictures::class,
         Commands\NewcomersImport::class,
         Commands\RenderNewcomers::class,
     ];

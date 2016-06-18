@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Referral;
+use App\Models\Student;
 
 use Request;
 use View;
 use Session;
 use Redirect;
+use EtuUTT;
 
 /**
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
@@ -18,34 +19,16 @@ class ReferralsController extends BaseController {
     /**
      * Show the edition form.
      *
-     * TODO: avoid multiple calls to Referral::find (+ filter).
-     *
      * @return Response
      */
     public function edit()
     {
-        // If the user is new, import some values from the API response.
-        if (Referral::find(Session::get('student_id')) === null)
-        {
-            $json = Session::get('student_data');
-            $referral = new Referral([
-                'student_id'    => $json['studentId'],
-                'first_name'    => $json['firstName'],
-                'last_name'     => $json['lastName'],
-                'surname'       => $json['surname'],
-                'level'         => $json['branch'] . $json['level'],
-                'free_text'     => '',
-                'email'         => $json['email'],
-                'max'           => 3,
-                'double_degree' => null
-            ]);
-            $referral->save();
-        }
-
-        $referral = Referral::find(Session::get('student_id'));
+        $student = EtuUTT::student();
+        $student->referral = true;
+        $student->save();
 
         return View::make('referrals.edit', [
-            'referral' => $referral
+            'referral' => $student
         ]);
     }
 
@@ -56,7 +39,7 @@ class ReferralsController extends BaseController {
      */
     public function update(Request $request)
     {
-        $referral = Referral::findOrFail(Session::get('student_id'));
+        $referral = Student::findOrFail(Session::get('student_id'));
 
         if ($referral->validated == 1)
         {
@@ -65,17 +48,20 @@ class ReferralsController extends BaseController {
 
         if ($referral->update(Request::all()))
         {
-            if(strlen($referral->phone) < 5) {
-                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton numéro de téléphone :/');
-            }
-            else if(strlen($referral->email) < 5) {
+            if(strlen($referral->email) < 5) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton email :/');
             }
             if(strlen($referral->phone) < 5) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton numéro de téléphone :/');
             }
-            if(strlen($referral->postal_code) < 5) {
-                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton code postal :/');
+            if(strlen($referral->city) < 2) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ta ville d\'origine :/');
+            }
+            if(strlen($referral->country) < 2) {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton pays d\'origine :/');
+            }
+            if(strlen($referral->postal_code) < 5 && $referral->postal_code !== '0') {
+                return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton code postal :/ (Pour les étudiants venant de l\'étranger, indiquez 0) ');
             }
             else if(strlen($referral->free_text) < 140) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas écris un texte assez long :/');
@@ -96,8 +82,8 @@ class ReferralsController extends BaseController {
     public function getValidation()
     {
         $date = new \Datetime();
-        $referral = Referral::where('validated', 0)->where('email', '!=', '')
-                            ->where('phone', '!=', '')->where('free_text', '!=', '')
+        $referral = Student::where('referral', true)->where('referral_validated_at', null)->where('email', '!=', '')
+                            ->where('phone', '!=', '')->where('referral_text', '!=', '')
                             ->orderByRaw('RAND()')->first();
         return View::make('dashboard.validation')->with('referral', $referral);
     }
@@ -110,14 +96,15 @@ class ReferralsController extends BaseController {
     public function postValidation()
     {
         $id = Request::input('student-id');
-        $referral = Referral::findOrFail($id);
-        if ($referral->validated)
+        $referral = Student::findOrFail($id);
+        if ($referral->isValidatedReferral())
         {
             return Redirect::back()->withError('Quelqu\'un a déjà validé cette personne :-(');
         }
-        $referral->validated = 1;
-        $referral->free_text = Request::input('free-text');
+        $referral->referral_validated_at = new \DateTime();
+        $referral->referral_text = Request::input('referral_text');
         $referral->save();
+
         return Redirect::back()->withSuccess('Texte validé pour ' . $referral->first_name . ' ' . $referral->last_name . ' !');
     }
 
@@ -128,7 +115,7 @@ class ReferralsController extends BaseController {
      */
     public function index()
     {
-        $referrals = Referral::orderBy('created_at', 'asc')->get();
+        $referrals = Student::where('referral', true)->orderBy('created_at', 'asc')->get();
         return View::make('dashboard.referrals', [
             'referrals' => $referrals,
         ]);
@@ -144,7 +131,10 @@ class ReferralsController extends BaseController {
         $action = Request::input('action');
         if ($action == 'delete')
         {
-            Referral::find(Request::input('student-id'))->delete();
+            $student = Student::find(Request::input('student-id'));
+            $student->referral = false;
+            $student->save();
+
             return Redirect::back()->withSuccess('Utilisateur supprimé !');
         }
     }
@@ -156,7 +146,10 @@ class ReferralsController extends BaseController {
      */
     public function destroy()
     {
-        Referral::findOrFail(Session::get('student_id'))->delete();
+        $student = EtuUTT::student();
+        $student->referral = false;
+        $student->save();
+
         return Redirect::back();
     }
 }

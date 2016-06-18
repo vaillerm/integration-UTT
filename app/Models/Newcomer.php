@@ -40,13 +40,13 @@ class Newcomer extends Model {
     }
 
     /**
-     * Define the One-to-One relation with Referral.
+     * Define the One-to-One relation with Student.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function referral()
     {
-        return $this->belongsTo('App\Models\Referral');
+        return $this->belongsTo('App\Models\Student');
     }
 
     /**

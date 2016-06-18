@@ -1,4 +1,5 @@
 <?php
+use App\Providers\EtuUTTServiceProvider;
 
 return [
 
@@ -162,6 +163,12 @@ return [
          * Vendor Service Providers...
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Application Service Providers...
+         */
+         App\Providers\EtuUTTServiceProvider::class,
 
     ],
 
@@ -208,7 +215,16 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Vendor Aliases...
+         */
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        /*
+         * Application Aliases...
+         */
+        'EtuUTT' => App\Facades\EtuUTT::class,
     ],
 
 ];

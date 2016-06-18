@@ -3,7 +3,7 @@
 @section('title')
 <h1>
     Parrains
-    <small>Liste de toutes les personnes qui ont validé le formulaire au moins une fois</small>
+    <small>Liste de toutes les personnes qui ont visionné le formulaire au moins une fois</small>
 </h1>
 @endsection
 
@@ -30,8 +30,7 @@
                     <th>Numéro étudiant</th>
                     <th>Nom complet</th>
                     <th>Adresse</th>
-                    <th>Niveau</th>
-                    <th>Max</th>
+                    <th>Semestre</th>
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>
@@ -56,10 +55,9 @@
                         <td>{{ $referral->student_id }}</td>
                         <td>{{{ $referral->first_name . ' ' . $referral->last_name }}}</td>
                         <td>{{{ $referral->email }}}</td>
-                        <td>{{{ $referral->level }}}</td>
-                        <td>{{{ $referral->max }}}</td>
+                        <td>{{{ $referral->branch.$referral->level }}}</td>
                         <?php
-                            $branch = preg_replace('/[^A-Z]+/', '', $referral->level);
+                            $branch = $referral->branch;
                             $emailEntry = $referral->first_name . ' ' . $referral->last_name.' <'.$referral->email.'>,'."\n";
 
                             if(empty($levels[$branch])) {
@@ -70,13 +68,13 @@
                             if(empty($max[$branch])) {
                                 $max[$branch] = 0;
                             }
-                            $max[$branch] += $referral->max;
-                            if($referral->validated) {
+                            $max[$branch] += $referral->referral_max;
+                            if($referral->isValidatedReferral()) {
                                 // Add email to lists
                                 $emailsValidated .= $emailEntry;
                                 if(strtolower($branch) == 'tc') {
                                     $emailsValidatedTC .= $emailEntry;
-                                    if(in_array(strtolower($referral->level), ['tc4', 'tc5', 'tc6'])) {
+                                    if($referral->level >= 4) {
                                         $emailsValidatedTC4 .= $emailEntry;
                                     }
                                 }
@@ -94,14 +92,14 @@
                                 if(empty($maxV[$branch])) {
                                     $maxV[$branch] = 0;
                                 }
-                                $maxV[$branch] += $referral->max;
+                                $maxV[$branch] += $referral->referral_max;
                             }
                         ?>
                         <td>
-                            @if ($referral->validated)
+                            @if ($referral->isValidatedReferral())
                                 <span class="label label-success">Validé</span>
                                 <?php $validated++; ?>
-                            @elseif (empty($referral->free_text) || empty($referral->phone) || empty($referral->email))
+                            @elseif (empty($referral->referral_text) || empty($referral->phone) || empty($referral->email))
                                 <span class="label label-danger">Incomplet</span>
                 				<?php
                                 $incomplete++;

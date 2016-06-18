@@ -5,23 +5,23 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-use App\Models\Referral;
+use App\Models\Student;
 
-class ImportReferralPictures extends Command {
+class ImportStudentPictures extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'referrals:importPictures';
+	protected $name = 'students:importPictures';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Import referrals pictures.';
+	protected $description = 'Import students pictures.';
 
 	/**
 	 * Create a new command instance.
@@ -40,10 +40,10 @@ class ImportReferralPictures extends Command {
 	 */
 	public function fire()
 	{
-		foreach (Referral::all() as $referral)
+		foreach (Student::all() as $student)
 		{
-			$picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $referral->student_id . '.jpg');
-			file_put_contents(public_path() . '/referrals/' . $referral->student_id . '.jpg', $picture);
+			$picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
+			file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
 		}
 		$this->info('Done!');
 	}
