@@ -61,7 +61,7 @@
                             </div>
                             <div class="panel-body">
                                 Si tu as décidé de te retirer de ton rôle de parrain, clique sur le bouton ci-dessous.<br><br>
-                                <a class="form-control btn btn-danger" href="{{ route('referrals.destroy') }}">Supprimer mon compte et me déconnecter</a>
+                                <a class="form-control btn btn-danger" href="{{ route('referrals.destroy') }}">Ne plus être parrain</a>
                             </div>
                         </div>
                     @endif
