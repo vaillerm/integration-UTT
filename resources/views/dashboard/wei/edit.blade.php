@@ -9,7 +9,7 @@
 
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ @asset('css/bootstrap-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.1/skins/square/blue.css">
 @endsection
 
@@ -93,7 +93,7 @@
 @section('js')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.1/icheck.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ @asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 <script type="text/javascript">
     $(function () {
         $('#picker').datetimepicker({

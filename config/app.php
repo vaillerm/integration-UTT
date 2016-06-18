@@ -169,6 +169,7 @@ return [
          * Application Service Providers...
          */
          App\Providers\EtuUTTServiceProvider::class,
+         App\Providers\AssetVersionServiceProvider::class,
 
     ],
 

@@ -4,16 +4,16 @@
 <head>
     <meta charset="utf-8">
     <title>Parrainage</title>
-    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/letter.css') }}">
+    <link rel="stylesheet" href="{{ @asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ @asset('css/letter.css') }}">
 </head>
 
 <body>
-    <img alt="map" height="792" width="1123" id="map" src="{{ asset('img/letter/map.jpg') }}">
+    <img alt="map" height="792" width="1123" id="map" src="{{ @asset('img/letter/map.jpg') }}">
     @if ($newcomer->referral->surname != 'BDE PMOM')
-        <img alt="avatar" height="96" width="76" id="avatar" src="{{ asset('referrals/' . $newcomer->referral->student_id . '.jpg') }}">
+        <img alt="avatar" height="96" width="76" id="avatar" src="{{ @asset('referrals/' . $newcomer->referral->student_id . '.jpg') }}">
     @endif
-    <img alt="anneaux" height="96" width="76" id="anneaux" src="{{ asset('img/letter/anneaux.png') }}">
+    <img alt="anneaux" height="96" width="76" id="anneaux" src="{{ @asset('img/letter/anneaux.png') }}">
     <h1 id="name">{{ $newcomer->referral->first_name . ' ' . $newcomer->referral->last_name }}</h1>
     <p id="descParrain">
         Cette personne, c'est ton
