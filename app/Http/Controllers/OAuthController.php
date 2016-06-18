@@ -105,6 +105,9 @@ class OAuthController extends BaseController {
                 'last_login '   => new \DateTime()
             ]);
 
+            $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
+			file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
+
             if($json['sex'] == 'male') {
                 $student->sex = Student::SEX_MALE;
             }
