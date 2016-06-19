@@ -1,5 +1,21 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Maintenance mode
+|--------------------------------------------------------------------------
+|
+| Print a maintenance page when the the .maintenance file exist.
+| This file is created by the deploy script, but you can create it manually
+| if necessary.
+|
+*/
+
+if(file_exists('.maintenance')){
+	echo file_get_contents(__DIR__.'/maintenance.html');
+	exit;
+}
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
