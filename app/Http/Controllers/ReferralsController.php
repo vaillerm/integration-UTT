@@ -63,7 +63,7 @@ class ReferralsController extends BaseController {
             if(strlen($referral->postal_code) < 5 && $referral->postal_code !== '0') {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton code postal :/ (Pour les étudiants venant de l\'étranger, indiquez 0) ');
             }
-            else if(strlen($referral->free_text) < 140) {
+            else if(strlen($referral->referral_text) < 140) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas écris un texte assez long :/');
             }
             else {
