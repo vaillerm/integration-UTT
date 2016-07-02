@@ -40,8 +40,8 @@
             <div class="row sponsor">
                 <div class="text-center">
                     <a href="http://www.yves-damonte.fr/"><img src="{{ @asset('img/sponsors/damonte.png') }}" alt="" /></a>
-                    <a href="http://www.memphis-coffee.com/maj/nos_retos-123.html"><img src="{{ @asset('img/sponsors/memphis.png') }}" alt="" /></a>
-                    <a href="http://mgel.fr"><img src="{{ @asset('img/sponsors/mgel.png') }}" alt="" /></a>
+                    <!-- <a href="http://www.memphis-coffee.com/maj/nos_retos-123.html"><img src="{{ @asset('img/sponsors/memphis.png') }}" alt="" /></a> -->
+                    <!-- <a href="http://mgel.fr"><img src="{{ @asset('img/sponsors/mgel.png') }}" alt="" /></a> -->
                 </div>
             </div>
         </div>
