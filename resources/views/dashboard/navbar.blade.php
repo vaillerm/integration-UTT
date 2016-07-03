@@ -13,6 +13,7 @@
                     <li><a href="{{ route('dashboard.referrals') }}">Parrains</a></li>
                     <li><a href="{{ route('dashboard.validation') }}">Validation</a></li>
                     <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li>
+                    <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
                     <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li>
                     <li><a href="{{ route('dashboard.exports') }}">Export</a></li>
                     <li><a href="{{ route('dashboard.championship') }}">Factions</a></li>

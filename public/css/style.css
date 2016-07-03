@@ -1,0 +1,10 @@
+
+/* Admin dashboard - Student list */
+table.trombi img {
+	height: 50px;
+}
+
+table.trombi > tbody > tr > td {
+	height: 50px;
+	vertical-align: middle;
+}

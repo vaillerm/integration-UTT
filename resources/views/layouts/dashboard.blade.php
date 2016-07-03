@@ -11,6 +11,7 @@
     <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <link href="{{ @asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ @asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ @asset('/css/style.css') }}" rel="stylesheet" type="text/css" />
 
     <meta name="apple-mobile-web-app-title" content="Intégration UTT">
     <meta name="msapplication-TileColor" content="#3c8dbc">

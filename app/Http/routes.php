@@ -211,6 +211,14 @@ Route::group(['prefix' => 'dashboard'], function()
 				'uses' => 'PagesController@postChampionship'
 			]);
 		});
+
+		Route::group(['prefix' => 'students'], function()
+		{
+			Route::get('/list/{filter?}', [
+				'as'   => 'dashboard.students.list',
+				'uses' => 'StudentsController@list'
+			]);
+		});
 	});
 });
 
