@@ -15,33 +15,47 @@
                 <nav class="navbar navbar-static-top">
                     <div class="container">
                         <div class="navbar-header">
-                            <a href="{{ route('dashboard.index') }}" class="navbar-brand"><b>Intégration</b> UTT</a>
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
                             </button>
+                            <a href="{{ route('dashboard.index') }}" class="navbar-brand"><b>Intégration</b> UTT</a>
                         </div>
-
-                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ route('dashboard.referrals') }}">Parrains</a></li>
-                                <li><a href="{{ route('dashboard.validation') }}">Validation</a></li>
-                                <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li>
-                                <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
-                                <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li>
-                                <li><a href="{{ route('dashboard.exports') }}">Export</a></li>
-                                <li><a href="{{ route('dashboard.championship') }}">Factions</a></li>
-                                <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
+
+
+                                @if ($student->isAdmin())
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parrainage <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('dashboard.referrals') }}">Liste des parrains</a></li>
+                                            <li><a href="{{ route('dashboard.validation') }}">Validation</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
+                                    <!-- <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li> -->
+                                    <!-- <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li> -->
+                                    <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
+                                    <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
+                                    <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> -->
+                                @endif
                             </ul>
-                        </div>
-
-                        <div class="navbar-custom-menu">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown user user-menu">
-                                    <li><a href="{{ route('oauth.logout') }}"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon compte <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <!-- <li><a href="{{ route('oauth.logout') }}"><i class="fa fa-user" aria-hidden="true"></i> Mon profil bénévole</a></li> -->
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{{ route('menu') }}"><i class="fa fa-bars" aria-hidden="true"></i> Menu princpal</a></li>
+                                        <li><a href="{{ route('index') }}"><i class="fa fa-home" aria-hidden="true"></i> Page d'accueil</a></li>
+                                        <li><a href="{{ route('oauth.logout') }}"><i class="fa fa-power-off" aria-hidden="true"></i> Se déconnecter</a></li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
                 </nav>
             </header>
 
@@ -64,8 +78,6 @@
                 <div class="container">
                     <div class="pull-right hidden-xs">
                         <b>Version</b> {{ Config::get('services.version.hash')}}
-
-
                     </div>
                     <strong>En cas de problème,</strong> contacter <a href="mailto:aurelien.labate@utt.fr">Alabate</a> (pas trop non plus hein) (non mais c'est censé marcher) (t'as rebooté ?).
                 </div>
