@@ -12,6 +12,19 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga,
 
 @include('display-errors')
 
+<div class="callout callout-info">
+    <h4>Liste des étudiants</h4>
+    <p>
+        Pour qu'une personne apparaisse dans cette liste, il suffit qu'elle se soit connecté au site de l'intégration via le site étudiant au moins une fois.
+    </p>
+    <p>
+        Les personnes avec le label <span class="label label-success">Parrain</span> sont les personnes qui ont au moins vu une fois le formulaire de parrainnage. Ce ne sont donc pas forcément des parrains.<br/>
+        Les personnes avec le label <span class="label label-info">Bénévole</span> sont les personnes qui ont accepté d'être contacté pour aider pendant l'intégration et qui ont donc fournis un téléphone et un email.<br/>
+        Pour être <span class="label label-primary">CE</span>, <span class="label label-danger">Admin</span> et/ou <span class="label label-warning">Orga</span>, l'étudiant est obligé de devenir bénévole afin d'être sûr que l'intégration dispose de ses informations de contact.<br/>
+        Pour qu'un étudiant soit <span class="label label-danger">Admin</span> et/ou <span class="label label-warning">Orga</span> un Administrateur doit modifier le profil de l'étudiant via cette page.<br/>
+    </p>
+</div>
+
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Liste des étudiants</h3>
