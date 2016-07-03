@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Export
-    <small></small>
-</h1>
+Export
+@endsection
+
+@section('smalltitle')
+
 @endsection
 
 @section('content')

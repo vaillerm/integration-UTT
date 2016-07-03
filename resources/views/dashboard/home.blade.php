@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Accueil
-    <small>Mises à jour, informations, ...</small>
-</h1>
+Accueil
+@endsection
+
+@section('smalltitle')
+Mises à jour, informations, ...
 @endsection
 
 @section('content')

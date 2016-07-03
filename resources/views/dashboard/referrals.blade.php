@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Parrains
-    <small>Liste de toutes les personnes qui ont visionné le formulaire au moins une fois</small>
-</h1>
+Parrains
+@endsection
+
+@section('smalltitle')
+Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
 @endsection
 
 @section('content')

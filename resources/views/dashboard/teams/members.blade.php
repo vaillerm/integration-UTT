@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Membres d'équipe
-    <small></small>
-</h1>
+Membres d'équipe
+@endsection
+
+@section('smalltitle')
+
 @endsection
 
 @section('content')

@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Validation des messages
-    <small>Pour les yeux chastes des parents...</small>
-</h1>
+Validation des messages
+@endsection
+
+@section('smalltitle')
+Pour les yeux chastes des parents...
 @endsection
 
 @section('content')

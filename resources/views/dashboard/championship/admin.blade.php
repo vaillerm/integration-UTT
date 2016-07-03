@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Factions
-    <small>Gestion des points</small>
-</h1>
+Factions
+@endsection
+
+@section('smalltitle')
+Gestion des points
 @endsection
 
 @section('content')

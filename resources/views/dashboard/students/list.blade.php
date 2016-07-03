@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Etudiants
-    <small>Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga, ...</small>
-</h1>
+Etudiants
+@endsection
+
+@section('smalltitle')
+Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga, ...
 @endsection
 
 @section('content')
@@ -33,7 +34,7 @@
                     <th>Nom complet</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Semestre</th>$
+                    <th>Semestre</th>
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>

@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Week-end d'intégration
-    <small>Inscription et gestion des participants</small>
-</h1>
+Week-end d'intégration
+@endsection
+
+@section('smalltitle')
+Inscription et gestion des participants
 @endsection
 
 

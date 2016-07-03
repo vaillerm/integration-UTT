@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Équipes
-    <small>Gestion des équipes</small>
-</h1>
+Équipes
+@endsection
+
+@section('smalltitle')
+Gestion des équipes
 @endsection
 
 @section('content')

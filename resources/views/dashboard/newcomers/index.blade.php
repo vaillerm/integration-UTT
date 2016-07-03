@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-<h1>
-    Nouveaux
-    <small>Affichage des profils</small>
-</h1>
+Nouveaux
+@endsection
+
+@section('smalltitle')
+Affichage des profils
 @endsection
 
 @section('content')
