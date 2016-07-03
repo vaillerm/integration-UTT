@@ -33,32 +33,32 @@
                     <th>Nom complet</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Semestre</th>
+                    <th>Semestre</th>$
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>
-                @foreach ($students as $referral)
+                @foreach ($students as $student)
                     <tr>
-                        <td><a href="{{ @asset('/uploads/students-trombi/'.$referral->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$referral->student_id.'.jpg') }}" alt="Photo"/></a></td>
-                        <td>{{ $referral->student_id }}</td>
-                        <td>{{{ $referral->first_name . ' ' . $referral->last_name }}}</td>
-                        <td>{{{ $referral->email }}}</td>
-                        <td>{{{ $referral->phone }}}</td>
-                        <td>{{{ $referral->branch.$referral->level }}}</td>
+                        <td><a href="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
+                        <td>{{ $student->student_id }}</td>
+                        <td>{{{ $student->first_name . ' ' . $student->last_name }}}</td>
+                        <td>{{{ $student->email }}}</td>
+                        <td>{{{ $student->phone }}}</td>
+                        <td>{{{ $student->branch.$student->level }}}</td>
                         <td>
-                            @if ($referral->isAdmin())
+                            @if ($student->isAdmin())
                                 <span class="label label-danger">Admin</span>
                             @endif
-                            @if ($referral->referral)
+                            @if ($student->referral)
                                 <span class="label label-success">Parrain</span>
                             @endif
-                            @if ($referral->ce)
+                            @if ($student->ce)
                                 <span class="label label-primary">CE</span>
                             @endif
-                            @if ($referral->volunteer)
+                            @if ($student->volunteer)
                                 <span class="label label-info">Bénévole</span>
                             @endif
-                            @if ($referral->orga)
+                            @if ($student->orga)
                                 <span class="label label-warning">Orga</span>
                             @endif
                         </td>
