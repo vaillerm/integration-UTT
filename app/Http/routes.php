@@ -218,6 +218,14 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.students.list',
 				'uses' => 'StudentsController@list'
 			]);
+			Route::get('/profil', [
+				'as'   => 'dashboard.students.profil',
+				'uses' => 'StudentsController@profil'
+			]);
+			Route::post('/profil', [
+				'as'   => 'dashboard.students.profil.submit',
+				'uses' => 'StudentsController@profilSubmit'
+			]);
 		});
 	});
 });

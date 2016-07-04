@@ -46,7 +46,7 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon compte <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <!-- <li><a href="{{ route('oauth.logout') }}"><i class="fa fa-user" aria-hidden="true"></i> Mon profil bénévole</a></li> -->
+                                        <li><a href="{{ route('dashboard.students.profil') }}"><i class="fa fa-user" aria-hidden="true"></i> Mon profil bénévole</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{{ route('menu') }}"><i class="fa fa-bars" aria-hidden="true"></i> Menu princpal</a></li>
                                         <li><a href="{{ route('index') }}"><i class="fa fa-home" aria-hidden="true"></i> Page d'accueil</a></li>
@@ -67,8 +67,12 @@
                             <small>@yield('smalltitle')</small>
                         </h1>
                     </section>
-
                     <section class="content">
+                        @if ( Session::has('flash_message') )
+                            <div class="alert alert-{{ empty(Session::get('flash_type'))?'success':Session::get('flash_type') }}">
+                                {{ Session::get('flash_message') }}
+                            </div>
+                        @endif
                         @yield('content')
                     </section>
                 </div>

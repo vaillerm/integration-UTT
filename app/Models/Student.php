@@ -37,6 +37,7 @@ class Student extends Model {
         'level',
         'referral_text',
         'referral_max',
+        'volunteer',
         'facebook',
     ];
 
