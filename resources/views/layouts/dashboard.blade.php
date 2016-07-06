@@ -35,11 +35,11 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
-                                    <!-- <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li> -->
+                                    <?php /* <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
-                                    <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> -->
+                                    <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> --> */ ?>
                                 @endif
                             </ul>
                             <ul class="nav navbar-nav navbar-right">

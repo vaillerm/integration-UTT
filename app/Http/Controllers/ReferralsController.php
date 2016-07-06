@@ -81,6 +81,13 @@ class ReferralsController extends BaseController {
      */
     public function getValidation()
     {
+        if (!EtuUTT::student()->isAdmin())
+        {
+            Request::session()->flash('flash_type', 'danger');
+            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
+            return Redirect::route('dashboard.index');
+        }
+
         $date = new \Datetime();
         $referral = Student::where('referral', true)->where('referral_validated_at', null)->where('email', '!=', '')
                             ->where('phone', '!=', '')->where('referral_text', '!=', '')
@@ -95,6 +102,13 @@ class ReferralsController extends BaseController {
      */
     public function postValidation()
     {
+        if (!EtuUTT::student()->isAdmin())
+        {
+            Request::session()->flash('flash_type', 'danger');
+            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
+            return Redirect::route('dashboard.index');
+        }
+
         $id = Request::input('student-id');
         $referral = Student::findOrFail($id);
         if ($referral->isValidatedReferral())
@@ -115,6 +129,13 @@ class ReferralsController extends BaseController {
      */
     public function index()
     {
+        if (!EtuUTT::student()->isAdmin())
+        {
+            Request::session()->flash('flash_type', 'danger');
+            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
+            return Redirect::route('dashboard.index');
+        }
+
         $referrals = Student::where('referral', true)->orderBy('created_at', 'asc')->get();
         return View::make('dashboard.referrals', [
             'referrals' => $referrals,
@@ -128,6 +149,13 @@ class ReferralsController extends BaseController {
      */
     public function postReferrals()
     {
+        if (!EtuUTT::student()->isAdmin())
+        {
+            Request::session()->flash('flash_type', 'danger');
+            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
+            return Redirect::route('dashboard.index');
+        }
+
         $action = Request::input('action');
         if ($action == 'delete')
         {
@@ -146,6 +174,13 @@ class ReferralsController extends BaseController {
      */
     public function destroy()
     {
+        if (!EtuUTT::student()->isAdmin())
+        {
+            Request::session()->flash('flash_type', 'danger');
+            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
+            return Redirect::route('dashboard.index');
+        }
+
         $student = EtuUTT::student();
         $student->referral = false;
         $student->save();

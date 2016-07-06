@@ -13,3 +13,13 @@ table.trombi > tbody > tr > td {
 /*.panel {
 	text-align: center;
 }*/
+
+/* Volunteer profil */
+.convention-well {
+	text-align: justify;
+	font-family: "Courier New", Courier, monospace;
+}
+
+.text-field {
+	padding-top:8px;
+}

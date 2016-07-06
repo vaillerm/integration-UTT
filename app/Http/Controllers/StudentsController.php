@@ -22,6 +22,13 @@ class StudentsController extends Controller {
          */
         public function list($filter = '')
         {
+            if (!EtuUTT::student()->isAdmin())
+            {
+                \Request::session()->flash('flash_type', 'danger');
+                \Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
+                return \Redirect::route('dashboard.index');
+            }
+
             $students = Student::orderBy('last_name', 'asc');
             switch ($filter) {
                 case 'admin':
