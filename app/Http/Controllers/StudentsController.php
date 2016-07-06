@@ -71,7 +71,8 @@ class StudentsController extends Controller {
                 'sex' => 'required_if:volunteer,1|boolean',
                 'email' => 'required_if:volunteer,1|email',
                 'phone' => 'required_if:volunteer,1|min:8|max:20',
-                'volunteer' => 'required|boolean'
+                'volunteer' => 'required|boolean',
+                'convention' => 'required_if:volunteer,1|accepted'
             ]);
 
             $student = EtuUTT::student();
@@ -82,15 +83,13 @@ class StudentsController extends Controller {
 
             // Add or remove from sympa
             if(!$volunteer && $student->volunteer) {
-                $sent = Mail::raw('', function ($message) use($student) {
-                    $message->subject('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name);
+                $sent = Mail::raw('QUIET ADD integration-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use($student) {
                     $message->from('integrat@utt.fr', 'Intégration UTT');
                     $message->to('sympa@utt.fr');
                 });
             }
             elseif ($volunteer && !$student->volunteer) {
-                $sent = Mail::raw('', function ($message) use($student) {
-                    $message->subject('QUIET DELETE stupre-liste '.$student->email);
+                $sent = Mail::raw('QUIET DELETE integration-liste '.$student->email, function ($message) use($student) {
                     $message->from('integrat@utt.fr', 'Intégration UTT');
                     $message->to('sympa@utt.fr');
                 });
