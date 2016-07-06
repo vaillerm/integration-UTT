@@ -19,6 +19,11 @@ Parce que l'intégration, c'est surtout vous !
         <h3 class="box-title">Modification de mon profil</h3>
     </div>
     <div class="box-body">
+        <br/>
+        <p class="text-center">En devenant bénévole, vous serez ajouté à la liste d'email à contacter pour demander des coups de main pour l'intégration (stupre-liste).<br/>
+            Si tu veux donner plus qu'un coup de main pour l'intégration et que tu es dispo fin août, envoi un email à <a href="mailto:integration@utt.fr">integration@utt.fr</a>. Promis, on est gentil :)
+        </p>
+        <br/>
         <form class="form-horizontal" action="{{ route('dashboard.students.profil') }}" method="post">
 
             @if (count($errors) > 0)
@@ -79,9 +84,7 @@ Parce que l'intégration, c'est surtout vous !
 
             <div class="form-group">
                 <label for="volunteer" class="col-lg-2 control-label">Bénévole</label>
-                <div class="col-lg-10">
-                    <span>En devenant bénévole, vous serez ajouté à la liste d'email à contacter pour demander des coups de main  pour l'intégration (stupre-liste).<br/>
-                        Si tu veux donner plus qu'un coup de main pour l'intégration et que tu es dispo fin août, envoi un email à <a href="mailto:integration@utt.fr">integration@utt.fr</a>. Promis, on est gentil :)</span>
+                <div class="col-lg-10 text-field">
                     <select id="volunteer" name="volunteer" class="form-control" class="">()
                         <option value="0" @if ($student->volunteer == 0) selected="selected" @endif >Je ne veux pas être bénévole :/</option>
                         <option value="1" @if ($student->volunteer == 1) selected="selected" @endif >Je suis bénévole et chaud pour cette intégration !</option>
@@ -113,7 +116,7 @@ Parce que l'intégration, c'est surtout vous !
                     <p><strong>Le bizutage est un <em>délit</em>, puni par la <em>loi</em>. Ceux qui le pratiquent risquent des peines de prison ou de fortes amendes.
                         Ils seront immédiatement et définitivement exclus de l’École sans attendre les poursuites judiciaires éventuelles.</strong></p>
 
-                    <div class="well" style="font-family:Courier New, Courier, monospace">
+                    <div class="well convention-well">
                         <p>Extrait de la loi n°98-468 du 17 juin 1998<br/>
                         Section 3 bis – Du bizutage</p>
 
@@ -123,20 +126,20 @@ Parce que l'intégration, c'est surtout vous !
                         de réunions liées aux milieux scolaire et socio-éducatif est puni
                         de six mois d'emprisonnement et de 7 500 euros d'amende.&nbsp;»</p>
 
-                        <p>«&nbsp;Article 225-16-2. L'infraction définie à l'article 225-16-1 est punie d'un an
+                        <p>«&nbsp;Article 225-16-2.L'infraction définie à l'article 225-16-1 est punie d'un an
                         d'emprisonnement et de 15 000 euros d'amende lorsqu'elle est commise sur
                         une personne dont la particulière vulnérabilité, due à son âge, à une maladie, à
                         une infirmité, à une déficience physique ou psychique ou à un état de
                         grossesse, est apparente ou connue de son auteur.&nbsp;»</p>
 
-                        <p>«&nbsp;Article 225-16-3. Les personnes morales déclarées responsables pénalement, dans
+                        <p>«&nbsp;Article 225-16-3.Les personnes morales déclarées responsables pénalement, dans
                         les conditions prévues parl'article 121-2, des infractions définies aux
                         articles 225-16-1 et 225-16-2encourent, outre l'amende suivant les modalités
                         prévues par l'article 131-38, les peines prévues par les 4° et 9° del'article 131-39.&nbsp;»</p>
                     </div>
                     <select id="convention" name="convention" class="form-control" class="">()
-                        <option value="0" selected="selected" >Je refuse de suivre l'esprit de cette intégration.</option>
-                        <option value="1">Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être puni par une peine d'emprisonnement et 15 000€ d'amende.</option>
+                        <option value="null" @if ($student->volunteer == 0) selected="selected" @endif >Je refuse de suivre l'esprit de cette intégration.</option>
+                        <option value="1" @if ($student->volunteer == 1) selected="selected" @endif >Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être puni par une peine d'emprisonnement et 15 000€ d'amende.</option>
                     </select>
                 </div>
             </div>
