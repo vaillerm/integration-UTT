@@ -50,6 +50,17 @@ return [
          ],
     ],
 
+    'referral' => [
+        'fakeDeadline' => env('REFERRAL_DEADLINE_FAKE'),
+        'deadline' => env('REFERRAL_DEADLINE'),
+    ],
+    'ce' => [
+        'fakeDeadline' => env('CE_DEADLINE_FAKE'),
+        'deadline' => env('CE_DEADLINE'),
+        'maxteam' => env('CE_MAXTEAM'),
+        'maxteamWaitlist' => env('CE_MAXTEAM_WAITLIST'),
+    ],
+
     'version' => [
          'hash' => env('VERSION_HASH', 'none'),
     ],

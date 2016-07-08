@@ -10,9 +10,10 @@ table.trombi > tbody > tr > td {
 }
 
 /* Student menu */
-/*.panel {
-	text-align: center;
-}*/
+a.btn {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 
 /* Volunteer profil */
 .convention-well {

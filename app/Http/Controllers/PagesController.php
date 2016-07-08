@@ -11,6 +11,8 @@ use View;
 use Excel;
 use Request;
 use Session;
+use EtuUTT;
+use Config;
 
 
 /**
@@ -38,8 +40,28 @@ class PagesController extends BaseController {
      */
     public function getMenu()
     {
+        $now =  new \DateTime();
+        $ceFakeDeadline = (new \DateTime(Config::get('services.ce.fakeDeadline')))->diff($now);
+        $referralFakeDeadline = (new \DateTime(Config::get('services.referral.fakeDeadline')))->diff($now);
+        $teamCount = 32; // TODO
         return View::make('menu')
-            ->with(['student' => Student::find(Session::get('student_id'))]);
+            ->with([
+                'student' => EtuUTT::student(),
+                'referralDeadline' => [
+                    'open' => ($now <= new \DateTime(Config::get('services.referral.deadline'))),
+                    'days' => (($referralFakeDeadline->invert)?'':'-'). $referralFakeDeadline->days,
+                    'hours' => $referralFakeDeadline->h,
+                    'minutes' => $referralFakeDeadline->i,
+                ],
+                'ceDeadline' => [
+                    'open' => ($now <= new \DateTime(Config::get('services.ce.deadline'))) && $teamCount < Config::get('services.ce.maxteamWaitlist'),
+                    'days' => (($ceFakeDeadline->invert)?'':'-'). $ceFakeDeadline->days,
+                    'hours' => $ceFakeDeadline->h,
+                    'minutes' => $ceFakeDeadline->i,
+                    'teamLeft' => Config::get('services.ce.maxteam') - $teamCount,
+                    'teamWaitlistLeft' =>  Config::get('services.ce.maxteamWaitlist') - $teamCount,
+                ]
+            ]);
     }
 
     /**
