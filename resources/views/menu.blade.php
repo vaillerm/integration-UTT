@@ -66,7 +66,7 @@ Menu
                                 @endif
                                 <br/><br/>
                                 @if (!$student->ce)
-                                    <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
+                                    <a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
                                 @else
                                     <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Modifier mon profil de chef d'équipe!</a>
                                 @endif

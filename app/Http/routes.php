@@ -79,6 +79,15 @@ Route::group(['prefix' => 'dashboard'], function()
 			]);
 		});
 
+		// ce
+		Route::group(['prefix' => 'ce'], function()
+		{
+			Route::get('/firsttime', [
+				'as'   => 'dashboard.ce.firsttime',
+				'uses' => 'CEController@firstTime'
+			]);
+		});
+
 		// Add or remove administrators.
 		// Route::group(['prefix' => 'administrators'], function()
 		// {
