@@ -12,7 +12,7 @@ use View;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class DashboardController extends BaseController {
+class DashboardController extends Controller {
 
     /**
      * Display dashboard index, with changelog, etc.

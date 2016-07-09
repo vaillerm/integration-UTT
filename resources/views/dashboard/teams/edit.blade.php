@@ -10,8 +10,6 @@ Gestion des équipes
 
 @section('content')
 
-@include('display-errors')
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Modification d'une équipe : {{{ $team->name }}}</h3>

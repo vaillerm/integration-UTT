@@ -16,8 +16,6 @@ Inscription et gestion des participants
 
 @section('content')
 
-@include('display-errors')
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Édition de l'inscription de {{ $registration->first_name.' '.strtoupper($registration->last_name) }}</h3>

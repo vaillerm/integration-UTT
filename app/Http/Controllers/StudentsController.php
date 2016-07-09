@@ -24,9 +24,7 @@ class StudentsController extends Controller {
         {
             if (!EtuUTT::student()->isAdmin())
             {
-                \Request::session()->flash('flash_type', 'danger');
-                \Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-                return \Redirect::route('dashboard.index');
+                return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
             }
 
             $students = Student::orderBy('last_name', 'asc');
@@ -102,13 +100,11 @@ class StudentsController extends Controller {
                 });
             }
 
-
-            $request->session()->flash('flash_message', 'Votre profil a bien été mis à jour.');
             if(!$volunteer && $student->volunteer) {
-                return redirect(route('dashboard.index'));
+                return redirect(route('dashboard.index'))->withSuccess('Votre profil a bien été mis à jour.');
             }
             else {
-                return redirect(route('dashboard.students.profil'));
+                return redirect(route('dashboard.students.profil'))->withSuccess('Votre profil a bien été mis à jour.');
             }
 
         }

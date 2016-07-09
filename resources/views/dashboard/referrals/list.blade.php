@@ -10,7 +10,6 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
 
 @section('content')
 
-@include('display-errors')
 <div class="callout callout-info">
     <h4>Labels</h4>
     <p>

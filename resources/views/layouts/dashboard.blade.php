@@ -70,17 +70,13 @@
             <div class="content-wrapper">
                 <div class="container">
                     <section class="content-header">
+                        @include('display-errors')
                         <h1>
                             @yield('title')
                             <small>@yield('smalltitle')</small>
                         </h1>
                     </section>
                     <section class="content">
-                        @if ( Session::has('flash_message') )
-                            <div class="alert alert-{{ empty(Session::get('flash_type'))?'success':Session::get('flash_type') }}">
-                                {{ Session::get('flash_message') }}
-                            </div>
-                        @endif
                         @yield('content')
                     </section>
                 </div>

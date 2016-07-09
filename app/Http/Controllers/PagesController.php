@@ -21,7 +21,7 @@ use Config;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class PagesController extends BaseController {
+class PagesController extends Controller {
 
     /**
      * Temporary hompage.

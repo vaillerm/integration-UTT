@@ -12,7 +12,7 @@ use Request;
 use Redirect;
 use View;
 
-class CEController extends BaseController
+class CEController extends Controller
 {
     /**
      * Set student as CE and redirect to dashboard index
@@ -37,9 +37,7 @@ class CEController extends BaseController
     {
         if (!EtuUTT::student()->ce)
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         return View::make('dashboard.ce.teamlist', [
@@ -56,9 +54,7 @@ class CEController extends BaseController
     {
         if (!EtuUTT::student()->ce || EtuUTT::student()->team()->count())
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         // Create team

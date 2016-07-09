@@ -10,8 +10,6 @@ Gestion des équipes
 
 @section('content')
 
-@include('display-errors')
-
 @if (!EtuUTT::student()->team()->count())
     <div class="box box-default">
         <div class="box-header with-border">

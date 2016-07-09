@@ -10,8 +10,6 @@ Export
 
 @section('content')
 
-@include('display-errors')
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Liste des parrains</h3>

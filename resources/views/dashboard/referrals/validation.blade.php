@@ -10,7 +10,6 @@ Pour les yeux chastes des parents...
 
 @section('content')
 
-@include('display-errors')
 <div class="callout callout-info">
     <h4>Rappel</h4>
     <p>

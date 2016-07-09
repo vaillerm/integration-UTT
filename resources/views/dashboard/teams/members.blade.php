@@ -10,8 +10,6 @@ Membres d'équipe
 
 @section('content')
 
-@include('display-errors')
-
 @if ($alones->count())
 <div class="box box-default collapsed-box">
     <div class="box-header with-border">

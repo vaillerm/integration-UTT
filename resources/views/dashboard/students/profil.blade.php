@@ -10,8 +10,6 @@ Parce que l'intégration, c'est surtout vous !
 
 @section('content')
 
-@include('display-errors')
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Modification de mon profil</h3>

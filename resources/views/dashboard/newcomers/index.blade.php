@@ -10,8 +10,6 @@ Affichage des profils
 
 @section('content')
 
-@include('display-errors')
-
 <div class="box box-default collapsed-box">
     <div class="box-header with-border">
         <h3 class="box-title">Ajouter un noveau</h3>

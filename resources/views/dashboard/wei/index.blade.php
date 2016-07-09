@@ -10,8 +10,6 @@ Inscription et gestion des participants
 
 @section('content')
 
-@include('display-errors')
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Créer une nouvelle inscription</h3>

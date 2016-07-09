@@ -12,7 +12,7 @@ use View;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class NewcomersController extends BaseController {
+class NewcomersController extends Controller {
 
     /**
      * Show the list of the newcomers.

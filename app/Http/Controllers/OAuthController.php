@@ -17,7 +17,7 @@ use Config;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class OAuthController extends BaseController {
+class OAuthController extends Controller {
 
     /**
      * Redirect the user to the OAuth modal.

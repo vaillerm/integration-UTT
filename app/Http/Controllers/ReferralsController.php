@@ -14,7 +14,7 @@ use EtuUTT;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class ReferralsController extends BaseController {
+class ReferralsController extends Controller {
 
     /**
      * Show the edition form.
@@ -83,9 +83,7 @@ class ReferralsController extends BaseController {
     {
         if (!EtuUTT::student()->isAdmin())
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         $date = new \Datetime();
@@ -104,9 +102,7 @@ class ReferralsController extends BaseController {
     {
         if (!EtuUTT::student()->isAdmin())
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         $id = Request::input('student-id');
@@ -131,9 +127,7 @@ class ReferralsController extends BaseController {
     {
         if (!EtuUTT::student()->isAdmin())
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         $referrals = Student::where('referral', true)->orderBy('created_at', 'asc')->get();
@@ -151,9 +145,7 @@ class ReferralsController extends BaseController {
     {
         if (!EtuUTT::student()->isAdmin())
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         $action = Request::input('action');
@@ -176,9 +168,7 @@ class ReferralsController extends BaseController {
     {
         if (!EtuUTT::student()->isAdmin())
         {
-            Request::session()->flash('flash_type', 'danger');
-            Request::session()->flash('flash_message', 'Vous n\'avez pas le droit d\'accéder à cette page.');
-            return Redirect::route('dashboard.index');
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
         $student = EtuUTT::student();

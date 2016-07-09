@@ -10,8 +10,6 @@ Gestion des équipes
 
 @section('content')
 
-@include('display-errors')
-
 <div class="callout callout-danger">
     <h4>Suppression ou modification des équipes</h4>
     <p>

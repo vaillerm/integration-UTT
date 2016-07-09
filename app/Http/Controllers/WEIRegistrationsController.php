@@ -20,7 +20,7 @@ use View;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class WEIRegistrationsController extends BaseController {
+class WEIRegistrationsController extends Controller {
 
     /**
      * List all the registrations.

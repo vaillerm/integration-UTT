@@ -14,7 +14,7 @@ use View;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class TeamsController extends BaseController {
+class TeamsController extends Controller {
 
     /**
      * List all the teams and show a creation form.

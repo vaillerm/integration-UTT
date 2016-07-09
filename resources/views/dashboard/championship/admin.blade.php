@@ -10,8 +10,6 @@ Gestion des points
 
 @section('content')
 
-@include('display-errors')
-
 <form action="{{ route('dashboard.championship.edit') }}" method="post">
 @foreach ($factions as $faction)
     <div class="box box-default">

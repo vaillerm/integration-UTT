@@ -10,8 +10,6 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga,
 
 @section('content')
 
-@include('display-errors')
-
 <div class="callout callout-info">
     <h4>Liste des étudiants</h4>
     <p>
