@@ -26,9 +26,20 @@ Accueil
 
         <div class="row sponsor">
             <div class="text-center">
-                <a href="http://www.yves-damonte.fr/"><img src="{{ @asset('img/sponsors/damonte.png') }}" alt="" /></a>
-                <!-- <a href="http://www.memphis-coffee.com/maj/nos_retos-123.html"><img src="{{ @asset('img/sponsors/memphis.png') }}" alt="" /></a> -->
-                <!-- <a href="http://mgel.fr"><img src="{{ @asset('img/sponsors/mgel.png') }}" alt="" /></a> -->
+                <?php
+                    $sponsors = [];
+                    $sponsors[] = [ 'link' => 'http://www.accesbureautique.fr/', 'img' => @asset("img/sponsors/access.png"), 'alt' => 'Access Bureautique' ];
+                    $sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => @asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
+                    $sponsors[] = [ 'link' => 'http://www.beijaflore.com/', 'img' => @asset("img/sponsors/beijaflore.png"), 'alt' => 'Beijaflore' ];
+                    $sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => @asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
+                    $sponsors[] = [ 'link' => 'http://www.memphis-coffee.com/memphis-coffee-troyes', 'img' => @asset("img/sponsors/memphis.png"), 'alt' => 'Memphis Coffe' ];
+                    $sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => @asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
+                    $sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => @asset("img/sponsors/popeye.png"), 'alt' => 'Popeye auto-école' ];
+                    shuffle($sponsors);
+                ?>
+                @foreach($sponsors as $sponsor)
+                    <a href="{{{ $sponsor['link'] }}}"><img src="{{{ $sponsor['img'] }}}" alt="{{{ $sponsor['alt'] }}}" /></a>
+                @endforeach
             </div>
         </div>
     </div>

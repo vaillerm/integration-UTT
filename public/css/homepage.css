@@ -13,7 +13,8 @@ a.btn {
 }
 
 .container {
-    margin-top: 260px;
+    margin-top: 190px;
+    padding-top: 70px
 }
 .container h1, .container p{
     color: #333;
@@ -23,6 +24,10 @@ a.btn {
     margin-top:150px;
     color: #fff;
 }
+.sponsor img {
+    margin:10px;
+    max-height:70px
+}
 
 @media screen and (max-height: 700px) {
     html {
@@ -30,6 +35,13 @@ a.btn {
     }
 
     .container {
-        margin-top: 70px;
+        margin-top: 0px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .container {
+        padding-top: 0px;
     }
 }
