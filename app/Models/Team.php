@@ -35,4 +35,20 @@ class Team extends Model {
         return $this->belongsTo('App\Models\Faction');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ce()
+    {
+        return $this->hasMany('App\Models\Student');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function respo()
+    {
+        return $this->belongsTo('App\Models\Student');
+    }
+
 }

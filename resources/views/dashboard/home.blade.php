@@ -27,6 +27,17 @@ Informations diverses pour toi !
                     Du coup je te laisse faire joujoux avec ;) <br/> <em>Enfin.. evite de tout casser, hein !</em>
                 </p>
             @endif
+            @if (EtuUTT::student()->ce)
+                <p>
+                    Ce site te permettra donc en tant que <strong>chef d'équipe</strong> de constituer et de mettre à jour les informations de ton équipe.</em>
+                </p>
+                @if (!EtuUTT::student()->team)
+                    <a class="btn btn-primary" href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a>
+                @else
+                    <a class="btn btn-primary" href="{{ route('dashboard.ce.myteam') }}">Voir mon équipe</a></li>
+                    <a class="btn btn-default" href="{{ route('dashboard.ce.teamlist') }}">Liste des équipes</a></li>
+                @endif
+            @endif
         </div>
 </div>
 @endsection

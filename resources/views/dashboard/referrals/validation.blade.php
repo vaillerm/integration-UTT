@@ -26,7 +26,7 @@ Pour les yeux chastes des parents...
         <h3 class="box-title">Message de {{ $referral->first_name . ' ' . $referral->last_name }} ({{ $referral->student_id }})</h3>
     </div>
     <div class="box-body">
-        <form action="{{ route('dashboard.validation') }}" method="post">
+        <form action="{{ route('dashboard.referrals.validation') }}" method="post">
             <input type="hidden" name="student-id" value="{{ $referral->student_id }}">
             <textarea name="free-text" class="form-control" cols="30" rows="10">{{{ $referral->referral_text }}}</textarea>
             <input type="submit" class="btn btn-success form-control" value="Valider !">

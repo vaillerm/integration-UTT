@@ -21,9 +21,9 @@ class TeamsController extends BaseController {
      *
      * @return Response
      */
-    public function index()
+    public function list()
     {
-        return View::make('dashboard.teams.index', [
+        return View::make('dashboard.teams.list', [
             'teams' => Team::all()
         ]);
     }

@@ -92,7 +92,7 @@ class ReferralsController extends BaseController {
         $referral = Student::where('referral', true)->where('referral_validated_at', null)->where('email', '!=', '')
                             ->where('phone', '!=', '')->where('referral_text', '!=', '')
                             ->orderByRaw('RAND()')->first();
-        return View::make('dashboard.validation')->with('referral', $referral);
+        return View::make('dashboard.referrals.validation')->with('referral', $referral);
     }
 
     /**
@@ -137,7 +137,7 @@ class ReferralsController extends BaseController {
         }
 
         $referrals = Student::where('referral', true)->orderBy('created_at', 'asc')->get();
-        return View::make('dashboard.referrals', [
+        return View::make('dashboard.referrals.list', [
             'referrals' => $referrals,
         ]);
     }

@@ -55,26 +55,21 @@ Route::group(['prefix' => 'dashboard'], function()
 			'uses' => 'DashboardController@getIndex'
 		]);
 
-		// Validate the texts.
-		Route::group(['prefix' => 'validation'], function()
-		{
-			Route::get('/', [
-				'as'   => 'dashboard.validation',
-				'uses' => 'ReferralsController@getValidation'
-			]);
-			Route::post('/', [
-				'uses' => 'ReferralsController@postValidation'
-			]);
-		});
-
-		// Delete and edit referrals.
+		// Delete, validate and edit referrals.
 		Route::group(['prefix' => 'referrals'], function()
 		{
-			Route::get('/', [
-				'as'   => 'dashboard.referrals',
+			Route::get('/validation', [
+				'as'   => 'dashboard.referrals.validation',
+				'uses' => 'ReferralsController@getValidation'
+			]);
+			Route::post('/validation', [
+				'uses' => 'ReferralsController@postValidation'
+			]);
+			Route::get('/list', [
+				'as'   => 'dashboard.referrals.list',
 				'uses' => 'ReferralsController@index'
 			]);
-			Route::post('/', [
+			Route::post('/list', [
 				'uses' => 'ReferralsController@postReferrals'
 			]);
 		});
@@ -86,6 +81,58 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.ce.firsttime',
 				'uses' => 'CEController@firstTime'
 			]);
+
+			Route::get('/teamlist', [
+				'as'   => 'dashboard.ce.teamlist',
+				'uses' => 'CEController@teamList'
+			]);
+
+			Route::post('/teamcreate', [
+				'as'   => 'dashboard.ce.teamcreate',
+				'uses' => 'CEController@teamCreate'
+			]);
+
+			Route::get('/myteam', [
+				'as'   => 'dashboard.ce.myteam',
+				'uses' => 'CEController@myteam'
+			]);
+		});
+
+		// Teams management.
+		Route::group(['prefix' => 'teams'], function()
+		{
+		// Route::get('/list', [
+		// 	'as'   => 'dashboard.teams.list',
+		// 	'uses' => 'TeamsController@list'
+		// ]);
+		// 	Route::get('/', [
+		// 		'as'   => 'dashboard.teams',
+		// 		'uses' => 'TeamsController@index'
+		// 	]);
+		// 	Route::post('/', [
+		// 		'as'   => 'dashboard.teams.create',
+		// 		'uses' => 'TeamsController@create'
+		// 	]);
+		// 	Route::get('/{id}', [
+		// 		'as'   => 'dashboard.teams.edit',
+		// 		'uses' => 'TeamsController@edit'
+		// 	]);
+		// 	Route::post('/{id}', [
+		// 		'as'   => 'dashboard.teams.update',
+		// 		'uses' => 'TeamsController@update'
+		// 	]);
+		// 	Route::get('/{id}/destroy', [
+		// 		'as'   => 'dashboard.teams.destroy',
+		// 		'uses' => 'TeamsController@destroy'
+		// 	]);
+		// 	Route::get('/{id}/members', [
+		// 		'as'   => 'dashboard.teams.members',
+		// 		'uses' => 'TeamsController@members'
+		// 	]);
+		// 	Route::post('/{id}/members', [
+		// 		'as'   => 'dashboard.teams.members',
+		// 		'uses' => 'TeamsController@addMember'
+		// 	]);
 		});
 
 		// Add or remove administrators.
@@ -117,38 +164,6 @@ Route::group(['prefix' => 'dashboard'], function()
 		// 	]);
 		// });
 
-		// Teams management.
-		// Route::group(['prefix' => 'teams'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.teams',
-		// 		'uses' => 'TeamsController@index'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'as'   => 'dashboard.teams.create',
-		// 		'uses' => 'TeamsController@create'
-		// 	]);
-		// 	Route::get('/{id}', [
-		// 		'as'   => 'dashboard.teams.edit',
-		// 		'uses' => 'TeamsController@edit'
-		// 	]);
-		// 	Route::post('/{id}', [
-		// 		'as'   => 'dashboard.teams.update',
-		// 		'uses' => 'TeamsController@update'
-		// 	]);
-		// 	Route::get('/{id}/destroy', [
-		// 		'as'   => 'dashboard.teams.destroy',
-		// 		'uses' => 'TeamsController@destroy'
-		// 	]);
-		// 	Route::get('/{id}/members', [
-		// 		'as'   => 'dashboard.teams.members',
-		// 		'uses' => 'TeamsController@members'
-		// 	]);
-		// 	Route::post('/{id}/members', [
-		// 		'as'   => 'dashboard.teams.members',
-		// 		'uses' => 'TeamsController@addMember'
-		// 	]);
-		// });
 
 		// WEI registrations
 		// Route::group(['prefix' => 'wei'], function()

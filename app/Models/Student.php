@@ -57,6 +57,16 @@ class Student extends Model {
     }
 
     /**
+     * Define the One-to-Many relation with Newcomer;
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function team()
+    {
+        return $this->belongsTo('App\Models\Team');
+    }
+
+    /**
      * Test if the student is a validated referral
      * @return bool
      */

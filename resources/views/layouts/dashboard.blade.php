@@ -30,8 +30,8 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parrainage <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ route('dashboard.referrals') }}">Liste des parrains</a></li>
-                                            <li><a href="{{ route('dashboard.validation') }}">Validation</a></li>
+                                            <li><a href="{{ route('dashboard.referrals.list') }}">Liste des parrains</a></li>
+                                            <li><a href="{{ route('dashboard.referrals.validation') }}">Validation</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
@@ -40,6 +40,14 @@
                                     <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> --> */ ?>
+                                @endif
+                                @if (EtuUTT::student()->ce)
+                                    @if (!EtuUTT::student()->team()->count())
+                                        <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
+                                    @else
+                                        <li><a href="{{ route('dashboard.ce.myteam') }}">Mon équipe</a></li>
+                                        <li><a href="{{ route('dashboard.ce.teamlist') }}">Liste des équipes</a></li>
+                                    @endif
                                 @endif
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
