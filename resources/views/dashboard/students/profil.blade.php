@@ -25,16 +25,6 @@ Parce que l'intégration, c'est surtout vous !
             <fieldset>
                 <legend>Tes informations</legend>
 
-                @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom complet</label>
                     <div class="col-lg-10">

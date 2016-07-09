@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests;
 
 use App\Models\Team;
 
@@ -57,6 +56,13 @@ class CEController extends Controller
             return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
+        $this->validate(Request::instance(), [
+            'name' => 'required|min:3|max:30|unique:teams'
+        ],
+        [
+            'name.unique' => 'Ce nom d\'équipe est déjà pris.'
+        ]);
+
         // Create team
         $data = Request::only(['name']);
         $team = Team::create($data);
@@ -68,7 +74,7 @@ class CEController extends Controller
             $student->team_id = $team->id;
             $student->team_accepted = true;
             if($student->save()) {
-                return $this->success('Équipe ajoutée !');
+                return $this->redirect(route('dashboard.ce.myteam'))->withSuccess('L\'équipe a été créé !');
             }
         }
         return $this->error('Impossible d\'ajouter l\'équipe !');

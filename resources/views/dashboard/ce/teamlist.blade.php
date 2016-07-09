@@ -45,8 +45,20 @@ Gestion des équipes
                         <td>{{{ $team->name }}}</td>
                         <td>
                             @foreach ($team->ce as $ce)
-                                {{{ $ce->first_name }}}
-                                {{{ $ce->last_name }}}
+                                @if ($ce->student_id == $team->respo_id)
+                                    <i class="fa fa-star" aria-hidden="true" title="Responsable de l'équipe"></i>
+                                @endif
+                                @if ($ce->team_accepted)
+                                    <i class="fa fa-check-circle" aria-hidden="true" title="A validé sa participation à l'équipe"></i>
+                                @else
+                                    <i class="fa fa-question-circle" aria-hidden="true" title="N'a pas encore validé sa participation à l'équipe"></i>
+                                @endif
+
+                                @if ($team->ce->last() == $ce)
+                                    {{{ $ce->first_name }}} {{{ $ce->last_name }}}
+                                @else
+                                    {{{ $ce->first_name }}} {{{ $ce->last_name }}},
+                                @endif
                             @endforeach
                         </td>
                     </tr>
