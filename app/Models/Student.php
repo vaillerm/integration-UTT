@@ -39,6 +39,8 @@ class Student extends Model {
         'referral_max',
         'volunteer',
         'facebook',
+        'team_id',
+        'ce'
     ];
 
     public $hidden = [

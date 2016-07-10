@@ -102,8 +102,19 @@ Route::group(['prefix' => 'dashboard'], function()
 				'uses' => 'CEController@add'
 			]);
 
-			Route::post('/add', [
+			Route::get('/add/{login}', [
+				'as'   => 'dashboard.ce.addsubmit',
 				'uses' => 'CEController@addSubmit'
+			]);
+
+			Route::get('/join/', [
+				'as'   => 'dashboard.ce.join',
+				'uses' => 'CEController@join'
+			]);
+
+			Route::get('/unjoin/', [
+				'as'   => 'dashboard.ce.unjoin',
+				'uses' => 'CEController@unjoin'
 			]);
 		});
 

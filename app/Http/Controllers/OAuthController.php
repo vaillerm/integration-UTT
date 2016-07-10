@@ -75,18 +75,19 @@ class OAuthController extends Controller {
         }
 
         $json = json_decode($response->getBody()->getContents(), true);
+        $access_token = $json['access_token'];
+        $refresh_token = $json['refresh_token'];
 
         try
         {
-            // Yes. $json['response']['access_token']. Hope it'll be fixed in the v2 :-)
-            $response = $client->get('/api/private/user/account?access_token=' . $json['response']['access_token']);
+            $response = $client->get('/api/private/user/account?access_token=' . $json['access_token']);
         }
         catch(\GuzzleHttp\Exception\GuzzleException $e)
         {
             App::abort(500);
         }
 
-        $json = json_decode($response->getBody()->getContents(), true)['response']['data'];
+        $json = json_decode($response->getBody()->getContents(), true)['data'];
 
         // If the user is new, import some values from the API response.
         $student = Student::find($json['studentId']);
@@ -101,7 +102,9 @@ class OAuthController extends Controller {
                 'facebook'      => $json['facebook'],
                 'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL,
                 'branch'        => $json['branch'],
-                'level'         => $json['level']
+                'level'         => $json['level'],
+                'etuutt_access_token'  => $access_token,
+                'etuutt_refresh_token' => $refresh_token
             ]);
 
             $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
@@ -117,9 +120,26 @@ class OAuthController extends Controller {
             $student->last_login = new \DateTime();
             $student->save();
         }
+        // Account was created by another person, update it with personnal informations
+        else if (empty($student->etuutt_refresh_token))
+        {
+            $student->last_login = new \DateTime();
+            $student->etuutt_access_token = $access_token;
+            $student->etuutt_refresh_token = $refresh_token;
+            $student->phone = ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL;
+            if($json['sex'] == 'male') {
+                $student->sex = Student::SEX_MALE;
+            }
+            else if($json['sex'] == 'female') {
+                $student->sex = Student::SEX_FEMALE;
+            }
+            $student->save();
+        }
         // Else only update login datetime
         else {
             $student->last_login = new \DateTime();
+            $student->etuutt_access_token = $access_token;
+            $student->etuutt_refresh_token = $refresh_token;
             $student->save();
         }
 
