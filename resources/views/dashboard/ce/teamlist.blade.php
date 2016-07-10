@@ -5,7 +5,7 @@
 @endsection
 
 @section('smalltitle')
-Gestion des équipes
+Liste des équipes
 @endsection
 
 @section('content')

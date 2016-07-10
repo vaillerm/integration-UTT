@@ -79,4 +79,68 @@ class CEController extends Controller
         }
         return $this->error('Impossible d\'ajouter l\'équipe !');
     }
+
+    /**
+     * SHow student's team and form to edit it.
+     *
+     * @return Response
+     */
+    public function myTeam()
+    {
+        if (!EtuUTT::student()->ce && !EtuUTT::student()->team()->count())
+        {
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
+        }
+
+        return View::make('dashboard.ce.myteam', [
+            'team' => EtuUTT::student()->team,
+            'student' => EtuUTT::student()
+        ]);
+    }
+
+    /**
+     * Search for a student to add it to my team
+     *
+     * @return Response
+     */
+    public function add()
+    {
+        if (!EtuUTT::student()->ce && !EtuUTT::student()->team()->count()
+            && EtuUTT::student()->student_id == EtuUTT::student()->team->respo_id
+            && EtuUTT::student()->team->ce->count < 5)
+        {
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
+        }
+
+        // Search student on EtuUTT
+        $data = Request::only(['search']);
+        if($data) {
+            // TODO
+        }
+
+        return View::make('dashboard.ce.add', [
+            'team' => EtuUTT::student()->team,
+            'student' => EtuUTT::student()
+        ]);
+    }
+
+    /**
+     * When search form from add is submited
+     *
+     * @return Response
+     */
+    public function addSubmit()
+    {
+        if (!EtuUTT::student()->ce && !EtuUTT::student()->team()->count()
+            && EtuUTT::student()->student_id == EtuUTT::student()->team->respo_id
+            && EtuUTT::student()->team->ce->count < 5)
+        {
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
+        }
+
+        return View::make('dashboard.ce.add', [
+            'team' => EtuUTT::student()->team,
+            'student' => EtuUTT::student()
+        ]);
+    }
 }

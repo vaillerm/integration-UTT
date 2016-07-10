@@ -96,6 +96,15 @@ Route::group(['prefix' => 'dashboard'], function()
 				'as'   => 'dashboard.ce.myteam',
 				'uses' => 'CEController@myteam'
 			]);
+
+			Route::get('/add', [
+				'as'   => 'dashboard.ce.add',
+				'uses' => 'CEController@add'
+			]);
+
+			Route::post('/add', [
+				'uses' => 'CEController@addSubmit'
+			]);
 		});
 
 		// Teams management.
