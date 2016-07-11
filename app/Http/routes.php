@@ -97,6 +97,10 @@ Route::group(['prefix' => 'dashboard'], function()
 				'uses' => 'CEController@myteam'
 			]);
 
+			Route::post('/myteam', [
+				'uses' => 'CEController@myTeamSubmit'
+			]);
+
 			Route::get('/add', [
 				'as'   => 'dashboard.ce.add',
 				'uses' => 'CEController@add'

@@ -100,7 +100,56 @@ class CEController extends Controller
     }
 
     /**
-     * Search for a student to add it to my team
+     * Submit team information form
+     *
+     * @return Response
+     */
+    public function myTeamSubmit()
+    {
+        if (!EtuUTT::student()->ce || !EtuUTT::student()->team
+            || EtuUTT::student()->student_id != EtuUTT::student()->team->respo_id)
+        {
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
+        }
+
+        $team = EtuUTT::student()->team;
+        $data = Request::only(['name', 'description', 'img']);
+        $this->validate(Request::instance(), [
+            'name' => 'required|min:3|max:30|unique:teams,name,'.EtuUTT::student()->team->id,
+            'description' => 'min:100|max:300',
+            'img' => 'image'
+        ],
+        [
+            'name.unique' => 'Ce nom d\'équipe est déjà pris.'
+        ]);
+
+        // Check image size
+        $extension = null;
+        if(isset($_FILES['img']) && !empty($_FILES['img']['name'])) {
+            $size = getimagesize($_FILES['img']['tmp_name']);
+            if($size[0] == 200 && $size[1] == 200) {
+                $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+                move_uploaded_file($_FILES['img']['tmp_name'], public_path() . '/uploads/teams-logo/' . $team->id . '.' . $extension);
+            }
+        }
+
+        // Update team informations
+        $team->name = $data['name'];
+        $team->description = $data['description'];
+        if($extension) {
+            $team->img = $extension;
+        }
+
+        $team->save();
+
+        return View::make('dashboard.ce.myteam', [
+            'team' => EtuUTT::student()->team,
+            'student' => EtuUTT::student()
+        ]);
+    }
+
+    /**
+     * Search for a student to add it to my teaALAPIGMÉS,,,ALAPIGMÉSALAPIGMÉSALAPIGMÉSALAPIGMÉSm
      *
      * @return Response
      */

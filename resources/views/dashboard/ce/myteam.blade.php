@@ -33,39 +33,55 @@ Gestion de mon équipe
     </div>
     <div class="box-body">
         <div class="box-body">
-            <form class="form-horizontal" action="{{ route('dashboard.students.profil') }}" method="post">
+            <form class="form-horizontal" action="{{ route('dashboard.ce.myteam') }}" method="post" enctype="multipart/form-data">
+                @if($team->respo_id != EtuUTT::student()->student_id)
+                    <p class="text-center">
+                        Seul le responsable de l'équipe peut modifier les informations de l'équipe.
+                    </p>
+                @endif
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom de l'équipe</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" value="{{{ $team->name }}}">
+                        <input class="form-control" type="text" id="name" name="name" @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif value="{{{ $team->name }}}">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="description" class="col-lg-2 control-label">Description</label>
+                    <label for="description" class="col-lg-2 control-label">Mot de votre équipe</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" name="description" id="description">{{{ $team->description }}}</textarea>
+                        <textarea class="form-control" name="description" id="description" placeholder="Bienvenue dans notre équipe..." @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif>{{{ $team->description }}}</textarea>
+                        <small class="text-muted">Utilisez ce mot pour souhaiter la bienvenue aux nouveaux dans votre équipe et donner des idées de déguisements.
+                            <br/>Ecrivez entre 100 et 200 caractères.
+                            Ce message est soumis à validation d'un modérateur.</small>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="sex" class="col-lg-2 control-label">Logo</label>
+
+                <fieldset class="form-group">
+                    <label for="img" class="col-lg-2 control-label">Logo de votre équipe</label>
                     <div class="col-lg-10">
-                        <select id="sex" name="sex" class="form-control" class="">()
-                            <option value="0" @if ($student->sex == 0) selected="selected" @endif >Homme</option>
-                            <option value="1" @if ($student->sex == 1) selected="selected" @endif >Femme</option>
-                        </select>
+                        <input type="file" class="form-control-file" id="img" name="img" @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif>
+                        <small class="text-muted">Image de 200x200 pixels représentant le thème de votre équipe.</small>
+                        @if ($team->img)
+                            <div class="text-center">
+                                <img src="{{ @asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:200px;height:200px;" alt="Logo de l'équipe"/>
+                            </div>
+                        @endif
                     </div>
-                </div>
+                </fieldset>
 
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Responsable</label>
                     <div class="col-lg-10 text-field">
-                        {{{ $team->respo->first_name }}}
-                        {{{ $team->respo->last_name }}}
+                        @if ($team->respo)
+                            {{{ $team->respo->first_name }}}
+                            {{{ $team->respo->last_name }}}
+                        @endif
                     </div>
                 </div>
-                <input type="submit" class="btn btn-success form-control" value="Mettre à jour les informations" />
+                @if($team->respo_id == EtuUTT::student()->student_id)
+                    <input type="submit" class="btn btn-success form-control" value="Mettre à jour les informations" />
+                @endif
             </form>
         </div>
     </div>
