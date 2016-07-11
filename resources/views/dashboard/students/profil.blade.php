@@ -140,7 +140,7 @@ Parce que l'intégration, c'est surtout vous !
                         </div>
                         <select id="convention" name="convention" class="form-control" class="">
                             <option value="null" @if ($student->volunteer == 0) selected="selected" @endif >Je refuse de suivre l'esprit de cette intégration.</option>
-                            <option value="1" @if ($student->volunteer == 1) selected="selected" @endif >Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être puni par une peine d'emprisonnement et 15 000€ d'amende.</option>
+                            <option value="1" @if ($student->volunteer == 1) selected="selected" @endif >Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000€ d'amende.</option>
                         </select>
                     </div>
                 </div>
