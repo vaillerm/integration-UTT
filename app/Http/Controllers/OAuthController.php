@@ -102,10 +102,10 @@ class OAuthController extends Controller {
                 'facebook'      => $json['facebook'],
                 'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL,
                 'branch'        => $json['branch'],
-                'level'         => $json['level'],
-                'etuutt_access_token'  => $access_token,
-                'etuutt_refresh_token' => $refresh_token
+                'level'         => $json['level']
             ]);
+            $student->etuutt_access_token = $access_token;
+            $student->etuutt_refresh_token = $refresh_token;
 
             $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
 			file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);

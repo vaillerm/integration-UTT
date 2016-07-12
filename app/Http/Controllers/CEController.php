@@ -180,6 +180,9 @@ class CEController extends Controller
                 	if(isset($data['data'])) {
                 		$users = array_merge($users, $data['data']);
                 	}
+                    elseif(isset($data['error'])) {
+                        return redirect(route('oauth.auth'))->withError('Une erreur s\'est produite, veuillez réessayer.');
+                    }
 
                 	$data = EtuUTT::call('/api/public/users', [
                 		'lastname' => $string
