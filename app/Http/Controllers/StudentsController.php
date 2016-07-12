@@ -71,29 +71,38 @@ class StudentsController extends Controller {
          */
         public function profilSubmit(Request $request)
         {
-            $this->validate($request, [
+
+            // Validation
+            $rules = [
                 'surname' => 'max:50',
                 'sex' => 'required_if:volunteer,1|boolean',
                 'email' => 'required_if:volunteer,1|email',
-                'phone' => 'required_if:volunteer,1|min:8|max:20',
-                'volunteer' => 'required|boolean',
-                'convention' => 'required_if:volunteer,1|accepted'
-            ]);
+                'phone' => 'required_if:volunteer,1|min:8|max:20'
+            ];
 
             $student = EtuUTT::student();
-            $volunteer = $student->volunteer;
+            if(!$student->volunteer) {
+                $rules['convention'] = 'accepted';
+            }
 
-            $student->update($request->only('surname', 'sex', 'email', 'phone', 'volunteer'));
+            $this->validate($request, $rules,
+            [
+                'convention.accepted' => 'Vous devez accepter l\'esprit de l\'intégration'
+            ]);
+
+            $volunteer = $student->volunteer;
+            $student->volunteer = !empty($request->get('convention'));
+            $student->update($request->only('surname', 'sex', 'email', 'phone'));
             $student->save();
 
             // Add or remove from sympa
-            if(!$volunteer && $student->volunteer) {
+            if(!$volunteer && $request->get('convention')) {
                 $sent = Mail::raw('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use($student) {
                     $message->from('integrat@utt.fr', 'Intégration UTT');
                     $message->to('sympa@utt.fr');
                 });
             }
-            elseif ($volunteer && !$student->volunteer) {
+            elseif ($volunteer && $request->get('convention')) {
                 $sent = Mail::raw('QUIET DELETE stupre-liste '.$student->email, function ($message) use($student) {
                     $message->from('integrat@utt.fr', 'Intégration UTT');
                     $message->to('sympa@utt.fr');

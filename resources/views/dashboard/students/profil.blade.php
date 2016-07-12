@@ -71,15 +71,6 @@ Parce que l'intégration, c'est surtout vous !
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="volunteer" class="col-lg-2 control-label">Bénévole</label>
-                    <div class="col-lg-10 text-field">
-                        <select id="volunteer" name="volunteer" class="form-control" class="">()
-                            <option value="0" @if ($student->volunteer == 0) selected="selected" @endif >Je ne veux pas être bénévole :/</option>
-                            <option value="1" @if ($student->volunteer == 1) selected="selected" @endif >Je suis bénévole et chaud pour cette intégration !</option>
-                        </select>
-                    </div>
-                </div>
             </fieldset>
             <fieldset>
                 <legend>L'esprit de l'intégration</legend>
@@ -138,10 +129,10 @@ Parce que l'intégration, c'est surtout vous !
                                 prévues par l'article 131-38, les peines prévues par les 4° et 9° del'article 131-39.&nbsp;»
                             </p>
                         </div>
-                        <select id="convention" name="convention" class="form-control" class="">
-                            <option value="null" @if ($student->volunteer == 0) selected="selected" @endif >Je refuse de suivre l'esprit de cette intégration.</option>
-                            <option value="1" @if ($student->volunteer == 1) selected="selected" @endif >Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000€ d'amende.</option>
-                        </select>
+                        <input type="checkbox" id="convention" name="convention" @if ($student->volunteer == 1) checked="checked" @endif/>
+                        <label for="convention" class="control-label">
+                            Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000€ d'amende.
+                        </label>
                     </div>
                 </div>
             </fieldset>
