@@ -7,6 +7,7 @@ use App\Models\Newcomer;
 
 use Request;
 use View;
+use EtuUTT;
 
 /**
  * Team management.
@@ -23,6 +24,11 @@ class TeamsController extends Controller {
      */
     public function list()
     {
+        if (!EtuUTT::student()->isAdmin())
+        {
+            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
+        }
+
         return View::make('dashboard.teams.list', [
             'teams' => Team::all()
         ]);

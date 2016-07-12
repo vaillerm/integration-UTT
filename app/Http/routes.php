@@ -125,38 +125,34 @@ Route::group(['prefix' => 'dashboard'], function()
 		// Teams management.
 		Route::group(['prefix' => 'teams'], function()
 		{
-		// Route::get('/list', [
-		// 	'as'   => 'dashboard.teams.list',
-		// 	'uses' => 'TeamsController@list'
-		// ]);
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.teams',
-		// 		'uses' => 'TeamsController@index'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'as'   => 'dashboard.teams.create',
-		// 		'uses' => 'TeamsController@create'
-		// 	]);
-		// 	Route::get('/{id}', [
-		// 		'as'   => 'dashboard.teams.edit',
-		// 		'uses' => 'TeamsController@edit'
-		// 	]);
-		// 	Route::post('/{id}', [
-		// 		'as'   => 'dashboard.teams.update',
-		// 		'uses' => 'TeamsController@update'
-		// 	]);
-		// 	Route::get('/{id}/destroy', [
-		// 		'as'   => 'dashboard.teams.destroy',
-		// 		'uses' => 'TeamsController@destroy'
-		// 	]);
-		// 	Route::get('/{id}/members', [
-		// 		'as'   => 'dashboard.teams.members',
-		// 		'uses' => 'TeamsController@members'
-		// 	]);
-		// 	Route::post('/{id}/members', [
-		// 		'as'   => 'dashboard.teams.members',
-		// 		'uses' => 'TeamsController@addMember'
-		// 	]);
+			Route::get('/list', [
+				'as'   => 'dashboard.teams.list',
+				'uses' => 'TeamsController@list'
+			]);
+			// Route::get('/{id}', [
+			// 	'as'   => 'dashboard.teams.members',
+			// 	'uses' => 'TeamsController@members'
+			// ]);
+			// 	Route::post('/', [
+			// 		'as'   => 'dashboard.teams.create',
+			// 		'uses' => 'TeamsController@create'
+			// 	]);
+			// 	Route::get('/{id}', [
+			// 		'as'   => 'dashboard.teams.edit',
+			// 		'uses' => 'TeamsController@edit'
+			// 	]);
+			// 	Route::post('/{id}', [
+			// 		'as'   => 'dashboard.teams.update',
+			// 		'uses' => 'TeamsController@update'
+			// 	]);
+			// 	Route::get('/{id}/destroy', [
+			// 		'as'   => 'dashboard.teams.destroy',
+			// 		'uses' => 'TeamsController@destroy'
+			// 	]);
+			// 	Route::post('/{id}/members', [
+			// 		'as'   => 'dashboard.teams.members',
+			// 		'uses' => 'TeamsController@addMember'
+			// 	]);
 		});
 
 		// Add or remove administrators.
