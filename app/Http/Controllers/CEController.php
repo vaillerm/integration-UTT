@@ -151,10 +151,7 @@ class CEController extends Controller
 
         $team->save();
 
-        return View::make('dashboard.ce.myteam', [
-            'team' => EtuUTT::student()->team,
-            'student' => EtuUTT::student()
-        ]);
+        return redirect(route('dashboard.ce.myteam'))->withSuccess('Vos modifications ont été sauvegardées.');
     }
 
     /**
