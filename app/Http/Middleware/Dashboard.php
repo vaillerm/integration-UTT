@@ -26,7 +26,7 @@ class Dashboard
             return Redirect::route('index');
         }
         else if (!EtuUTT::student()->volunteer && Request::route()->getName() != 'dashboard.students.profil' && Request::route()->getName() != 'dashboard.students.profil.submit') {
-            return Redirect::route('dashboard.students.profil')->withError('Vous devez être bénévole pour accéder à cette page.');
+            return Redirect::route('dashboard.students.profil')->withError('Veuillez remplir ce formulaire pour continuer :)');
         }
 
         return $next($request);
