@@ -25,7 +25,9 @@ class Dashboard
         {
             return Redirect::route('index');
         }
-        else if (!EtuUTT::student()->volunteer && Request::route()->getName() != 'dashboard.students.profil' && Request::route()->getName() != 'dashboard.students.profil.submit') {
+        else if (!EtuUTT::student()->volunteer && Request::route()->getName() != 'dashboard.students.profil'
+            && Request::route()->getName() != 'dashboard.students.profil.submit'
+            && Request::route()->getName() != 'dashboard.ce.firsttime') {
             return Redirect::route('dashboard.students.profil')->withError('Veuillez remplir ce formulaire pour continuer :)');
         }
 
