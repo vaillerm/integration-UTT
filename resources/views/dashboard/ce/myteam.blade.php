@@ -42,14 +42,14 @@ Gestion de mon équipe
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom de l'équipe</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif value="{{{ $team->name }}}">
+                        <input class="form-control" type="text" id="name" name="name" @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif value="{{{ old('name') ?? $team->name }}}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="description" class="col-lg-2 control-label">Mot de votre équipe</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" name="description" id="description" placeholder="Bienvenue dans notre équipe..." @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif>{{{ $team->description }}}</textarea>
+                        <textarea class="form-control" name="description" id="description" placeholder="Bienvenue dans notre équipe..." @if($team->respo_id != EtuUTT::student()->student_id) disabled @endif>{{{ old('description') ?? $team->description }}}</textarea>
                         <small class="text-muted">Utilisez ce mot pour souhaiter la bienvenue aux nouveaux dans votre équipe et donner des idées de déguisements.
                             <br/>Ecrivez entre 100 et 200 caractères.
                             Ce message est soumis à validation d'un modérateur.</small>
