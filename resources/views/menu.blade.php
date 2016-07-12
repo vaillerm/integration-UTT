@@ -54,15 +54,12 @@ Menu
                             Envie d'accompagner les nouveaux dans les épreuves de l'intégration ?<br/>
                             Constitue ton équpe de 3 à 5 personnes en cliquant sur le bouton ci-desssous !
                             <br/><br/>
-                            @if ($student->ce && false) <?php /* TODO Test if student is in a team */ ?>
+                            @if ($student->ce && $student->team)
                                 <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Modifier mon profil de chef d'équipe!</a>
                             @elseif ($ceDeadline['open'])
                                 <strong>Fermeture dans {{ $ceDeadline['days'] }}j {{ $ceDeadline['hours'] }}h {{ $ceDeadline['minutes'] }}min</strong><br/>
                                 @if ($ceDeadline['teamLeft'] > 0)
                                     <strong>Plus que {{ $ceDeadline['teamLeft'] }} équipes avant la fermeture</strong>
-                                @elseif ($ceDeadline['teamWaitlistLeft'] > 0)
-                                    <strong>Il n'y a plus de place pour une nouvelle équipe,<br/>
-                                        mais vous pouvez vous mettre sur la liste d'attente</strong>
                                 @endif
                                 <br/><br/>
                                 @if (!$student->ce)

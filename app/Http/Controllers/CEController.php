@@ -10,6 +10,7 @@ use App\Models\Team;
 use EtuUTT;
 use Request;
 use Redirect;
+use Config;
 use View;
 
 class CEController extends Controller
@@ -88,6 +89,9 @@ class CEController extends Controller
      */
     public function myTeam()
     {
+        $now =  new \DateTime();
+        $ceFakeDeadline = (new \DateTime(Config::get('services.ce.fakeDeadline')))->diff($now);
+
         if (!EtuUTT::student()->ce || !EtuUTT::student()->team)
         {
             return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
@@ -95,7 +99,12 @@ class CEController extends Controller
 
         return View::make('dashboard.ce.myteam', [
             'team' => EtuUTT::student()->team,
-            'student' => EtuUTT::student()
+            'student' => EtuUTT::student(),
+            'ceDeadline' => [
+                'days' => (($ceFakeDeadline->invert)?'':'-'). $ceFakeDeadline->days,
+                'hours' => $ceFakeDeadline->h,
+                'minutes' => $ceFakeDeadline->i,
+            ]
         ]);
     }
 

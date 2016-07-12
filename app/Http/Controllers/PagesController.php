@@ -59,7 +59,6 @@ class PagesController extends Controller {
                     'hours' => $ceFakeDeadline->h,
                     'minutes' => $ceFakeDeadline->i,
                     'teamLeft' => Config::get('services.ce.maxteam') - $teamCount,
-                    'teamWaitlistLeft' =>  Config::get('services.ce.maxteamWaitlist') - $teamCount,
                 ]
             ]);
     }
