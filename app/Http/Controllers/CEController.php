@@ -134,11 +134,15 @@ class CEController extends Controller
 
         // Check image size
         $extension = null;
+        $imageError = '';
         if(isset($_FILES['img']) && !empty($_FILES['img']['name'])) {
             $size = getimagesize($_FILES['img']['tmp_name']);
             if($size[0] == 200 && $size[1] == 200) {
                 $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
                 move_uploaded_file($_FILES['img']['tmp_name'], public_path() . '/uploads/teams-logo/' . $team->id . '.' . $extension);
+            }
+            else {
+                $imageError = 'Cependant l\'image n\'a pas pus être sauvegardé car elle a une taille différente d\'un carré de 200px par 200px. Veuillez la redimensionner.';
             }
         }
 
@@ -151,11 +155,14 @@ class CEController extends Controller
 
         $team->save();
 
+        if($imageError) {
+            return redirect(route('dashboard.ce.myteam'))->withError('Vos modifications ont été sauvegardées. '.$imageError);
+        }
         return redirect(route('dashboard.ce.myteam'))->withSuccess('Vos modifications ont été sauvegardées.');
     }
 
     /**
-     * Search for a student to add it to my teaALAPIGMÉS,,,ALAPIGMÉSALAPIGMÉSALAPIGMÉSALAPIGMÉSm
+     * Search for a student to add it to my team
      *
      * @return Response
      */
