@@ -18,16 +18,21 @@ Gestion des équipes
         <table class="table table-hover">
             <tbody>
                 <tr>
-                    <th>Nombre de nouveaux</th>
+                    {{-- <th>Nombre de nouveaux</th> --}}
                     <th>Nom</th>
                     <th>Description</th>
+                    <th>Commentaire</th>
                     <th>Image</th>
-                    {{-- <th>Action</th> --}}
+                    <th>Action</th>
                 </tr>
                 @foreach ($teams as $team)
-                    <tr>
-                        <td>{{{ $team->newcomers()->count() }}}</td>
-                        <td>{{{ $team->name }}}</td>
+                    @if ($team->validated)
+                        <tr class="success">
+                    @else
+                        <tr>
+                    @endif
+                        {{-- <td>{{{ $team->newcomers()->count() }}}</td> --}}
+                        <td><strong>{{{ $team->name }}}</strong></td>
                         <td>
                             @if ($team->description)
                                 <p>
@@ -42,28 +47,31 @@ Gestion des équipes
                                 <tbody>
                                     @foreach ($team->ce as $student)
                                         <tr>
-                                            <td><a href="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
-                                            <td>{{{ $student->first_name . ' ' . $student->last_name }}}</td>
-                                            <td>{{{ $student->email }}}</td>
-                                            <td>{{{ $student->phone }}}</td>
+                                            <td class="text-center">
+                                                <a href="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a><br/>
+                                                {{{ $student->first_name . ' ' . $student->last_name }}}
+                                            </td>
+                                            <td></td>
                                             <td>
-                                                @if ($student->student_id == $team->respo_id)
-                                                    <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i> Respo</span>
-                                                @endif
-                                                @if ($student->team_accepted)
-                                                    <span class="label label-success" title="A validé sa participation à l'équipe"><i class="fa fa-check-circle" aria-hidden="true"></i> Accepté</span>
-                                                @else
-                                                    <span class="label label-warning" title="N'a pas encore validé sa participation à l'équipe"><i class="fa fa-question-circle" aria-hidden="true"></i> En attente</span>
-                                                @endif
+                                                {{{ $student->email }}}<br/>
+                                                {{{ $student->phone }}}
                                             </td>
                                             <td>
-                                                <!-- <a class="btn btn-xs btn-danger" href="{{ route('dashboard.students.list')}}">Supprimer</a> -->
+                                                @if ($student->student_id == $team->respo_id)
+                                                    <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                                @endif
+                                                @if ($student->team_accepted)
+                                                    <span class="label label-success" title="A validé sa participation à l'équipe"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                @else
+                                                    <span class="label label-warning" title="N'a pas encore validé sa participation à l'équipe"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </td>
+                        <td>{{{ $team->comment }}}</td>
                         @if ($team->img)
                             <td>
                                 <a href="{{ @asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}">
@@ -75,10 +83,23 @@ Gestion des équipes
                                 <em>Aucune</em>
                             </td>
                         @endif
-                        {{-- <td> --}}
-                            <!-- <a href="{{ route('dashboard.teams.list', ['id' => $team->id ]) }}" class="btn btn-xs btn-success">Membres</a>
-                            <a href="{{ route('dashboard.teams.list', ['id' => $team->id ]) }}" class="btn btn-xs btn-warning">Modifier</a> -->
-                        {{-- </td> --}}
+                        <td>
+                            @if ($team->facebook)
+                                <a href="{{ $team->facebook }}" class="btn btn-xs btn-primary">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>acebook
+                                </a>
+                            @else
+                                <span class="btn btn-xs btn-primary disabled" title="Cette équipe n'a pas envoyé le lien de son groupe facebook">
+                                    <del><i class="fa fa-facebook" aria-hidden="true"></i>acebook</del>
+                                </span>
+                            @endif
+                            @if (!$team->validated)
+                                <a href="{{ route('dashboard.teams.validate', ['id' => $team->id ]) }}" class="btn btn-xs btn-success">Approuver</a>
+                            @else
+                                <a href="{{ route('dashboard.teams.unvalidate', ['id' => $team->id ]) }}" class="btn btn-xs btn-danger">Désapprouver</a>
+                            @endif
+                            <a href="{{ route('dashboard.teams.edit', ['id' => $team->id ]) }}" class="btn btn-xs btn-warning">Modifier</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

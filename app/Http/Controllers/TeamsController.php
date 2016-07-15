@@ -63,35 +63,53 @@ class TeamsController extends Controller
     }
 
     /**
-     * Update a team.
+     * Execute edit form for a team from admin dashboard
      *
      * @param  int $id
      * @return RedirectResponse|array
      */
-    public function update($id)
+    public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $data = Request::only(['name', 'description', 'img_url']);
-        if ($team->update($data)) {
-            return $this->success('Équipe mise à jour !');
-        }
-        return $this->error('Impossible de mettre à jour l\'équipe');
-    }
+        $data = Request::only(['name', 'description', 'img', 'facebook', 'comment']);
+        $this->validate(Request::instance(), [
+            'name' => 'required|min:3|max:30|unique:teams,name,'.$team->id,
+            'description' => 'min:100|max:300',
+            'img' => 'image',
+            'facebook' => 'url'
+        ],
+        [
+            'name.unique' => 'Ce nom d\'équipe est déjà pris.'
+        ]);
 
-    /**
-     * Destroy a team.
-     *
-     * @param  int $id Team's id.
-     * @return RedirectResponse|array
-     */
-    protected function destroy($id)
-    {
-        $team = Team::find($id);
-        if ($team) {
-            $team->delete();
-            return $this->success('Équipe supprimée !');
+        // Check image size
+        $extension = null;
+        $imageError = '';
+        if (isset($_FILES['img']) && !empty($_FILES['img']['name'])) {
+            $size = getimagesize($_FILES['img']['tmp_name']);
+            if ($size[0] == 200 && $size[1] == 200) {
+                $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+                move_uploaded_file($_FILES['img']['tmp_name'], public_path() . '/uploads/teams-logo/' . $team->id . '.' . $extension);
+            } else {
+                $imageError = 'Cependant l\'image n\'a pas pus être sauvegardé car elle a une taille différente d\'un carré de 200px par 200px. Veuillez la redimensionner.';
+            }
         }
-        return $this->error('Équipe inconnue !');
+
+        // Update team informations
+        $team->name = $data['name'];
+        $team->description = $data['description'];
+        $team->facebook = $data['facebook'];
+        $team->comment = $data['comment'];
+        if ($extension) {
+            $team->img = $extension;
+        }
+
+        $team->save();
+
+        if ($imageError) {
+            return redirect(route('dashboard.teams.list'))->withError('Vos modifications ont été sauvegardées. '.$imageError);
+        }
+        return redirect(route('dashboard.teams.list'))->withSuccess('Vos modifications ont été sauvegardées.');
     }
 
     /**
@@ -122,5 +140,27 @@ class TeamsController extends Controller
             return $this->success('Le nouveau a été ajouté à l\'équipe !');
         }
         return $this->error('Équipe inconnue !');
+    }
+
+    public function adminValidate($id)
+    {
+        $team = Team::find($id);
+        if ($team) {
+            $team->validated = true;
+            $team->save();
+            return $this->success('L\'équipe a été approuvée !');
+        }
+        return $this->error('L\'equipe n\'a pas été trouvé !');
+    }
+
+    public function adminUnvalidate($id)
+    {
+        $team = Team::find($id);
+        if ($team) {
+            $team->validated = false;
+            $team->save();
+            return $this->success('L\'équipe a été désapprouvée !');
+        }
+        return $this->error('L\'equipe n\'a pas été trouvé !');
     }
 }

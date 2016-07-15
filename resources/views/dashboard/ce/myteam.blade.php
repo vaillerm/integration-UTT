@@ -132,7 +132,7 @@ Gestion de mon équipe
                 <div class="form-group">
                     <label for="facebook" class="col-lg-2 control-label">Lien vers le groupe Facebook</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="facebook" name="facebook" @if(!Authorization::can('ce','edit')) disabled @endif value="{{{ old('facebook') ?? $team->facebook }}}">
+                        <input class="form-control" type="text" id="facebook" name="facebook" placeholder="https://facebook.com/.." @if(!Authorization::can('ce','edit')) disabled @endif value="{{{ old('facebook') ?? $team->facebook }}}">
                     </div>
                 </div>
 

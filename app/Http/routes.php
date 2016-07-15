@@ -146,17 +146,29 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'TeamsController@list'
             ]);
-            // Route::get('/{id}', [
-            // 	'as'   => 'dashboard.teams.members',
-            // 	'uses' => 'TeamsController@members'
-            // ]);
+            Route::get('/{id}/validate', [
+                'as'   => 'dashboard.teams.validate',
+                'middleware' => 'authorize:admin',
+                'uses' => 'TeamsController@adminValidate'
+            ]);
+            Route::get('/{id}/unvalidate', [
+                'as'   => 'dashboard.teams.unvalidate',
+                'middleware' => 'authorize:admin',
+                'uses' => 'TeamsController@adminUnvalidate'
+            ]);
+            Route::get('/{id}/edit', [
+                'as'   => 'dashboard.teams.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'TeamsController@edit'
+            ]);
+            Route::post('/{id}/edit', [
+                'as'   => 'dashboard.teams.edit.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'TeamsController@editSubmit'
+            ]);
             // 	Route::post('/', [
             // 		'as'   => 'dashboard.teams.create',
             // 		'uses' => 'TeamsController@create'
-            // 	]);
-            // 	Route::get('/{id}', [
-            // 		'as'   => 'dashboard.teams.edit',
-            // 		'uses' => 'TeamsController@edit'
             // 	]);
             // 	Route::post('/{id}', [
             // 		'as'   => 'dashboard.teams.update',
