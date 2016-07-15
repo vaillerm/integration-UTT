@@ -128,13 +128,13 @@ Route::group(['prefix' => 'dashboard'], function () {
 
             Route::get('/join/', [
                 'as'   => 'dashboard.ce.join',
-                'middleware' => 'authorize:ce,edit',
+                'middleware' => 'authorize:ce,join',
                 'uses' => 'CEController@join'
             ]);
 
             Route::get('/unjoin/', [
                 'as'   => 'dashboard.ce.unjoin',
-                'middleware' => 'authorize:ce,edit',
+                'middleware' => 'authorize:ce,join',
                 'uses' => 'CEController@unjoin'
             ]);
         });

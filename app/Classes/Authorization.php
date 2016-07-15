@@ -92,7 +92,12 @@ class Authorization
                     break;
                 case 'edit':
                     if (!$student->team || $student->team->respo_id != $student->student_id
-                        || $this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')) {
+                        || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
+                        return false;
+                    }
+                case 'join':
+                    if (!$student->team
+                        || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
                         return false;
                     }
                     break;
