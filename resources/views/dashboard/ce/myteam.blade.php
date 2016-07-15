@@ -13,6 +13,9 @@ Gestion de mon équipe
 @if (!EtuUTT::student()->team_accepted)
     <div class="box box-default">
         <div class="box-header with-border">
+            @if(Authorization::can('ce','edit'))
+                <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
+            @endif
             <h3 class="box-title">Votre participation</h3>
         </div>
         <div class="box-body">
@@ -29,13 +32,15 @@ Gestion de mon équipe
 
 <div class="box box-default">
     <div class="box-header with-border">
+        @if(Authorization::can('ce','edit'))
+            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
+        @endif
         <h3 class="box-title">Membres de l'équipe</h3>
     </div>
     <div class="box-body table-responsive no-padding">
         <div class="box-body text-center">
             Seul le responsable de l'équipe peut ajouter des membres à l'équipe.<br/>
             Les membres ajoutés doivent ensuite se connecter au site de l'intégration pour valider leurs participation.<br/>
-            Vous avez plus que <strong>{{ $ceDeadline['days'] }}j {{ $ceDeadline['hours'] }}h {{ $ceDeadline['minutes'] }}min</strong> pour compléter ces informations.
         </div>
         <table class="table table-hover trombi">
             <tbody>
@@ -80,12 +85,12 @@ Gestion de mon équipe
 
 <div class="box box-default">
     <div class="box-header with-border">
+        @if(Authorization::can('ce','edit'))
+            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
+        @endif
         <h3 class="box-title">Informations générales</h3>
     </div>
     <div class="box-body">
-        <div class="box-body text-center">
-            Vous avez plus que <strong>{{ $ceDeadline['days'] }}j {{ $ceDeadline['hours'] }}h {{ $ceDeadline['minutes'] }}min</strong> pour compléter ces informations.
-        </div>
         <div class="box-body">
             <form class="form-horizontal" action="{{ route('dashboard.ce.myteam') }}" method="post" enctype="multipart/form-data">
                 @if($team->respo_id != EtuUTT::student()->student_id)

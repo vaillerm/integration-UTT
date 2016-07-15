@@ -1,4 +1,9 @@
-
+/* General */
+/* General - For all boxes */
+.box-countdown {
+	font-weight: bold;
+	float: right;
+}
 /* Admin dashboard - Student list */
 table.trombi img {
 	height: 50px;

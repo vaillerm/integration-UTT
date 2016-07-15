@@ -58,7 +58,6 @@ return [
         'fakeDeadline' => env('CE_DEADLINE_FAKE'),
         'deadline' => env('CE_DEADLINE'),
         'maxteam' => env('CE_MAXTEAM'),
-        'maxteamWaitlist' => env('CE_MAXTEAM_WAITLIST'),
     ],
 
     'version' => [

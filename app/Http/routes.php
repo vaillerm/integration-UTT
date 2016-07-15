@@ -22,6 +22,7 @@ Route::group(['middleware' => 'oauth'], function()
 {
 	Route::get('/menu', [
 		'as'   => 'menu',
+		'middleware' => 'authorize:student',
 		'uses' => 'PagesController@getMenu'
 	]);
 });
@@ -30,17 +31,26 @@ Route::group(['prefix' => 'referrals'], function()
 {
 	Route::group(['middleware' => 'oauth'], function()
 	{
+		Route::get('/firsttime', [
+			'as'   => 'referrals.firsttime',
+			'middleware' => 'authorize:student',
+			'uses' => 'ReferralsController@firstTime'
+		]);
+
 		Route::get('/', [
 			'as'   => 'referrals.edit',
+			'middleware' => 'authorize:referral,edit',
 			'uses' => 'ReferralsController@edit'
 	 	]);
 
 		Route::post('/', [
 			'as'   => 'referrals.update',
+			'middleware' => 'authorize:referral,edit',
 			'uses' => 'ReferralsController@update'
 		]);
 		Route::get('/destroy', [
 			'as'   => 'referrals.destroy',
+			'middleware' => 'authorize:referral,edit',
 			'uses' => 'ReferralsController@destroy'
 		]);
 	});
@@ -48,10 +58,11 @@ Route::group(['prefix' => 'referrals'], function()
 
 Route::group(['prefix' => 'dashboard'], function()
 {
-	Route::group(['middleware' => ['oauth', 'dashboard']], function()
+	Route::group(['middleware' => ['oauth']], function()
 	{
 		Route::get('/', [
 			'as'   => 'dashboard.index',
+			'middleware' => 'authorize:volunteer',
 			'uses' => 'DashboardController@getIndex'
 		]);
 
@@ -60,16 +71,20 @@ Route::group(['prefix' => 'dashboard'], function()
 		{
 			Route::get('/validation', [
 				'as'   => 'dashboard.referrals.validation',
+				'middleware' => 'authorize:admin',
 				'uses' => 'ReferralsController@getValidation'
 			]);
 			Route::post('/validation', [
+				'middleware' => 'authorize:admin',
 				'uses' => 'ReferralsController@postValidation'
 			]);
 			Route::get('/list', [
 				'as'   => 'dashboard.referrals.list',
+				'middleware' => 'authorize:admin',
 				'uses' => 'ReferralsController@index'
 			]);
 			Route::post('/list', [
+				'middleware' => 'authorize:admin',
 				'uses' => 'ReferralsController@postReferrals'
 			]);
 		});
@@ -79,45 +94,54 @@ Route::group(['prefix' => 'dashboard'], function()
 		{
 			Route::get('/firsttime', [
 				'as'   => 'dashboard.ce.firsttime',
+				'middleware' => 'authorize:student',
 				'uses' => 'CEController@firstTime'
 			]);
 
 			Route::get('/teamlist', [
 				'as'   => 'dashboard.ce.teamlist',
+				'middleware' => 'authorize:ce',
 				'uses' => 'CEController@teamList'
 			]);
 
 			Route::post('/teamcreate', [
 				'as'   => 'dashboard.ce.teamcreate',
+				'middleware' => 'authorize:ce,create',
 				'uses' => 'CEController@teamCreate'
 			]);
 
 			Route::get('/myteam', [
 				'as'   => 'dashboard.ce.myteam',
+				'middleware' => 'authorize:ce',
 				'uses' => 'CEController@myteam'
 			]);
 
 			Route::post('/myteam', [
+				'middleware' => 'authorize:ce,edit',
 				'uses' => 'CEController@myTeamSubmit'
 			]);
 
 			Route::get('/add', [
 				'as'   => 'dashboard.ce.add',
+				'middleware' => 'authorize:ce,edit',
 				'uses' => 'CEController@add'
 			]);
 
 			Route::get('/add/{login}', [
 				'as'   => 'dashboard.ce.addsubmit',
+				'middleware' => 'authorize:ce,edit',
 				'uses' => 'CEController@addSubmit'
 			]);
 
 			Route::get('/join/', [
 				'as'   => 'dashboard.ce.join',
+				'middleware' => 'authorize:ce,edit',
 				'uses' => 'CEController@join'
 			]);
 
 			Route::get('/unjoin/', [
 				'as'   => 'dashboard.ce.unjoin',
+				'middleware' => 'authorize:ce,edit',
 				'uses' => 'CEController@unjoin'
 			]);
 		});
@@ -127,6 +151,7 @@ Route::group(['prefix' => 'dashboard'], function()
 		{
 			Route::get('/list', [
 				'as'   => 'dashboard.teams.list',
+				'middleware' => 'authorize:admin',
 				'uses' => 'TeamsController@list'
 			]);
 			// Route::get('/{id}', [
@@ -260,14 +285,17 @@ Route::group(['prefix' => 'dashboard'], function()
 		{
 			Route::get('/list/{filter?}', [
 				'as'   => 'dashboard.students.list',
+				'middleware' => 'authorize:admin',
 				'uses' => 'StudentsController@list'
 			]);
 			Route::get('/profil', [
 				'as'   => 'dashboard.students.profil',
+				'middleware' => 'authorize:student',
 				'uses' => 'StudentsController@profil'
 			]);
 			Route::post('/profil', [
 				'as'   => 'dashboard.students.profil.submit',
+				'middleware' => 'authorize:student',
 				'uses' => 'StudentsController@profilSubmit'
 			]);
 		});

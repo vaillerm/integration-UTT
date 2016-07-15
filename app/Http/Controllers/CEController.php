@@ -36,13 +36,9 @@ class CEController extends Controller
      */
     public function teamList()
     {
-        if (!EtuUTT::student()->ce)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         return View::make('dashboard.ce.teamlist', [
-            'teams' => Team::all()
+            'teams' => Team::all(),
+            'teamLeft' => Config::get('services.ce.maxteam') - Team::count(),
         ]);
     }
 
@@ -53,11 +49,6 @@ class CEController extends Controller
      */
     public function teamCreate()
     {
-        if (!EtuUTT::student()->ce || EtuUTT::student()->team)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:30|unique:teams'
         ],
@@ -92,11 +83,6 @@ class CEController extends Controller
         $now =  new \DateTime();
         $ceFakeDeadline = (new \DateTime(Config::get('services.ce.fakeDeadline')))->diff($now);
 
-        if (!EtuUTT::student()->ce || !EtuUTT::student()->team)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         return View::make('dashboard.ce.myteam', [
             'team' => EtuUTT::student()->team,
             'student' => EtuUTT::student(),
@@ -115,12 +101,6 @@ class CEController extends Controller
      */
     public function myTeamSubmit()
     {
-        if (!EtuUTT::student()->ce || !EtuUTT::student()->team
-            || EtuUTT::student()->student_id != EtuUTT::student()->team->respo_id)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $team = EtuUTT::student()->team;
         $data = Request::only(['name', 'description', 'img']);
         $this->validate(Request::instance(), [
@@ -168,13 +148,6 @@ class CEController extends Controller
      */
     public function add()
     {
-        if (!EtuUTT::student()->ce || !EtuUTT::student()->team
-            || EtuUTT::student()->student_id != EtuUTT::student()->team->respo_id
-            || EtuUTT::student()->team->ce->count() >= 5)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         // Search student on EtuUTT
         $data = Request::only(['search']);
         $usersAssoc = [];
@@ -242,13 +215,6 @@ class CEController extends Controller
      */
     public function addSubmit($login)
     {
-        if (!EtuUTT::student()->ce || !EtuUTT::student()->team
-            || EtuUTT::student()->student_id != EtuUTT::student()->team->respo_id
-            || EtuUTT::student()->team->ce->count() >= 5)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         // If the user is new, import some values from the API response.
         $json = EtuUTT::call('/api/public/users/'.$login)['data'];
         $student = Student::find($json['studentId']);
@@ -290,11 +256,6 @@ class CEController extends Controller
      */
     public function join()
     {
-        if (!EtuUTT::student()->ce || !EtuUTT::student()->team)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $student = EtuUTT::student();
         $student->team_accepted = true;
         $student->save();
@@ -310,11 +271,6 @@ class CEController extends Controller
      */
     public function unjoin()
     {
-        if (!EtuUTT::student()->ce || !EtuUTT::student()->team || EtuUTT::student()->student_id == EtuUTT::student()->team->respo_id)
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $student = EtuUTT::student();
         $student->team_id = null;
         $student->save();

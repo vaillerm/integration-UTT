@@ -10,9 +10,11 @@ Liste des équipes
 
 @section('content')
 
-@if (!EtuUTT::student()->team()->count())
+@if (Authorization::can('ce','create'))
     <div class="box box-default">
         <div class="box-header with-border">
+            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }}
+                ou dans {{ $teamLeft }} création d'équipe</div>
             <h3 class="box-title">Créer mon équipe</h3>
         </div>
         <div class="box-body text-center">
@@ -34,6 +36,11 @@ Liste des équipes
         <h3 class="box-title">Liste des équipes</h3>
     </div>
     <div class="box-body table-responsive no-padding">
+        <div class="box-body text-center">
+            <p>
+                Si vous souhaitez rejoindre l'une de ces équipes, contactez le <em><i class="fa fa-star" aria-hidden="true" title="Responsable de l'équipe"></i> responsable de l'équipe</em> pour qu'il vous ajoute.
+            </p>
+        </div>
         <table class="table table-hover">
             <tbody>
                 <tr>

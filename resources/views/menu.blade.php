@@ -26,22 +26,21 @@ Menu
                             Tu souhaites rencontrer et guider les nouveaux pour leur arrivée dans ce nouveau monde ?<br/>
                             Tu seras contacté par tes fillots dans l'été puis présenté à eux pendant la semaine d'intégration !
                             <br/><br/>
-                            @if ($referralDeadline['open'])
-                                @if (!$student->referral)
-                                    <strong>Fermeture dans {{ $referralDeadline['days'] }}j {{ $referralDeadline['hours'] }}h {{ $referralDeadline['minutes'] }}min</strong>
-                                    <br/><br/>
-                                    <a href="{{ route('referrals.edit') }}" class="btn form-control btn-success">Devenir parrain ou marraine !</a>
-                                @elseif ($student->isValidatedReferral())
-                                    <strong>TON PROFIL A ÉTÉ VALIDÉ PAR L'ORGA, TU NE PEUX PLUS MODIFIER TES INFORMATIONS !</strong>
-                                @else
-                                    <strong>Fermeture dans {{ $referralDeadline['days'] }}j {{ $referralDeadline['hours'] }}h {{ $referralDeadline['minutes'] }}min</strong>
-                                    <br/><br/>
-                                    <a href="{{ route('referrals.edit') }}" class="btn form-control btn-success">Modifier mon profil !</a>
-                                    <a class="form-control btn btn-danger" href="{{ route('referrals.destroy') }}">Ne plus être parrain</a>
-                                @endif
+                            @if ($student->isValidatedReferral())
+                                <strong>Ton profil a été validé par l'orga, tu ne peux plus modifier tes informations !<br/>
+                                    Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.</strong>
+                            @elseif (Authorization::can('student','referral'))
+                                <strong>Fermeture dans {{ @countdown(Authorization::countdown('student','referral')) }}</strong>
+                                <br/><br/>
+                                <a href="{{ route('referrals.firsttime') }}" class="btn form-control btn-success">Devenir parrain ou marraine !</a>
+                            @elseif (Authorization::can('referral','edit'))
+                                <strong>Fermeture dans {{ @countdown(Authorization::countdown('referral','edit')) }}</strong>
+                                <br/><br/>
+                                <a href="{{ route('referrals.edit') }}" class="btn form-control btn-success">Modifier mon profil !</a>
+                                <a class="form-control btn btn-danger" href="{{ route('referrals.destroy') }}">Ne plus être parrain</a>
                             @else
                                 <strong>Les inscriptions sont fermées.<br/>
-                                    Contactez integration@utt.fr pour toute question.</strong>
+                                    Contacte integration@utt.fr pour toute question.</strong>
                             @endif
                         </div>
                     </div>
@@ -54,19 +53,17 @@ Menu
                             Envie d'accompagner les nouveaux dans les épreuves de l'intégration ?<br/>
                             Constitue ton équpe de 3 à 5 personnes en cliquant sur le bouton ci-desssous !
                             <br/><br/>
-                            @if ($student->ce && $student->team)
-                                <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Modifier mon profil de chef d'équipe!</a>
-                            @elseif ($ceDeadline['open'])
-                                <strong>Fermeture dans {{ $ceDeadline['days'] }}j {{ $ceDeadline['hours'] }}h {{ $ceDeadline['minutes'] }}min</strong><br/>
-                                @if ($ceDeadline['teamLeft'] > 0)
-                                    <strong>Plus que {{ $ceDeadline['teamLeft'] }} équipes avant la fermeture</strong>
-                                @endif
+                            @if (Authorization::can('student','ce') || Authorization::can('ce','create'))
+                                <strong>Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }}</strong><br/>
+                                <strong>Plus que {{ $teamLeft }} création d'équipe avant fermeture</strong>
                                 <br/><br/>
-                                @if (!$student->ce)
-                                    <a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
+                                @if (Authorization::can('ce','create'))
+                                    <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
                                 @else
-                                    <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Modifier mon profil de chef d'équipe!</a>
+                                    <a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
                                 @endif
+                            @elseif (Authorization::can('ce', 'inTeam'))
+                                <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Voir mon profil de chef d'équipe !</a>
                             @else
                                 <strong>Les inscriptions sont fermées.<br/>
                                     Contactez integration@utt.fr pour toute question.</strong>
@@ -74,7 +71,7 @@ Menu
                         </div>
                     </div>
 
-                    @if (!$student->ce && !$student->orga && !$student->admin)
+                    @if (!$student->volunteer || (!Authorization::can('ce','inTeam') && !$student->orga && !$student->admin))
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Deviens bénévole !</h3>
@@ -82,12 +79,12 @@ Menu
                             <div class="panel-body">
                                 Tu souhaite donner un petit coup de main pendant l'intégration ?<br/>
                                 En cliquant sur ce bouton, tu recevera des emails pour te tenir au courant de l'avancement de l'intégration et des moments où nous avons besoins de bénévoles.
-                                    <br/><br/>
-                                    @if (!$student->volunteer)
-                                        <a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Devenir bénévole !</a>
-                                    @else
-                                        <a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Modifier mon profil bénévole !</a>
-                                    @endif
+                                <br/><br/>
+                                @if (!$student->volunteer)
+                                    <a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Devenir bénévole !</a>
+                                @else
+                                    <a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Modifier mon profil bénévole !</a>
+                                @endif
                             </div>
                         </div>
                     @endif

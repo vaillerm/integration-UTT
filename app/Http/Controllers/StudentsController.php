@@ -22,11 +22,6 @@ class StudentsController extends Controller {
          */
         public function list($filter = '')
         {
-            if (!EtuUTT::student()->isAdmin())
-            {
-                return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-            }
-
             $students = Student::orderBy('last_name', 'asc');
             switch ($filter) {
                 case 'admin':

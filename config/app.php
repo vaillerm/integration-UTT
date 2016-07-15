@@ -1,5 +1,6 @@
 <?php
 use App\Providers\EtuUTTServiceProvider;
+use App\Facades\Authorization;
 
 return [
 
@@ -169,7 +170,9 @@ return [
          * Application Service Providers...
          */
          App\Providers\EtuUTTServiceProvider::class,
+         App\Providers\AuthorizationServiceProvider::class,
          App\Providers\AssetVersionServiceProvider::class,
+         App\Providers\CountdownServiceProvider::class,
 
     ],
 
@@ -226,6 +229,7 @@ return [
          * Application Aliases...
          */
         'EtuUTT' => App\Facades\EtuUTT::class,
+        'Authorization' => App\Facades\Authorization::class,
     ],
 
 ];

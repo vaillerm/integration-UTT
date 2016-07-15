@@ -17,6 +17,20 @@ use EtuUTT;
 class ReferralsController extends Controller {
 
     /**
+     * Set student as referral and redirect to referral from
+     *
+     * @return Response
+     */
+    public function firstTime()
+    {
+        $student = EtuUTT::student();
+        $student->referral = true;
+        $student->save();
+
+        return redirect(route('referrals.edit'));
+    }
+
+    /**
      * Show the edition form.
      *
      * @return Response
@@ -81,10 +95,6 @@ class ReferralsController extends Controller {
      */
     public function getValidation()
     {
-        if (!EtuUTT::student()->isAdmin())
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
 
         $date = new \Datetime();
         $referral = Student::where('referral', true)->where('referral_validated_at', null)->where('email', '!=', '')
@@ -100,11 +110,6 @@ class ReferralsController extends Controller {
      */
     public function postValidation()
     {
-        if (!EtuUTT::student()->isAdmin())
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $id = Request::input('student-id');
         $referral = Student::findOrFail($id);
         if ($referral->isValidatedReferral())
@@ -125,11 +130,6 @@ class ReferralsController extends Controller {
      */
     public function index()
     {
-        if (!EtuUTT::student()->isAdmin())
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $referrals = Student::where('referral', true)->orderBy('created_at', 'asc')->get();
         return View::make('dashboard.referrals.list', [
             'referrals' => $referrals,
@@ -143,11 +143,6 @@ class ReferralsController extends Controller {
      */
     public function postReferrals()
     {
-        if (!EtuUTT::student()->isAdmin())
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $action = Request::input('action');
         if ($action == 'delete')
         {
@@ -166,11 +161,6 @@ class ReferralsController extends Controller {
      */
     public function destroy()
     {
-        if (!EtuUTT::student()->isAdmin())
-        {
-            return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-        }
-
         $student = EtuUTT::student();
         $student->referral = false;
         $student->save();

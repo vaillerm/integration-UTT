@@ -40,26 +40,10 @@ class PagesController extends Controller {
      */
     public function getMenu()
     {
-        $now =  new \DateTime();
-        $ceFakeDeadline = (new \DateTime(Config::get('services.ce.fakeDeadline')))->diff($now);
-        $referralFakeDeadline = (new \DateTime(Config::get('services.referral.fakeDeadline')))->diff($now);
-        $teamCount = 32; // TODO
         return View::make('menu')
             ->with([
                 'student' => EtuUTT::student(),
-                'referralDeadline' => [
-                    'open' => ($now <= new \DateTime(Config::get('services.referral.deadline'))),
-                    'days' => (($referralFakeDeadline->invert)?'':'-'). $referralFakeDeadline->days,
-                    'hours' => $referralFakeDeadline->h,
-                    'minutes' => $referralFakeDeadline->i,
-                ],
-                'ceDeadline' => [
-                    'open' => ($now <= new \DateTime(Config::get('services.ce.deadline'))) && $teamCount < Config::get('services.ce.maxteamWaitlist'),
-                    'days' => (($ceFakeDeadline->invert)?'':'-'). $ceFakeDeadline->days,
-                    'hours' => $ceFakeDeadline->h,
-                    'minutes' => $ceFakeDeadline->i,
-                    'teamLeft' => Config::get('services.ce.maxteam') - $teamCount,
-                ]
+                'teamLeft' => Config::get('services.ce.maxteam') - Team::count(),
             ]);
     }
 
