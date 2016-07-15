@@ -12,8 +12,7 @@ class AddCeAndVolunteerFieldToStudent extends Migration
      */
     public function up()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
+        Schema::table('students', function (Blueprint $table) {
             $table->boolean('ce')->default(false)->after('referral_validated_at');
             $table->boolean('volunteer')->default(false)->after('ce');
             $table->boolean('orga')->default(false)->after('volunteer');
@@ -27,8 +26,7 @@ class AddCeAndVolunteerFieldToStudent extends Migration
      */
     public function down()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
+        Schema::table('students', function (Blueprint $table) {
             $table->dropColumn('ce');
             $table->dropColumn('volunteer');
             $table->dropColumn('orga');

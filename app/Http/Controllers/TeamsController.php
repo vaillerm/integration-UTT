@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\Newcomer;
-
 use Request;
 use View;
 use EtuUTT;
@@ -15,7 +14,8 @@ use EtuUTT;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class TeamsController extends Controller {
+class TeamsController extends Controller
+{
 
     /**
      * List all the teams and show a creation form.
@@ -24,8 +24,7 @@ class TeamsController extends Controller {
      */
     public function list()
     {
-        if (!EtuUTT::student()->isAdmin())
-        {
+        if (!EtuUTT::student()->isAdmin()) {
             return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
@@ -43,8 +42,7 @@ class TeamsController extends Controller {
     {
         $data = Request::only(['name', 'description', 'img_url']);
         $team = Team::create($data);
-        if ($team->save())
-        {
+        if ($team->save()) {
             return $this->success('Équipe ajoutée !');
         }
         return $this->error('Impossible d\'ajouter l\'équipe !');
@@ -74,8 +72,7 @@ class TeamsController extends Controller {
     {
         $team = Team::findOrFail($id);
         $data = Request::only(['name', 'description', 'img_url']);
-        if ($team->update($data))
-        {
+        if ($team->update($data)) {
             return $this->success('Équipe mise à jour !');
         }
         return $this->error('Impossible de mettre à jour l\'équipe');
@@ -90,8 +87,7 @@ class TeamsController extends Controller {
     protected function destroy($id)
     {
         $team = Team::find($id);
-        if ($team)
-        {
+        if ($team) {
             $team->delete();
             return $this->success('Équipe supprimée !');
         }
@@ -119,8 +115,7 @@ class TeamsController extends Controller {
     public function addMember($id)
     {
         $team = Team::find($id);
-        if ($team)
-        {
+        if ($team) {
             $newcomer = Newcomer::findOrFail((int)Request::input('newcomer'));
             $newcomer->team_id = $id;
             $newcomer->save();
@@ -128,5 +123,4 @@ class TeamsController extends Controller {
         }
         return $this->error('Équipe inconnue !');
     }
-
 }

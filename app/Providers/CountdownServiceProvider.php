@@ -15,7 +15,7 @@ class CountdownServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('countdown', function($expression) {
+        Blade::directive('countdown', function ($expression) {
             return '(('.$expression.'->invert)?\'-\':\'\').'.$expression.'->days'.'.\'j \'.'.$expression.'->h'.'.\'h \'.'.$expression.'->i'.'.\'min \'';
         });
     }

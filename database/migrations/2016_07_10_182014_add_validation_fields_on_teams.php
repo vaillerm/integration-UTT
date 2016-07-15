@@ -12,8 +12,7 @@ class AddValidationFieldsOnTeams extends Migration
      */
     public function up()
     {
-		Schema::table('teams', function(Blueprint $table)
-		{
+        Schema::table('teams', function (Blueprint $table) {
             $table->dropColumn('img_url');
             $table->boolean('name_validated')->after('name');
             $table->boolean('description_validated')->after('description');
@@ -29,8 +28,7 @@ class AddValidationFieldsOnTeams extends Migration
      */
     public function down()
     {
-		Schema::table('teams', function(Blueprint $table)
-		{
+        Schema::table('teams', function (Blueprint $table) {
             $table->string('img_url')->nullable();
             $table->dropColumn('name_validated');
             $table->dropColumn('description_validated');

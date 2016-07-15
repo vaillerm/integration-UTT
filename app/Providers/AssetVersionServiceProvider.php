@@ -15,7 +15,7 @@ class AssetVersionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('asset', function($expression) {
+        Blade::directive('asset', function ($expression) {
             return 'asset'.$expression.'.\'?'.Config::get('services.version.hash').'\'';
         });
     }

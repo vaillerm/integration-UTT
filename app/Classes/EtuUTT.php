@@ -7,21 +7,22 @@ use Session;
 use Config;
 use App;
 
-class EtuUTT {
+class EtuUTT
+{
 
     /**
      * The currently authenticated student.
      *
      * @var \App\Models\Student
      */
-	protected $student;
+    protected $student;
 
 
-	/**
-	 * Determine if the current user is authenticated.
-	 *
-	 * @return bool
-	 */
+    /**
+     * Determine if the current user is authenticated.
+     *
+     * @return bool
+     */
     public function isAuth()
     {
         return ! is_null($this->student());
@@ -32,8 +33,8 @@ class EtuUTT {
      *
      * @return array
      */
-    public function call($path, $params = []) {
-
+    public function call($path, $params = [])
+    {
         $client = new \GuzzleHttp\Client([
             'base_uri' => Config::get('services.etuutt.baseuri.api'),
             'auth' => [
@@ -42,33 +43,26 @@ class EtuUTT {
             ]
         ]);
 
-        try
-        {
+        try {
             $response = $client->get($path.'?access_token=' . $this->student()->etuutt_access_token.'&'.http_build_query($params));
-        }
-        catch(\GuzzleHttp\Exception\ClientException $e)
-        {
-            if($e->hasResponse()) {
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            if ($e->hasResponse()) {
                 $json = json_decode($e->getResponse()->getBody()->getContents(), true);
-                if($json) {
+                if ($json) {
 
                     // Catch token expiration
-                    if(isset($json['error']) && $json['error'] == 'expired_token') {
+                    if (isset($json['error']) && $json['error'] == 'expired_token') {
                         // Refresh token
                         $params = [
                             'grant_type'         => 'refresh_token',
                             'refresh_token' => $this->student()->etuutt_refresh_token
                         ];
-                        try
-                        {
+                        try {
                             $response = $client->post('/api/oauth/token', ['form_params' => $params]);
-                        }
-                        catch(\GuzzleHttp\Exception\GuzzleException $e)
-                        {
+                        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
                             // An error 400 from the server is usual when the authorization_code
                             // has expired. We force deconnexion to let hom renew his token
-                            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 400)
-                            {
+                            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 400) {
                                 Session::flush();
                             }
                             App::abort(500);
@@ -81,8 +75,7 @@ class EtuUTT {
                         $student->save();
 
                         return $this->call($path, $params);
-                    }
-                    else {
+                    } else {
                         $json['http_code'] = $e->getCode();
                         return $json;
                     }
@@ -93,9 +86,7 @@ class EtuUTT {
                 'error' => $e->getCode(),
                 'error_message' => $e->getResponse()->getReasonPhrase(),
             ];
-        }
-        catch(\GuzzleHttp\Exception\GuzzleException $e)
-        {
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             App::abort(500);
         }
 
@@ -118,22 +109,22 @@ class EtuUTT {
             return $this->student;
         }
 
-		$id = Session::get('student_id');
+        $id = Session::get('student_id');
 
         // First we will try to load the user using the identifier in the session if
         // one exists. Otherwise we will check for a "remember me" cookie in this
         // request, and if one exists, attempt to retrieve the user using that.
         $student = null;
         if (! is_null($id)) {
-	        $student = Student::find(Session::get('student_id'));
+            $student = Student::find(Session::get('student_id'));
         }
 
-		if($student === null && $id !== null) {
-			Session::forget('student_id');
-			abort(500);
-		}
+        if ($student === null && $id !== null) {
+            Session::forget('student_id');
+            abort(500);
+        }
 
-		return $student;
+        return $student;
     }
 
     /**
@@ -150,21 +141,21 @@ class EtuUTT {
             return $this->student;
         }
 
-		$id = Session::get('student_id');
+        $id = Session::get('student_id');
 
         // First we will try to load the user using the identifier in the session if
         // one exists. Otherwise we will check for a "remember me" cookie in this
         // request, and if one exists, attempt to retrieve the user using that.
         $student = null;
         if (! is_null($id)) {
-	        $student = Student::find(Session::get('student_id'));
+            $student = Student::find(Session::get('student_id'));
         }
 
-		if($student === null && $id !== null) {
-			Session::forget('student_id');
-			abort(500);
-		}
+        if ($student === null && $id !== null) {
+            Session::forget('student_id');
+            abort(500);
+        }
 
-		return $student;
+        return $student;
     }
 }

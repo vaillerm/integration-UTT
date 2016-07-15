@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-
 use App\Models\Student;
 use App\Models\Team;
-
 use EtuUTT;
 use Request;
 use Redirect;
@@ -66,7 +63,7 @@ class CEController extends Controller
             $student->ce = true;
             $student->team_id = $team->id;
             $student->team_accepted = true;
-            if($student->save()) {
+            if ($student->save()) {
                 return redirect(route('dashboard.ce.myteam'))->withSuccess('L\'équipe a été créé !');
             }
         }
@@ -115,13 +112,12 @@ class CEController extends Controller
         // Check image size
         $extension = null;
         $imageError = '';
-        if(isset($_FILES['img']) && !empty($_FILES['img']['name'])) {
+        if (isset($_FILES['img']) && !empty($_FILES['img']['name'])) {
             $size = getimagesize($_FILES['img']['tmp_name']);
-            if($size[0] == 200 && $size[1] == 200) {
+            if ($size[0] == 200 && $size[1] == 200) {
                 $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
                 move_uploaded_file($_FILES['img']['tmp_name'], public_path() . '/uploads/teams-logo/' . $team->id . '.' . $extension);
-            }
-            else {
+            } else {
                 $imageError = 'Cependant l\'image n\'a pas pus être sauvegardé car elle a une taille différente d\'un carré de 200px par 200px. Veuillez la redimensionner.';
             }
         }
@@ -129,13 +125,13 @@ class CEController extends Controller
         // Update team informations
         $team->name = $data['name'];
         $team->description = $data['description'];
-        if($extension) {
+        if ($extension) {
             $team->img = $extension;
         }
 
         $team->save();
 
-        if($imageError) {
+        if ($imageError) {
             return redirect(route('dashboard.ce.myteam'))->withError('Vos modifications ont été sauvegardées. '.$imageError);
         }
         return redirect(route('dashboard.ce.myteam'))->withSuccess('Vos modifications ont été sauvegardées.');
@@ -152,30 +148,29 @@ class CEController extends Controller
         $data = Request::only(['search']);
         $usersAssoc = [];
         $search = '';
-        if($data && !empty($data['search'])) {
+        if ($data && !empty($data['search'])) {
             $search = $data['search'];
             $explode = explode(' ', $search, 5);
             $users = [];
 
             // Search every string as lastname and firstname
             foreach ($explode as $string) {
-                if(!empty($string)) {
-                	$data = EtuUTT::call('/api/public/users', [
-                		'firstname' => $string
-                	]);
-                	if(isset($data['data'])) {
-                		$users = array_merge($users, $data['data']);
-                	}
-                    elseif(isset($data['error'])) {
+                if (!empty($string)) {
+                    $data = EtuUTT::call('/api/public/users', [
+                        'firstname' => $string
+                    ]);
+                    if (isset($data['data'])) {
+                        $users = array_merge($users, $data['data']);
+                    } elseif (isset($data['error'])) {
                         return redirect(route('oauth.auth'))->withError('Une erreur s\'est produite, veuillez réessayer.');
                     }
 
-                	$data = EtuUTT::call('/api/public/users', [
-                		'lastname' => $string
-                	]);
-                	if(isset($data['data'])) {
-                		$users = array_merge($users, $data['data']);
-                	}
+                    $data = EtuUTT::call('/api/public/users', [
+                        'lastname' => $string
+                    ]);
+                    if (isset($data['data'])) {
+                        $users = array_merge($users, $data['data']);
+                    }
                 }
             }
 
@@ -187,19 +182,18 @@ class CEController extends Controller
                 foreach ($value['_links'] as $link) {
                     $value['links'][$link['rel']] = $link['uri'];
                 }
-            	// If duplication
-            	if(isset($usersAssoc[$value['login']])) {
-            		// Remove every values
-            		unset($usersAssoc[$value['login']]);
-            		// Put it at the beginning
-            		$usersAssoc = array_merge([$value['login'] => $value], $usersAssoc);
-            	}
+                // If duplication
+                if (isset($usersAssoc[$value['login']])) {
+                    // Remove every values
+                    unset($usersAssoc[$value['login']]);
+                    // Put it at the beginning
+                    $usersAssoc = array_merge([$value['login'] => $value], $usersAssoc);
+                }
                 // add it if student student remove it
-            	else if($value['isStudent'] == 1) {
-            		$usersAssoc[$value['login']] = $value;
-            	}
+                elseif ($value['isStudent'] == 1) {
+                    $usersAssoc[$value['login']] = $value;
+                }
             }
-
         }
 
         return View::make('dashboard.ce.add', [
@@ -234,12 +228,10 @@ class CEController extends Controller
             $student->save();
 
             $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $json['studentId'] . '.jpg');
-			file_put_contents(public_path() . '/uploads/students-trombi/' . $json['studentId'] . '.jpg', $picture);
-        }
-        else if($student->team) {
+            file_put_contents(public_path() . '/uploads/students-trombi/' . $json['studentId'] . '.jpg', $picture);
+        } elseif ($student->team) {
             return $this->error('Cet étudiant fait déjà partie d\'une équipe. Il faut qu\'il la quitte avant de pouvoir être ajouté à une nouvelle équipe.');
-        }
-        else {
+        } else {
             $student->team_id = EtuUTT::student()->team_id;
             $student->ce = 1;
             $student->save();

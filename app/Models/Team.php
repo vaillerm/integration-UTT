@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model {
+class Team extends Model
+{
 
     public $table = 'teams';
     public $timestamps = true;
@@ -50,5 +51,4 @@ class Team extends Model {
     {
         return $this->belongsTo('App\Models\Student');
     }
-
 }

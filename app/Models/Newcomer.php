@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Newcomer extends Model {
+class Newcomer extends Model
+{
 
     public $table = 'newcomers';
     public $timestamps = true;

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
-
 use View;
 use EtuUTT;
 use Mail;
@@ -12,9 +11,10 @@ use Mail;
 /**
  * Handle student management pages and administrators actions
  */
-class StudentsController extends Controller {
+class StudentsController extends Controller
+{
 
-        /**
+    /**
          * Display student list
          *
          * @param  string $filter
@@ -76,7 +76,7 @@ class StudentsController extends Controller {
             ];
 
             $student = EtuUTT::student();
-            if(!$student->volunteer) {
+            if (!$student->volunteer) {
                 $rules['convention'] = 'accepted';
             }
 
@@ -91,25 +91,22 @@ class StudentsController extends Controller {
             $student->save();
 
             // Add or remove from sympa
-            if(!$volunteer && $request->get('convention')) {
-                $sent = Mail::raw('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use($student) {
+            if (!$volunteer && $request->get('convention')) {
+                $sent = Mail::raw('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use ($student) {
                     $message->from('integrat@utt.fr', 'Intégration UTT');
                     $message->to('sympa@utt.fr');
                 });
-            }
-            elseif ($volunteer && $request->get('convention')) {
-                $sent = Mail::raw('QUIET DELETE stupre-liste '.$student->email, function ($message) use($student) {
+            } elseif ($volunteer && $request->get('convention')) {
+                $sent = Mail::raw('QUIET DELETE stupre-liste '.$student->email, function ($message) use ($student) {
                     $message->from('integrat@utt.fr', 'Intégration UTT');
                     $message->to('sympa@utt.fr');
                 });
             }
 
-            if(!$volunteer && $student->volunteer) {
+            if (!$volunteer && $student->volunteer) {
                 return redirect(route('dashboard.index'))->withSuccess('Votre profil a bien été mis à jour.');
-            }
-            else {
+            } else {
                 return redirect(route('dashboard.students.profil'))->withSuccess('Votre profil a bien été mis à jour.');
             }
-
         }
 }

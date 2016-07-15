@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-
 use App;
 use Request;
 use View;
@@ -17,7 +16,8 @@ use Config;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class OAuthController extends Controller {
+class OAuthController extends Controller
+{
 
     /**
      * Redirect the user to the OAuth modal.
@@ -40,8 +40,7 @@ class OAuthController extends Controller {
         // The user should not have been redirected here without the
         // "authorization_code" variable in the url. If it's not the
         // case, do not go further.
-        if ( ! Request::has('authorization_code'))
-        {
+        if (! Request::has('authorization_code')) {
             App::abort(401);
         }
 
@@ -58,17 +57,13 @@ class OAuthController extends Controller {
             'authorization_code' => Request::input('authorization_code')
         ];
 
-        try
-        {
+        try {
             $response = $client->post('/api/oauth/token', ['form_params' => $params]);
-        }
-        catch(\GuzzleHttp\Exception\GuzzleException $e)
-        {
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             // An error 400 from the server is usual when the authorization_code
             // has expired. Redirect the user to the OAuth gateway to be sure
             // to regenerate a new authorization_code for him :-)
-            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 400)
-            {
+            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 400) {
                 return $this->auth();
             }
             App::abort(500);
@@ -78,12 +73,9 @@ class OAuthController extends Controller {
         $access_token = $json['access_token'];
         $refresh_token = $json['refresh_token'];
 
-        try
-        {
+        try {
             $response = $client->get('/api/private/user/account?access_token=' . $json['access_token']);
-        }
-        catch(\GuzzleHttp\Exception\GuzzleException $e)
-        {
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             App::abort(500);
         }
 
@@ -91,8 +83,7 @@ class OAuthController extends Controller {
 
         // If the user is new, import some values from the API response.
         $student = Student::find($json['studentId']);
-        if ($student === null)
-        {
+        if ($student === null) {
             $student = new Student([
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
@@ -100,7 +91,7 @@ class OAuthController extends Controller {
                 'surname'       => $json['surname'],
                 'email'         => $json['email'],
                 'facebook'      => $json['facebook'],
-                'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL,
+                'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : null,
                 'branch'        => $json['branch'],
                 'level'         => $json['level']
             ]);
@@ -108,12 +99,11 @@ class OAuthController extends Controller {
             $student->etuutt_refresh_token = $refresh_token;
 
             $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
-			file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
+            file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
 
-            if($json['sex'] == 'male') {
+            if ($json['sex'] == 'male') {
                 $student->sex = Student::SEX_MALE;
-            }
-            else if($json['sex'] == 'female') {
+            } elseif ($json['sex'] == 'female') {
                 $student->sex = Student::SEX_FEMALE;
             }
 
@@ -121,16 +111,14 @@ class OAuthController extends Controller {
             $student->save();
         }
         // Account was created by another person, update it with personnal informations
-        else if (empty($student->etuutt_refresh_token))
-        {
+        elseif (empty($student->etuutt_refresh_token)) {
             $student->last_login = new \DateTime();
             $student->etuutt_access_token = $access_token;
             $student->etuutt_refresh_token = $refresh_token;
-            $student->phone = ($json['phonePrivacy'] == 'public') ? $json['phone'] : NULL;
-            if($json['sex'] == 'male') {
+            $student->phone = ($json['phonePrivacy'] == 'public') ? $json['phone'] : null;
+            if ($json['sex'] == 'male') {
                 $student->sex = Student::SEX_MALE;
-            }
-            else if($json['sex'] == 'female') {
+            } elseif ($json['sex'] == 'female') {
                 $student->sex = Student::SEX_FEMALE;
             }
             $student->save();
@@ -163,5 +151,4 @@ class OAuthController extends Controller {
         // application index. That's dirty but I don't see any alternative.
         return View::make('redirection');
     }
-
 }

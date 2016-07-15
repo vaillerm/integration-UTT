@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Newcomer;
-
 use Request;
 use View;
 
@@ -12,7 +11,8 @@ use View;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class NewcomersController extends Controller {
+class NewcomersController extends Controller
+{
 
     /**
      * Show the list of the newcomers.
@@ -47,11 +47,9 @@ class NewcomersController extends Controller {
     public function create()
     {
         $newcomer = Newcomer::create(Request::all());
-        if ($newcomer->save())
-        {
+        if ($newcomer->save()) {
             return $this->success('L\'utilisateur a été créé !');
         }
         return $this->error('Impossible de créer l\'utilisateur !');
     }
-
 }

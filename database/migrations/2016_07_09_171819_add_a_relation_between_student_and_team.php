@@ -12,14 +12,12 @@ class AddARelationBetweenStudentAndTeam extends Migration
      */
     public function up()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
-            $table->integer('team_id')->default(NULL)->nullable()->after('ce');
+        Schema::table('students', function (Blueprint $table) {
+            $table->integer('team_id')->default(null)->nullable()->after('ce');
             $table->boolean('team_accepted')->default(false)->after('team_id');
         });
 
-		Schema::table('teams', function(Blueprint $table)
-		{
+        Schema::table('teams', function (Blueprint $table) {
             $table->integer('respo_id')->after('img_url');
         });
     }
@@ -31,14 +29,12 @@ class AddARelationBetweenStudentAndTeam extends Migration
      */
     public function down()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
+        Schema::table('students', function (Blueprint $table) {
             $table->dropColumn('team_id');
             $table->dropColumn('team_accepted');
         });
 
-		Schema::table('teams', function(Blueprint $table)
-		{
+        Schema::table('teams', function (Blueprint $table) {
             $table->dropColumn('respo_id');
         });
     }

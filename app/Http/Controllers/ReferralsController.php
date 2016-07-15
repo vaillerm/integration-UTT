@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-
 use Request;
 use View;
 use Session;
@@ -14,7 +13,8 @@ use EtuUTT;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class ReferralsController extends Controller {
+class ReferralsController extends Controller
+{
 
     /**
      * Set student as referral and redirect to referral from
@@ -55,32 +55,28 @@ class ReferralsController extends Controller {
     {
         $referral = Student::findOrFail(Session::get('student_id'));
 
-        if ($referral->validated == 1)
-        {
+        if ($referral->validated == 1) {
             return $this->success('Ton profil a déjà été validé, tu ne peux plus modifier tes informations.');
         }
 
-        if ($referral->update(Request::all()))
-        {
-            if(strlen($referral->email) < 5) {
+        if ($referral->update(Request::all())) {
+            if (strlen($referral->email) < 5) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton email :/');
             }
-            if(strlen($referral->phone) < 5) {
+            if (strlen($referral->phone) < 5) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton numéro de téléphone :/');
             }
-            if(strlen($referral->city) < 2) {
+            if (strlen($referral->city) < 2) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ta ville d\'origine :/');
             }
-            if(strlen($referral->country) < 2) {
+            if (strlen($referral->country) < 2) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton pays d\'origine :/');
             }
-            if(strlen($referral->postal_code) < 5 && $referral->postal_code !== '0') {
+            if (strlen($referral->postal_code) < 5 && $referral->postal_code !== '0') {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton code postal :/ (Pour les étudiants venant de l\'étranger, indiquez 0) ');
-            }
-            else if(strlen($referral->referral_text) < 140) {
+            } elseif (strlen($referral->referral_text) < 140) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas écris un texte assez long :/');
-            }
-            else {
+            } else {
                 return $this->success('Ton profil a été mis à jour, merci ! :-)');
             }
         }
@@ -95,7 +91,6 @@ class ReferralsController extends Controller {
      */
     public function getValidation()
     {
-
         $date = new \Datetime();
         $referral = Student::where('referral', true)->where('referral_validated_at', null)->where('email', '!=', '')
                             ->where('phone', '!=', '')->where('referral_text', '!=', '')
@@ -112,8 +107,7 @@ class ReferralsController extends Controller {
     {
         $id = Request::input('student-id');
         $referral = Student::findOrFail($id);
-        if ($referral->isValidatedReferral())
-        {
+        if ($referral->isValidatedReferral()) {
             return Redirect::back()->withError('Quelqu\'un a déjà validé cette personne :-(');
         }
         $referral->referral_validated_at = new \DateTime();
@@ -144,8 +138,7 @@ class ReferralsController extends Controller {
     public function postReferrals()
     {
         $action = Request::input('action');
-        if ($action == 'delete')
-        {
+        if ($action == 'delete') {
             $student = Student::find(Request::input('student-id'));
             $student->referral = false;
             $student->save();

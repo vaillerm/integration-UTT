@@ -24,8 +24,7 @@ class AuthorizationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('authorization', function()
-        {
+        App::bind('authorization', function () {
             return new \App\Classes\Authorization;
         });
     }

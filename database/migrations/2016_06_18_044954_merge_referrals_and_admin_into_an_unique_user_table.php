@@ -14,13 +14,11 @@ class MergeReferralsAndAdminIntoAnUniqueUserTable extends Migration
     {
         // Remove enum field first because of a doctrine issue :
         // https://github.com/laravel/framework/issues/1186
-		Schema::table('referrals', function(Blueprint $table)
-		{
+        Schema::table('referrals', function (Blueprint $table) {
             $table->dropColumn('double_degree');
         });
 
-		Schema::table('referrals', function(Blueprint $table)
-		{
+        Schema::table('referrals', function (Blueprint $table) {
             $table->string('postal_code')->change();
             $table->integer('level')->nullable()->change();
             $table->string('branch')->nullable()->after('country');
@@ -28,12 +26,12 @@ class MergeReferralsAndAdminIntoAnUniqueUserTable extends Migration
             $table->renameColumn('free_text', 'referral_text');
             $table->renameColumn('max', 'referral_max');
             $table->renameColumn('started_validation_at', 'referral_validated_at');
-			$table->dropColumn('validated');
+            $table->dropColumn('validated');
             $table->boolean('referral')->default(false)->after('facebook');
             $table->integer('admin')->default(0)->after('started_validation_at');
-			$table->boolean('sex')->after('last_name');
+            $table->boolean('sex')->after('last_name');
             $table->timestamp('last_login')->nullable()->after('admin');
-		});
+        });
         Schema::dropIfExists('administrators');
         Schema::rename('referrals', 'students');
     }
@@ -45,8 +43,7 @@ class MergeReferralsAndAdminIntoAnUniqueUserTable extends Migration
      */
     public function down()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
+        Schema::table('students', function (Blueprint $table) {
 
             $table->integer('postal_code')->nullable()->change();
             $table->string('level')->nullable()->change();
@@ -70,11 +67,10 @@ class MergeReferralsAndAdminIntoAnUniqueUserTable extends Migration
                 'MERI',
                 'Autre'
             ])->nullable();
-		});
-		Schema::create('administrators', function(Blueprint $table)
-		{
-			$table->integer('student_id')->unique();
-		});
+        });
+        Schema::create('administrators', function (Blueprint $table) {
+            $table->integer('student_id')->unique();
+        });
         Schema::rename('students', 'referrals');
     }
 }

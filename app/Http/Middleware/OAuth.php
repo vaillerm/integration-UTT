@@ -19,15 +19,12 @@ class OAuth
      */
     public function handle($request, Closure $next)
     {
-
-        if (Session::has('student_id') === false)
-        {
-                return Redirect::route('oauth.auth');
+        if (Session::has('student_id') === false) {
+            return Redirect::route('oauth.auth');
         }
 
         $student = Student::find(Session::get('student_id'));
-        if ($student)
-        {
+        if ($student) {
             View::share('student', $student);
         }
 

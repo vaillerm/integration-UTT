@@ -14,314 +14,304 @@
 Route::pattern('id', '[0-9]+');
 
 Route::get('/', [
-	'as'   => 'index',
-	'uses' => 'PagesController@getHomepage'
+    'as'   => 'index',
+    'uses' => 'PagesController@getHomepage'
 ]);
 
-Route::group(['middleware' => 'oauth'], function()
-{
-	Route::get('/menu', [
-		'as'   => 'menu',
-		'middleware' => 'authorize:student',
-		'uses' => 'PagesController@getMenu'
-	]);
+Route::group(['middleware' => 'oauth'], function () {
+    Route::get('/menu', [
+        'as'   => 'menu',
+        'middleware' => 'authorize:student',
+        'uses' => 'PagesController@getMenu'
+    ]);
 });
 
-Route::group(['prefix' => 'referrals'], function()
-{
-	Route::group(['middleware' => 'oauth'], function()
-	{
-		Route::get('/firsttime', [
-			'as'   => 'referrals.firsttime',
-			'middleware' => 'authorize:student',
-			'uses' => 'ReferralsController@firstTime'
-		]);
+Route::group(['prefix' => 'referrals'], function () {
+    Route::group(['middleware' => 'oauth'], function () {
+        Route::get('/firsttime', [
+            'as'   => 'referrals.firsttime',
+            'middleware' => 'authorize:student',
+            'uses' => 'ReferralsController@firstTime'
+        ]);
 
-		Route::get('/', [
-			'as'   => 'referrals.edit',
-			'middleware' => 'authorize:referral,edit',
-			'uses' => 'ReferralsController@edit'
-	 	]);
+        Route::get('/', [
+            'as'   => 'referrals.edit',
+            'middleware' => 'authorize:referral,edit',
+            'uses' => 'ReferralsController@edit'
+        ]);
 
-		Route::post('/', [
-			'as'   => 'referrals.update',
-			'middleware' => 'authorize:referral,edit',
-			'uses' => 'ReferralsController@update'
-		]);
-		Route::get('/destroy', [
-			'as'   => 'referrals.destroy',
-			'middleware' => 'authorize:referral,edit',
-			'uses' => 'ReferralsController@destroy'
-		]);
-	});
+        Route::post('/', [
+            'as'   => 'referrals.update',
+            'middleware' => 'authorize:referral,edit',
+            'uses' => 'ReferralsController@update'
+        ]);
+        Route::get('/destroy', [
+            'as'   => 'referrals.destroy',
+            'middleware' => 'authorize:referral,edit',
+            'uses' => 'ReferralsController@destroy'
+        ]);
+    });
 });
 
-Route::group(['prefix' => 'dashboard'], function()
-{
-	Route::group(['middleware' => ['oauth']], function()
-	{
-		Route::get('/', [
-			'as'   => 'dashboard.index',
-			'middleware' => 'authorize:volunteer',
-			'uses' => 'DashboardController@getIndex'
-		]);
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::group(['middleware' => ['oauth']], function () {
+        Route::get('/', [
+            'as'   => 'dashboard.index',
+            'middleware' => 'authorize:volunteer',
+            'uses' => 'DashboardController@getIndex'
+        ]);
 
-		// Delete, validate and edit referrals.
-		Route::group(['prefix' => 'referrals'], function()
-		{
-			Route::get('/validation', [
-				'as'   => 'dashboard.referrals.validation',
-				'middleware' => 'authorize:admin',
-				'uses' => 'ReferralsController@getValidation'
-			]);
-			Route::post('/validation', [
-				'middleware' => 'authorize:admin',
-				'uses' => 'ReferralsController@postValidation'
-			]);
-			Route::get('/list', [
-				'as'   => 'dashboard.referrals.list',
-				'middleware' => 'authorize:admin',
-				'uses' => 'ReferralsController@index'
-			]);
-			Route::post('/list', [
-				'middleware' => 'authorize:admin',
-				'uses' => 'ReferralsController@postReferrals'
-			]);
-		});
+        // Delete, validate and edit referrals.
+        Route::group(['prefix' => 'referrals'], function () {
+            Route::get('/validation', [
+                'as'   => 'dashboard.referrals.validation',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@getValidation'
+            ]);
+            Route::post('/validation', [
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@postValidation'
+            ]);
+            Route::get('/list', [
+                'as'   => 'dashboard.referrals.list',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@index'
+            ]);
+            Route::post('/list', [
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@postReferrals'
+            ]);
+        });
 
-		// ce
-		Route::group(['prefix' => 'ce'], function()
-		{
-			Route::get('/firsttime', [
-				'as'   => 'dashboard.ce.firsttime',
-				'middleware' => 'authorize:student',
-				'uses' => 'CEController@firstTime'
-			]);
+        // ce
+        Route::group(['prefix' => 'ce'], function () {
+            Route::get('/firsttime', [
+                'as'   => 'dashboard.ce.firsttime',
+                'middleware' => 'authorize:student',
+                'uses' => 'CEController@firstTime'
+            ]);
 
-			Route::get('/teamlist', [
-				'as'   => 'dashboard.ce.teamlist',
-				'middleware' => 'authorize:ce',
-				'uses' => 'CEController@teamList'
-			]);
+            Route::get('/teamlist', [
+                'as'   => 'dashboard.ce.teamlist',
+                'middleware' => 'authorize:ce',
+                'uses' => 'CEController@teamList'
+            ]);
 
-			Route::post('/teamcreate', [
-				'as'   => 'dashboard.ce.teamcreate',
-				'middleware' => 'authorize:ce,create',
-				'uses' => 'CEController@teamCreate'
-			]);
+            Route::post('/teamcreate', [
+                'as'   => 'dashboard.ce.teamcreate',
+                'middleware' => 'authorize:ce,create',
+                'uses' => 'CEController@teamCreate'
+            ]);
 
-			Route::get('/myteam', [
-				'as'   => 'dashboard.ce.myteam',
-				'middleware' => 'authorize:ce',
-				'uses' => 'CEController@myteam'
-			]);
+            Route::get('/myteam', [
+                'as'   => 'dashboard.ce.myteam',
+                'middleware' => 'authorize:ce',
+                'uses' => 'CEController@myteam'
+            ]);
 
-			Route::post('/myteam', [
-				'middleware' => 'authorize:ce,edit',
-				'uses' => 'CEController@myTeamSubmit'
-			]);
+            Route::post('/myteam', [
+                'middleware' => 'authorize:ce,edit',
+                'uses' => 'CEController@myTeamSubmit'
+            ]);
 
-			Route::get('/add', [
-				'as'   => 'dashboard.ce.add',
-				'middleware' => 'authorize:ce,edit',
-				'uses' => 'CEController@add'
-			]);
+            Route::get('/add', [
+                'as'   => 'dashboard.ce.add',
+                'middleware' => 'authorize:ce,edit',
+                'uses' => 'CEController@add'
+            ]);
 
-			Route::get('/add/{login}', [
-				'as'   => 'dashboard.ce.addsubmit',
-				'middleware' => 'authorize:ce,edit',
-				'uses' => 'CEController@addSubmit'
-			]);
+            Route::get('/add/{login}', [
+                'as'   => 'dashboard.ce.addsubmit',
+                'middleware' => 'authorize:ce,edit',
+                'uses' => 'CEController@addSubmit'
+            ]);
 
-			Route::get('/join/', [
-				'as'   => 'dashboard.ce.join',
-				'middleware' => 'authorize:ce,edit',
-				'uses' => 'CEController@join'
-			]);
+            Route::get('/join/', [
+                'as'   => 'dashboard.ce.join',
+                'middleware' => 'authorize:ce,edit',
+                'uses' => 'CEController@join'
+            ]);
 
-			Route::get('/unjoin/', [
-				'as'   => 'dashboard.ce.unjoin',
-				'middleware' => 'authorize:ce,edit',
-				'uses' => 'CEController@unjoin'
-			]);
-		});
+            Route::get('/unjoin/', [
+                'as'   => 'dashboard.ce.unjoin',
+                'middleware' => 'authorize:ce,edit',
+                'uses' => 'CEController@unjoin'
+            ]);
+        });
 
-		// Teams management.
-		Route::group(['prefix' => 'teams'], function()
-		{
-			Route::get('/list', [
-				'as'   => 'dashboard.teams.list',
-				'middleware' => 'authorize:admin',
-				'uses' => 'TeamsController@list'
-			]);
-			// Route::get('/{id}', [
-			// 	'as'   => 'dashboard.teams.members',
-			// 	'uses' => 'TeamsController@members'
-			// ]);
-			// 	Route::post('/', [
-			// 		'as'   => 'dashboard.teams.create',
-			// 		'uses' => 'TeamsController@create'
-			// 	]);
-			// 	Route::get('/{id}', [
-			// 		'as'   => 'dashboard.teams.edit',
-			// 		'uses' => 'TeamsController@edit'
-			// 	]);
-			// 	Route::post('/{id}', [
-			// 		'as'   => 'dashboard.teams.update',
-			// 		'uses' => 'TeamsController@update'
-			// 	]);
-			// 	Route::get('/{id}/destroy', [
-			// 		'as'   => 'dashboard.teams.destroy',
-			// 		'uses' => 'TeamsController@destroy'
-			// 	]);
-			// 	Route::post('/{id}/members', [
-			// 		'as'   => 'dashboard.teams.members',
-			// 		'uses' => 'TeamsController@addMember'
-			// 	]);
-		});
+        // Teams management.
+        Route::group(['prefix' => 'teams'], function () {
+            Route::get('/list', [
+                'as'   => 'dashboard.teams.list',
+                'middleware' => 'authorize:admin',
+                'uses' => 'TeamsController@list'
+            ]);
+            // Route::get('/{id}', [
+            // 	'as'   => 'dashboard.teams.members',
+            // 	'uses' => 'TeamsController@members'
+            // ]);
+            // 	Route::post('/', [
+            // 		'as'   => 'dashboard.teams.create',
+            // 		'uses' => 'TeamsController@create'
+            // 	]);
+            // 	Route::get('/{id}', [
+            // 		'as'   => 'dashboard.teams.edit',
+            // 		'uses' => 'TeamsController@edit'
+            // 	]);
+            // 	Route::post('/{id}', [
+            // 		'as'   => 'dashboard.teams.update',
+            // 		'uses' => 'TeamsController@update'
+            // 	]);
+            // 	Route::get('/{id}/destroy', [
+            // 		'as'   => 'dashboard.teams.destroy',
+            // 		'uses' => 'TeamsController@destroy'
+            // 	]);
+            // 	Route::post('/{id}/members', [
+            // 		'as'   => 'dashboard.teams.members',
+            // 		'uses' => 'TeamsController@addMember'
+            // 	]);
+        });
 
-		// Add or remove administrators.
-		// Route::group(['prefix' => 'administrators'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.administrators',
-		// 		'uses' => 'DashboardController@getAdministrators'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'uses' => 'DashboardController@postAdministrators'
-		// 	]);
-		// });
+        // Add or remove administrators.
+        // Route::group(['prefix' => 'administrators'], function()
+        // {
+        // 	Route::get('/', [
+        // 		'as'   => 'dashboard.administrators',
+        // 		'uses' => 'DashboardController@getAdministrators'
+        // 	]);
+        // 	Route::post('/', [
+        // 		'uses' => 'DashboardController@postAdministrators'
+        // 	]);
+        // });
 
-		// Newcomers management.
-		// Route::group(['prefix' => 'newcomers'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.newcomers',
-		// 		'uses' => 'NewcomersController@index'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'as'   => 'dashboard.newcomers.create',
-		// 		'uses' => 'NewcomersController@create'
-		// 	]);
-		// 	Route::get('/{id}', [
-		// 		'as'   => 'dashboard.newcomers.profile',
-		// 		'uses' => 'NewcomersController@show',
-		// 	]);
-		// });
+        // Newcomers management.
+        // Route::group(['prefix' => 'newcomers'], function()
+        // {
+        // 	Route::get('/', [
+        // 		'as'   => 'dashboard.newcomers',
+        // 		'uses' => 'NewcomersController@index'
+        // 	]);
+        // 	Route::post('/', [
+        // 		'as'   => 'dashboard.newcomers.create',
+        // 		'uses' => 'NewcomersController@create'
+        // 	]);
+        // 	Route::get('/{id}', [
+        // 		'as'   => 'dashboard.newcomers.profile',
+        // 		'uses' => 'NewcomersController@show',
+        // 	]);
+        // });
 
 
-		// WEI registrations
-		// Route::group(['prefix' => 'wei'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.wei',
-		// 		'uses' => 'WEIRegistrationsController@index'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'as'   => 'dashboard.wei.create',
-		// 		'uses' => 'WEIRegistrationsController@create'
-		// 	]);
-		// 	Route::get('{id}', [
-		// 		'as'   => 'dashboard.wei.edit',
-		// 		'uses' => 'WEIRegistrationsController@edit'
-		// 	]);
-		// 	Route::post('{id}', [
-		// 		'as'   => 'dashboard.wei.update',
-		// 		'uses' => 'WEIRegistrationsController@update'
-		// 	]);
-		// 	Route::get('{id}/destroy', [
-		// 		'as'   => 'dashboard.wei.destroy',
-		// 		'uses' => 'WEIRegistrationsController@destroy'
-		// 	]);
-		// });
+        // WEI registrations
+        // Route::group(['prefix' => 'wei'], function()
+        // {
+        // 	Route::get('/', [
+        // 		'as'   => 'dashboard.wei',
+        // 		'uses' => 'WEIRegistrationsController@index'
+        // 	]);
+        // 	Route::post('/', [
+        // 		'as'   => 'dashboard.wei.create',
+        // 		'uses' => 'WEIRegistrationsController@create'
+        // 	]);
+        // 	Route::get('{id}', [
+        // 		'as'   => 'dashboard.wei.edit',
+        // 		'uses' => 'WEIRegistrationsController@edit'
+        // 	]);
+        // 	Route::post('{id}', [
+        // 		'as'   => 'dashboard.wei.update',
+        // 		'uses' => 'WEIRegistrationsController@update'
+        // 	]);
+        // 	Route::get('{id}/destroy', [
+        // 		'as'   => 'dashboard.wei.destroy',
+        // 		'uses' => 'WEIRegistrationsController@destroy'
+        // 	]);
+        // });
 
-		// Checks handling.
-		// Route::group(['prefix' => 'payments'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.payments',
-		// 		'uses' => 'PaymentsController@index'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'as'   => 'dashboard.payments.create',
-		// 		'uses' => 'PaymentsController@create'
-		// 	]);
-		// 	Route::get('/{id}/destroy', [
-		// 		'as'   => 'dashboard.payments.destroy',
-		// 		'uses' => 'PaymentsController@destroy'
-		// 	]);
-		// });
+        // Checks handling.
+        // Route::group(['prefix' => 'payments'], function()
+        // {
+        // 	Route::get('/', [
+        // 		'as'   => 'dashboard.payments',
+        // 		'uses' => 'PaymentsController@index'
+        // 	]);
+        // 	Route::post('/', [
+        // 		'as'   => 'dashboard.payments.create',
+        // 		'uses' => 'PaymentsController@create'
+        // 	]);
+        // 	Route::get('/{id}/destroy', [
+        // 		'as'   => 'dashboard.payments.destroy',
+        // 		'uses' => 'PaymentsController@destroy'
+        // 	]);
+        // });
 
-		// Export.
-		// Route::group(['prefix' => 'exports'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.exports',
-		// 		'uses' => 'PagesController@getExports'
-		// 	]);
-		// 	Route::get('/referrals', [
-		// 		'as'   => 'dashboard.exports.referrals',
-		// 		'uses' => 'PagesController@getExportReferrals'
-		// 	]);
-		// 	Route::get('/newcomers', [
-		// 		'as'   => 'dashboard.exports.newcomers',
-		// 		'uses' => 'PagesController@getExportNewcomers'
-		// 	]);
-		// });
+        // Export.
+        // Route::group(['prefix' => 'exports'], function()
+        // {
+        // 	Route::get('/', [
+        // 		'as'   => 'dashboard.exports',
+        // 		'uses' => 'PagesController@getExports'
+        // 	]);
+        // 	Route::get('/referrals', [
+        // 		'as'   => 'dashboard.exports.referrals',
+        // 		'uses' => 'PagesController@getExportReferrals'
+        // 	]);
+        // 	Route::get('/newcomers', [
+        // 		'as'   => 'dashboard.exports.newcomers',
+        // 		'uses' => 'PagesController@getExportNewcomers'
+        // 	]);
+        // });
 
-		// Route::group(['prefix' => 'championship'], function()
-		// {
-		// 	Route::get('/', [
-		// 		'as'   => 'dashboard.championship',
-		// 		'uses' => 'PagesController@getChampionship'
-		// 	]);
-		// 	Route::post('/', [
-		// 		'as'   => 'dashboard.championship.edit',
-		// 		'uses' => 'PagesController@postChampionship'
-		// 	]);
-		// });
+        // Route::group(['prefix' => 'championship'], function()
+        // {
+        // 	Route::get('/', [
+        // 		'as'   => 'dashboard.championship',
+        // 		'uses' => 'PagesController@getChampionship'
+        // 	]);
+        // 	Route::post('/', [
+        // 		'as'   => 'dashboard.championship.edit',
+        // 		'uses' => 'PagesController@postChampionship'
+        // 	]);
+        // });
 
-		Route::group(['prefix' => 'students'], function()
-		{
-			Route::get('/list/{filter?}', [
-				'as'   => 'dashboard.students.list',
-				'middleware' => 'authorize:admin',
-				'uses' => 'StudentsController@list'
-			]);
-			Route::get('/profil', [
-				'as'   => 'dashboard.students.profil',
-				'middleware' => 'authorize:student',
-				'uses' => 'StudentsController@profil'
-			]);
-			Route::post('/profil', [
-				'as'   => 'dashboard.students.profil.submit',
-				'middleware' => 'authorize:student',
-				'uses' => 'StudentsController@profilSubmit'
-			]);
-		});
-	});
+        Route::group(['prefix' => 'students'], function () {
+            Route::get('/list/{filter?}', [
+                'as'   => 'dashboard.students.list',
+                'middleware' => 'authorize:admin',
+                'uses' => 'StudentsController@list'
+            ]);
+            Route::get('/profil', [
+                'as'   => 'dashboard.students.profil',
+                'middleware' => 'authorize:student',
+                'uses' => 'StudentsController@profil'
+            ]);
+            Route::post('/profil', [
+                'as'   => 'dashboard.students.profil.submit',
+                'middleware' => 'authorize:student',
+                'uses' => 'StudentsController@profilSubmit'
+            ]);
+        });
+    });
 });
 
 Route::get('/scores', [
-	'as'   => 'championship.display',
-	'uses' => 'PagesController@getScores'
+    'as'   => 'championship.display',
+    'uses' => 'PagesController@getScores'
 ]);
 
-Route::group(['prefix' => 'oauth'], function()
-{
-	Route::get('authorize', [
-		'as'   => 'oauth.auth',
-		'uses' => 'OAuthController@auth'
-	]);
+Route::group(['prefix' => 'oauth'], function () {
+    Route::get('authorize', [
+        'as'   => 'oauth.auth',
+        'uses' => 'OAuthController@auth'
+    ]);
 
-	Route::get('callback', [
-		'as'   => 'oauth.callback',
-		'uses' => 'OAuthController@callback'
-	]);
+    Route::get('callback', [
+        'as'   => 'oauth.callback',
+        'uses' => 'OAuthController@callback'
+    ]);
 
-	Route::get('logout', [
-		'as'     => 'oauth.logout',
-		'middleware' => 'oauth',
-		'uses'   => 'OAuthController@logout'
-	]);
+    Route::get('logout', [
+        'as'     => 'oauth.logout',
+        'middleware' => 'oauth',
+        'uses'   => 'OAuthController@logout'
+    ]);
 });

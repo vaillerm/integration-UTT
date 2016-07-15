@@ -24,8 +24,7 @@ class EtuUTTServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('etuutt', function()
-        {
+        App::bind('etuutt', function () {
             return new \App\Classes\EtuUTT;
         });
     }

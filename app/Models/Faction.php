@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Faction extends Model {
+class Faction extends Model
+{
 
     /**
      * @var string
@@ -23,5 +24,4 @@ class Faction extends Model {
     {
         return $this->hasMany('App\Models\Team');
     }
-
 }

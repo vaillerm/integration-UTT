@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model {
+class Student extends Model
+{
 
     public $table = 'students';
     public $timestamps = true;
@@ -72,7 +73,8 @@ class Student extends Model {
      * Test if the student is a validated referral
      * @return bool
      */
-    public function isValidatedReferral() {
+    public function isValidatedReferral()
+    {
         return ($this->referral_validated_at != null);
     }
 
@@ -80,7 +82,8 @@ class Student extends Model {
      * Test if the student can access part of the dashboard
      * @return bool
      */
-    public function hasDashboard() {
+    public function hasDashboard()
+    {
         return ($this->admin != Student::ADMIN_NOT);
     }
 
@@ -88,8 +91,8 @@ class Student extends Model {
      * Test if the student can all of the dashboard
      * @return bool
      */
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return ($this->admin == Student::ADMIN_FULL);
     }
-
 }

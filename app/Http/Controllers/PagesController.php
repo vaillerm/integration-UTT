@@ -6,7 +6,6 @@ use App\Models\Student;
 use App\Models\Team;
 use App\Models\Faction;
 use App\Models\Newcomer;
-
 use View;
 use Excel;
 use Request;
@@ -14,14 +13,14 @@ use Session;
 use EtuUTT;
 use Config;
 
-
 /**
  * Handle misc. pages.
  *
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class PagesController extends Controller {
+class PagesController extends Controller
+{
 
     /**
      * Temporary hompage.
@@ -66,18 +65,14 @@ class PagesController extends Controller {
     {
         $referrals = Referral::orderBy('last_name')->where('validated', 1)->get();
         // Embed the referral's newcomers in the document.
-        foreach ($referrals as &$referral)
-        {
-            for ($i=0; $i < $referral->newcomers()->count(); $i++)
-            {
+        foreach ($referrals as &$referral) {
+            for ($i=0; $i < $referral->newcomers()->count(); $i++) {
                 $newcomer = $referral->newcomers()->get()->toArray()[$i];
                 $referral['Fillot '.$i] = $newcomer['first_name'].' '.$newcomer['last_name'];
             }
         }
-        return Excel::create('Parrains', function($file) use ($referrals)
-        {
-            $file->sheet('', function($sheet) use ($referrals)
-            {
+        return Excel::create('Parrains', function ($file) use ($referrals) {
+            $file->sheet('', function ($sheet) use ($referrals) {
                 $sheet->fromArray($referrals);
             });
         })->export('csv');
@@ -92,8 +87,7 @@ class PagesController extends Controller {
     {
         $newcomers = Newcomer::whereNotNull('referral_id')->orderBy('last_name')->get();
         $data = [['Fillot', 'Parrain', 'Email parrain', 'Téléphone parrain']];
-        foreach ($newcomers as $newcomer)
-        {
+        foreach ($newcomers as $newcomer) {
             $data[] = [$newcomer->last_name.' '.$newcomer->first_name, $newcomer->email,
                        $newcomer->referral->last_name.' '.$newcomer->referral->first_name,
                        $newcomer->referral->email,
@@ -101,10 +95,8 @@ class PagesController extends Controller {
             ];
         }
 
-        return Excel::create('Fillots', function($file) use ($data)
-        {
-            $file->sheet('', function($sheet) use ($data)
-            {
+        return Excel::create('Fillots', function ($file) use ($data) {
+            $file->sheet('', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
         })->export('csv');
@@ -129,11 +121,9 @@ class PagesController extends Controller {
      */
     public function postChampionship()
     {
-        foreach (Team::whereNotNull('faction_id')->get() as $team)
-        {
+        foreach (Team::whereNotNull('faction_id')->get() as $team) {
             $input = Request::input('team-'.$team->id);
-            if ($input !== null)
-            {
+            if ($input !== null) {
                 $team->points = $input;
                 $team->save();
             }
@@ -148,5 +138,4 @@ class PagesController extends Controller {
     {
         return View::make('scores')->with(['factions' => Faction::all()]);
     }
-
 }

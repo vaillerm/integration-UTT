@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use \Carbon\Carbon;
-
 use App\Models\WEIRegistration;
 use App\Models\Payment;
-
 use Request;
 use Redirect;
 use Config;
@@ -20,7 +18,8 @@ use View;
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
  * @license MIT
  */
-class WEIRegistrationsController extends Controller {
+class WEIRegistrationsController extends Controller
+{
 
     /**
      * List all the registrations.
@@ -46,8 +45,7 @@ class WEIRegistrationsController extends Controller {
         $input = Request::only(['first_name', 'last_name']);
         $registration = WEIRegistration::create($input);
         $registration->birthdate = '1997-01-01 00:00:00';
-        if ($registration->save())
-        {
+        if ($registration->save()) {
             return Redirect::route('dashboard.wei.edit', [$registration->id]);
         }
         return $this->error('Impossible d\'ajouter l\'inscription.');
@@ -86,12 +84,9 @@ class WEIRegistrationsController extends Controller {
 
         // Payment handling.
         $mean = Request::input('mean_of_payment');
-        if ($mean === 'none')
-        {
+        if ($mean === 'none') {
             $registration->payment_id = null;
-        }
-        else
-        {
+        } else {
             $payment = Payment::create([
                 'mean' => $mean,
                 'bank' => Request::input('payment_bank'),
@@ -102,12 +97,9 @@ class WEIRegistrationsController extends Controller {
         }
 
         // Deposit handling.
-        if (empty(Request::input('deposit_bank')) && empty(Request::input('deposit_emitter')) && empty(Request::input('deposit_number')))
-        {
+        if (empty(Request::input('deposit_bank')) && empty(Request::input('deposit_emitter')) && empty(Request::input('deposit_number'))) {
             $registration->deposit_id = null;
-        }
-        else
-        {
+        } else {
             $deposit = Payment::create([
                 'mean' => 'check',
                 'bank' => Request::input('deposit_bank'),
@@ -125,20 +117,15 @@ class WEIRegistrationsController extends Controller {
          || empty($registration->email)
          || $registration->payment_id === null
          || $registration->deposit_id === null
-         || ($isUnderage && $registration->gave_parental_authorization === false))
-        {
+         || ($isUnderage && $registration->gave_parental_authorization === false)) {
             $registration->complete = false;
-        }
-        else
-        {
+        } else {
             $registration->complete = true;
         }
 
         // Save the registration and tell the user about its status.
-        if ($registration->save())
-        {
-            if (!$registration->complete)
-            {
+        if ($registration->save()) {
+            if (!$registration->complete) {
                 return $this->success('Inscription ajoutée. Cependant, il <b>MANQUE</b> des pièces.');
             }
             return $this->success('Inscription ajoutée !');

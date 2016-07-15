@@ -11,9 +11,9 @@
 |
 */
 
-if(file_exists('.maintenance')){
-	echo file_get_contents(__DIR__.'/maintenance.html');
-	exit;
+if (file_exists('.maintenance')) {
+    echo file_get_contents(__DIR__.'/maintenance.html');
+    exit;
 }
 
 /**

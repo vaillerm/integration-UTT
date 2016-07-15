@@ -12,8 +12,7 @@ class AddEtuuttTokenFieldsOnStudents extends Migration
      */
     public function up()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
+        Schema::table('students', function (Blueprint $table) {
             $table->string('etuutt_access_token')->after('admin');
             $table->string('etuutt_refresh_token')->after('etuutt_access_token');
         });
@@ -26,8 +25,7 @@ class AddEtuuttTokenFieldsOnStudents extends Migration
      */
     public function down()
     {
-		Schema::table('students', function(Blueprint $table)
-		{
+        Schema::table('students', function (Blueprint $table) {
             $table->dropColumn('etuutt_access_token');
             $table->dropColumn('etuutt_refresh_token');
         });
