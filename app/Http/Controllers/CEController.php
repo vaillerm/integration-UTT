@@ -99,11 +99,12 @@ class CEController extends Controller
     public function myTeamSubmit()
     {
         $team = EtuUTT::student()->team;
-        $data = Request::only(['name', 'description', 'img']);
+        $data = Request::only(['name', 'description', 'img', 'facebook']);
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:30|unique:teams,name,'.EtuUTT::student()->team->id,
             'description' => 'min:100|max:300',
-            'img' => 'image'
+            'img' => 'image',
+            'facebook' => 'url'
         ],
         [
             'name.unique' => 'Ce nom d\'équipe est déjà pris.'
@@ -125,6 +126,7 @@ class CEController extends Controller
         // Update team informations
         $team->name = $data['name'];
         $team->description = $data['description'];
+        $team->facebook = $data['facebook'];
         if ($extension) {
             $team->img = $extension;
         }
