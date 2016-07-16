@@ -6,7 +6,6 @@ use App\Models\Student;
 use App\Models\Team;
 use EtuUTT;
 use Request;
-use Redirect;
 use Config;
 use View;
 
@@ -82,12 +81,7 @@ class CEController extends Controller
 
         return View::make('dashboard.ce.myteam', [
             'team' => EtuUTT::student()->team,
-            'student' => EtuUTT::student(),
-            'ceDeadline' => [
-                'days' => (($ceFakeDeadline->invert)?'':'-'). $ceFakeDeadline->days,
-                'hours' => $ceFakeDeadline->h,
-                'minutes' => $ceFakeDeadline->i,
-            ]
+            'student' => EtuUTT::student()
         ]);
     }
 
@@ -127,6 +121,8 @@ class CEController extends Controller
         $team->name = $data['name'];
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
+        $team->validated = false;
+
         if ($extension) {
             $team->img = $extension;
         }
@@ -239,6 +235,10 @@ class CEController extends Controller
             $student->save();
         }
 
+        $team = $student->team;
+        $team->validated = false;
+        $team->save();
+
         return redirect(route('dashboard.ce.myteam'))->withSuccess($json['fullName'].' a bien été ajouté à votre équipe. Il faut maintenant qu\'il se connecte au site d\'intégration pour valider sa participation.');
     }
 
@@ -251,6 +251,11 @@ class CEController extends Controller
     public function join()
     {
         $student = EtuUTT::student();
+
+        $team = $student->team;
+        $team->validated = false;
+        $team->save();
+
         $student->team_accepted = true;
         $student->save();
 
@@ -266,6 +271,14 @@ class CEController extends Controller
     public function unjoin()
     {
         $student = EtuUTT::student();
+        if ($student->team_accepted) {
+            return redirect(route('dashboard.ce.myteam'))->withError('Vous ne pouvez pas quitter une équipe.');
+        }
+
+        $team = $student->team;
+        $team->validated = false;
+        $team->save();
+
         $student->team_id = null;
         $student->save();
 

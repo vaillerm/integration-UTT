@@ -30,6 +30,18 @@ Gestion de mon équipe
     </div>
 @endif
 
+@if (EtuUTT::student()->team->validated)
+    <div class="callout callout-success">
+        <h4>Vous avez été approuvé</h4>
+        <p>
+            Un adminstrateur a validé votre équipe.
+            @if (Authorization::can('ce','edit'))
+                Mais vous pouvez toujours modifier votre équipe si vous le souhaitez.
+            @endif
+        </p>
+    </div>
+@endif
+
 <div class="box box-default">
     <div class="box-header with-border">
         @if(Authorization::can('ce','edit'))
