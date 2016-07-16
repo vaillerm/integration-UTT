@@ -128,7 +128,7 @@ Gestion de mon équipe
                     <div class="col-lg-10">
                         <textarea class="form-control" name="description" id="description" placeholder="Bienvenue dans notre équipe..."  @if(!Authorization::can('ce','edit')) disabled @endif>{{{ old('description') ?? $team->description }}}</textarea>
                         <small class="text-muted">Utilisez ce mot pour souhaiter la bienvenue aux nouveaux dans votre équipe et donner des idées de déguisements.
-                            <br/>Ecrivez entre 100 et 200 caractères.
+                            <br/>Ecrivez minimum 250 caractères.
                             Ce message est soumis à validation d'un modérateur.</small>
                     </div>
                 </div>

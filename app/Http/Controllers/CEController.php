@@ -96,7 +96,7 @@ class CEController extends Controller
         $data = Request::only(['name', 'description', 'img', 'facebook']);
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:30|unique:teams,name,'.EtuUTT::student()->team->id,
-            'description' => 'min:100|max:300',
+            'description' => 'min:250',
             'img' => 'image',
             'facebook' => 'url'
         ],
