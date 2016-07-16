@@ -26,7 +26,7 @@ Menu
                             Tu souhaites rencontrer et guider les nouveaux pour leur arrivée dans ce nouveau monde ?<br/>
                             Tu seras contacté par tes fillots dans l'été puis présenté à eux pendant la semaine d'intégration !
                             <br/><br/>
-                            @if ($student->isValidatedReferral())
+                            @if ($student->referral_validated)
                                 <strong>Ton profil a été validé par l'orga, tu ne peux plus modifier tes informations !<br/>
                                     Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.</strong>
                             @elseif (Authorization::can('student','referral'))

@@ -27,9 +27,9 @@ Gestion des équipes
                 </tr>
                 @foreach ($teams as $team)
                     @if ($team->validated)
-                        <tr class="success">
+                        <tr class="success" id="{{ $team->id }}">
                     @else
-                        <tr>
+                        <tr id="{{ $team->id }}">
                     @endif
                         {{-- <td>{{{ $team->newcomers()->count() }}}</td> --}}
                         <td><strong>{{{ $team->name }}}</strong></td>

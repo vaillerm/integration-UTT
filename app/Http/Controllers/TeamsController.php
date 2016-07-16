@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\Newcomer;
 use Request;
 use View;
+use Redirect;
 use EtuUTT;
 
 /**
@@ -107,7 +108,7 @@ class TeamsController extends Controller
         $team->save();
 
         if ($imageError) {
-            return redirect(route('dashboard.teams.list'))->withError('Vos modifications ont été sauvegardées. '.$imageError);
+            return Redirect::back()->withError('Vos modifications ont été sauvegardées. '.$imageError);
         }
         return redirect(route('dashboard.teams.list'))->withSuccess('Vos modifications ont été sauvegardées.');
     }

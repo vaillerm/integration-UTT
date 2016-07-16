@@ -166,18 +166,6 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'TeamsController@editSubmit'
             ]);
-            // 	Route::post('/', [
-            // 		'as'   => 'dashboard.teams.create',
-            // 		'uses' => 'TeamsController@create'
-            // 	]);
-            // 	Route::post('/{id}', [
-            // 		'as'   => 'dashboard.teams.update',
-            // 		'uses' => 'TeamsController@update'
-            // 	]);
-            // 	Route::get('/{id}/destroy', [
-            // 		'as'   => 'dashboard.teams.destroy',
-            // 		'uses' => 'TeamsController@destroy'
-            // 	]);
             // 	Route::post('/{id}/members', [
             // 		'as'   => 'dashboard.teams.members',
             // 		'uses' => 'TeamsController@addMember'
@@ -300,6 +288,16 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'as'   => 'dashboard.students.profil.submit',
                 'middleware' => 'authorize:student',
                 'uses' => 'StudentsController@profilSubmit'
+            ]);
+            Route::get('/{id}/edit', [
+                'as'   => 'dashboard.students.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'StudentsController@edit'
+            ]);
+            Route::post('/{id}/edit', [
+                'as'   => 'dashboard.students.edit.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'StudentsController@editSubmit'
             ]);
         });
     });

@@ -69,7 +69,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
                                 $max[$branch] = 0;
                             }
                             $max[$branch] += $referral->referral_max;
-                            if($referral->isValidatedReferral()) {
+                            if($referral->referral_validated) {
                                 // Add email to lists
                                 $emailsValidated .= $emailEntry;
                                 if(strtolower($branch) == 'tc') {
@@ -96,7 +96,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
                             }
                         ?>
                         <td>
-                            @if ($referral->isValidatedReferral())
+                            @if ($referral->referral_validated)
                                 <span class="label label-success">Validé</span>
                                 <?php $validated++; ?>
                             @elseif (empty($referral->referral_text) || empty($referral->phone) || empty($referral->email))
@@ -114,6 +114,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
                             @endif
                         </td>
                         <td>
+                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $referral->student_id ])}}">Modifier</a>
                             <form action="{{ route('dashboard.referrals.list') }}" method="post">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="student-id" value="{{ $referral->student_id }}">

@@ -75,7 +75,7 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga,
                             @endif
                         </td>
                         <td>
-                            <!-- <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.list')}}">Modifier</a> -->
+                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $student->student_id ])}}">Modifier</a>
                         </td>
                     </tr>
                 @endforeach

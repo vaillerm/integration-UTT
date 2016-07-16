@@ -107,7 +107,7 @@ class ReferralsController extends Controller
     {
         $id = Request::input('student-id');
         $referral = Student::findOrFail($id);
-        if ($referral->isValidatedReferral()) {
+        if ($referral->referral_validated) {
             return Redirect::back()->withError('Quelqu\'un a déjà validé cette personne :-(');
         }
         $referral->referral_validated_at = new \DateTime();

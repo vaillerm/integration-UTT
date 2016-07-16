@@ -106,7 +106,7 @@ class Authorization
             switch ($action) {
                 case 'referral':
                     if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
-                        || $student->isValidatedReferral()
+                        || $student->referral_validated
                         || $student->referral) {
                         return false;
                     }
@@ -122,7 +122,7 @@ class Authorization
             switch ($action) {
                 case 'edit':
                     if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
-                        || $student->isValidatedReferral()) {
+                        || $student->referral_validated) {
                         return false;
                     }
                     break;

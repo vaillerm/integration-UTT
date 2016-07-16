@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Student;
 use View;
 use EtuUTT;
 use Mail;
+use Request;
+use Redirect;
 
 /**
  * Handle student management pages and administrators actions
@@ -109,4 +110,92 @@ class StudentsController extends Controller
                 return redirect(route('dashboard.students.profil'))->withSuccess('Votre profil a bien été mis à jour.');
             }
         }
+
+
+
+    /**
+     * Show the edit form for a student from admin dashboard
+     *
+     * @param  int $id
+     * @return RedirectResponse|array
+     */
+    public function edit($id)
+    {
+        $student = Student::findOrFail($id);
+        return View::make('dashboard.students.edit', [
+            'student' => $student
+        ]);
+    }
+
+    /**
+     * Execute edit form for a student from admin dashboard
+     *
+     * @param  int $id
+     * @return RedirectResponse|array
+     */
+    public function editSubmit($id)
+    {
+        $student = Student::findOrFail($id);
+        $data = Request::only([
+            'surname',
+            'sex',
+            'email',
+            'phone',
+            'branch',
+            'level',
+            'facebook',
+            'city',
+            'postal_code',
+            'country',
+            'referral',
+            'referral_max',
+            'referral_text',
+            'referral_validated',
+            'admin',
+            'orga']);
+        $this->validate(Request::instance(), [
+            'surname' => 'max:50',
+            'sex' => 'boolean',
+            'email' => 'email',
+            'phone' => 'min:8|max:20',
+            'facebook' => 'url',
+            'postal_code' => 'integer',
+            'referral_max' => 'integer|max:5|min:1',
+        ]);
+
+
+        // Add or remove from sympa
+        if (!$student->orga && $data['orga']) {
+            $sent = Mail::raw('QUIET ADD integration-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use ($student) {
+                $message->from('integrat@utt.fr', 'Intégration UTT');
+                $message->to('sympa@utt.fr');
+            });
+        } elseif ($student->orga && !$data['orga']) {
+            $sent = Mail::raw('QUIET DELETE integration-liste '.$student->email, function ($message) use ($student) {
+                $message->from('integrat@utt.fr', 'Intégration UTT');
+                $message->to('sympa@utt.fr');
+            });
+        }
+
+        // Update team informations
+        $student->surname = $data['surname'];
+        $student->sex = $data['sex'];
+        $student->email = $data['email'];
+        $student->phone = $data['phone'];
+        $student->branch = $data['branch'];
+        $student->level = $data['level'];
+        $student->facebook = $data['facebook'];
+        $student->city = $data['city'];
+        $student->postal_code = $data['postal_code'];
+        $student->country = $data['country'];
+        $student->referral = !empty($data['referral']);
+        $student->referral_max = $data['referral_max'];
+        $student->referral_text = $data['referral_text'];
+        $student->referral_validated = !empty($data['referral_validated']);
+        $student->admin = (!empty($data['admin']))?100:0;
+        $student->orga = !empty($data['orga']);
+        $student->save();
+
+        return Redirect::back()->withSuccess('Vos modifications ont été sauvegardées.');
+    }
 }

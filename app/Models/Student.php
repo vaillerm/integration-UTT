@@ -70,24 +70,6 @@ class Student extends Model
     }
 
     /**
-     * Test if the student is a validated referral
-     * @return bool
-     */
-    public function isValidatedReferral()
-    {
-        return ($this->referral_validated_at != null);
-    }
-
-    /**
-     * Test if the student can access part of the dashboard
-     * @return bool
-     */
-    public function hasDashboard()
-    {
-        return ($this->admin != Student::ADMIN_NOT);
-    }
-
-    /**
      * Test if the student can all of the dashboard
      * @return bool
      */
