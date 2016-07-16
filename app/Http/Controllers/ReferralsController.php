@@ -92,7 +92,7 @@ class ReferralsController extends Controller
     public function getValidation()
     {
         $date = new \Datetime();
-        $referral = Student::where('referral', true)->where('referral_validated_at', null)->where('email', '!=', '')
+        $referral = Student::where('referral', true)->where('referral_validated', 0)->where('email', '!=', '')
                             ->where('phone', '!=', '')->where('referral_text', '!=', '')
                             ->orderByRaw('RAND()')->first();
         return View::make('dashboard.referrals.validation')->with('referral', $referral);
@@ -110,7 +110,7 @@ class ReferralsController extends Controller
         if ($referral->referral_validated) {
             return Redirect::back()->withError('Quelqu\'un a déjà validé cette personne :-(');
         }
-        $referral->referral_validated_at = new \DateTime();
+        $referral->referral_validated = 1;
         $referral->referral_text = Request::input('referral_text');
         $referral->save();
 

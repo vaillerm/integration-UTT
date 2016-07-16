@@ -18,7 +18,7 @@ class Student extends Model
 
     public function getDates()
     {
-        return ['created_at', 'updated_at', 'last_login', 'referral_validated_at'];
+        return ['created_at', 'updated_at', 'last_login'];
     }
 
     public $primaryKey = 'student_id';
