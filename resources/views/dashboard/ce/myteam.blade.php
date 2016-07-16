@@ -15,6 +15,8 @@ Gestion de mon équipe
         <div class="box-header with-border">
             @if(Authorization::can('ce','edit'))
                 <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
+            @else
+                <div class="box-countdown">Les modifications d'équipe ne sont plus autorisés.</div>
             @endif
             <h3 class="box-title">Votre participation</h3>
         </div>
@@ -46,6 +48,8 @@ Gestion de mon équipe
     <div class="box-header with-border">
         @if(Authorization::can('ce','edit'))
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
+        @else
+            <div class="box-countdown">Les modifications d'équipe ne sont plus autorisés.</div>
         @endif
         <h3 class="box-title">Membres de l'équipe</h3>
     </div>
@@ -99,6 +103,8 @@ Gestion de mon équipe
     <div class="box-header with-border">
         @if(Authorization::can('ce','edit'))
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
+        @else
+            <div class="box-countdown">Les modifications d'équipe ne sont plus autorisés.</div>
         @endif
         <h3 class="box-title">Informations générales</h3>
     </div>
@@ -157,7 +163,7 @@ Gestion de mon équipe
                         @endif
                     </div>
                 </div>
-                @if($team->respo_id == EtuUTT::student()->student_id)
+                @if(Authorization::can('ce','edit'))
                     <input type="submit" class="btn btn-success form-control" value="Mettre à jour les informations" />
                 @endif
             </form>
