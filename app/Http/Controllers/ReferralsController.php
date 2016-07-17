@@ -131,23 +131,6 @@ class ReferralsController extends Controller
     }
 
     /**
-     * Edit an referral from the dashboard.
-     *
-     * @return RedirectResponse
-     */
-    public function postReferrals()
-    {
-        $action = Request::input('action');
-        if ($action == 'delete') {
-            $student = Student::find(Request::input('student-id'));
-            $student->referral = false;
-            $student->save();
-
-            return Redirect::back()->withSuccess('Utilisateur supprimé !');
-        }
-    }
-
-    /**
      * Destroy the referral.
      *
      * @return RedirectResponse

@@ -77,10 +77,6 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'ReferralsController@index'
             ]);
-            Route::post('/list', [
-                'middleware' => 'authorize:admin',
-                'uses' => 'ReferralsController@postReferrals'
-            ]);
         });
 
         // ce

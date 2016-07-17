@@ -115,11 +115,6 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
                         </td>
                         <td>
                             <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $referral->student_id ])}}">Modifier</a>
-                            <form action="{{ route('dashboard.referrals.list') }}" method="post">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="student-id" value="{{ $referral->student_id }}">
-                                <input type="submit" class="btn btn-xs btn-danger" value="Supprimer">
-                            </form>
                         </td>
                     </tr>
                 @endforeach
