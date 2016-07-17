@@ -65,7 +65,7 @@ class StudentsController extends Controller
          *
          * @return Response
          */
-        public function profilSubmit(Request $request)
+        public function profilSubmit()
         {
 
             // Validation
@@ -81,14 +81,14 @@ class StudentsController extends Controller
                 $rules['convention'] = 'accepted';
             }
 
-            $this->validate($request, $rules,
+            $this->validate(Request::instance(), $rules,
             [
                 'convention.accepted' => 'Vous devez accepter l\'esprit de l\'intégration'
             ]);
 
             $volunteer = $student->volunteer;
-            $student->volunteer = !empty($request->get('convention'));
-            $student->update($request->only('surname', 'sex', 'email', 'phone'));
+            $student->volunteer = !empty(Request::get('convention'));
+            $student->update(Request::only('surname', 'sex', 'email', 'phone'));
             $student->save();
 
             // Add or remove from sympa
