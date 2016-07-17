@@ -168,18 +168,6 @@ Route::group(['prefix' => 'dashboard'], function () {
             // 	]);
         });
 
-        // Add or remove administrators.
-        // Route::group(['prefix' => 'administrators'], function()
-        // {
-        // 	Route::get('/', [
-        // 		'as'   => 'dashboard.administrators',
-        // 		'uses' => 'DashboardController@getAdministrators'
-        // 	]);
-        // 	Route::post('/', [
-        // 		'uses' => 'DashboardController@postAdministrators'
-        // 	]);
-        // });
-
         // Newcomers management.
         // Route::group(['prefix' => 'newcomers'], function()
         // {
