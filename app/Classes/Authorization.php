@@ -47,12 +47,6 @@ class Authorization
         }
         $student = \EtuUTT::student();
 
-        // Volunteer verification
-        if (in_array($group, ['admin', 'orga', 'ce'])
-                && !$student->volunteer) {
-            return false;
-        }
-
         // Group verification
         if ($group == 'admin'
                 && !$student->isAdmin()) {

@@ -21,13 +21,13 @@ class Authorize
     public function handle($request, Closure $next, $group, $action = '')
     {
         // Login/student verification
-        if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral'])
+        if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral', 'volunteer'])
                 && !EtuUTT::isAuth()) {
             return Redirect::route('index')->withError('Vous devez être connecté pour accéder à cette page');
         }
 
         // Volunteer verification
-        if (in_array($group, ['admin', 'orga', 'ce'])
+        if (in_array($group, ['admin', 'orga', 'ce', 'volunteer'])
                 && !EtuUTT::student()->volunteer) {
             return Redirect::route('dashboard.students.profil')->withError('Veuillez remplir ce formulaire pour continuer :)');
         }
