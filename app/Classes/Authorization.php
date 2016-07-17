@@ -113,7 +113,7 @@ class Authorization
                     break;
                 case 'ce':
                     if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
-                        || $student->team || $student->ce) {
+                        || $student->ce) {
                         return false;
                     }
                     break;
