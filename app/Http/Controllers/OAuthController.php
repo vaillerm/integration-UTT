@@ -98,8 +98,9 @@ class OAuthController extends Controller
             $student->etuutt_access_token = $access_token;
             $student->etuutt_refresh_token = $refresh_token;
 
-            $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
-            file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
+            // Error here a ignored, we just keep user without a picture if we cannot download it
+            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
+            @file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
 
             if ($json['sex'] == 'male') {
                 $student->sex = Student::SEX_MALE;
