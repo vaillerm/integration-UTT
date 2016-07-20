@@ -235,7 +235,7 @@ class CEController extends Controller
             $student->save();
         }
 
-        $team = $student->team;
+        $team = EtuUTT::student()->team;
         $team->validated = false;
         $team->save();
 
