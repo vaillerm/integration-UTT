@@ -34,15 +34,10 @@
                                             <li><a href="{{ route('dashboard.referrals.validation') }}">Validation</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Équipes <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{{ route('dashboard.teams.list') }}">Liste des équipes</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
                                     <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
-                                    <?php /* <li><a href="{{ route('dashboard.newcomers') }}">Nouveaux</a></li> -->
-                                    <!-- <li><a href="{{ route('dashboard.teams') }}">Équipes</a></li> -->
+                                    <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
+                                    <?php /*  -->
                                     <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> --> */ ?>

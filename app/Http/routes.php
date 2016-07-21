@@ -122,13 +122,13 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'CEController@addSubmit'
             ]);
 
-            Route::get('/join/', [
+            Route::get('/join', [
                 'as'   => 'dashboard.ce.join',
                 'middleware' => 'authorize:ce,join',
                 'uses' => 'CEController@join'
             ]);
 
-            Route::get('/unjoin/', [
+            Route::get('/unjoin', [
                 'as'   => 'dashboard.ce.unjoin',
                 'middleware' => 'authorize:ce,join',
                 'uses' => 'CEController@unjoin'
@@ -137,7 +137,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         // Teams management.
         Route::group(['prefix' => 'teams'], function () {
-            Route::get('/list', [
+            Route::get('/', [
                 'as'   => 'dashboard.teams.list',
                 'middleware' => 'authorize:admin',
                 'uses' => 'TeamsController@list'
@@ -169,21 +169,27 @@ Route::group(['prefix' => 'dashboard'], function () {
         });
 
         // Newcomers management.
-        // Route::group(['prefix' => 'newcomers'], function()
-        // {
-        // 	Route::get('/', [
-        // 		'as'   => 'dashboard.newcomers',
-        // 		'uses' => 'NewcomersController@index'
-        // 	]);
-        // 	Route::post('/', [
-        // 		'as'   => 'dashboard.newcomers.create',
-        // 		'uses' => 'NewcomersController@create'
-        // 	]);
+        Route::group(['prefix' => 'newcomers'], function () {
+            Route::get('/', [
+                'as'   => 'dashboard.newcomers.list',
+                'middleware' => 'authorize:admin',
+                'uses' => 'NewcomersController@list'
+            ]);
+            Route::post('/create', [
+                'as'   => 'dashboard.newcomers.create',
+                'middleware' => 'authorize:admin',
+                'uses' => 'NewcomersController@create'
+            ]);
+            Route::post('/createcsv', [
+                'as'   => 'dashboard.newcomers.createcsv',
+                'middleware' => 'authorize:admin',
+                'uses' => 'NewcomersController@createcsv'
+            ]);
         // 	Route::get('/{id}', [
         // 		'as'   => 'dashboard.newcomers.profile',
         // 		'uses' => 'NewcomersController@show',
         // 	]);
-        // });
+        });
 
 
         // WEI registrations

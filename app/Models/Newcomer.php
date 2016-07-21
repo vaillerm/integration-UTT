@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Crypt;
 
 class Newcomer extends Model
 {
@@ -20,14 +21,18 @@ class Newcomer extends Model
     public $fillable = [
         'first_name',
         'last_name',
-        'password',
         'sex',
+        'birth',
         'email',
         'phone',
-        'birth',
-        'level',
-        'referral',
-        'team'
+        'branch',
+        'registration_email',
+        'registration_cellphone',
+        'registration_phone',
+        'registration_address',
+        'ine',
+        'referral_id',
+        'team_id',
     ];
 
     /**
@@ -56,5 +61,50 @@ class Newcomer extends Model
     public function fullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        Newcomer::creating(function ($newcomer) {
+            if (empty($newcomer->password)) {
+                $newcomer->password = Crypt::encrypt(self::generatePassword());
+            }
+            if (empty($newcomer->login)) {
+                $login = strtolower(mb_substr(mb_substr($newcomer->first_name, 0, 1) . $newcomer->last_name, 0, 8));
+                $i = '';
+                while (Newcomer::where(['login' => $login . $i])->count()) {
+                    if (empty($i)) {
+                        $i = 1;
+                    }
+                    $i++;
+                }
+                $newcomer->login = $login . $i;
+            }
+        });
+    }
+
+    /**
+     * Generate a rememberable password
+     * @return string password
+     */
+    public static function generatePassword()
+    {
+        $consonant = 'bcdfgjklmnpqrstvwxz';
+        $vowel = 'aeiou';
+        $countC = mb_strlen($consonant);
+        $countV = mb_strlen($vowel);
+        $result = '';
+
+        for ($i = 0, $result = ''; $i < 4; $i++) {
+            $index = mt_rand(0, $countC - 1);
+            $result .= mb_substr($consonant, $index, 1);
+
+            $index = mt_rand(0, $countV - 1);
+            $result .= mb_substr($vowel, $index, 1);
+        }
+
+        return $result;
     }
 }
