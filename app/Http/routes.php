@@ -162,6 +162,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'TeamsController@editSubmit'
             ]);
+            Route::get('/match', [
+                'as'   => 'dashboard.teams.match',
+                'middleware' => 'authorize:admin',
+                'uses' => 'TeamsController@matchToNewcomers'
+            ]);
             // 	Route::post('/{id}/members', [
             // 		'as'   => 'dashboard.teams.members',
             // 		'uses' => 'TeamsController@addMember'

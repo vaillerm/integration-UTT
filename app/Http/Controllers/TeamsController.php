@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\NewcomerMatching;
 use App\Models\Team;
 use App\Models\Newcomer;
 use Request;
@@ -72,7 +73,7 @@ class TeamsController extends Controller
     public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $data = Request::only(['name', 'description', 'img', 'facebook', 'comment']);
+        $data = Request::only(['name', 'description', 'img', 'facebook', 'comment', 'branch']);
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:30|unique:teams,name,'.$team->id,
             'img' => 'image',
@@ -100,6 +101,7 @@ class TeamsController extends Controller
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->comment = $data['comment'];
+        $team->branch = $data['branch'];
         if ($extension) {
             $team->img = $extension;
         }
@@ -162,5 +164,11 @@ class TeamsController extends Controller
             return $this->success('L\'équipe a été désapprouvée !');
         }
         return $this->error('L\'equipe n\'a pas été trouvé !');
+    }
+
+    public function matchToNewcomers()
+    {
+        NewcomerMatching::matchTeams();
+        return $this->success('Tous les nouveaux ont maintenant une équipe !');
     }
 }
