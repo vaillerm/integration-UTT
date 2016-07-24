@@ -52,9 +52,11 @@ class NewcomersController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'sex' => 'required|boolean',
-            'birth' => 'required|date',
+            'birth' => 'date',
             'registration_email' => 'email',
-            'branch' => 'required'
+            'branch' => 'required',
+            'postal_code' => 'required|integer|min:0|max:99999',
+            'country' => 'required',
         ]);
 
         $newcomer = Newcomer::create(Request::only([
@@ -65,7 +67,8 @@ class NewcomersController extends Controller
             'registration_email',
             'registration_cellphone',
             'registration_phone',
-            'registration_address',
+            'postal_code',
+            'country',
             'branch',
             'ine',
         ]));
@@ -94,9 +97,9 @@ class NewcomersController extends Controller
                 return Redirect::back()
                             ->withErrors('Erreur de lecture à la ligne '.($i+1))
                             ->withInput();
-            } elseif (count($data) != 10) {
+            } elseif (count($data) != 11) {
                 return Redirect::back()
-                            ->withErrors('La ligne '.($i+1).' comporte '.count($data).' champ au lieu de 10 séparés par des ;')
+                            ->withErrors('La ligne '.($i+1).' comporte '.count($data).' champ au lieu de 11 séparés par des ;')
                             ->withInput();
             }
             $line = [
@@ -108,8 +111,9 @@ class NewcomersController extends Controller
                 'registration_email' => $data[5],
                 'registration_cellphone' => $data[6],
                 'registration_phone' => $data[7],
-                'registration_address' => $data[8],
-                'ine' => $data[9],
+                'postal_code' => $data[8],
+                'country' => $data[9],
+                'ine' => $data[10],
             ];
 
             // Validate
@@ -117,7 +121,7 @@ class NewcomersController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'sex' => 'required|in:M,F,m,f',
-                'birth' => 'required|date',
+                'birth' => 'date',
                 'registration_email' => 'email',
                 'branch' => 'required'
             ],

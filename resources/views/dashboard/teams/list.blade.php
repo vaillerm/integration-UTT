@@ -18,7 +18,7 @@ Gestion des équipes
         <table class="table table-hover">
             <tbody>
                 <tr>
-                    {{-- <th>Nombre de nouveaux</th> --}}
+                    <th>Nombre de nouveaux</th>
                     <th>Nom</th>
                     <th>Description</th>
                     <th>Commentaire</th>
@@ -31,7 +31,7 @@ Gestion des équipes
                     @else
                         <tr id="{{ $team->id }}">
                     @endif
-                        {{-- <td>{{{ $team->newcomers()->count() }}}</td> --}}
+                        <td>{{{ $team->newcomers()->count() }}}</td>
                         <td><strong>{{{ $team->name }}}</strong></td>
                         <td>
                             @if ($team->description)

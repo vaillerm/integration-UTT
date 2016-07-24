@@ -169,6 +169,6 @@ class TeamsController extends Controller
     public function matchToNewcomers()
     {
         NewcomerMatching::matchTeams();
-        return $this->success('Tous les nouveaux ont maintenant une équipe !');
+        return redirect(route('dashboard.newcomers.list'))->withSuccess('Tous les nouveaux ont maintenant une équipe !');
     }
 }

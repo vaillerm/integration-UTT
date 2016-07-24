@@ -18,9 +18,6 @@ Affichage des profils
         Cliquez sur le <strong>+</strong> si vous voullez ajouter des nouveaux.
     </p>
     <p>
-        Les <strong>champs barrés</strong> dans la liste de nouveaux ne sont à utiliser <strong>qu'en cas d'urgence</strong>. Ils ont été donnés lors de l'inscription à l'UTT et nous ne sommes pas forcément censé les avoir.
-    </p>
-    <p>
         Pour avoir plus de précision sur un champ restez dessus avec votre souris quelques secondes
     </p>
 </div>
@@ -53,7 +50,8 @@ Affichage des profils
             <input type="text" name="registration_email" class="form-control" placeholder="Adresse email" value="{{ old('registration_email') }}">
             <input type="text" name="registration_cellphone" class="form-control" placeholder="Téléphone portable" value="{{ old('registration_cellphone') }}">
             <input type="text" name="registration_phone" class="form-control" placeholder="Téléphone Fixe" value="{{ old('registration_phone') }}">
-            <textarea name="registration_address" class="form-control" placeholder="Adresse postale">{{ old('registration_address') }}</textarea>
+            <input type="text" name="postal_code" class="form-control" placeholder="Code postale" value="{{ old('postal_code') }}">
+            <input type="text" name="country" class="form-control" placeholder="Pays" value="{{ old('country') }}">
             <input type="text" name="branch" class="form-control" placeholder="Branche (TC, ISI, MM, etc)" value="{{ old('branch') }}">
             <input type="text" name="ine" class="form-control" placeholder="INE" value="{{ old('ine') }}">
             <input type="submit" class="btn btn-success form-control" value="Créer le nouveau">
@@ -61,7 +59,7 @@ Affichage des profils
 
         <h4>Ajouter des nouveaux</h4>
         <form class="" action="{{ route('dashboard.newcomers.createcsv') }}" method="post">
-            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;nom&quot;;&quot;sexe(M/F)&quot;;&quot;naissance(AAAA-MM-JJ)&quot;;&quot;branche&quot;;&quot;email&quot;;&quot;telephone portable&quot;;&quot;telephone fixe&quot;;&quot;adresse postale&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
+            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;nom&quot;;&quot;sexe(M/F)&quot;;&quot;naissance(AAAA-MM-JJ)&quot;;&quot;branche&quot;;&quot;email&quot;;&quot;telephone portable&quot;;&quot;telephone fixe&quot;;&quot;Code postale&quot;;&quot;Pays&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
             <input type="submit" class="btn btn-success form-control" value="Créer les nouveaux">
         </form>
     </div>
@@ -69,13 +67,14 @@ Affichage des profils
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Liste des nouveaux</h3>
+        <h3 class="box-title">Liste des nouveaux ({{ $newcomers->count() }})</h3>
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
             <tbody>
                 <tr>
                     <th>Nom</th>
+                    <th>Branche</th>
                     <th>Email</th>
                     <th>Téléphones</th>
                     <th>Identifiants</th>
@@ -86,6 +85,9 @@ Affichage des profils
                 @foreach ($newcomers as $newcomer)
                     <tr>
                         <td>{{{ ucfirst($newcomer->first_name) . ' ' . strtoupper($newcomer->last_name) }}}</td>
+                        <td>
+                            {{ $newcomer->branch }}
+                        </td>
                         <td>
                             <span title="Email donné volontairement sur ce site">{{{ $newcomer->email }}}</span><br/>
                             <del title="Email donné lors de l'inscription à l'UTT. A n'utiliser qu'en cas de necessité.">{{{ $newcomer->registration_email }}}</del>
@@ -132,6 +134,7 @@ Affichage des profils
     <div class="box-body">
         <p>Merci de n'appuyer sur ces boutons qu'une fois tous les nouveaux ajoutés à la liste.</p>
         <a href="{{{ route('dashboard.teams.match') }}}" class="btn btn-danger">Répartir les nouveaux qui n'ont pas d'équipes dans les équipes</a>
+        <a href="{{{ route('dashboard.referrals.prematch') }}}" class="btn btn-danger">Donner des parrains aux nouveaux qui n'en n'ont pas</a>
         <p>Pour annuler des répartition, demandez à la personne chargé du développement du site.</p>
     </div>
 </div>

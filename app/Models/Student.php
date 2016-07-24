@@ -56,7 +56,7 @@ class Student extends Model
      */
     public function newcomers()
     {
-        return $this->hasMany('App\Models\Newcomer');
+        return $this->hasMany('App\Models\Newcomer', 'referral_id');
     }
 
     /**

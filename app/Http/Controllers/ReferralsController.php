@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Newcomer;
+use App\Classes\NewcomerMatching;
 use Request;
 use View;
 use Session;
@@ -142,5 +144,59 @@ class ReferralsController extends Controller
         $student->save();
 
         return Redirect::back();
+    }
+
+    public function matchToNewcomers()
+    {
+        if (NewcomerMatching::matchReferrals()) {
+            return redirect(route('dashboard.newcomers.list'))->withSuccess('Tous les nouveaux ont maintenant un parrain !');
+        }
+        return redirect(route('dashboard.newcomers.list'))->withError('Il n\'y a pas assez de parrains pour cette algorithme. Veuillez le changer.');
+    }
+
+    public function prematch()
+    {
+        return View::make('dashboard.referrals.prematch', [
+            'referralCountries' => Student::select('country')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('country')->lists('country'),
+            'newcomerCountries' => Newcomer::select('country')->groupBy('country')->lists('country'),
+            'referralBranches' => Student::select('branch')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('branch')->lists('branch'),
+            'newcomerBranches' => Newcomer::select('branch')->groupBy('branch')->lists('branch'),
+        ]);
+    }
+
+    public function prematchSubmit()
+    {
+        $input = Request::only('referralCountries', 'newcomerCountries', 'referralBranches', 'newcomerBranches');
+        // Referral Countries
+        foreach ($input['referralCountries'] as $key => $value) {
+            if ($key === 0) {
+                $key = '';
+            }
+            Student::where('country', $key)->update(['country' => $value]);
+        }
+        // UpdateNewcomersTable Countries
+        foreach ($input['newcomerCountries'] as $key => $value) {
+            if ($key === 0) {
+                $key = '';
+            }
+            Newcomer::where('country', $key)->update(['country' => $value]);
+        }
+        // Referral branches
+        foreach ($input['referralBranches'] as $key => $value) {
+            if ($key === 0) {
+                $key = '';
+            }
+            Student::where('branch', $key)->update(['branch' => $value]);
+        }
+        // UpdateNewcomersTable branches
+        foreach ($input['newcomerBranches'] as $key => $value) {
+            if ($key === 0) {
+                $key = '';
+            }
+            Newcomer::where('branch', $key)->update(['branch' => $value]);
+        }
+
+        // Redirect to referral assignation
+        return redirect(route('dashboard.referrals.match'));
     }
 }

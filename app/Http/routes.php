@@ -77,6 +77,21 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'ReferralsController@index'
             ]);
+            Route::get('/match', [
+                'as'   => 'dashboard.referrals.match',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@matchToNewcomers'
+            ]);
+            Route::get('/prematch', [
+                'as'   => 'dashboard.referrals.prematch',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@prematch'
+            ]);
+            Route::post('/prematch', [
+                'as'   => 'dashboard.referrals.prematch.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@prematchSubmit'
+            ]);
         });
 
         // ce
