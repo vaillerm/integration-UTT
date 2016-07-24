@@ -73,7 +73,7 @@ class Newcomer extends Model
                 $newcomer->password = Crypt::encrypt(self::generatePassword());
             }
             if (empty($newcomer->login)) {
-                $login = strtolower(mb_substr(mb_substr($newcomer->first_name, 0, 1) . $newcomer->last_name, 0, 8));
+                $login = strtolower(mb_substr(mb_substr(preg_replace("/[^A-Za-z0-9]/", '', $newcomer->first_name), 0, 1) . preg_replace("/[^A-Za-z0-9]/", '', $newcomer->last_name), 0, 8));
                 $i = '';
                 while (Newcomer::where(['login' => $login . $i])->count()) {
                     if (empty($i)) {
