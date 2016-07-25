@@ -215,7 +215,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@letter',
             ]);
-            Route::get('/letter/{category}/{id}-{limit}', [
+            Route::get('/letter/{category}-{id}-{limit}', [
                 'as'   => 'dashboard.newcomers.filtered_letters',
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@letter',
