@@ -205,6 +205,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@createcsv'
             ]);
+            /*
             Route::get('/letter/{id}', [
                 'as'   => 'dashboard.newcomers.letter',
                 'middleware' => 'authorize:admin',
@@ -215,11 +216,12 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@letter',
             ]);
+            */
             Route::get('/letter/{id}-{limit}-{category}', [
                 'as'   => 'dashboard.newcomers.filtered_letters',
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@letter',
-            ])->where(['id' => '[0-9]+', 'category' => '[A-Z]+', 'limit' => '[0-9]+']);
+            ]);
         });
 
 
