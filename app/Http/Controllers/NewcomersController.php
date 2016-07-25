@@ -152,11 +152,12 @@ class NewcomersController extends Controller
     {
         if ($limit === null) {
             $newcomers = [Newcomer::findOrFail($id)];
-        } elseif ($limit && $category) {
-            if($category == "TC")
-                $newcomers = Newcomer::where('branch', '=', 'TC')->offset($id)->limit($limit)->get();
-            else
-                $newcomers = Newcomer::where('branch', '!=', 'TC')->offset($id)->limit($limit)->get();
+        } elseif ($category == 'TC') {
+            $newcomers = Newcomer::where('branch', '=', 'TC')->offset($id)->limit($limit)->get();
+        }
+        elseif ($category != null)
+        {
+            $newcomers = Newcomer::where('branch', '!=', 'TC')->offset($id)->limit($limit)->get();
 
         } else {
             $newcomers = Newcomer::offset($id)->limit($limit)->get();
