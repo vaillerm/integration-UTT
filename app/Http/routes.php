@@ -219,7 +219,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'as'   => 'dashboard.newcomers.filtered_letters',
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@letter',
-            ]);
+            ])->where(['id' => '[0-9]+', 'category' => '[A-Z]+', 'limit' => '[0-9]+']);
         });
 
 
