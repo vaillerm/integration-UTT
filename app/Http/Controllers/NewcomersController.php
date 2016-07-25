@@ -145,12 +145,19 @@ class NewcomersController extends Controller
      *
      * @param  int $id
      * @param  int $limit
+     * @param  string $category
      * @return Response
      */
-    public function letter($id, $limit = null)
+    public function letter($id, $limit = null, $category = null)
     {
         if ($limit === null) {
             $newcomers = [Newcomer::findOrFail($id)];
+        } elseif ($limit && $category) {
+            if($category == "TC")
+                $newcomers = Newcomer::where('branch', '=', 'TC')->offset($id)->limit($limit)->get();
+            else
+                $newcomers = Newcomer::where('branch', '!=', 'TC')->offset($id)->limit($limit)->get();
+
         } else {
             $newcomers = Newcomer::offset($id)->limit($limit)->get();
         }
