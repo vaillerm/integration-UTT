@@ -75,7 +75,7 @@ class TeamsController extends Controller
         $team = Team::findOrFail($id);
         $data = Request::only(['name', 'description', 'img', 'facebook', 'comment', 'branch']);
         $this->validate(Request::instance(), [
-            'name' => 'required|min:3|max:30|unique:teams,name,'.$team->id,
+            'name' => 'required|min:3|max:70|unique:teams,name,'.$team->id,
             'img' => 'image',
             'facebook' => 'url'
         ],

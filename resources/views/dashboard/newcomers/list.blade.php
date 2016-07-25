@@ -118,7 +118,7 @@ Affichage des profils
                             <td>Aucune !</td>
                         @endif
                         <td>
-                            {{-- <a href="{{ route('dashboard.newcomers.list', ['id' => $newcomer->id ]) }}" class="btn btn-success btn-xs">Afficher le profil</a> --}}
+                            <a href="{{ route('dashboard.newcomers.letter', ['id' => $newcomer->id ]) }}" class="btn btn-success btn-xs">Lettre</a>
                         </td>
                     </tr>
                 @endforeach
@@ -135,6 +135,7 @@ Affichage des profils
         <p>Merci de n'appuyer sur ces boutons qu'une fois tous les nouveaux ajoutés à la liste.</p>
         <a href="{{{ route('dashboard.teams.match') }}}" class="btn btn-danger">Répartir les nouveaux qui n'ont pas d'équipes dans les équipes</a>
         <a href="{{{ route('dashboard.referrals.prematch') }}}" class="btn btn-danger">Donner des parrains aux nouveaux qui n'en n'ont pas</a>
+        <a href="{{{ route('dashboard.newcomers.letters', ['id' => 0, 'limit' => 10000]) }}}" class="btn btn-success">Imprimer toutes les lettres</a>
         <p>Pour annuler des répartition, demandez à la personne chargé du développement du site.</p>
     </div>
 </div>

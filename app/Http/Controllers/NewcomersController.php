@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Newcomer;
+use App\Models\Student;
 use Request;
 use View;
 use Validator;
@@ -26,19 +27,6 @@ class NewcomersController extends Controller
         return View::make('dashboard.newcomers.list', [
             'newcomers' => Newcomer::all()
         ]);
-    }
-
-    /**
-     * Display a profile.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $newcomer = Newcomer::findOrFail($id);
-
-        return View::make('letter', [ 'newcomer' => $newcomer ]);
     }
 
     /**
@@ -150,5 +138,35 @@ class NewcomersController extends Controller
             };
         }
         return $this->success('Les nouveaux ont été créé !');
+    }
+
+    /**
+     * Display one or multiple newcomer's letter
+     *
+     * @param  int $id
+     * @param  int $limit
+     * @return Response
+     */
+    public function letter($id, $limit = null)
+    {
+        if ($limit === null) {
+            $newcomers = [Newcomer::findOrFail($id)];
+        } else {
+            $newcomers = Newcomer::offset($id)->limit($limit)->get();
+        }
+
+        // Parse phone number and save it to db
+        foreach ($newcomers as $newcomer) {
+            if (isset($newcomer->referral->phone)) {
+                if (preg_match('/^(?:0([0-9])|(?:00|\+)[0-9]{2,3}([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', $newcomer->referral->phone, $m)
+                        && $newcomer->referral->phone != '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6]) {
+                    $referral = $newcomer->referral;
+                    $referral->phone = '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6];
+                    $referral->save();
+                }
+            }
+        }
+
+        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => Newcomer::count() ]);
     }
 }

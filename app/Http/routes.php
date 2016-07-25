@@ -205,10 +205,16 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'NewcomersController@createcsv'
             ]);
-        // 	Route::get('/{id}', [
-        // 		'as'   => 'dashboard.newcomers.profile',
-        // 		'uses' => 'NewcomersController@show',
-        // 	]);
+            Route::get('/letter/{id}', [
+                'as'   => 'dashboard.newcomers.letter',
+                'middleware' => 'authorize:admin',
+                'uses' => 'NewcomersController@letter',
+            ]);
+            Route::get('/letter/{id}-{limit}', [
+                'as'   => 'dashboard.newcomers.letters',
+                'middleware' => 'authorize:admin',
+                'uses' => 'NewcomersController@letter',
+            ]);
         });
 
 
