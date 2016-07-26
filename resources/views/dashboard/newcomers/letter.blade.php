@@ -35,7 +35,7 @@
 				width: 29.7cm;
 				height: 21cm;
 
-				background-image: url("{{ @asset('/img/letter/bg.png') }}");
+				background-image: url("{{ @asset('/img/letter/bg.jpg') }}");
 				background-repeat: no-repeat;
 				background-size: 100% 100%;
 				position: relative;
