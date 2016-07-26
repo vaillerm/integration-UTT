@@ -25,7 +25,8 @@ class NewcomersController extends Controller
     public function list()
     {
         return View::make('dashboard.newcomers.list', [
-            'newcomers' => Newcomer::all()
+            'newcomers' => Newcomer::all(),
+            'branches' => Newcomer::distinct()->select('branch')->groupBy('branch')->get(),
         ]);
     }
 
