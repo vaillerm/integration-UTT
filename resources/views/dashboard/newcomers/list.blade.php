@@ -141,7 +141,7 @@ Affichage des profils
             <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
             <ul class="dropdown-menu">
                 @foreach($branches as $branch)
-                    <li><a href="{{{ route('dashboard.newcomers.filtered_letters', ['id' => 0, 'limit' => 10000, 'category' => strtoupper($branch)]) }}}">{{ strtoupper($branch) }}</a></li>
+                    <li><a href="{{{ route('dashboard.newcomers.filtered_letters', ['id' => 0, 'limit' => 10000, 'category' => strtoupper($branch->branch)]) }}}">{{ strtoupper($branch->branch) }}</a></li>
                 @endforeach
             </ul>
         </div>
