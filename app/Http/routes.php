@@ -348,3 +348,31 @@ Route::group(['prefix' => 'oauth'], function () {
         'uses'   => 'OAuthController@logout'
     ]);
 });
+
+// Newcomer website
+Route::get('/login', [
+    'as'   => 'newcomer.auth.login',
+    // 'middleware' => 'authorize:student',
+    'uses' => 'authController@login'
+]);
+Route::post('/login', [
+    'as'   => 'newcomer.auth.login.submit',
+    // 'middleware' => 'authorize:student',
+    'uses' => 'authController@loginSubmit'
+]);
+Route::get('/logout', [
+    'as'   => 'newcomer.auth.logout',
+    // 'middleware' => 'authorize:student',
+    'uses' => 'authController@logout'
+]);
+Route::get('/home', [
+    'as'   => 'newcomer.home',
+    // 'middleware' => 'authorize:student',
+    'uses' => 'PagesController@getNewcomersHomepage'
+]);
+
+Route::get('/profil', [
+    'as'   => 'newcomer.profil',
+    // 'middleware' => 'authorize:student',
+    'uses' => 'NewcomersController@profilForm'
+]);

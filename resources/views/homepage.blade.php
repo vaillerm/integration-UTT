@@ -14,7 +14,7 @@ Accueil
         <div class="row">
             <div class="text-center">
                 <h1>Bienvenue sur le site de l'intégration</h1><br>
-                <!-- <a href="{{ route('menu') }}" class="btn btn-primary">Je suis nouveau !</a> -->
+                <a href="{{ route('newcomer.auth.login') }}" class="btn btn-primary">Je suis nouveau !</a>
                 <!-- <a href="{{ route('championship.display') }}" class="btn btn-success">Tableau des scores</a> -->
 
                 <br/><br/><br/>
