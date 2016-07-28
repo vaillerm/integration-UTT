@@ -39,9 +39,9 @@
 		<script type="text/javascript">
 			var _paq = _paq || [];
 
-			@if(Authorization::can('newcomer', 'visit'))
-			_paq.push(["setCustomVariable", 1, "type", "newcomer", "visit"]);
-			@elseif(Authorization::can('ce', 'visit'))
+			{{-- @if(Authorization::can('newcomer', 'visit'))
+			_paq.push(["setCustomVariable", 1, "type", "newcomer", "visit"]); --}}
+			@if(Authorization::can('ce', 'visit'))
 			_paq.push(["setCustomVariable", 1, "type", "ce", "visit"]);
 			@elseif(Authorization::can('orga', 'visit'))
 			_paq.push(["setCustomVariable", 1, "type", "orga", "visit"]);
