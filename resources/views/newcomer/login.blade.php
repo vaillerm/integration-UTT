@@ -70,6 +70,12 @@ Connexion
                                     <p>
                                         <big>Le site n'est pas encore prêt à t'accueillir, repasse en fin de semaine :)</big>
                                     </p>
+                                    <p>
+                                        En attendant, pour te tenir au courant des dernières infos sur ton Intégration, tu peux suivre la page facebook !
+                                    </p>
+                                    <div class="text-center">
+                                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fintegration.utt&tabs&width=340&height=70&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=248954165119490" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                                    </div>
                                 </div>
                             </div>
                         </div>
