@@ -57,6 +57,26 @@ class PagesController extends Controller
     }
 
     /**
+     * Newcomer's home page.
+     *
+     * @return Response
+     */
+    public function getNewcomersHomepage()
+    {
+        return View::make('newcomer.home');
+    }
+
+    /**
+     * Newcomer's done page.
+     *
+     * @return Response
+     */
+    public function getNewcomersDone()
+    {
+        return View::make('newcomer.done');
+    }
+
+    /**
      * Export the referrals and the related newcomers into a CSV file.
      *
      * @return string

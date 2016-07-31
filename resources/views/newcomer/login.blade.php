@@ -56,7 +56,7 @@ Connexion
                                     <h3 class="box-title">Bienvenue à l'UTT !</h3>
                                 </div>
                                 <div class="box-body">
-                                    {{-- <p>
+                                    <p>
                                         <strong>Bonjour à toi, ami nouveau !</strong> Tu trouveras les identifiants du site d'intégration sur le courrier que tu recevera entre fin juillet et début aout.
                                     </p>
                                     <p>
@@ -66,10 +66,7 @@ Connexion
                                         <input type="text" name="login" class="form-control" placeholder="Identifiant"/>
                                         <input type="password" name="password" class="form-control" placeholder="Mot de passe"/>
                                         <input type="submit" class="btn form-control btn-primary" value="Se connecter" />
-                                    </form> --}}
-                                    <p>
-                                        <big>Le site n'est pas encore prêt à t'accueillir, repasse en fin de semaine :)</big>
-                                    </p>
+                                    </form>
                                 </div>
                             </div>
                         </div>

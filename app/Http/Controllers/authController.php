@@ -30,9 +30,6 @@ class AuthController extends Controller
      */
     public function loginSubmit()
     {
-        // Disable login
-        return false;
-
         $newcomer = Newcomer::where('login', Request::get('login'))->get()->first();
         if ($newcomer) {
             $password = Crypt::decrypt($newcomer->password);

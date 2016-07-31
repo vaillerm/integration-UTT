@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Crypt;
 
-class Newcomer extends Model
+class Newcomer extends Model implements Authenticatable
 {
 
     public $table = 'newcomers';
@@ -34,7 +35,39 @@ class Newcomer extends Model
         'ine',
         'referral_id',
         'team_id',
+        'parent_name',
+        'parent_phone',
+        'medical_allergies',
+        'medical_treatment',
+        'medical_note',
     ];
+
+
+    const CHECKLIST_DEFINITION = [
+        'profil_email' => [
+            'action' => 'Compléter ton email',
+            'page' => 'profil',
+        ],
+        'profil_phone' => [
+            'action' => 'Compléter ton numéro de téléphone',
+            'page' => 'profil',
+        ],
+        'profil_parent_name' => [
+            'action' => 'Compléter le nom de ton contact d\'urgence',
+            'page' => 'profil',
+        ],
+        'profil_parent_phone' => [
+            'action' => 'Compléter le numéro de ton contact d\'urgence',
+            'page' => 'profil',
+        ],
+        'referral' => [
+            'action' => 'Prendre contact avec ton parrain',
+            'page' => 'referral',
+        ],
+    ];
+
+
+    public $checklistArray = [];
 
     /**
      * Define the One-to-One relation with Team.
@@ -54,6 +87,82 @@ class Newcomer extends Model
     public function referral()
     {
         return $this->belongsTo('App\Models\Student');
+    }
+
+    public function isChecked($element)
+    {
+        return (!empty($this->getChecklist()[$element]));
+    }
+
+    public function isPageChecked($page)
+    {
+        foreach ($this->getChecklist() as $key => $value) {
+            if (self::CHECKLIST_DEFINITION[$key]['page'] == $page && !$value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function setCheck($element, bool $bool = true)
+    {
+        $checklist = $this->getChecklist();
+        $checklist[$element] = $bool;
+        $this->setChecklist($checklist);
+    }
+
+    public function getChecklistPercent()
+    {
+        $count = 0;
+        foreach ($this->getChecklist() as $value) {
+            if (!empty($value)) {
+                $count++;
+            }
+        }
+        return floor(($count/count($this->getChecklist()))*100);
+    }
+
+    public function getNextCheck()
+    {
+        $count = 0;
+        foreach ($this->getChecklist() as $key => $value) {
+            if (empty($value)) {
+                return self::CHECKLIST_DEFINITION[$key];
+            }
+        }
+        return [
+            'page' => 'done',
+            'action' => 'Aucune !'
+        ];
+    }
+
+    /**
+     * Get the checklist array
+     *
+     * @return string
+     */
+    public function getChecklist()
+    {
+        if (empty($this->checklistArray)) {
+            $array = unserialize($this->checklist);
+            if (empty($array)) {
+                $array = [];
+            }
+            $definition = array_fill_keys(array_keys(self::CHECKLIST_DEFINITION), false);
+            $this->checklistArray = array_merge($definition, $array);
+        };
+        return $this->checklistArray;
+    }
+
+    /**
+     * Set the checklist array
+     *
+     * @return string
+     */
+    public function setChecklist(array $checklist)
+    {
+        $this->checklistArray = $checklist;
+        $this->checklist = serialize($this->checklistArray);
     }
 
     /**
@@ -107,5 +216,68 @@ class Newcomer extends Model
         }
 
         return $result;
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        $name = $this->getAuthIdentifierName();
+
+        return $this->attributes[$name];
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->attributes['password'];
+    }
+
+    /**
+     * Get the "remember me" token value.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+        return $this->attributes[$this->getRememberTokenName()];
+    }
+
+    /**
+     * Set the "remember me" token value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        $this->attributes[$this->getRememberTokenName()] = $value;
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
     }
 }

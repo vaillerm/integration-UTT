@@ -5,7 +5,6 @@
 	    <title>@yield('title') - Intégration UTT</title>
 
 	    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	    <link href="{{ @asset('/css/style.css') }}" rel="stylesheet" type="text/css" />
 
 	    <meta name="apple-mobile-web-app-title" content="Intégration UTT">
 	    <meta name="msapplication-TileColor" content="#3c8dbc">
@@ -27,6 +26,9 @@
 	        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
+
+	    <link href="{{ @asset('/css/style.css') }}" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 		@yield('bodycontent')
@@ -39,9 +41,9 @@
 		<script type="text/javascript">
 			var _paq = _paq || [];
 
-			{{-- @if(Authorization::can('newcomer', 'visit'))
-			_paq.push(["setCustomVariable", 1, "type", "newcomer", "visit"]); --}}
-			@if(Authorization::can('ce', 'visit'))
+			@if(Authorization::can('newcomer', 'visit'))
+			_paq.push(["setCustomVariable", 1, "type", "newcomer", "visit"]);
+			@elseif(Authorization::can('ce', 'visit'))
 			_paq.push(["setCustomVariable", 1, "type", "ce", "visit"]);
 			@elseif(Authorization::can('orga', 'visit'))
 			_paq.push(["setCustomVariable", 1, "type", "orga", "visit"]);

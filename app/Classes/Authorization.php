@@ -3,7 +3,9 @@
 namespace App\Classes;
 
 use App\Models\Team;
+use App\Models\Newcomer;
 use Config;
+use Auth;
 
 /**
  * Authorization helper
@@ -38,92 +40,97 @@ class Authorization
      *
      * @return bool
      */
-    public function can($group, $action)
+    public function can($group, $action = '')
     {
-        // Login/student verification
-        if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral'])
-                && !\EtuUTT::isAuth()) {
-            return false;
-        }
-        $student = \EtuUTT::student();
-
-        // Group verification
-        if ($group == 'admin'
-                && !$student->isAdmin()) {
-            return false;
-        }
-        // Group verification
-        if ($group == 'referral'
-                && !$student->referral) {
-            return false;
-        } elseif ($group == 'orga'
-                && !$student->orga) {
-            return false;
-        } elseif ($group == 'ce'
-                && !$student->ce) {
-            return false;
-        }
-
-        $teamCount = Team::count();
-        // Action verification
-        if ($group == 'ce') {
-            switch ($action) {
-                case 'inTeam':
-                    if (!$student->team) {
-                        return false;
-                    }
-                    break;
-                case 'respo':
-                    if (!$student->team || $student->team->respo_id != $student->student_id) {
-                        return false;
-                    }
-                    break;
-                case 'create':
-                    if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
-                        || $student->team) {
-                        return false;
-                    }
-                    break;
-                case 'edit':
-                    if (!$student->team || $student->team->respo_id != $student->student_id
-                        || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
-                        return false;
-                    }
-                case 'join':
-                    if (!$student->team
-                        || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
-                        return false;
-                    }
-                    break;
+        if ($group == 'newcomer') {
+            // Check if newcomer is identified
+            if (!Auth::check() || !(Auth::user() instanceof Newcomer)) {
+                return false;
             }
-        } elseif ($group == 'student') {
-            switch ($action) {
-                case 'referral':
-                    if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
-                        || $student->referral_validated
-                        || $student->referral) {
-                        return false;
-                    }
-                    break;
-                case 'ce':
-                    if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
-                        || $student->ce) {
-                        return false;
-                    }
-                    break;
+        } else {
+            // Login/student verification
+            if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral'])
+                    && !\EtuUTT::isAuth()) {
+                return false;
             }
-        } elseif ($group == 'referral') {
-            switch ($action) {
-                case 'edit':
-                    if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
-                        || $student->referral_validated) {
-                        return false;
-                    }
-                    break;
+            $student = \EtuUTT::student();
+
+            // Group verification
+            if ($group == 'admin'
+                    && !$student->isAdmin()) {
+                return false;
+            }
+            // Group verification
+            if ($group == 'referral'
+                    && !$student->referral) {
+                return false;
+            } elseif ($group == 'orga'
+                    && !$student->orga) {
+                return false;
+            } elseif ($group == 'ce'
+                    && !$student->ce) {
+                return false;
+            }
+
+            $teamCount = Team::count();
+            // Action verification
+            if ($group == 'ce') {
+                switch ($action) {
+                    case 'inTeam':
+                        if (!$student->team) {
+                            return false;
+                        }
+                        break;
+                    case 'respo':
+                        if (!$student->team || $student->team->respo_id != $student->student_id) {
+                            return false;
+                        }
+                        break;
+                    case 'create':
+                        if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
+                            || $student->team) {
+                            return false;
+                        }
+                        break;
+                    case 'edit':
+                        if (!$student->team || $student->team->respo_id != $student->student_id
+                            || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
+                            return false;
+                        }
+                    case 'join':
+                        if (!$student->team
+                            || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
+                            return false;
+                        }
+                        break;
+                }
+            } elseif ($group == 'student') {
+                switch ($action) {
+                    case 'referral':
+                        if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
+                            || $student->referral_validated
+                            || $student->referral) {
+                            return false;
+                        }
+                        break;
+                    case 'ce':
+                        if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
+                            || $student->ce) {
+                            return false;
+                        }
+                        break;
+                }
+            } elseif ($group == 'referral') {
+                switch ($action) {
+                    case 'edit':
+                        if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
+                            || $student->referral_validated) {
+                            return false;
+                        }
+                        break;
+                }
             }
         }
-
-
         return true;
     }
 

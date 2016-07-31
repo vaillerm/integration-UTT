@@ -6,6 +6,7 @@ use Closure;
 use EtuUTT;
 use Authorization;
 use Redirect;
+use Auth;
 
 class Authorize
 {
@@ -24,6 +25,12 @@ class Authorize
         if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral', 'volunteer'])
                 && !EtuUTT::isAuth()) {
             return Redirect::route('index')->withError('Vous devez être connecté pour accéder à cette page');
+        }
+
+        // Login/newcomer verification
+        if (in_array($group, ['newcomer'])
+                && !Auth::check()) {
+            return Redirect::route('newcomer.auth.login')->withError('Vous devez être connecté pour accéder à cette page');
         }
 
         // Volunteer verification

@@ -352,27 +352,49 @@ Route::group(['prefix' => 'oauth'], function () {
 // Newcomer website
 Route::get('/login', [
     'as'   => 'newcomer.auth.login',
-    // 'middleware' => 'authorize:student',
     'uses' => 'authController@login'
 ]);
 Route::post('/login', [
     'as'   => 'newcomer.auth.login.submit',
-    // 'middleware' => 'authorize:student',
     'uses' => 'authController@loginSubmit'
 ]);
 Route::get('/logout', [
     'as'   => 'newcomer.auth.logout',
-    // 'middleware' => 'authorize:student',
+    'middleware' => 'authorize:newcomer',
     'uses' => 'authController@logout'
 ]);
 Route::get('/home', [
     'as'   => 'newcomer.home',
-    // 'middleware' => 'authorize:student',
+    'middleware' => 'authorize:newcomer',
     'uses' => 'PagesController@getNewcomersHomepage'
 ]);
 
 Route::get('/profil', [
     'as'   => 'newcomer.profil',
-    // 'middleware' => 'authorize:student',
+    'middleware' => 'authorize:newcomer',
     'uses' => 'NewcomersController@profilForm'
+]);
+
+Route::post('/profil', [
+    'as'   => 'newcomer.profil.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@profilFormSubmit'
+]);
+
+Route::get('/referral/{step?}', [
+    'as'   => 'newcomer.referral',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@referralForm'
+]);
+
+Route::post('/referral', [
+    'as'   => 'newcomer.referral.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@referralFormSubmit'
+]);
+
+Route::get('/done', [
+    'as'   => 'newcomer.done',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'PagesController@getNewcomersDone'
 ]);
