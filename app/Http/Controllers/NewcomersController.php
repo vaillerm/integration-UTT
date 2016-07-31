@@ -283,7 +283,7 @@ class NewcomersController extends Controller
         $newcomer->save();
 
         // Checks
-        if ($newcomer->referral) {
+        if (!$newcomer->referral) {
             return Redirect::back()->withError('Vous ne pouvez pas contacter votre parrain !');
         }
         if ($newcomer->referral_emailed) {
