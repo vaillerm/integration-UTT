@@ -311,4 +311,15 @@ class NewcomersController extends Controller
 
         return Redirect::back()->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
     }
+
+
+    /**
+     * Display the letter of the newcomer
+     *
+     * @return Response
+     */
+    public function myLetter()
+    {
+        return View::make('dashboard.newcomers.letter', [ 'newcomers' => [Auth::user()], 'i' => 0, 'count' => 1 ]);
+    }
 }

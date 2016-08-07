@@ -369,6 +369,12 @@ Route::get('/home', [
     'uses' => 'PagesController@getNewcomersHomepage'
 ]);
 
+Route::get('/myletter', [
+    'as'   => 'newcomer.myletter',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@myLetter'
+]);
+
 Route::get('/profil', [
     'as'   => 'newcomer.profil',
     'middleware' => 'authorize:newcomer',

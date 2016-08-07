@@ -45,13 +45,17 @@ Informations diverses pour toi !
                 <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
             </div>
             <p>
-                Tu as de la chance, cette année, ce site a été fortement retravaillé
-                pour ajouter plein de fonctionnalités sympa. Cependant, elles sont pas encore toutes prêtes,
-                donc il va être en constante evolution pendant le mois d'aout. Cela veut aussi
-                dire que tu pourra sans doute trouver quelques bugs. Dans ce cas, n'hésite pas,
-                envoi un email à <a href="mailto:integration@utt.fr">integration@utt.fr</a> !
+                Si tu as la moindre question, tu peux nous contacter sur <a href="https://www.facebook.com/integration.utt">Facebook</a> ou par email <a href="mailto:integration@utt.fr">integration@utt.fr</a> !
             </p>
-
+            <br/><br/>
+            <p>
+                Si tu n'as pas reçu ton courrier, ou si tu souhaites récupérer les versions numériques de ce que tu as reçu par courrier, tu peux les télécharger en cliquant sur les liens ci-dessous :
+            </p>
+            <div class="text-center">
+                <a class="btn btn-default" href="{{{ @asset('docs/nutt.pdf') }}}">Ton N'UTT d'intégration</a>
+                <a class="btn btn-default" href="{{{ @asset('docs/cahiervacances.pdf') }}}">Ton cahier de vacances</a>
+                <a class="btn btn-default" href="{{{ route('newcomer.myletter') }}}">Ta fiche nouveau</a>
+            </div>
         </div>
 
     </div>

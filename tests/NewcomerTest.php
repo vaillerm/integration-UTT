@@ -89,7 +89,7 @@ class NewcomerTest extends TestCase
     public function testReferralPageWithReferral()
     {
         $newcomer = factory(App\Models\Newcomer::class)->make();
-        $test = $this->actingAs($newcomer)
+        $this->actingAs($newcomer)
             ->visit(route('newcomer.referral'))
             ->seePageIs(route('newcomer.referral'))
             ->see($newcomer->referral->first_name.' '.$newcomer->referral->last_name.($newcomer->referral->sex?', ta marraine !':', ton parrain !'));
@@ -108,5 +108,35 @@ class NewcomerTest extends TestCase
             ->visit(route('newcomer.referral'))
             ->seePageIs(route('newcomer.referral'))
             ->see('Tu rencontrera ton parrain à la rentrée lors de la cérémonie du parrainage le premier jour :)');
+    }
+
+    /**
+     * Check access to the myLetter page from newcomer with referral and team
+     *
+     * @return void
+     */
+    public function testMyletterPageWithReferralAndTeam()
+    {
+        $newcomer = factory(App\Models\Newcomer::class)->create();
+        $this->actingAs($newcomer)
+            ->visit(route('newcomer.myletter'))
+            ->seePageIs(route('newcomer.myletter'))
+            ->see('Ton accès au site de l\'intégration');
+    }
+
+    /**
+     * Check access to the myLetter page from newcomer without team an referral
+     *
+     * @return void
+     */
+    public function testReferralPageWithoutReferralAndTeam()
+    {
+        $newcomer = factory(App\Models\Newcomer::class)->create();
+        $newcomer->referral_id = null;
+        $newcomer->team_id = null;
+        $this->actingAs($newcomer)
+            ->visit(route('newcomer.myletter'))
+            ->seePageIs(route('newcomer.myletter'))
+            ->see('Ton accès au site de l\'intégration');
     }
 }

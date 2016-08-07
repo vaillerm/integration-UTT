@@ -272,18 +272,26 @@
 		</style>
 	</head>
 	<body>
-		<p class="page-indicator">L'impression fonctionne mieux sous Google Chrome. Faites des groupes de 50 à 100 pages, en fonction de la puissance de votre PC.</p>
+		@if(Auth::user() && Auth::user()->id == $newcomers[0]->id)
+			<p class="page-indicator">Pour imprimer, utilisez Google Chrome en selectionnant "Marges : Aucune" au moment de l'impression.<br/>Pour faire un PDF choisissez "Enregistrer au format PDF" comme destination.</p>
+		@else
+			<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucunes Marges (ne passez pas par PDF Creator ou equivalent, le pdf sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
+		@endif
 		@foreach($newcomers as $newcomer)
 			<style>
 				#parrain_photo_{{ $newcomer->id }} {
 					background-image: url("{{ @asset('/uploads/students-trombi/'.$newcomer->referral_id.'.jpg') }}");
 				}
 
-				#equipe_image_{{ $newcomer->id }} {
-					background-image: url("{{ @asset('/uploads/teams-logo/'.$newcomer->team->id.'.'.$newcomer->team->img) }}");
-				}
+				@if($newcomer->team)
+					#equipe_image_{{ $newcomer->id }} {
+						background-image: url("{{ @asset('/uploads/teams-logo/'.$newcomer->team->id.'.'.$newcomer->team->img) }}");
+					}
+				@endif
 			</style>
-			<span class="page-indicator">{{ ++$i }}/{{ $count }}</span>
+			@if(!Auth::user() || Auth::user()->id != $newcomers[0]->id)
+				<span class="page-indicator">{{ ++$i }}/{{ $count }}</span>
+			@endif
 			<div class="page">
 				@if($newcomer->referral)
 					<img class="top" src="{{ @asset('/img/letter/top.png') }}" />
@@ -344,17 +352,19 @@
 	 						• Mot de passe : <b>{{ Crypt::decrypt($newcomer->password) }}</b>
 						</div>
 					</div>
-					<div class="equipe">
-						<div class="titre">
-							<span class="nom">{{ $newcomer->team->name }}</span>, ton équipe !
-						</div>
-						<div class="desc">
-							<div class="image" id="equipe_image_{{ $newcomer->id }}"></div>
-							<div class="texte">
-								{!! nl2br(e($newcomer->team->description)) !!}
+					@if($newcomer->team)
+						<div class="equipe">
+							<div class="titre">
+								<span class="nom">{{ $newcomer->team->name }}</span>, ton équipe !
+							</div>
+							<div class="desc">
+								<div class="image" id="equipe_image_{{ $newcomer->id }}"></div>
+								<div class="texte">
+									{!! nl2br(e($newcomer->team->description)) !!}
+								</div>
 							</div>
 						</div>
-					</div>
+					@endif
 				</div>
 				<div class="facebook">
 					<img src="{{ @asset('/img/letter/facebook.png') }}" alt="Facebook"> <span>Integration UTT</span>
