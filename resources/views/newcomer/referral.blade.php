@@ -22,7 +22,7 @@ La personne qui te guidera tout au long de ta vie à l'UTT
             Mais surtout il peut t'accueillir dès ton arrivé à Troyes, c'est toujours sympa de passer un peu de temps avec son parrain avant la rentrée !
         </p>
         <p>
-            Tu rencontrera ton parrain à la rentrée lors de la cérémonie du parrainage le premier jour :)
+            <strong>Tu rencontrera ton parrain à la rentrée lors de la cérémonie du parrainage le premier jour :)</strong>
         </p>
         <div class="text-center">
             <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>

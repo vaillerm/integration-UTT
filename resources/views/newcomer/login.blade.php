@@ -23,7 +23,7 @@ Connexion
                                 <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
                             </button>
-                            <a href="{{ route('dashboard.index') }}" class="navbar-brand"><b>Intégration</b> UTT</a>
+                            <a href="{{ route('index') }}" class="navbar-brand"><b>Intégration</b> UTT</a>
                         </div>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="navbar-collapse">
