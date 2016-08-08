@@ -81,7 +81,8 @@ class CEController extends Controller
 
         return View::make('dashboard.ce.myteam', [
             'team' => EtuUTT::student()->team,
-            'student' => EtuUTT::student()
+            'student' => EtuUTT::student(),
+            'newcomers' => EtuUTT::student()->team->newcomers,
         ]);
     }
 
