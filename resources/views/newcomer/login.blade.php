@@ -57,7 +57,7 @@ Connexion
                                 </div>
                                 <div class="box-body">
                                     <p>
-                                        <strong>Bonjour à toi, ami nouveau !</strong> Tu trouveras les identifiants du site d'intégration sur le courrier que tu recevera entre fin juillet et début aout.
+                                        <strong>Bonjour à toi, ami nouveau !</strong> Tu trouveras les identifiants du site d'intégration sur le courrier que tu recevera entre fin juillet et début aout. <strong> Ces derniers sont différents de ceux utilisés pour ton inscription UTT.</strong>
                                     </p>
                                     <p>
                                         Si tu n'as toujours pas reçu tes identifiants au 5 aout ou pour toute autre question, envoi nous un email à <a href="mailto:integration@utt.fr">integration@utt.fr</a>.
