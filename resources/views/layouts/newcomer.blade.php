@@ -31,7 +31,7 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 {{-- <li><a href="{{ route('dashboard.referrals.list') }}" title="Bons plans"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="hidden-sm"> Bons plans</span></a></li> --}}
-                                {{-- <li><a href="{{ route('dashboard.referrals.list') }}" title="Nous contacter"><i class="fa fa-envelope" aria-hidden="true"></i><span class="hidden-sm"> Nous contacter</span></a></li> --}}
+                                <li><a href="{{ route('newcomer.contact') }}" title="Nous contacter"><i class="fa fa-envelope" aria-hidden="true"></i><span class="hidden-sm"> Nous contacter</span></a></li>
                                 {{-- <li><a href="{{ route('dashboard.referrals.list') }}" title="FAQ"><i class="fa fa-question-circle" aria-hidden="true"></i><span class="hidden-sm"> FAQ</span></a></li> --}}
                                 <li><a href="{{ route('newcomer.auth.logout') }}" title="Se déconnecter"><i class="fa fa-power-off" aria-hidden="true"></i><span class="hidden-sm"> Déconnexion</span></a></li>
                             </ul>

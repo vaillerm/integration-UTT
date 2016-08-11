@@ -399,6 +399,18 @@ Route::post('/referral', [
     'uses' => 'NewcomersController@referralFormSubmit'
 ]);
 
+Route::get('/contact', [
+    'as'   => 'newcomer.contact',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@contact'
+]);
+
+Route::post('/contact', [
+    'as'   => 'newcomer.contact.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@contactSubmit'
+]);
+
 Route::get('/done', [
     'as'   => 'newcomer.done',
     'middleware' => 'authorize:newcomer',
