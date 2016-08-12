@@ -417,6 +417,12 @@ Route::post('/contact', [
     'uses' => 'NewcomersController@contactSubmit'
 ]);
 
+Route::get('/faq', [
+    'as'   => 'newcomer.faq',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'PagesController@getFAQ'
+]);
+
 Route::get('/done', [
     'as'   => 'newcomer.done',
     'middleware' => 'authorize:newcomer',

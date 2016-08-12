@@ -158,4 +158,12 @@ class PagesController extends Controller
     {
         return View::make('scores')->with(['factions' => Faction::all()]);
     }
+
+    /**
+     * @return Response
+     */
+    public function getFAQ()
+    {
+        return View::make('newcomer.faq');
+    }
 }
