@@ -22,7 +22,7 @@ before_script:
   - composer install --ignore-platform-reqs --no-interaction --prefer-dist
   - php artisan key:generate
   - mysql -e 'create database integration_test;'
-  - php artisan migrate
+  - php artisan migrate --seed
 script:
   - phpunit
 
