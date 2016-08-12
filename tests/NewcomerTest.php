@@ -139,4 +139,18 @@ class NewcomerTest extends TestCase
             ->seePageIs(route('newcomer.myletter'))
             ->see('Ton accès au site de l\'intégration');
     }
+
+    /**
+     * Check access to the myLetter page from newcomer without team an referral
+     *
+     * @return void
+     */
+    public function testContactPage()
+    {
+        $newcomer = factory(App\Models\Newcomer::class)->create();
+        $this->actingAs($newcomer)
+            ->visit(route('newcomer.contact'))
+            ->seePageIs(route('newcomer.contact'))
+            ->see('Contacter l\'équipe d\'Intégration');
+    }
 }
