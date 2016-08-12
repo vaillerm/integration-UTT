@@ -399,6 +399,12 @@ Route::post('/referral', [
     'uses' => 'NewcomersController@referralFormSubmit'
 ]);
 
+Route::get('/wei', [
+    'as'   => 'newcomer.wei',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@weiForm'
+]);
+
 Route::get('/contact', [
     'as'   => 'newcomer.contact',
     'middleware' => 'authorize:newcomer',

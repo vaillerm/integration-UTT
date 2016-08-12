@@ -21,6 +21,7 @@
 	    <link rel="icon" type="image/png" href="{{ @asset('img/icons/favicon-32x32.png') }}" sizes="32x32">
 	    <link rel="icon" type="image/png" href="{{ @asset('img/icons/favicon-96x96.png') }}" sizes="96x96">
 
+	    @yield('sublayout-css')
 	    @yield('css')
 	    <!--[if lt IE 9]>
 	        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -37,6 +38,7 @@
 	    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	    <script src="{{ @asset('js/admin.min.js') }}" type="text/javascript"></script>
 	    @yield('js')
+	    @yield('sublayout-js')
 		<!-- Piwik -->
 		<script type="text/javascript">
 			var _paq = _paq || [];

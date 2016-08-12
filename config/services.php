@@ -59,6 +59,9 @@ return [
         'deadline' => env('CE_DEADLINE'),
         'maxteam' => env('CE_MAXTEAM'),
     ],
+    'wei' => [
+        'registrationStart' => env('WEI_REGISTRATION_START'),
+    ],
 
     'version' => [
          'hash' => env('VERSION_HASH', 'none'),

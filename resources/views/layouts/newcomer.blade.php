@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('css')
+@section('sublayout-css')
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
@@ -27,7 +27,7 @@
                                 <li><a href="{{ route('newcomer.profil') }}">Profil{!! Auth::user()->isPageChecked('profil')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.referral') }}">Parrain{!! Auth::user()->isPageChecked('referral')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 {{-- <li><a href="{{ route('dashboard.referrals.list') }}">Équipe <i class="fa fa-check" aria-hidden="true"></i></a></li> --}}
-                                {{-- <li><a href="{{ route('dashboard.referrals.list') }}">Week-end <i class="fa fa-check" aria-hidden="true"></i></a></li> --}}
+                                <li><a href="{{ route('newcomer.wei') }}">Week-end</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 {{-- <li><a href="{{ route('dashboard.referrals.list') }}" title="Bons plans"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="hidden-sm"> Bons plans</span></a></li> --}}

@@ -7,19 +7,34 @@ Accueil
 @section('css')
 <link rel="stylesheet" href="{{ @asset('css/bootstrap.min.css') }}" media="screen">
 <link rel="stylesheet" href="{{ @asset('css/homepage.css') }}">
+<link rel="stylesheet" href="{{ @asset('css/flipclock.css') }}">
+@endsection
+
+@section('js')
+    <script src="{{ @asset('js/flipclock.min.js') }}"></script>
+    <script>
+    var countdown = $('.countdown').FlipClock({{ (new DateTime(Config::get('services.wei.registrationStart')))->getTimestamp() - (new DateTime())->getTimestamp() }}, {
+        countdown: true,
+		clockFace: 'DailyCounter',
+		language: 'french',
+    });
+    </script>
 @endsection
 
 @section('bodycontent')
     <div class="container">
         <div class="row">
             <div class="text-center">
-                <h1>Bienvenue sur le site de l'intégration</h1><br>
-                <a href="{{ route('newcomer.auth.login') }}" class="btn btn-primary">Je suis nouveau !</a>
-                <!-- <a href="{{ route('championship.display') }}" class="btn btn-success">Tableau des scores</a> -->
-
-                <br/><br/><br/>
-                <p>Tu souhaites devenir parrain, marraine, chef d'équipe ou tout simplement bénévole pour cette folle aventure ?</p>
+                <h1>Bienvenue sur le site de l'intégration</h1>
+                <a href="{{ route('newcomer.auth.login') }}" class="btn btn-primary">Je suis nouveau !</a><br/>
                 <a href="{{ route('menu') }}" class="btn btn-default">Je suis étudiant à l'UTT</a>
+
+                <br/><br/>
+                <p>Ouverture des inscriptions pour le weekend dans</p>
+                <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
+    			<p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jrs %h hrs %i min et %s sec') }}</big></p>
+
+                <br/><br/>
     <!--                    <br><br>-->
             </div>
         </div>
