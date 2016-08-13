@@ -18,12 +18,12 @@ Informations diverses pour toi !
             <p>
                 Tu fais maintenant partie de la grande famille des UTTiens !
                 Et pour t'accueillir, nous te préparons une semaine d'intégration
-                digne de ce nom ! Le but de cette semaine et de rencontrer les anciens
+                digne de ce nom ! Le but de cette semaine est de rencontrer les anciens
                 et nouveaux UTTiens autour des différents repas et activitées que nous organisons pour toi.
             </p>
             <p>
-                Ta première semaine dans notre belle école sera plutôt chargé en activité,
-                mais ne t'inquiète pas tu recevera un planning détaillé te ta semaine dès ton arrivée.
+                Ta première semaine dans notre belle école sera plutôt chargée en activité,
+                mais ne t'inquiète pas tu receveras un planning détaillé de ta semaine dès ton arrivée.
                 @if(Auth::user()->branch == 'TC')
                     Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>lundi 5 septembre à 8h à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
@@ -38,8 +38,8 @@ Informations diverses pour toi !
                     <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fintegration.utt&tabs&width=340&height=70&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=248954165119490" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
                 </div>
             <p>
-                Le but de ce site est de te permettre d'être prêt pour ton intégration,
-                il va récapituler tout les petits truc auxquels tu devras penser.
+                Ce ce site est là pour te permettre d'être prêt pour ton intégration,
+                il va récapituler tout les petits trucs auxquels tu devras penser.
             </p>
             <div class="text-center">
                 <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
