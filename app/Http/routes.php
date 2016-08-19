@@ -224,6 +224,20 @@ Route::group(['prefix' => 'dashboard'], function () {
             ]);
         });
 
+        // Emails management.
+        Route::group(['prefix' => 'emails'], function () {
+            Route::get('/', [
+                'as'   => 'dashboard.emails.index',
+                'middleware' => 'authorize:admin',
+                'uses' => 'EmailsController@getIndex'
+            ]);
+            Route::get('/preview/{id}', [
+                'as'   => 'dashboard.emails.preview',
+                'middleware' => 'authorize:admin',
+                'uses' => 'EmailsController@getPreview'
+            ]);
+        });
+
 
         // WEI registrations
         // Route::group(['prefix' => 'wei'], function()

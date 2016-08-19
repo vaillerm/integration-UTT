@@ -80,6 +80,36 @@ chcon -Rt httpd_sys_content_t .
 chcon -Rt httpd_sys_rw_content_t storage bootstrap/cache .git .env
 ```
 
+L'envoi d'emails et géré par les `queues` de laravel. Il faut donc que le daemon soit lancé. Pour cela, vous pouvez créer le service `systemd` suivant dans `/etc/systemd/system/integration-queue.service` :
+
+```
+[Unit]
+Description=Integration UTT website queue deamon
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/integration-UTT
+ExecStart=/usr/bin/php artisan queue:listen
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+Il suffira ensuite de l'activer en faisant
+```bash
+systemctl daemon-reload
+systemctl start integration-queue
+systemctl enable integration-queue
+```
+
+L'envoi des mails utilise aussi le scheduler de laravel. Il faut donc ajouter ceci au fichier `/etc/crontab`
+```
+* * * * * php /var/www/integration-UTT/artisan schedule:run >> /dev/null 2>&1
+```
+
 ## Week-end d'intégration
 
 Les inscriptions au week-end d'intégration sont gérées depuis l'interface d'administration :

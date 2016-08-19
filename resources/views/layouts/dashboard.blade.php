@@ -37,6 +37,7 @@
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
                                     <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
                                     <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
+                                    <li><a href="{{ route('dashboard.emails.index') }}">Emails</a></li>
                                     <?php /*  -->
                                     <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->

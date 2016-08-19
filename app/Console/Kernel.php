@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportStudentPictures::class,
         Commands\NewcomersImport::class,
         Commands\RenderNewcomers::class,
+        Commands\PutScheduledEmailToQueue::class,
     ];
 
     /**
@@ -27,7 +28,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('inte:emails-to-queue')->everyMinute();
     }
 }
