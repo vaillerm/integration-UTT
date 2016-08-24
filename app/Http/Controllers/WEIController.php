@@ -114,8 +114,8 @@ class WEIController extends Controller
             'client_mail' => $user->email,
             'description' => 'Formulaire de paiement du weekend d\'intégration et du panier repas',
             'articles' => [
-                ['name' => 'Week-end d\'intégration', 'price' => Config::get('services.wei.price')*100, 'quantity' => $sandwich],
-                ['name' => 'Panier repas du vendredi midi', 'price' => Config::get('services.wei.sandwichPrice')*100, 'quantity' => $wei],
+                ['name' => 'Week-end d\'intégration', 'price' => Config::get('services.wei.price')*100, 'quantity' => $wei],
+                ['name' => 'Panier repas du vendredi midi', 'price' => Config::get('services.wei.sandwichPrice')*100, 'quantity' => $sandwich],
             ],
             'service_data' => $payment->id
         ]));
