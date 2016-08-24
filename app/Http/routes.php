@@ -467,6 +467,12 @@ Route::get('/faq', [
     'uses' => 'PagesController@getFAQ'
 ]);
 
+Route::get('/deals', [
+    'as'   => 'newcomer.deals',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'PagesController@getDeals'
+]);
+
 Route::get('/done', [
     'as'   => 'newcomer.done',
     'middleware' => 'authorize:newcomer',

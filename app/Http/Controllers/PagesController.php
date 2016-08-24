@@ -166,4 +166,12 @@ class PagesController extends Controller
     {
         return View::make('newcomer.faq');
     }
+
+    /**
+     * @return Response
+     */
+    public function getDeals()
+    {
+        return View::make('newcomer.deals');
+    }
 }
