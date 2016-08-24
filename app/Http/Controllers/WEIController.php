@@ -112,6 +112,8 @@ class WEIController extends Controller
             'type' => 'checkout',
             'amount' => $amount,
             'client_mail' => $user->email,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'description' => 'Formulaire de paiement du weekend d\'intégration et du panier repas',
             'articles' => [
                 ['name' => 'Week-end d\'intégration', 'price' => Config::get('services.wei.price')*100, 'quantity' => $wei],
@@ -179,6 +181,8 @@ class WEIController extends Controller
             'type' => 'authorisation',
             'amount' => $amount,
             'client_mail' => $user->email,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'description' => 'Formulaire de dépôt de la caution du weekend d\'intégration',
             'articles' => [
                 ['name' => 'Caution du Week-end d\'intégration', 'price' => Config::get('services.wei.guaranteePrice')*100, 'quantity' => $guarantee],
