@@ -66,15 +66,15 @@ class Newcomer extends Model implements Authenticatable
         ],
         'wei_pay' => [
             'action' => 'T\'inscrire pour le Week-End d\'Intégration',
-            'page' => 'wei.pay',
+            'page' => 'wei',
         ],
         'wei_guarantee' => [
             'action' => 'Déposer la caution',
-            'page' => 'wei.guarantee',
+            'page' => 'wei',
         ],
         'wei_authorization' => [
             'action' => 'Déposer l\'autorisation parentale',
-            'page' => 'wei.authorization',
+            'page' => 'wei',
         ],
     ];
 
