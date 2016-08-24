@@ -6,7 +6,6 @@ use App\Models\Team;
 use App\Models\Newcomer;
 use Config;
 use Auth;
-use EtuUTT;
 
 /**
  * Authorization helper
