@@ -64,6 +64,18 @@ class Newcomer extends Model implements Authenticatable
             'action' => 'Prendre contact avec ton parrain',
             'page' => 'referral',
         ],
+        'wei_pay' => [
+            'action' => 'T\'inscrire pour le Week-End d\'Intégration',
+            'page' => 'wei.pay',
+        ],
+        'wei_guarantee' => [
+            'action' => 'Déposer la caution',
+            'page' => 'wei.guarantee',
+        ],
+        'wei_authorization' => [
+            'action' => 'Déposer l\'autorisation parentale',
+            'page' => 'wei.authorization',
+        ],
     ];
 
 
@@ -279,5 +291,51 @@ class Newcomer extends Model implements Authenticatable
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    /**
+     * Define the One-to-One relation with Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function weiPayment()
+    {
+        return $this->belongsTo('App\Models\Payment', 'wei_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sandwichPayment()
+    {
+        return $this->belongsTo('App\Models\Payment', 'sandwich_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function guaranteePayment()
+    {
+        return $this->belongsTo('App\Models\Payment', 'guarantee_payment');
+    }
+
+
+    public function updateWei()
+    {
+        $weiPayment = $this->weiPayment && in_array($this->weiPayment->state, ['paid', 'returned']);
+        $guaranteePayment = $this->guaranteePayment && in_array($this->guaranteePayment->state, ['paid', 'returned']);
+
+        $this->setCheck('wei_pay', $weiPayment);
+        $this->setCheck('wei_guarantee', $guaranteePayment);
+
+        $wei = ($weiPayment || $guaranteePayment);
+        if ($this->wei != $wei) {
+            $this->wei = $wei;
+            $this->save();
+        }
     }
 }

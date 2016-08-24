@@ -42,3 +42,8 @@ a.btn {
 	background-color: #dff0d8;
 	border-radius: 5px;
 }
+
+/* Vertically center in table */
+.table tbody>tr.vert-align>td{
+    vertical-align: middle;
+}

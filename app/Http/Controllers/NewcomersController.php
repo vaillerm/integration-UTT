@@ -362,15 +362,4 @@ class NewcomersController extends Controller
 
         return Redirect(route('newcomer.home'))->withSuccess('Ton message a bien été transmis !');
     }
-
-
-    /**
-     * Display the wei form
-     *
-     * @return Response
-     */
-    public function weiForm()
-    {
-        return View::make('newcomer.wei');
-    }
 }

@@ -416,7 +416,37 @@ Route::post('/referral', [
 Route::get('/wei', [
     'as'   => 'newcomer.wei',
     'middleware' => 'authorize:newcomer',
-    'uses' => 'NewcomersController@weiForm'
+    'uses' => 'WEIController@newcomersHome'
+]);
+
+Route::get('/wei/pay', [
+    'as'   => 'newcomer.wei.pay',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'WEIController@newcomersPay'
+]);
+
+Route::post('/wei/pay', [
+    'as'   => 'newcomer.wei.pay.submit',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'WEIController@newcomersPaySubmit'
+]);
+
+Route::get('/wei/guarantee', [
+    'as'   => 'newcomer.wei.guarantee',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'WEIController@newcomersGuarantee'
+]);
+
+Route::post('/wei/guarantee', [
+    'as'   => 'newcomer.wei.guarantee.submit',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'WEIController@newcomersGuaranteeSubmit'
+]);
+
+Route::get('/wei/authorization', [
+    'as'   => 'newcomer.wei.authorization',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'WEIController@newcomersAuthorization'
 ]);
 
 Route::get('/contact', [
@@ -441,4 +471,14 @@ Route::get('/done', [
     'as'   => 'newcomer.done',
     'middleware' => 'authorize:newcomer',
     'uses' => 'PagesController@getNewcomersDone'
+]);
+
+Route::get('/etupay', [
+    'as'   => 'etupay',
+    'uses' => 'EtupayController@etupayReturn'
+]);
+
+Route::post('/etupay/callback', [
+    'as'   => 'etupay.callback',
+    'uses' => 'EtupayController@etupayCallback'
 ]);

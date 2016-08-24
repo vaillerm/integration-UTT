@@ -30,10 +30,13 @@ Accueil
                 <a href="{{ route('menu') }}" class="btn btn-default">Je suis étudiant à l'UTT</a>
 
                 <br/><br/>
-                <p>Ouverture des inscriptions pour le weekend dans</p>
-                <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
-    			<p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jrs %h hrs %i min et %s sec') }}</big></p>
-
+                @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
+                    <p>Ouverture des inscriptions pour le weekend dans</p>
+                    <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
+        			<p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jrs %h hrs %i min et %s sec') }}</big></p>
+                @else
+                    <p>Inscriptions pour le weekend ouvertes !</p>
+                @endif
                 <br/><br/>
     <!--                    <br><br>-->
             </div>

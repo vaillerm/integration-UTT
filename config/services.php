@@ -60,7 +60,20 @@ return [
         'maxteam' => env('CE_MAXTEAM'),
     ],
     'wei' => [
+        'price' => env('WEI_PRICES_REGISTRATION'),
+        'guaranteePrice' => env('WEI_PRICES_GUARANTEE'),
+        'sandwichPrice' => env('WEI_PRICES_SANDWICH'),
+        'start' => env('WEI_DATES_START'),
         'registrationStart' => env('WEI_REGISTRATION_START'),
+        'registrationEnd' => env('WEI_REGISTRATION_END'),
+        'newcomerMax' => env('WEI_NEWCOMER_MAX'),
+    ],
+    'etupay' => [
+        'uri' => [
+            'initiate' => env('ETUPAY_URI_INITIATE'),
+        ],
+        'id' => env('ETUPAY_ID'),
+        'key' => env('ETUPAY_KEY'),
     ],
 
     'version' => [

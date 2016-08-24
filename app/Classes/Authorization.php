@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\Newcomer;
 use Config;
 use Auth;
+use EtuUTT;
 
 /**
  * Authorization helper
@@ -46,6 +47,20 @@ class Authorization
             // Check if newcomer is identified
             if (!Auth::check() || !(Auth::user() instanceof Newcomer)) {
                 return false;
+            }
+
+            // Action verification
+            $count = Newcomer::where('wei', 1)->count();
+            switch ($action) {
+                case 'wei':
+                    if (!Auth::user()->wei
+                        && !(Etuutt::isAuth() && Etuutt::student()->isAdmin())
+                        && ($this->now() <= new \DateTime(Config::get('services.wei.registrationStart'))
+                        || $this->now() >= new \DateTime(Config::get('services.wei.registrationEnd'))
+                        || $count >= Config::get('services.wei.newcomerMax'))) {
+                        return false;
+                    }
+                    break;
             }
         } else {
             // Login/student verification

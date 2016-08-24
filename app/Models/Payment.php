@@ -15,12 +15,58 @@ class Payment extends Model
     protected $table = 'payments';
 
     public $fillable = [
+        'type',
         'mean',
         'amount',
-        'bank',
-        'number',
-        'emitter'
+        'state',
+        'informations'
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
+
+    protected $casts = [
+        'informations' => 'array',
+    ];
+
+
+    /**
+     * Define the One-to-One relation with Newcomer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function newcomerWei()
+    {
+        return $this->hasOne('App\Models\Newcomer', 'wei_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Newcomer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function newcomerSandwich()
+    {
+        return $this->hasOne('App\Models\Newcomer', 'sandwich_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Newcomer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function newcomerGuarantee()
+    {
+        return $this->hasOne('App\Models\Newcomer', 'guarantee_payment');
+    }
+
+    public function newcomer()
+    {
+        if ($this->newcomerSandwich) {
+            return $this->newcomerSandwich();
+        }
+        if ($this->newcomerGuarantee) {
+            return $this->newcomerGuarantee();
+        }
+        return $this->newcomerWei();
+    }
 }
