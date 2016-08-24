@@ -35,7 +35,7 @@ class EtupayController extends Controller
             if ($payment->state == 'refused') {
                 $route = route('newcomer.wei.guarantee');
             } else {
-                $route = route('newcomer.authorization');
+                $route = route('newcomer.wei.authorization');
             }
         }
 
