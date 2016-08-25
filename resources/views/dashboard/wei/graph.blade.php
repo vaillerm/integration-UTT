@@ -9,8 +9,47 @@
 @endsection
 
 @section('content')
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>{{ $sum['paid'] }}</h3>
 
-    <div class="box box-info">
+                    <p>Inscriptions</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-ticket"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{ $sum['caution'] }}</h3>
+
+                    <p>Cautions</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-euro"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ $sum['food'] }}</h3>
+
+                    <p>Repas</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-gittip"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-yellow">
         <div class="box-header with-border">
             <h3 class="box-title">Graphique de remplissage</h3>
         </div>

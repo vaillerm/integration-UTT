@@ -43,11 +43,17 @@ class WEIController extends Controller
             ->orderBy('created_at')
             ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
 
+        $sum = [
+            'paid' => array_sum(array_column($graphPaid->toArray(), 'sum')),
+            'caution' => array_sum(array_column($graphCaution->toArray(), 'sum')),
+            'food'  => array_sum(array_column($graphFood->toArray(), 'sum'))
+        ];
 
         return View::make('dashboard.wei.graph', [
             'graphPaid' => $graphPaid,
             'graphCaution' => $graphCaution,
             'graphFood' => $graphFood,
+            'sum'       => $sum,
         ]);
     }
 
