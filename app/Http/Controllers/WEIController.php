@@ -153,8 +153,8 @@ class WEIController extends Controller
             'type' => 'checkout',
             'amount' => $amount,
             'client_mail' => $user->email,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
+            'firstname' => $user->first_name,
+            'lastname' => $user->last_name,
             'description' => 'Formulaire de paiement du weekend d\'intégration et du panier repas',
             'articles' => [
                 ['name' => 'Week-end d\'intégration', 'price' => Config::get('services.wei.price')*100, 'quantity' => $wei],
