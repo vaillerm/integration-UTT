@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Newcomer;
+use App\Models\Payment;
 use App\Models\Student;
+use Illuminate\Support\Facades\DB;
 use Request;
 use View;
 use Validator;
 use Mail;
 use Auth;
 use Redirect;
+use Carbon\Carbon;
 
 /**
  *
@@ -26,6 +29,7 @@ class NewcomersController extends Controller
      */
     public function list()
     {
+
         return View::make('dashboard.newcomers.list', [
             'newcomers' => Newcomer::all(),
             'branches' => Newcomer::distinct()->select('branch')->groupBy('branch')->get(),

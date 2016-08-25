@@ -419,6 +419,12 @@ Route::get('/wei', [
     'uses' => 'WEIController@newcomersHome'
 ]);
 
+Route::get('/wei/graph', [
+    'as'   => 'dashboard.wei.graph',
+    'middleware' => 'authorize:admin',
+    'uses' => 'WEIController@adminGraph'
+]);
+
 Route::get('/wei/pay', [
     'as'   => 'newcomer.wei.pay',
     'middleware' => 'authorize:newcomer,wei',

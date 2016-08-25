@@ -38,6 +38,12 @@
                                     <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
                                     <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
                                     <li><a href="{{ route('dashboard.emails.index') }}">Emails</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('dashboard.wei.graph') }}">Graphique</a></li>
+                                        </ul>
+                                    </li>
                                     <?php /*  -->
                                     <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
