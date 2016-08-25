@@ -255,14 +255,17 @@ class NewcomerMatching
             if (!isset($counts[$referral->branch])) {
                 $counts[$referral->branch] = [];
             }
-            $counts[$referral->branch][$referral->student_id] = [
-                'current' => $referral->newcomers->count(),
-                'future' => $referral->newcomers->count(),
-                'max' => $referral->referral_max,
-                '+1' => 0,
-                '+1r2' => 0,
-                'student' => $referral, // You can comment this line to debug the first foreach
-            ];
+
+            if ($referral->branch != 'MP') { // Remove masters
+                $counts[$referral->branch][$referral->student_id] = [
+                    'current' => $referral->newcomers->count(),
+                    'future' => $referral->newcomers->count(),
+                    'max' => $referral->referral_max,
+                    '+1' => 0,
+                    '+1r2' => 0,
+                    'student' => $referral, // You can comment this line to debug the first foreach
+                ];
+            }
 
             // This array is used when there is no place left in some branches and we put godson from a branch to a referral from another
             if (($referral->branch != 'TC') // Remove TC2 because they are too young for branches
@@ -271,8 +274,6 @@ class NewcomerMatching
                 $counts2[$referral->student_id] = &$counts[$referral->branch][$referral->student_id];
             }
         }
-
-
 
         /***********************************************************************
          * STEP 2 : Calculate the future number of godson for each referrals
