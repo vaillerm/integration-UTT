@@ -80,6 +80,9 @@ Affichage des profils
                     <th>Identifiants</th>
                     <th>Parrain</th>
                     <th>Équipe</th>
+                    <th>Paiement Wei</th>
+                    <th>Sandwitch</th>
+                    <th>Caution</th>
                     <th>Action</th>
                 </tr>
                 @foreach ($newcomers as $newcomer)
@@ -117,6 +120,9 @@ Affichage des profils
                         @else
                             <td>Aucune !</td>
                         @endif
+                        <td>{{ (($newcomer->weiPayment->step == 'paid')?'Oui':'Non') }}</td>
+                        <td>{{ (($newcomer->sandwichPayment->step == 'paid')?'Oui':'Non') }}</td>
+                        <td>{{ (($newcomer->guaranteePayment->step == 'paid')?'Oui':'Non') }}</td>
                         <td>
                             <a href="{{ route('dashboard.newcomers.letter', ['id' => $newcomer->id ]) }}" class="btn btn-success btn-xs">Lettre</a>
                         </td>
