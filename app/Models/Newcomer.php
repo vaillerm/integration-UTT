@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Crypt;
+use Config;
 
 class Newcomer extends Model implements Authenticatable
 {
@@ -332,10 +333,16 @@ class Newcomer extends Model implements Authenticatable
         $this->setCheck('wei_pay', $weiPayment);
         $this->setCheck('wei_guarantee', $guaranteePayment);
 
+
+        if ($this->birth < (new \DateTime(Config::get('services.wei.start')))) {
+            $this->setCheck('wei_authorization', true);
+        }
+
+
         $wei = ($weiPayment || $guaranteePayment);
         if ($this->wei != $wei) {
             $this->wei = $wei;
-            $this->save();
         }
+        $this->save();
     }
 }

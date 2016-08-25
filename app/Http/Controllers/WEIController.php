@@ -29,6 +29,8 @@ class WEIController extends Controller
         $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $underage = (Auth::user()->birth >= (new \DateTime(Config::get('services.wei.start'))));
 
+        Auth::user()->updateWei();
+
         return View::make('newcomer.wei.home', [
             'sandwich' => $sandwich,
             'wei' => $wei,
