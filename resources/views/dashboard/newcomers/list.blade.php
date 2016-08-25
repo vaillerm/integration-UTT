@@ -120,9 +120,9 @@ Affichage des profils
                         @else
                             <td>Aucune !</td>
                         @endif
-                        <td>{{ (($newcomer->weiPayment->step == 'paid')?'Oui':'Non') }}</td>
-                        <td>{{ (($newcomer->sandwichPayment->step == 'paid')?'Oui':'Non') }}</td>
-                        <td>{{ (($newcomer->guaranteePayment->step == 'paid')?'Oui':'Non') }}</td>
+                        <td>{{ ((isset($newcomer->weiPayment) && $newcomer->weiPayment->state == 'paid')?'Oui':'Non') }}</td>
+                        <td>{{ ((isset($newcomer->sandwichPayment) && $newcomer->sandwichPayment->state == 'paid')?'Oui':'Non') }}</td>
+                        <td>{{ ((isset($newcomer->guaranteePayment) && $newcomer->guaranteePayment->state == 'paid')?'Oui':'Non') }}</td>
                         <td>
                             <a href="{{ route('dashboard.newcomers.letter', ['id' => $newcomer->id ]) }}" class="btn btn-success btn-xs">Lettre</a>
                         </td>
