@@ -11,12 +11,45 @@ use Config;
 use View;
 use Auth;
 use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Handle registrations for the "WEI".
  */
 class WEIController extends Controller
 {
+
+
+    public function adminGraph()
+    {
+        $graphPaid = Payment::select(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\') as day'), DB::raw('COUNT(id) as sum'))
+            ->where('type', 'payment')
+            ->where('state', 'paid')
+            ->where('amount', '>', 325)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
+
+        $graphCaution = Payment::select(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\') as day'), DB::raw('COUNT(id) as sum'))
+            ->where('type', 'guarantee')
+            ->where('state', 'paid')
+            ->orderBy('created_at')
+            ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
+
+        $graphFood = Payment::select(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\') as day'), DB::raw('COUNT(id) as sum'))
+            ->where('type', 'payment')
+            ->where('amount', 325)
+            ->orWhere('amount', 5825)
+            ->where('state', 'paid')
+            ->orderBy('created_at')
+            ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
+
+
+        return View::make('dashboard.wei.graph', [
+            'graphPaid' => $graphPaid,
+            'graphCaution' => $graphCaution,
+            'graphFood' => $graphFood,
+        ]);
+    }
 
     /**
      *

@@ -69,4 +69,15 @@ class Payment extends Model
         }
         return $this->newcomerWei();
     }
+
+    public function paymentByDay()
+    {
+        return static::select('id')
+            ->get()
+            ->where('type', 'payment')
+            ->andWhere('state', 'paid')
+            ->groupBy(function($date) {
+                return Carbon::parse($date->created_at)->format('d'); // grouping by months
+            });
+    }
 }
