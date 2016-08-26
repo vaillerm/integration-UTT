@@ -29,7 +29,6 @@ class NewcomersController extends Controller
      */
     public function list()
     {
-
         return View::make('dashboard.newcomers.list', [
             'newcomers' => Newcomer::all(),
             'branches' => Newcomer::distinct()->select('branch')->groupBy('branch')->get(),
@@ -314,6 +313,23 @@ class NewcomersController extends Controller
 
 
         return Redirect::back()->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
+    }
+
+    /**
+     * Display the team
+     *
+     * @return Response
+     */
+    public function teamForm($step = '')
+    {
+        if ($step == 'yes') {
+            Auth::user()->setCheck('team_disguise', true);
+            Auth::user()->save();
+        } elseif ($step == 'cancel') {
+            Auth::user()->setCheck('team_disguise', false);
+            Auth::user()->save();
+        }
+        return View::make('newcomer.team', ['step' => $step]);
     }
 
 

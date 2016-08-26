@@ -16,9 +16,8 @@ Tu as tout complété
         </div>
         <div class="box-body">
             <p>
-                Enfin, presque ..!<br/>D'ici quelques jours, de nouveaux onglets apparaiterons. Et il faudra y jeter un coup d'oeil !
+                Tu est maintenant prêt. Il ne te reste plus qu'à nous retrouver à l'UTT en septembre pour découvrir ta nouvelle vie !
             </p>
-            <p>Mais ne t'inquiète pas, on te tiendra au courant par email et via la page facebook :)</p>
         </div>
 </div>
 @endsection

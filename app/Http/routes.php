@@ -413,6 +413,12 @@ Route::post('/referral', [
     'uses' => 'NewcomersController@referralFormSubmit'
 ]);
 
+Route::get('/team/{step?}', [
+    'as'   => 'newcomer.team',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'NewcomersController@TeamForm'
+]);
+
 Route::get('/wei', [
     'as'   => 'newcomer.wei',
     'middleware' => 'authorize:newcomer',

@@ -65,6 +65,10 @@ class Newcomer extends Model implements Authenticatable
             'action' => 'Prendre contact avec ton parrain',
             'page' => 'referral',
         ],
+        'team_disguise' => [
+            'action' => 'Rejoindre le groupe facebook de ton équipe et faire ton déguisement ',
+            'page' => 'team',
+        ],
         'wei_pay' => [
             'action' => 'T\'inscrire pour le Week-End d\'Intégration',
             'page' => 'wei',

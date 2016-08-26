@@ -72,6 +72,9 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                 @if(Auth::user()->isChecked('referral'))
                     <h4 id="question">Félécitation, tu as pris contact avec {{ (Auth::user()->referral->sex)?'ta marraine':'ton parrain' }} !</h4>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'cancel']) }}#question" class="btn btn-danger">Ce n'est pas le cas ?</a>
+                    <div class="text-center">
+                        <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
+                    </div>
                 @elseif($step == 'contacted')
                     <h4 id="question">As-t-il répondu ?</h4>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'answered']) }}#question" class="btn btn-primary">Oui</a>
