@@ -88,7 +88,7 @@ Le Week-End d'Intégration
     					<a href="#cannotpay" data-toggle="collapse">Je ne peux pas donner de caution en ligne !</a>
     					<p id="cannotpay" class="collapse">
     						Il faudra passer nous voir à la rentrée pour donner ta caution par chèque au nom de <em>BDE UTT</em>.<br/>
-    						<a href="{{ route('newcomer.wei.authorization')}}" class="btn btn-warning">Je viendrais donner un chèque à la rentrée</a>
+    						<a href="{{ route('newcomer.wei.authorization')}}" class="btn btn-warning">Passer cette étape<br/>Je viendrais donner un chèque à la rentrée</a>
     					</p>
     				</div>
     			</div>

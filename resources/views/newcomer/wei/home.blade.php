@@ -42,6 +42,8 @@ Le Week-End d'Intégration
             	</div>
 			@elseif(!Auth::user()->wei && !Auth::user()->parent_authorization)
 				<a href="{{route('newcomer.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
+				<p>Si tu as le moindre soucis, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
+				<small>Note : Ton inscription pour le weekend sera validé une fois que tu auras payé. Donc cette page s'affichera tant qu'il n'y aura aucun paiement enregistré :)</small>
 			@else
 
 				@if($wei)
@@ -95,8 +97,8 @@ Le Week-End d'Intégration
 				@endif
 
 				<small>Note : Pour les opérations manuelles (donner l'autorisation parentale, payer par chèque...), la case sera coché une fois que l'action aura été fait grâce au stand qui sera installé pendant la semaine d'intégration à l'UTT.</small>
-            </div>
 			@endif
+			</div>
         </div>
 		<div class="box box-default">
 			<div class="box-header with-border">

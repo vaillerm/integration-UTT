@@ -109,7 +109,7 @@ Le Week-End d'Intégration
     					<a href="#cannotpay" data-toggle="collapse">Je ne peux pas payer en ligne !</a>
     					<p id="cannotpay" class="collapse">
     						Il faudra passer nous voir à la rentrée pour payer par chèque au nom de <em>BDE UTT</em>, par carte bancaire ou en espèce.<br/>
-    						<a href="{{ route('newcomer.wei.guarantee')}}" class="btn btn-warning">Je viendrais payer à la rentrée</a>
+    						<a href="{{ route('newcomer.wei.guarantee')}}" class="btn btn-warning">Passer cette étape<br/>Je viendrais payer à la rentrée</a>
     					</p>
     				</div>
     			</div>
