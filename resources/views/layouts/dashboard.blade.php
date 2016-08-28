@@ -41,6 +41,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
+                                            <li><a href="{{ route('dashboard.wei') }}">M'inscrire</a></li>
                                             <li><a href="{{ route('dashboard.wei.graph') }}">Graphique</a></li>
                                         </ul>
                                     </li>
@@ -48,6 +49,8 @@
                                     <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
                                     <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> --> */ ?>
+                                @else
+                                    <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
                                 @endif
                                 @if (EtuUTT::student()->ce)
                                     @if (!EtuUTT::student()->team()->count())

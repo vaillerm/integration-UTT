@@ -86,25 +86,23 @@ Le Week-End d'Intégration
 						Déposer la caution
 					</a></big><br/>
 				@endif
-
-				<div class="text-center">
-					@if($validated == 1)
-						<big>
-							Ton inscription est validé, tu peux venir au WEI !
-						</big>
-					@elseif($validated == -1)
-						<big>
-							Désolé, ton inscription est refusé, tu ne peux pas venir au WEI :/
-						</big>
-					@else
-						<big>
-							Ton inscription est en attente de validation d'un admin !
-						</big>
-					@endif
-				</div>
 			@endif
 			</div>
-        </div>
+		</div>
+
+			@if($validated == 1)
+				<div class="callout callout-success">
+					Ton inscription est validé, tu peux venir au WEI !
+				</div>
+			@elseif($validated == -1)
+				<div class="callout callout-danger">
+					Désolé, ton inscription est refusé, tu ne peux pas venir au WEI :/
+				</div>
+			@else
+				<div class="callout callout-info">
+					Ton inscription est en attente de validation d'un admin !
+				</div>
+			@endif
     @elseif((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
         <div class="box box-default">
             <div class="box-header with-border">
