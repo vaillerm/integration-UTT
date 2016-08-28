@@ -37,8 +37,7 @@ class WEIController extends Controller
 
         $graphFood = Payment::select(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\') as day'), DB::raw('COUNT(id) as sum'))
             ->where('type', 'payment')
-            ->where('amount', 325)
-            ->orWhere('amount', 5825)
+            ->where(DB::raw('`amount`%500'), 325)
             ->where('state', 'paid')
             ->orderBy('created_at')
             ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
