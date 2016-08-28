@@ -240,29 +240,45 @@ Route::group(['prefix' => 'dashboard'], function () {
 
 
         // WEI registrations
-        // Route::group(['prefix' => 'wei'], function()
-        // {
-        // 	Route::get('/', [
-        // 		'as'   => 'dashboard.wei',
-        // 		'uses' => 'WEIRegistrationsController@index'
-        // 	]);
-        // 	Route::post('/', [
-        // 		'as'   => 'dashboard.wei.create',
-        // 		'uses' => 'WEIRegistrationsController@create'
-        // 	]);
-        // 	Route::get('{id}', [
-        // 		'as'   => 'dashboard.wei.edit',
-        // 		'uses' => 'WEIRegistrationsController@edit'
-        // 	]);
-        // 	Route::post('{id}', [
-        // 		'as'   => 'dashboard.wei.update',
-        // 		'uses' => 'WEIRegistrationsController@update'
-        // 	]);
-        // 	Route::get('{id}/destroy', [
-        // 		'as'   => 'dashboard.wei.destroy',
-        // 		'uses' => 'WEIRegistrationsController@destroy'
-        // 	]);
-        // });
+        Route::group(['prefix' => 'wei'], function () {
+
+            Route::get('/', [
+                'as'   => 'dashboard.wei',
+                'middleware' => 'authorize:student,wei',
+                'uses' => 'WEIController@etuHome'
+            ]);
+
+            Route::get('/pay', [
+                'as'   => 'dashboard.wei.pay',
+                'middleware' => 'authorize:student,wei',
+                'uses' => 'WEIController@etuPay'
+            ]);
+
+            Route::post('/pay', [
+                'as'   => 'dashboard.wei.pay.submit',
+                'middleware' => 'authorize:student,wei',
+                'uses' => 'WEIController@etuPaySubmit'
+            ]);
+
+            Route::get('/guarantee', [
+                'as'   => 'dashboard.wei.guarantee',
+                'middleware' => 'authorize:student,wei',
+                'uses' => 'WEIController@etuGuarantee'
+            ]);
+
+            Route::post('/guarantee', [
+                'as'   => 'dashboard.wei.guarantee.submit',
+                'middleware' => 'authorize:student,wei',
+                'uses' => 'WEIController@etuGuaranteeSubmit'
+            ]);
+
+
+            Route::get('/graph', [
+                'as'   => 'dashboard.wei.graph',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@adminGraph'
+            ]);
+        });
 
         // Checks handling.
         // Route::group(['prefix' => 'payments'], function()
@@ -423,12 +439,6 @@ Route::get('/wei', [
     'as'   => 'newcomer.wei',
     'middleware' => 'authorize:newcomer',
     'uses' => 'WEIController@newcomersHome'
-]);
-
-Route::get('/wei/graph', [
-    'as'   => 'dashboard.wei.graph',
-    'middleware' => 'authorize:admin',
-    'uses' => 'WEIController@adminGraph'
 ]);
 
 Route::get('/wei/pay', [

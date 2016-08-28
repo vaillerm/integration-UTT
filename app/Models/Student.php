@@ -77,4 +77,48 @@ class Student extends Model
     {
         return ($this->admin == Student::ADMIN_FULL);
     }
+
+
+    /**
+     * Define the One-to-One relation with Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function weiPayment()
+    {
+        return $this->belongsTo('App\Models\Payment', 'wei_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sandwichPayment()
+    {
+        return $this->belongsTo('App\Models\Payment', 'sandwich_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function guaranteePayment()
+    {
+        return $this->belongsTo('App\Models\Payment', 'guarantee_payment');
+    }
+
+
+    public function updateWei()
+    {
+        $weiPayment = $this->weiPayment && in_array($this->weiPayment->state, ['paid', 'returned']);
+        $guaranteePayment = $this->guaranteePayment && in_array($this->guaranteePayment->state, ['paid', 'returned']);
+
+        $wei = ($weiPayment || $guaranteePayment);
+        if ($this->wei != $wei) {
+            $this->wei = $wei;
+        }
+        $this->save();
+    }
 }

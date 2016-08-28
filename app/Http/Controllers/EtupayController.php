@@ -37,6 +37,24 @@ class EtupayController extends Controller
             } else {
                 $route = route('newcomer.wei.authorization');
             }
+        } elseif ($payment->studentWei) {
+            if ($payment->state == 'refused') {
+                $route = route('dashboard.wei.pay');
+            } else {
+                $route = route('dashboard.wei.guarantee');
+            }
+        } elseif ($payment->studentSandwich) {
+            if ($payment->state == 'refused') {
+                $route = route('dashboard.wei.pay');
+            } else {
+                $route = route('dashboard.wei');
+            }
+        } elseif ($payment->studentGuarantee) {
+            if ($payment->state == 'refused') {
+                $route = route('dashboard.wei.guarantee');
+            } else {
+                $route = route('dashboard.wei');
+            }
         }
 
         $message = false;

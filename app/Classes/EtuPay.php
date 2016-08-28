@@ -45,6 +45,8 @@ class EtuPay
 
             if ($payment->newcomer) {
                 $payment->newcomer->updateWei();
+            } elseif ($payment->student) {
+                $payment->student->updateWei();
             }
 
             return $payment;

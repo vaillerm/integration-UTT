@@ -61,6 +61,9 @@ return [
     ],
     'wei' => [
         'price' => env('WEI_PRICES_REGISTRATION'),
+        'price-ce' => env('WEI_PRICES_CE'),
+        'price-orga' => env('WEI_PRICES_ORGA'),
+        'price-other' => env('WEI_PRICES_OTHER'),
         'guaranteePrice' => env('WEI_PRICES_GUARANTEE'),
         'sandwichPrice' => env('WEI_PRICES_SANDWICH'),
         'start' => env('WEI_DATES_START'),

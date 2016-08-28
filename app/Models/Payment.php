@@ -76,8 +76,50 @@ class Payment extends Model
             ->get()
             ->where('type', 'payment')
             ->andWhere('state', 'paid')
-            ->groupBy(function($date) {
+            ->groupBy(function ($date) {
                 return Carbon::parse($date->created_at)->format('d'); // grouping by months
             });
+    }
+
+
+    /**
+     * Define the One-to-One relation with Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function studentWei()
+    {
+        return $this->hasOne('App\Models\Student', 'wei_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function studentSandwich()
+    {
+        return $this->hasOne('App\Models\Student', 'sandwich_payment');
+    }
+
+    /**
+     * Define the One-to-One relation with Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function studentGuarantee()
+    {
+        return $this->hasOne('App\Models\Student', 'guarantee_payment');
+    }
+
+    public function student()
+    {
+        if ($this->studentSandwich) {
+            return $this->studentSandwich();
+        }
+        if ($this->studentGuarantee) {
+            return $this->studentGuarantee();
+        }
+        return $this->studentWei();
     }
 }
