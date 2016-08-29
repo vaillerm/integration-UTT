@@ -90,6 +90,7 @@ Le Week-End d'Intégration
 			</div>
 		</div>
 
+		@if(EtuUTT::student()->wei)
 			@if($validated == 1)
 				<div class="callout callout-success">
 					Ton inscription est validé, tu peux venir au WEI !
@@ -103,6 +104,7 @@ Le Week-End d'Intégration
 					Ton inscription est en attente de validation d'un admin !
 				</div>
 			@endif
+		@endif
     @elseif((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
         <div class="box box-default">
             <div class="box-header with-border">
