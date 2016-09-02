@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Newcomer;
+use App\Models\Student;
 use \Carbon\Carbon;
 use App\Models\WEIRegistration;
 use App\Models\Payment;
@@ -23,6 +25,75 @@ class WEIController extends Controller
 
     public function adminGraph()
     {
+
+        $result = [
+            'newcomers' => [
+
+            ],
+            'orga'      => [
+                'wei'       => 0,
+                'sandwitch' => 0,
+                'guarantee' => 0,
+            ],
+            'ce'        => [
+                'wei'       => 0,
+                'sandwitch' => 0,
+                'guarantee' => 0,
+            ],
+            'vieux'        => [
+                'wei'       => 0,
+                'sandwitch' => 0,
+                'guarantee' => 0,
+            ],
+        ];
+        $newscomers = Newcomer::with('weiPayment', 'sandwichPayment', 'guaranteePayment')
+            ->get();
+
+        $students = Student::with('weiPayment', 'sandwichPayment', 'guaranteePayment')
+            ->get();
+
+        foreach ($newscomers as $newcomer)
+        {
+            if(!isset($result['newcomers'][$newcomer->branch]))
+            {
+                $result['newcomers'][$newcomer->branch] = [];
+                $result['newcomers'][$newcomer->branch]['wei'] = 0;
+                $result['newcomers'][$newcomer->branch]['sandwitch'] = 0;
+                $result['newcomers'][$newcomer->branch]['guarantee'] = 0;
+            }
+
+            if(isset($newcomer->weiPayment) && $newcomer->weiPayment->state == 'paid')
+                $result['newcomers'][$newcomer->branch]['wei'] += 1;
+
+            if(isset($newcomer->sandwichPayment) && $newcomer->sandwichPayment->state == 'paid')
+                $result['newcomers'][$newcomer->branch]['sandwitch'] += 1;
+
+            if(isset($newcomer->guaranteePayment) && $newcomer->guaranteePayment->state == 'paid')
+                $result['newcomers'][$newcomer->branch]['guarantee'] += 1;
+
+        }
+
+        foreach($students as $student)
+        {
+            $ret = &$result['vieux'];
+            if ($student->ce && $student->team_accepted && $student->team_id) {
+                $ret = &$result['ce'];
+            } elseif (EtuUTT::student()->orga) {
+                $ret = &$result['orga'];
+            }
+
+            if(isset($student->weiPayment) && $student->weiPayment->state == 'paid')
+                $ret['wei'] += 1;
+
+            if(isset($student->sandwichPayment) && $student->sandwichPayment->state == 'paid')
+                $ret['sandwitch'] += 1;
+
+            if(isset($student->guaranteePayment) && $student->guaranteePayment->state == 'paid')
+                $ret['guarantee'] += 1;
+
+        }
+
+
         $graphPaid = Payment::select(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\') as day'), DB::raw('COUNT(id) as sum'))
             ->where('type', 'payment')
             ->where('state', 'paid')
@@ -54,6 +125,7 @@ class WEIController extends Controller
             'graphCaution' => $graphCaution,
             'graphFood' => $graphFood,
             'sum'       => $sum,
+            'global'    => $result,
         ]);
     }
 
