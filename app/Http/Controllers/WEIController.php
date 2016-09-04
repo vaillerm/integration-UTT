@@ -257,6 +257,31 @@ class WEIController extends Controller
     public function newcomersGuaranteeSubmit()
     {
         $input = Request::only(['guarantee', 'cgv']);
+        // Check errors
+        $oldGuarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
+        $guarantee = ($input['guarantee'])?1:0;
+        if ($input['guarantee'] && $oldGuarantee) {
+            return Redirect::back()->withError('Vous ne pouvez pas payer deux fois la caution')->withInput();
+        }
+        if (!$input['cgv']) {
+            return Redirect::back()->withError('Vous devez accepter les conditions générales de vente')->withInput();
+        }
+        // Calculate amount
+        $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
+        // Create payment
+        $payment = new Payment([
+            'type' => 'guarantee',
+            'mean' => 'etupay',
+            'amount' => $amount,
+            'state' => 'started'
+        ]);
+        $payment->save();
+        // Save paiement in user object
+        $user = Auth::user();
+        if ($guarantee) {
+            $user->guarantee_payment = $payment->id;
+        }
+        $user->save();
 
         // Calculate EtuPay Payload
         $crypt = new Encrypter(base64_decode(Config::get('services.etupay.key')), 'AES-256-CBC');
