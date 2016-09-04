@@ -334,21 +334,24 @@ Route::group(['prefix' => 'dashboard'], function () {
         // });
 
         // Export.
-        // Route::group(['prefix' => 'exports'], function()
-        // {
-        // 	Route::get('/', [
-        // 		'as'   => 'dashboard.exports',
-        // 		'uses' => 'PagesController@getExports'
-        // 	]);
-        // 	Route::get('/referrals', [
-        // 		'as'   => 'dashboard.exports.referrals',
-        // 		'uses' => 'PagesController@getExportReferrals'
-        // 	]);
-        // 	Route::get('/newcomers', [
-        // 		'as'   => 'dashboard.exports.newcomers',
-        // 		'uses' => 'PagesController@getExportNewcomers'
-        // 	]);
-        // });
+        Route::group(['prefix' => 'exports'], function () {
+            // Route::get('/', [
+            // 	'as'   => 'dashboard.exports',
+            // 	'uses' => 'PagesController@getExports'
+            // ]);
+            Route::get('/referrals', [
+                'as'   => 'dashboard.exports.referrals',
+                'uses' => 'PagesController@getExportReferrals'
+            ]);
+            Route::get('/newcomers', [
+                'as'   => 'dashboard.exports.newcomers',
+                'uses' => 'PagesController@getExportNewcomers'
+            ]);
+            Route::get('/teams', [
+                'as'   => 'dashboard.exports.teams',
+                'uses' => 'PagesController@getExportTeams'
+            ]);
+        });
 
         // Route::group(['prefix' => 'championship'], function()
         // {

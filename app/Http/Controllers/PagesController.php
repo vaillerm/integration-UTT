@@ -83,6 +83,18 @@ class PagesController extends Controller
      */
     public function getExportReferrals()
     {
+        $referrals = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name')])
+        ->orderBy('last_name')
+        ->rightjoin('newcomers as n', 'students.student_id', '=', 'n.referral_id')
+        ->addSelect([\DB::raw('n.branch as branch'), \DB::raw('n.first_name as newcomer_first_name'), \DB::raw('n.last_name as newcomer_last_name'), \DB::raw('n.phone as newcomer_phone')])
+        ->get();
+        return Excel::create('Referrals', function ($file) use ($referrals) {
+            $file->sheet('', function ($sheet) use ($referrals) {
+                $sheet->fromArray($referrals);
+            });
+        })->export('csv');
+
+
         $referrals = Referral::orderBy('last_name')->where('validated', 1)->get();
         // Embed the referral's newcomers in the document.
         foreach ($referrals as &$referral) {
@@ -105,19 +117,36 @@ class PagesController extends Controller
      */
     public function getExportNewcomers()
     {
-        $newcomers = Newcomer::whereNotNull('referral_id')->orderBy('last_name')->get();
-        $data = [['Fillot', 'Parrain', 'Email parrain', 'Téléphone parrain']];
-        foreach ($newcomers as $newcomer) {
-            $data[] = [$newcomer->last_name.' '.$newcomer->first_name, $newcomer->email,
-                       $newcomer->referral->last_name.' '.$newcomer->referral->first_name,
-                       $newcomer->referral->email,
-                       $newcomer->referral->phone
-            ];
-        }
+        $newcomers = Newcomer::select([\DB::raw('newcomers.first_name'), \DB::raw('newcomers.last_name'), \DB::raw('newcomers.branch')])
+        ->orderBy('last_name')
+        ->leftjoin('students as s', 's.student_id', '=', 'newcomers.referral_id')
+        ->addSelect([\DB::raw('s.first_name as referral_first_name'), \DB::raw('s.last_name as referral_last_name'), \DB::raw('s.email as referral_email'), \DB::raw('s.phone as referral_phone')])
+        ->get();
+        return Excel::create('Newcomers', function ($file) use ($newcomers) {
+            $file->sheet('', function ($sheet) use ($newcomers) {
+                $sheet->fromArray($newcomers);
+            });
+        })->export('csv');
+    }
 
-        return Excel::create('Fillots', function ($file) use ($data) {
-            $file->sheet('', function ($sheet) use ($data) {
-                $sheet->fromArray($data);
+    /**
+     * Export the teams and CE into a CSV file.
+     *
+     * @return string
+     */
+    public function getExportTeams()
+    {
+        $students = Student::select(['first_name', 'last_name', 'phone', 'email', 'team_id'])
+        ->orderBy('last_name')
+        ->where('ce', 1)
+        ->whereNotNull('team_id')
+        ->where('team_accepted', 1)
+        ->join('teams as t', 't.id', '=', 'students.team_id')
+        ->addSelect(\DB::raw('t.name as team_name'))
+        ->get();
+        return Excel::create('Teams', function ($file) use ($students) {
+            $file->sheet('', function ($sheet) use ($students) {
+                $sheet->fromArray($students);
             });
         })->export('csv');
     }

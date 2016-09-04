@@ -45,10 +45,15 @@
                                             <li><a href="{{ route('dashboard.wei.graph') }}">Graphique</a></li>
                                         </ul>
                                     </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('dashboard.exports.newcomers') }}">Nouveaux -> parrain</a></li>
+                                            <li><a href="{{ route('dashboard.exports.referrals') }}">Parrains -> nouveaux</a></li>
+                                            <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
+                                        </ul>
+                                    </li>
                                     <?php /*  -->
-                                    <!-- <li><a href="{{ route('dashboard.exports') }}">Export</a></li> -->
-                                    <!-- <li><a href="{{ route('dashboard.championship') }}">Factions</a></li> -->
-                                    <!-- <li><a href="{{ route('dashboard.wei') }}">WEI</a></li> --> */ ?>
                                 @else
                                     <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
                                 @endif
