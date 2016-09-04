@@ -92,6 +92,26 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'ReferralsController@prematchSubmit'
             ]);
+            Route::get('/slides/tc', [
+                'as'   => 'dashboard.referrals.slides.tc',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@slidesTC'
+            ]);
+            Route::get('/signs/tc', [
+                'as'   => 'dashboard.referrals.signs.tc',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@signsTC'
+            ]);
+            Route::get('/slides/branch', [
+                'as'   => 'dashboard.referrals.slides.branch',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@slidesBranch'
+            ]);
+            Route::get('/signs/branch', [
+                'as'   => 'dashboard.referrals.signs.branch',
+                'middleware' => 'authorize:admin',
+                'uses' => 'ReferralsController@signsBranch'
+            ]);
         });
 
         // ce

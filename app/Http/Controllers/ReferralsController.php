@@ -199,4 +199,34 @@ class ReferralsController extends Controller
         // Redirect to referral assignation
         return redirect(route('dashboard.referrals.match'));
     }
+
+
+    public function signsTC()
+    {
+        return View::make('dashboard.referrals.signs', [
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->get(),
+        ]);
+    }
+
+    public function slidesTC()
+    {
+        return View::make('dashboard.referrals.slides', [
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->get(),
+        ]);
+    }
+
+
+    public function signsBranch()
+    {
+        return View::make('dashboard.referrals.signs', [
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->get(),
+        ]);
+    }
+
+    public function slidesBranch()
+    {
+        return View::make('dashboard.referrals.slides', [
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->get(),
+        ]);
+    }
 }

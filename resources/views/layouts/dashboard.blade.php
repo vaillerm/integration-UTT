@@ -32,6 +32,10 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ route('dashboard.referrals.list') }}">Liste des parrains</a></li>
                                             <li><a href="{{ route('dashboard.referrals.validation') }}">Validation</a></li>
+                                            <li><a href="{{ route('dashboard.referrals.signs.tc') }}">Fiches TC</a></li>
+                                            <li><a href="{{ route('dashboard.referrals.signs.branch') }}">Fiches Branche</a></li>
+                                            <li><a href="{{ route('dashboard.referrals.slides.tc') }}">Diapo TC</a></li>
+                                            <li><a href="{{ route('dashboard.referrals.slides.branch') }}">Diapo Branche</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
