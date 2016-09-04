@@ -61,6 +61,70 @@
         </div>
         <!-- /.box-body -->
     </div>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-eur"></i> Récapitulatif inscriptions</h3>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover" id="basket">
+                    <thead>
+                    <tr>
+                        <th>Dénomination</th>
+                        <th>Wei</th>
+                        <th>Caution</th>
+                        <th>Repas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="vert-align">
+                            <td>
+                                <strong>CE</strong>
+                            </td>
+                            <td>{{ $global['ce']['wei'] }}</td>
+                            <td>{{ $global['ce']['guarantee'] }}</td>
+                            <td>{{ $global['ce']['sandwitch'] }}</td>
+                        </tr>
+                        <tr class="vert-align">
+                            <td>
+                                <strong>Orga</strong>
+                            </td>
+                            <td>{{ $global['orga']['wei'] }}</td>
+                            <td>{{ $global['orga']['guarantee'] }}</td>
+                            <td>{{ $global['orga']['sandwitch'] }}</td>
+                        </tr>
+                        <tr class="vert-align">
+                            <td>
+                                <strong>Bénévoles/Anciens</strong>
+                            </td>
+                            <td>{{ $global['vieux']['wei'] }}</td>
+                            <td>{{ $global['vieux']['guarantee'] }}</td>
+                            <td>{{ $global['vieux']['sandwitch'] }}</td>
+                        </tr>
+                        <tr class="vert-align">
+                            <td>
+                                <strong>Nouveaux</strong>
+                            </td>
+                            <td>{{ array_sum(array_column($global['newcomers'], 'wei')) }}</td>
+                            <td>{{ array_sum(array_column($global['newcomers'], 'guarantee')) }}</td>
+                            <td>{{ array_sum(array_column($global['newcomers'], 'sandwitch')) }}</td>
+                        </tr>
+                    @foreach($global['newcomers'] as $branch=>$newcomer)
+                        <tr class="vert-align">
+                            <td>
+                                <i>{{ $branch }}</i>
+                            </td>
+                            <td>{{ $newcomer['wei'] }}</td>
+                            <td>{{ $newcomer['guarantee'] }}</td>
+                            <td>{{ $newcomer['sandwitch'] }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
 
 
 
