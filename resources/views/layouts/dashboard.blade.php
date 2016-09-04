@@ -53,7 +53,6 @@
                                             <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
                                         </ul>
                                     </li>
-                                    <?php /*  -->
                                 @else
                                     <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
                                 @endif

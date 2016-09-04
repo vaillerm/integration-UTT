@@ -76,16 +76,18 @@ Recherche de participant au WEI
                             <td>
                                 @if (!$user->wei)
                                     <span class="label label-danger">Pas inscrit</span
-                                @elseif ($user->wei_validated)
-                                    <span class="label label-success">Validé</span>
                                 @elseif ($user->wei_payment || $user->sandwich_payment || $user->guarantee_payment)
-                                    <span class="label label-warning">Commencé</span>
+                                    <span class="label label-primary">Commencé</span>
                                 @else
-                                    <span class="label label-info">En attente de validation</span>
+                                    <span class="label label-success">En attente de validation</span>
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">Modifier</a>
+                                @if($user->student == 1)
+                                    <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">Modifier</a>
+                                @else
+                                    <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.newcomer.edit', [ 'id' => $user->id ])}}">Modifier</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
