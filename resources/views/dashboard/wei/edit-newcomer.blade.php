@@ -63,6 +63,9 @@ Modification d'un étudiant
     <div class="box box-default">
         <div class="box-header with-border">
             <h3 class="box-title">Modification du nouveau <strong>{{{ $user->first_name . ' ' . $user->last_name }}}</strong></h3>
+            <div class="pull-right">
+                <a class="btn btn-xs btn-danger" href="{{ route('dashboard.wei.search')}}">Retour</a>
+            </div>
         </div>
         <div class="box-body" id="accordion">
             <form class="form-horizontal" action="{{ route('dashboard.wei.newcomer.edit.submit', $user->id) }}" method="post" enctype="multipart/form-data">

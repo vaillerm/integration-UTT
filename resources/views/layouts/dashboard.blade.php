@@ -43,6 +43,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ route('dashboard.wei') }}">M'inscrire</a></li>
                                             <li><a href="{{ route('dashboard.wei.graph') }}">Graphique</a></li>
+                                            <li><a href="{{ route('dashboard.wei.search') }}">Gérer</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
