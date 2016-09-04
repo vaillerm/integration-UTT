@@ -63,11 +63,17 @@ class Authorization
             }
         } else {
             // Login/student verification
-            if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral'])
+            if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral', 'volunteer'])
                     && !\EtuUTT::isAuth()) {
                 return false;
             }
             $student = \EtuUTT::student();
+
+            // Volunteer verification
+            if (in_array($group, ['admin', 'orga', 'ce', 'volunteer'])
+                    && !\EtuUTT::student()->volunteer) {
+                return false;
+            }
 
             // Group verification
             if ($group == 'admin'

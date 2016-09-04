@@ -24,7 +24,7 @@ Le Week-End d'Intégration
 @endsection
 
 @section('content')
-    @if(Authorization::can('student','wei'))
+    @if(Authorization::can('volunteer','wei'))
 
 		<div class="box box-default">
 			<div class="box-header with-border">

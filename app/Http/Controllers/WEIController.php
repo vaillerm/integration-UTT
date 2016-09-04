@@ -13,6 +13,8 @@ use Auth;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\DB;
 use EtuUTT;
+use App\Models\Student;
+use App\Models\Newcomer;
 
 /**
  * Handle registrations for the "WEI".
@@ -66,7 +68,7 @@ class WEIController extends Controller
         $sandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $underage = (Auth::user()->birth >= (new \DateTime(Config::get('services.wei.start'))));
+        $underage = (Auth::user()->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
 
         Auth::user()->updateWei();
 
@@ -186,36 +188,6 @@ class WEIController extends Controller
     {
         $input = Request::only(['guarantee', 'cgv']);
 
-        // Check errors
-        $oldGuarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $guarantee = ($input['guarantee'])?1:0;
-
-        if ($input['guarantee'] && $oldGuarantee) {
-            return Redirect::back()->withError('Vous ne pouvez pas payer deux fois la caution')->withInput();
-        }
-        if (!$input['cgv']) {
-            return Redirect::back()->withError('Vous devez accepter les conditions générales de vente')->withInput();
-        }
-
-        // Calculate amount
-        $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
-
-        // Create payment
-        $payment = new Payment([
-            'type' => 'guarantee',
-            'mean' => 'etupay',
-            'amount' => $amount,
-            'state' => 'started'
-        ]);
-        $payment->save();
-
-        // Save paiement in user object
-        $user = Auth::user();
-        if ($guarantee) {
-            $user->guarantee_payment = $payment->id;
-        }
-        $user->save();
-
         // Calculate EtuPay Payload
         $crypt = new Encrypter(base64_decode(Config::get('services.etupay.key')), 'AES-256-CBC');
         $payload = $crypt->encrypt(json_encode([
@@ -239,7 +211,7 @@ class WEIController extends Controller
      */
     public function newcomersAuthorization()
     {
-        $underage = (Auth::user()->birth >= (new \DateTime(Config::get('services.wei.start'))));
+        $underage = (Auth::user()->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
         if (!$underage) {
             Auth::user()->setCheck('wei_authorization', true);
             Auth::user()->save();
@@ -443,5 +415,497 @@ class WEIController extends Controller
             'service_data' => $payment->id
         ]));
         return Redirect(Config::get('services.etupay.uri.initiate').'?service_id='.Config::get('services.etupay.id').'&payload='.$payload);
+    }
+
+
+    /**
+     *
+     * @return Response
+     */
+    public function userSearch()
+    {
+        return View::make('dashboard.wei.search');
+    }
+
+    /**
+     *
+     * @return Response
+     */
+    public function userSearchSubmit()
+    {
+        $input = Request::only(['search']);
+        $this->validate(Request::instance(), [
+            'search' => 'max:60|min:2|required',
+        ]);
+
+        $words = explode(' ', $input['search']);
+
+        // Find students
+        $students = Student::select([DB::raw('student_id AS id'), 'first_name', 'last_name', 'surname', DB::raw('1 AS student'),
+        DB::raw('(ce AND team_accepted) AS ce'), DB::raw('volunteer AS volunteer'), DB::raw('orga AS orga'),
+        'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', 'wei_validated']);
+        if (count($words) <= 1 && is_numeric($input['search'])) {
+            $students = $students->where('student_id', $input['search']);
+        }
+        foreach ($words as $word) {
+            $students = $students->orWhere('first_name', 'like', '%'.$word.'%');
+            $students = $students->orWhere('last_name', 'like', '%'.$word.'%');
+            $students = $students->orWhere('surname', 'like', '%'.$word.'%');
+            $students = $students->orWhere('email', 'like', '%'.$word.'%');
+        }
+
+        // Find newcomers
+        $newcomer = Newcomer::select(['id', 'first_name', 'last_name', DB::raw('"" AS surname'), DB::raw('0 AS student'),
+        DB::raw('0 AS ce'), DB::raw('0 AS volunteer'), DB::raw('0 AS orga'),
+        'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', DB::raw('1 AS wei_validated')]);
+        if (count($words) <= 1 && is_numeric($input['search'])) {
+            $newcomer = $newcomer->where('id', $input['search']);
+        }
+        foreach ($words as $word) {
+            $newcomer = $newcomer->orWhere('first_name', 'like', '%'.$word.'%');
+            $newcomer = $newcomer->orWhere('last_name', 'like', '%'.$word.'%');
+            $newcomer = $newcomer->orWhere('email', 'like', '%'.$word.'%');
+            $newcomer = $newcomer->orWhere('login', 'like', '%'.$word.'%');
+        }
+
+        // Union between newcomers and students
+        $users = $students->union($newcomer)->get();
+
+        return View::make('dashboard.wei.search', ['users' => $users, 'search' => $input['search']]);
+    }
+
+
+    /**
+     *
+     * @return Response
+     */
+    public function studentEdit($id)
+    {
+        $student = Student::findOrFail($id);
+
+        //calculate price
+        $price = Config::get('services.wei.price-other');
+        $priceName = 'Ancien/Autre';
+        if ($student->ce && $student->team_accepted && $student->team_id) {
+            $price = Config::get('services.wei.price-ce');
+            $priceName = 'Chef d\'équipe';
+        } elseif ($student->orga) {
+            $price = Config::get('services.wei.price-orga');
+            $priceName = 'Orga';
+        }
+
+        // Calculate count
+        $weiCount = 1;
+        $sandwichCount = 1;
+        $guaranteeCount = 1;
+        if ($student->sandwichPayment && in_array($student->sandwichPayment->state, ['paid'])) {
+            $sandwichCount = 0;
+        }
+        if ($student->weiPayment && in_array($student->weiPayment->state, ['paid'])) {
+            $weiCount = 0;
+        }
+        if ($student->guaranteePayment && in_array($student->guaranteePayment->state, ['paid'])) {
+            $guaranteeCount = 0;
+        }
+        return View::make('dashboard.wei.edit-student', ['user' => $student, 'price' => $price, 'priceName' => $priceName, 'weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'guaranteeCount' => $guaranteeCount]);
+    }
+
+
+    /**
+     *
+     * @return Response
+     */
+    public function newcomerEdit($id)
+    {
+        $newcomer = Newcomer::findOrFail($id);
+        $newcomer->updateWei();
+
+        $underage = ($newcomer->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
+
+        // Calculate count
+        $weiCount = 1;
+        $sandwichCount = 1;
+        $guaranteeCount = 1;
+        if ($newcomer->sandwichPayment && in_array($newcomer->sandwichPayment->state, ['paid'])) {
+            $sandwichCount = 0;
+        }
+        if ($newcomer->weiPayment && in_array($newcomer->weiPayment->state, ['paid'])) {
+            $weiCount = 0;
+        }
+        if ($newcomer->guaranteePayment && in_array($newcomer->guaranteePayment->state, ['paid'])) {
+            $guaranteeCount = 0;
+        }
+        return View::make('dashboard.wei.edit-newcomer', ['user' => $newcomer, 'weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'guaranteeCount' => $guaranteeCount, 'underage' => $underage]);
+    }
+
+
+    /**
+     *
+     * @return Response
+     */
+    public function newcomerEditSubmit($id)
+    {
+        $newcomer = Newcomer::findOrFail($id);
+        $newcomer->updateWei();
+
+        $underage = ($newcomer->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
+
+        // Profil form
+        $list = ['email', 'phone', 'parent_name', 'parent_phone', 'medical_allergies', 'medical_treatment', 'medical_note'];
+        if (Request::has($list)) {
+            $input = Request::only($list);
+            $this->validate(Request::instance(), [
+                'email' => 'email|required',
+                'phone' => [
+                    'regex:/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/',
+                    'required',
+                ],
+                'parent_name' => 'required',
+                'parent_phone' => 'required',
+            ],
+            [
+                'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone français valide.'
+            ]);
+
+            $newcomer->update($input);
+
+            if (preg_match('/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', Request::get('phone'), $m)) {
+                $newcomer->phone = '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6];
+            } elseif (Request::get('phone') == '') {
+                $newcomer->phone = '';
+            }
+
+            $newcomer->setCheck('profil_email', !empty($newcomer->email));
+            $newcomer->setCheck('profil_phone', !empty($newcomer->phone));
+            $newcomer->setCheck('profil_parent_name', !empty($newcomer->parent_name));
+            $newcomer->setCheck('profil_parent_phone', !empty($newcomer->parent_phone));
+
+            $newcomer->save();
+
+            return Redirect(route('dashboard.wei.newcomer.edit', ['id' => $newcomer->id]))->withSuccess('Vos modifications ont été enregistrées.');
+        }
+
+        // WEI payment form
+        if (Request::has(['wei', 'sandwich', 'wei-total'])) {
+            $input = Request::only(['wei', 'sandwich', 'wei-total', 'mean', 'cash-number', 'cash-color', 'check-number', 'check-bank', 'check-name', 'check-write', 'card-write']);
+            $rules = [
+                'wei' => 'required',
+                'sandwich' => 'required',
+                'wei-total' => 'required',
+                'mean' => 'required|in:card,check,cash',
+            ];
+            $informations = [];
+            switch ($input['mean']) {
+                case 'card':
+                    $rules['card-write'] = 'accepted';
+                    break;
+                case 'cash':
+                    $rules['cash-number'] = 'required';
+                    $rules['cash-color'] = 'required';
+                    $informations = Request::only(['cash-number', 'cash-color']);
+                    break;
+                case 'check':
+                    $rules['check-number'] = 'required';
+                    $rules['check-bank'] = 'required';
+                    $rules['check-name'] = 'required';
+                    $rules['check-write'] = 'accepted';
+                    $informations = Request::only(['check-number', 'check-bank', 'check-name']);
+                    break;
+            }
+            $this->validate(Request::instance(), $rules,
+            [
+                'mean.required' => 'Le champ Moyen de paiement est obligatoire.',
+                'card-write.accepted' => 'Vous devez avoir écris le numéro indiqué derrière le ticket de CB',
+                'check-write.accepted' => 'Vous devez avoir écris le numéro indiqué derrière le chèque',
+                'check-number.required' => 'Le champ Numéro de chèque est obligatoire.',
+                'check-bank.required' => 'Le champ Banque du chèque est obligatoire.',
+                'check-name.required' => 'Le champ Émetteur du chèque est obligatoire.',
+                'cash-number.required' => 'Le champ Numéro de caisse est obligatoire.',
+                'cash-color.required' => 'Le champ Couleur de caisse est obligatoire.',
+            ]);
+
+            // Check errors
+            $oldSandwich = (($newcomer->sandwichPayment && in_array($newcomer->sandwichPayment->state, ['paid']))?1:0);
+            $oldWei = (($newcomer->weiPayment && in_array($newcomer->weiPayment->state, ['paid']))?1:0);
+            $sandwich = ($input['sandwich'])?1:0;
+            $wei = ($input['wei'])?1:0;
+
+            if ($input['sandwich'] && $oldSandwich) {
+                return Redirect::back()->withError('Vous ne pouvez pas prendre un deuxieme panier repas')->withInput();
+            }
+            if ($input['wei'] && $oldWei) {
+                return Redirect::back()->withError('Vous ne pouvez pas prendre un deuxieme weekend d\'intégration')->withInput();
+            }
+            if (!$input['wei'] && !$oldWei && $input['sandwich']) {
+                return Redirect::back()->withError('Vous ne pouvez pas prendre un panier repas sans prendre le weekend')->withInput();
+            }
+
+            // Calculate amount
+            $amount = ($sandwich * Config::get('services.wei.sandwichPrice') + $wei * Config::get('services.wei.price'))*100;
+
+            if ($amount/100 != $input['wei-total']) {
+                return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
+            }
+
+            // Create payment
+            $payment = new Payment([
+                'type' => 'payment',
+                'mean' => $input['mean'],
+                'amount' => $amount,
+                'state' => 'paid',
+                'informations' => $informations
+            ]);
+            $payment->save();
+
+            // Save paiement in user object
+            $user = $newcomer;
+            if ($wei) {
+                $user->wei_payment = $payment->id;
+            }
+            if ($sandwich) {
+                $user->sandwich_payment = $payment->id;
+            }
+            $user->updateWei();
+            $user->save();
+
+
+            return Redirect(route('dashboard.wei.newcomer.edit', ['id' => $newcomer->id]))->withSuccess('Vos modifications ont été enregistrées.');
+        }
+
+
+        // Guarantee payment form
+        if (Request::has(['guarantee', 'guarantee-total'])) {
+            $input = Request::only(['guarantee', 'guarantee-total', 'check2-number', 'check2-bank', 'check2-name', 'check2-write']);
+            $informations = Request::only(['check-number', 'check-bank', 'check-name']);
+            $this->validate(Request::instance(), [
+                'guarantee' => 'required',
+                'guarantee-total' => 'required',
+                'check2-number' => 'required',
+                'check2-bank' => 'required',
+                'check2-name' => 'required',
+                'check2-write' => 'accepted',
+            ],
+            [
+                'check2-write.accepted' => 'Vous devez avoir écris le numéro indiqué derrière le chèque',
+                'check2-number.required' => 'Le champ Numéro de chèque est obligatoire.',
+                'check2-bank.required' => 'Le champ Banque du chèque est obligatoire.',
+                'check2-name.required' => 'Le champ Émetteur du chèque est obligatoire.',
+            ]);
+
+            // Check errors
+            $oldGuarantee = (($newcomer->guaranteePayment && in_array($newcomer->guaranteePayment->state, ['paid']))?1:0);
+            $guarantee = ($input['guarantee'])?1:0;
+
+            if ($input['guarantee'] && $oldGuarantee) {
+                return Redirect::back()->withError('Vous ne pouvez pas payer deux fois la caution')->withInput();
+            }
+
+            // Calculate amount
+            $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
+
+            if ($amount/100 != $input['guarantee-total']) {
+                return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
+            }
+
+            // Create payment
+            $payment = new Payment([
+                'type' => 'guarantee',
+                'mean' => 'check',
+                'amount' => $amount,
+                'state' => 'paid',
+                'informations' => $informations
+            ]);
+            $payment->save();
+
+            // Save paiement in user object
+            if ($guarantee) {
+                $newcomer->guarantee_payment = $payment->id;
+            }
+            $newcomer->updateWei();
+            $newcomer->save();
+
+            return Redirect(route('dashboard.wei.newcomer.edit', ['id' => $newcomer->id]))->withSuccess('Vos modifications ont été enregistrées.');
+        }
+
+        // Else : Authorization form
+        $input = Request::only(['authorization1', 'authorization2']);
+        $this->validate(Request::instance(), [
+            'authorization1' => 'accepted',
+            'authorization2' => 'accepted',
+        ],
+        [
+            'authorization1.accepted' => 'Vous devez récupérer l\'autorisation parentale',
+            'authorization2.accepted' => 'Vous devez avoir écris le numéro indiqué derrière l\'autorisation parentale',
+        ]);
+
+        // Save paiement in user object
+        $newcomer->parent_authorization = true;
+        $newcomer->updateWei();
+        $newcomer->save();
+
+
+        return Redirect(route('dashboard.wei.newcomer.edit', ['id' => $newcomer->id]))->withSuccess('Vos modifications ont été enregistrées.');
+    }
+
+
+    /**
+     *
+     * @return Response
+     */
+    public function studentEditSubmit($id)
+    {
+        $student = Student::findOrFail($id);
+
+        // WEI payment form
+        if (Request::has(['wei', 'sandwich', 'wei-total'])) {
+            $input = Request::only(['wei', 'sandwich', 'wei-total', 'mean', 'cash-number', 'cash-color', 'check-number', 'check-bank', 'check-name', 'check-write', 'card-write']);
+            $rules = [
+                'wei' => 'required',
+                'sandwich' => 'required',
+                'wei-total' => 'required',
+                'mean' => 'required|in:card,check,cash',
+            ];
+            $informations = [];
+            switch ($input['mean']) {
+                case 'card':
+                    $rules['card-write'] = 'accepted';
+                    break;
+                case 'cash':
+                    $rules['cash-number'] = 'required';
+                    $rules['cash-color'] = 'required';
+                    $informations = Request::only(['cash-number', 'cash-color']);
+                    break;
+                case 'check':
+                    $rules['check-number'] = 'required';
+                    $rules['check-bank'] = 'required';
+                    $rules['check-name'] = 'required';
+                    $rules['check-write'] = 'accepted';
+                    $informations = Request::only(['check-number', 'check-bank', 'check-name']);
+                    break;
+            }
+            $this->validate(Request::instance(), $rules,
+            [
+                'mean.required' => 'Le champ Moyen de paiement est obligatoire.',
+                'card-write.accepted' => 'Vous devez avoir écris le numéro indiqué derrière le ticket de CB',
+                'check-write.accepted' => 'Vous devez avoir écris le numéro indiqué derrière le chèque',
+                'check-number.required' => 'Le champ Numéro de chèque est obligatoire.',
+                'check-bank.required' => 'Le champ Banque du chèque est obligatoire.',
+                'check-name.required' => 'Le champ Émetteur du chèque est obligatoire.',
+                'cash-number.required' => 'Le champ Numéro de caisse est obligatoire.',
+                'cash-color.required' => 'Le champ Couleur de caisse est obligatoire.',
+            ]);
+
+            // Check errors
+            $oldSandwich = (($student->sandwichPayment && in_array($student->sandwichPayment->state, ['paid']))?1:0);
+            $oldWei = (($student->weiPayment && in_array($student->weiPayment->state, ['paid']))?1:0);
+            $sandwich = ($input['sandwich'])?1:0;
+            $wei = ($input['wei'])?1:0;
+
+            if ($input['sandwich'] && $oldSandwich) {
+                return Redirect::back()->withError('Vous ne pouvez pas prendre un deuxieme panier repas')->withInput();
+            }
+            if ($input['wei'] && $oldWei) {
+                return Redirect::back()->withError('Vous ne pouvez pas prendre un deuxieme weekend d\'intégration')->withInput();
+            }
+            if (!$input['wei'] && !$oldWei && $input['sandwich']) {
+                return Redirect::back()->withError('Vous ne pouvez pas prendre un panier repas sans prendre le weekend')->withInput();
+            }
+
+            //calculate price
+            $price = Config::get('services.wei.price-other');
+            if ($student->ce && $student->team_accepted && $student->team_id) {
+                $price = Config::get('services.wei.price-ce');
+            } elseif ($student->orga) {
+                $price = Config::get('services.wei.price-orga');
+            }
+
+            // Calculate amount
+            $amount = ($sandwich * Config::get('services.wei.sandwichPrice') + $wei * $price)*100;
+
+            if ($amount/100 != $input['wei-total']) {
+                return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
+            }
+
+            // Create payment
+            $payment = new Payment([
+                'type' => 'payment',
+                'mean' => $input['mean'],
+                'amount' => $amount,
+                'state' => 'paid',
+                'informations' => $informations
+            ]);
+            $payment->save();
+
+            // Save paiement in user object
+            $user = $student;
+            if ($wei) {
+                $user->wei_payment = $payment->id;
+            }
+            if ($sandwich) {
+                $user->sandwich_payment = $payment->id;
+            }
+            $user->updateWei();
+            $user->save();
+
+
+            return Redirect(route('dashboard.wei.student.edit', ['id' => $student->student_id]))->withSuccess('Vos modifications ont été enregistrées.');
+        }
+
+
+        // Guarantee payment form
+        if (Request::has(['guarantee', 'guarantee-total'])) {
+            $input = Request::only(['guarantee', 'guarantee-total', 'check2-number', 'check2-bank', 'check2-name', 'check2-write']);
+            $informations = Request::only(['check-number', 'check-bank', 'check-name']);
+            $this->validate(Request::instance(), [
+                'guarantee' => 'required',
+                'guarantee-total' => 'required',
+                'check2-number' => 'required',
+                'check2-bank' => 'required',
+                'check2-name' => 'required',
+                'check2-write' => 'accepted',
+            ],
+            [
+                'check2-write.accepted' => 'Vous devez avoir écris le numéro indiqué derrière le chèque',
+                'check2-number.required' => 'Le champ Numéro de chèque est obligatoire.',
+                'check2-bank.required' => 'Le champ Banque du chèque est obligatoire.',
+                'check2-name.required' => 'Le champ Émetteur du chèque est obligatoire.',
+            ]);
+
+            // Check errors
+            $oldGuarantee = (($student->guaranteePayment && in_array($student->guaranteePayment->state, ['paid']))?1:0);
+            $guarantee = ($input['guarantee'])?1:0;
+
+            if ($input['guarantee'] && $oldGuarantee) {
+                return Redirect::back()->withError('Vous ne pouvez pas payer deux fois la caution')->withInput();
+            }
+
+            // Calculate amount
+            $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
+
+            if ($amount/100 != $input['guarantee-total']) {
+                return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
+            }
+
+            // Create payment
+            $payment = new Payment([
+                'type' => 'guarantee',
+                'mean' => 'check',
+                'amount' => $amount,
+                'state' => 'paid',
+                'informations' => $informations
+            ]);
+            $payment->save();
+
+            // Save paiement in user object
+            if ($guarantee) {
+                $student->guarantee_payment = $payment->id;
+            }
+            $student->updateWei();
+            $student->save();
+
+            return Redirect(route('dashboard.wei.student.edit', ['id' => $student->student_id]))->withSuccess('Vos modifications ont été enregistrées.');
+        }
+
+        return Redirect(route('dashboard.wei.student.edit', ['id' => $student->student_id]))->withError('Y\'a un soucis !');
     }
 }

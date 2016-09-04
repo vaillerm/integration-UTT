@@ -244,31 +244,31 @@ Route::group(['prefix' => 'dashboard'], function () {
 
             Route::get('/', [
                 'as'   => 'dashboard.wei',
-                'middleware' => 'authorize:student,wei',
+                'middleware' => 'authorize:volunteer,wei',
                 'uses' => 'WEIController@etuHome'
             ]);
 
             Route::get('/pay', [
                 'as'   => 'dashboard.wei.pay',
-                'middleware' => 'authorize:student,wei',
+                'middleware' => 'authorize:volunteer,wei',
                 'uses' => 'WEIController@etuPay'
             ]);
 
             Route::post('/pay', [
                 'as'   => 'dashboard.wei.pay.submit',
-                'middleware' => 'authorize:student,wei',
+                'middleware' => 'authorize:volunteer,wei',
                 'uses' => 'WEIController@etuPaySubmit'
             ]);
 
             Route::get('/guarantee', [
                 'as'   => 'dashboard.wei.guarantee',
-                'middleware' => 'authorize:student,wei',
+                'middleware' => 'authorize:volunteer,wei',
                 'uses' => 'WEIController@etuGuarantee'
             ]);
 
             Route::post('/guarantee', [
                 'as'   => 'dashboard.wei.guarantee.submit',
-                'middleware' => 'authorize:student,wei',
+                'middleware' => 'authorize:volunteer,wei',
                 'uses' => 'WEIController@etuGuaranteeSubmit'
             ]);
 
@@ -277,6 +277,42 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'as'   => 'dashboard.wei.graph',
                 'middleware' => 'authorize:admin',
                 'uses' => 'WEIController@adminGraph'
+            ]);
+
+            Route::get('/search', [
+                'as'   => 'dashboard.wei.search',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@userSearch'
+            ]);
+
+            Route::get('/edit/student/{id}', [
+                'as'   => 'dashboard.wei.student.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@studentEdit'
+            ]);
+
+            Route::post('/edit/student/{id}', [
+                'as'   => 'dashboard.wei.student.edit.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@studentEditSubmit'
+            ]);
+
+            Route::get('/edit/newcomer/{id}', [
+                'as'   => 'dashboard.wei.newcomer.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@newcomerEdit'
+            ]);
+
+            Route::post('/edit/newcomer/{id}', [
+                'as'   => 'dashboard.wei.newcomer.edit.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@newcomerEditSubmit'
+            ]);
+
+            Route::post('/search', [
+                'as'   => 'dashboard.wei.search.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@userSearchSubmit'
             ]);
         });
 

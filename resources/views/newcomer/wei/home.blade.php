@@ -83,15 +83,15 @@ Le Week-End d'Intégration
 				@endif
 
 				@if($underage)
-					@if($authorization)
+					@if(Auth::user()->parent_authorization)
 						<big>
 							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-							Préparer l'autorisation parentale
+							Donner l'autorisation parentale
 						</big><br/>
 					@else
 						<big><a href="{{ route('newcomer.wei.authorization') }}">
 							<i class="fa fa-square-o" aria-hidden="true"></i>
-							Préparer l'autorisation parentale
+							Donner l'autorisation parentale
 						</a></big><br/>
 					@endif
 				@endif
