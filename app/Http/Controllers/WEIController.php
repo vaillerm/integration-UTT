@@ -76,7 +76,7 @@ class WEIController extends Controller
             $ret = &$result['vieux'];
             if ($student->ce && $student->team_accepted && $student->team_id) {
                 $ret = &$result['ce'];
-            } elseif (EtuUTT::student()->orga) {
+            } elseif ($student->orga) {
                 $ret = &$result['orga'];
             }
 
