@@ -14,6 +14,7 @@ class Student extends Model
     const SEX_FEMALE = 1;
 
     const ADMIN_NOT = 0;
+    const ADMIN_MODERATOR = 50;
     const ADMIN_FULL = 100;
 
     public function getDates()
@@ -76,6 +77,15 @@ class Student extends Model
     public function isAdmin()
     {
         return ($this->admin == Student::ADMIN_FULL);
+    }
+
+    /**
+     * Test if the student can all of the dashboard
+     * @return bool
+     */
+    public function isModerator()
+    {
+        return ($this->admin == Student::ADMIN_MODERATOR);
     }
 
 

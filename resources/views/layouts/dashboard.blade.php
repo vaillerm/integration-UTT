@@ -58,6 +58,14 @@
                                             <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
                                         </ul>
                                     </li>
+                                @elseif (EtuUTT::student()->isAdmin())
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('dashboard.wei') }}">M'inscrire</a></li>
+                                            <li><a href="{{ route('dashboard.wei.search') }}">Gérer</a></li>
+                                        </ul>
+                                    </li>
                                 @else
                                     <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
                                 @endif
