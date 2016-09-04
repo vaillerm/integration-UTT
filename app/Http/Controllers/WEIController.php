@@ -15,8 +15,6 @@ use Auth;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\DB;
 use EtuUTT;
-use App\Models\Student;
-use App\Models\Newcomer;
 
 /**
  * Handle registrations for the "WEI".
@@ -27,7 +25,6 @@ class WEIController extends Controller
 
     public function adminGraph()
     {
-
         $result = [
             'newcomers' => [
 
@@ -54,29 +51,28 @@ class WEIController extends Controller
         $students = Student::with('weiPayment', 'sandwichPayment', 'guaranteePayment')
             ->get();
 
-        foreach ($newscomers as $newcomer)
-        {
-            if(!isset($result['newcomers'][$newcomer->branch]))
-            {
+        foreach ($newscomers as $newcomer) {
+            if (!isset($result['newcomers'][$newcomer->branch])) {
                 $result['newcomers'][$newcomer->branch] = [];
                 $result['newcomers'][$newcomer->branch]['wei'] = 0;
                 $result['newcomers'][$newcomer->branch]['sandwitch'] = 0;
                 $result['newcomers'][$newcomer->branch]['guarantee'] = 0;
             }
 
-            if(isset($newcomer->weiPayment) && $newcomer->weiPayment->state == 'paid')
+            if (isset($newcomer->weiPayment) && $newcomer->weiPayment->state == 'paid') {
                 $result['newcomers'][$newcomer->branch]['wei'] += 1;
+            }
 
-            if(isset($newcomer->sandwichPayment) && $newcomer->sandwichPayment->state == 'paid')
+            if (isset($newcomer->sandwichPayment) && $newcomer->sandwichPayment->state == 'paid') {
                 $result['newcomers'][$newcomer->branch]['sandwitch'] += 1;
+            }
 
-            if(isset($newcomer->guaranteePayment) && $newcomer->guaranteePayment->state == 'paid')
+            if (isset($newcomer->guaranteePayment) && $newcomer->guaranteePayment->state == 'paid') {
                 $result['newcomers'][$newcomer->branch]['guarantee'] += 1;
-
+            }
         }
 
-        foreach($students as $student)
-        {
+        foreach ($students as $student) {
             $ret = &$result['vieux'];
             if ($student->ce && $student->team_accepted && $student->team_id) {
                 $ret = &$result['ce'];
@@ -84,15 +80,17 @@ class WEIController extends Controller
                 $ret = &$result['orga'];
             }
 
-            if(isset($student->weiPayment) && $student->weiPayment->state == 'paid')
+            if (isset($student->weiPayment) && $student->weiPayment->state == 'paid') {
                 $ret['wei'] += 1;
+            }
 
-            if(isset($student->sandwichPayment) && $student->sandwichPayment->state == 'paid')
+            if (isset($student->sandwichPayment) && $student->sandwichPayment->state == 'paid') {
                 $ret['sandwitch'] += 1;
+            }
 
-            if(isset($student->guaranteePayment) && $student->guaranteePayment->state == 'paid')
+            if (isset($student->guaranteePayment) && $student->guaranteePayment->state == 'paid') {
                 $ret['guarantee'] += 1;
-
+            }
         }
 
 
