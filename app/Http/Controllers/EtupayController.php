@@ -84,7 +84,11 @@ class EtupayController extends Controller
     {
         $payment = EtuPay::readCallback(Request::get('payload'));
 
-        $payment->newcomer->updateWei();
+        if ($payment->newcomer) {
+            $payment->newcomer->updateWei();
+        } else {
+            $payment->student->updateWei();
+        }
 
         if ($payment) {
             return Response::make('OK', 200);
