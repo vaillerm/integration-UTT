@@ -75,7 +75,7 @@ Modification d'un étudiant
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom complet</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" disabled value="{{{ $user->first_name . ' ' . $user->last_name }}}">
+                        <input class="form-control" type="text" id="name" name="fullName" readonly value="{{{ $user->first_name . ' ' . $user->last_name }}}">
                     </div>
                 </div>
 

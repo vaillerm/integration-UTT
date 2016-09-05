@@ -647,7 +647,7 @@ class WEIController extends Controller
 
         // Profil form
         $list = ['email', 'phone', 'parent_name', 'parent_phone', 'medical_allergies', 'medical_treatment', 'medical_note'];
-        if (Request::has($list)) {
+        if (Request::has('fullName')) {
             $input = Request::only($list);
             $this->validate(Request::instance(), [
                 'email' => 'email|required',
