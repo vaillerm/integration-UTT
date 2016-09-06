@@ -125,6 +125,12 @@ Le Week-End d'Intégration
                 <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
     			<big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big>
             </div>
+        </div
+    @elseif($count >= Config::get('services.wei.newcomerMax'))
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">On est vraiment désolé, il n'y a plus de places disponibles pour le WEI :/</h3>
+            </div>
         </div>
     @else
         <div class="box box-default">

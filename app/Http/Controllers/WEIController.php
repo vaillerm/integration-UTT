@@ -139,6 +139,7 @@ class WEIController extends Controller
         $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $underage = (Auth::user()->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
+        $count = Newcomer::where('wei', 1)->count();
 
         Auth::user()->updateWei();
 
@@ -147,6 +148,7 @@ class WEIController extends Controller
             'wei' => $wei,
             'guarantee' => $guarantee,
             'underage' => $underage,
+            'count' => $count,
         ]);
     }
 

@@ -53,7 +53,6 @@ class Authorization
             switch ($action) {
                 case 'wei':
                     if (!Auth::user()->wei
-                        && !(\EtuUTT::isAuth() && \EtuUTT::student()->isAdmin())
                         && ($this->now() <= new \DateTime(Config::get('services.wei.registrationStart'))
                         || $this->now() >= new \DateTime(Config::get('services.wei.registrationEnd'))
                         || $count >= Config::get('services.wei.newcomerMax'))) {
