@@ -68,6 +68,12 @@ Modification d'un étudiant
             </div>
         </div>
         <div class="box-body" id="accordion">
+
+        @if($count >= Config::get('services.wei.newcomerMax') && $user->wei == 0)
+            <div class="callout callout-danger">
+                Impossible d'inscrire ce nouveau au WEI, il n'y a plus de place :/
+            </div>
+        @else
             <form class="form-horizontal" action="{{ route('dashboard.wei.newcomer.edit.submit', $user->id) }}" method="post" enctype="multipart/form-data">
 
             <fieldset class="panel">
@@ -424,5 +430,6 @@ Modification d'un étudiant
                 </form>
             @endif
         </form>
+    @endif
     </div>
 @endsection

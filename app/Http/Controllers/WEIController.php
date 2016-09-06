@@ -618,6 +618,7 @@ class WEIController extends Controller
         $newcomer->updateWei();
 
         $underage = ($newcomer->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
+        $count = Newcomer::where('wei', 1)->count();
 
         // Calculate count
         $weiCount = 1;
@@ -632,7 +633,7 @@ class WEIController extends Controller
         if ($newcomer->guaranteePayment && in_array($newcomer->guaranteePayment->state, ['paid'])) {
             $guaranteeCount = 0;
         }
-        return View::make('dashboard.wei.edit-newcomer', ['user' => $newcomer, 'weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'guaranteeCount' => $guaranteeCount, 'underage' => $underage]);
+        return View::make('dashboard.wei.edit-newcomer', ['user' => $newcomer, 'weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'guaranteeCount' => $guaranteeCount, 'underage' => $underage, 'count' => $count]);
     }
 
 
