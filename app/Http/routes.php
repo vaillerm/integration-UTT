@@ -334,6 +334,12 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:moderator',
                 'uses' => 'WEIController@userSearchSubmit'
             ]);
+
+            Route::get('/list', [
+                'as'   => 'dashboard.wei.list',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@list'
+            ]);
         });
 
         // Checks handling.

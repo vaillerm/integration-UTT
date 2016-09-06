@@ -1003,4 +1003,30 @@ class WEIController extends Controller
 
         return Redirect(route('dashboard.wei.student.edit', ['id' => $student->student_id]))->withError('Y\'a un soucis !');
     }
+
+
+    /**
+     *
+     * @return Response
+     */
+    public function list()
+    {
+        // Find students
+        $students = Student::select([DB::raw('student_id AS id'), 'first_name', 'last_name', 'phone', DB::raw('1 AS student'), DB::raw('1 AS parent_authorization'),
+        'wei_payment', 'sandwich_payment', 'guarantee_payment',
+        DB::raw('(ce AND team_accepted) AS ce'), 'volunteer', 'orga', 'wei_validated'])
+        ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment');
+        ;
+
+        // Find newcomers
+        $newcomer = Newcomer::select(['id', 'first_name', 'last_name', 'phone', DB::raw('0 AS student'), 'parent_authorization',
+        'wei_payment', 'sandwich_payment', 'guarantee_payment',
+        DB::raw('0 AS ce'), DB::raw('0 AS volunteer'), DB::raw('0 AS orga'), DB::raw('1 AS wei_validated')])
+        ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment');
+
+        // Union between newcomers and students
+        $users = $students->union($newcomer)->get();
+
+        return View::make('dashboard.wei.list', ['users' => $users]);
+    }
 }
