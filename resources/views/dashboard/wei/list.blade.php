@@ -22,7 +22,10 @@ Liste de toutes les personnes inscrits au wei
                     <th>Nom complet</th>
                     <th>Téléphone</th>
                     <th>Type</th>
-                    <th>Etat</th>
+                    <th>WEI</th>
+                    <th>Sandwich</th>
+                    <th>Caution</th>
+                    <th>Autorisation</th>
                     <th>Actions</th>
                 </tr>
                 @foreach ($users as $user)

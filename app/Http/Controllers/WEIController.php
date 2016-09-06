@@ -1025,7 +1025,7 @@ class WEIController extends Controller
         ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment');
 
         // Union between newcomers and students
-        $users = $students->union($newcomer)->get();
+        $users = $students->union($newcomer)->orderBy('last_name')->get();
 
         return View::make('dashboard.wei.list', ['users' => $users]);
     }
