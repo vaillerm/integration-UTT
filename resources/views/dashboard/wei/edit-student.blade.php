@@ -327,5 +327,19 @@ Modification d'un étudiant
                 <strong>{{ $user->first_name }}</strong> doit d'abord lui même se connecter au site de l'inté pour demander à <strong>"devenir bénévole"</strong>. Il ne pourra pas être inscrit au WEI tant que ce n'est pas fait.
             @endif
         </form>
+                <fieldset class="panel">
+                    <legend>WeekEnd</legend>
+                    <div class="form-group">
+                        @if(!$user->checkin)
+                            <a href="{{ route('dashboard.wei.checkin', ['type'=> 'students', 'id'=> (int)$user->student_id]) }}" class="btn btn-success form-control">Check-In</a>
+                        @else
+                            <div class="callout callout-warning">
+                                Checkin déja effectué
+                            </div>
+                        @endif
+
+                    </div>
+
+                </fieldset>
     </div>
 @endsection

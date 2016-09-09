@@ -329,6 +329,12 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'WEIController@newcomerEditSubmit'
             ]);
 
+            Route::get('/checkin/{type}/{id}', [
+                'as'   => 'dashboard.wei.checkin',
+                'middleware' => 'authorize:moderator',
+                'uses' => 'WEIController@checkIn'
+            ]);
+
             Route::post('/search', [
                 'as'   => 'dashboard.wei.search.submit',
                 'middleware' => 'authorize:moderator',

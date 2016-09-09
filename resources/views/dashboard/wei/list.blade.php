@@ -26,7 +26,8 @@ Liste de toutes les personnes inscrits au wei
                     <th>Sandwich</th>
                     <th>Caution</th>
                     <th>Autorisation</th>
-                    <th>Actions</th>
+                    <th>CheckIn</th>
+                    <th class=".hidden-print">Actions</th>
                 </tr>
                 @foreach ($users as $user)
                     <tr>
@@ -87,6 +88,13 @@ Liste de toutes les personnes inscrits au wei
                             @endif
                         </td>
                         <td>
+                            @if($user->checkin)
+                                <span class="label label-success">OK</span>
+                            @else
+                                <span class="label label-danger">Non</span>
+                            @endif
+                        </td>
+                        <td class=".hidden-print">
                             @if($user->student)
                                 <a class="btn btn-xs btn-info" href="{{ route('dashboard.students.edit', [ 'id' => $user->id ])}}">Utilisateur</a>
                                 <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">WEI</a>

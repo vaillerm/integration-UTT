@@ -431,5 +431,19 @@ Modification d'un étudiant
             @endif
         </form>
     @endif
+            <fieldset class="panel">
+                <legend>WeekEnd</legend>
+                <div class="form-group">
+                    @if(!$user->checkin)
+                        <a href="{{ route('dashboard.wei.checkin', ['type'=> 'students', 'id'=> $user->id]) }}" class="btn btn-success form-control">Check-In</a>
+                    @else
+                        <div class="callout callout-warning">
+                            Checkin déja effectué
+                        </div>
+                    @endif
+
+                </div>
+
+            </fieldset>
     </div>
 @endsection

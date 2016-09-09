@@ -845,6 +845,21 @@ class WEIController extends Controller
         return Redirect(route('dashboard.wei.newcomer.edit', ['id' => $newcomer->id]))->withSuccess('Vos modifications ont été enregistrées.');
     }
 
+    public function checkIn($type, $id)
+    {
+        if($type == "newcomers")
+        {
+            $user = Newcomer::findOrFail($id);
+        }elseif($type == "students")
+        {
+            $user = Student::findOrFail($id);
+        }else abort(404, 'Inconnu type');
+
+        $user->checkin = true;
+        $user->save();
+
+        return \Illuminate\Support\Facades\Redirect::back();
+    }
 
     /**
      *
