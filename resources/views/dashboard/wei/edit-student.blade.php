@@ -329,6 +329,17 @@ Modification d'un étudiant
         </form>
                 <fieldset class="panel">
                     <legend>WeekEnd</legend>
+                    <?php
+                        if($user->ce)
+                            $type = "CE";
+                        elseif($user->orga)
+                            $type = "orga";
+                        else
+                            $type = "Bénévole";
+                        ?>
+                    <div class="form-group">
+                        <p>Type: <strong>{{ $type }}</strong></p>
+                    </div>
                     <div class="form-group">
                         @if(!$user->checkin)
                             <a href="{{ route('dashboard.wei.checkin', ['type'=> 'students', 'id'=> (int)$user->student_id]) }}" class="btn btn-success form-control">Check-In</a>
