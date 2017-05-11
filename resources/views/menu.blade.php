@@ -5,7 +5,7 @@ Menu
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ @asset('css/bootstrap.min.css') }}" media="screen">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" media="screen">
 @endsection
 
 @section('bodycontent')

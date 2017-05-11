@@ -43,7 +43,7 @@
 				margin-bottom: 20px;
 
 				background-repeat: no-repeat;
-				background-image: url("{{ @asset('/img/diapo-bg.png') }}");
+				background-image: url("{{ asset('/img/diapo-bg.png') }}");
 				background-size: 100% 100%;
 				background-position: center;
 
@@ -107,7 +107,7 @@
 		@foreach($referrals as $referral)
 			<div class="page">
 					<div class="referral">
-						<img src="{{ @asset('/uploads/students-trombi/'.$referral->student_id.'.jpg') }}" alt="pic"/>
+						<img src="{{ asset('/uploads/students-trombi/'.$referral->student_id.'.jpg') }}" alt="pic"/>
 						{{$referral->first_name}} {{ strtoupper($referral->last_name) }}
 					</div>
 					<div class="godsons">

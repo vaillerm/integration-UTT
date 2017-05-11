@@ -5,12 +5,12 @@ Parrainage
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ @asset('css/bootstrap.min.css') }}" media="screen">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" media="screen">
 @endsection
 
 @section('js')
-<script type="text/javascript" src="{{ @asset('/js/jquery.noty.packaged.min.js') }}"></script>
-<script type="text/javascript" src="{{ @asset('/js/referrals.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/jquery.noty.packaged.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/referrals.js') }}"></script>
 @endsection
 
 @section('bodycontent')

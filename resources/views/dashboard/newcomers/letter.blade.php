@@ -35,7 +35,7 @@
 				width: 29.7cm;
 				height: 21cm;
 
-				background-image: url("{{ @asset('/img/letter/bg.jpg') }}");
+				background-image: url("{{ asset('/img/letter/bg.jpg') }}");
 				background-repeat: no-repeat;
 				background-size: 100% 100%;
 				position: relative;
@@ -280,12 +280,12 @@
 		@foreach($newcomers as $newcomer)
 			<style>
 				#parrain_photo_{{ $newcomer->id }} {
-					background-image: url("{{ @asset('/uploads/students-trombi/'.$newcomer->referral_id.'.jpg') }}");
+					background-image: url("{{ asset('/uploads/students-trombi/'.$newcomer->referral_id.'.jpg') }}");
 				}
 
 				@if($newcomer->team)
 					#equipe_image_{{ $newcomer->id }} {
-						background-image: url("{{ @asset('/uploads/teams-logo/'.$newcomer->team->id.'.'.$newcomer->team->img) }}");
+						background-image: url("{{ asset('/uploads/teams-logo/'.$newcomer->team->id.'.'.$newcomer->team->img) }}");
 					}
 				@endif
 			</style>
@@ -294,18 +294,18 @@
 			@endif
 			<div class="page">
 				@if($newcomer->referral)
-					<img class="top" src="{{ @asset('/img/letter/top.png') }}" />
+					<img class="top" src="{{ asset('/img/letter/top.png') }}" />
 					<div class="parrain">
 						<div class="photo" id="parrain_photo_{{ $newcomer->id }}"></div>
 						<div class="nom_bulle">
 							<div class="nom"><div>{{ $newcomer->referral->first_name }} <span class="famille">{{ $newcomer->referral->last_name }}</span></div></div>
 							<div class="pointe_bulle">
-								<img src="{{ @asset('/img/letter/bubble_point.png') }}" />
+								<img src="{{ asset('/img/letter/bubble_point.png') }}" />
 							</div>
 							<div class="bulle">{!! nl2br(e($newcomer->referral->referral_text)) !!}</div>
 						</div>
 						<div class="tel">
-							<img src="{{ @asset('/img/letter/phone.svg') }}" />
+							<img src="{{ asset('/img/letter/phone.svg') }}" />
 							<span>{{ $newcomer->referral->phone }}</span>
 						</div>
 						<div class="mail">
@@ -333,7 +333,7 @@
 						</div>
 					</div>
 				@endif
-				<img class="oscar" src="{{ @asset('/img/letter/oscar.png') }}" />
+				<img class="oscar" src="{{ asset('/img/letter/oscar.png') }}" />
 				<div class="blocs">
 					<div class="acces">
 						<div class="info">
@@ -367,7 +367,7 @@
 					@endif
 				</div>
 				<div class="facebook">
-					<img src="{{ @asset('/img/letter/facebook.png') }}" alt="Facebook"> <span>Integration UTT</span>
+					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <span>Integration UTT</span>
 				</div>
 			</div>
 		@endforeach

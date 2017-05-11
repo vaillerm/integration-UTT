@@ -33,7 +33,7 @@ La personne qui te guidera tout au long de ta vie à l'UTT
         </div>
         <div class="box-body">
             <div class="thumbnail col-lg-2">
-                <img src="{{ @asset('/uploads/students-trombi/'.Auth::user()->referral_id.'.jpg') }}" alt="Photo"/>
+                <img src="{{ asset('/uploads/students-trombi/'.Auth::user()->referral_id.'.jpg') }}" alt="Photo"/>
             </div>
                 <div class="caption col-lg-10">
                     <div style="position:relative;margin-bottom:5px;">

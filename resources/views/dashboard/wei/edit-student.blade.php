@@ -80,7 +80,7 @@ Modification d'un étudiant
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Photo</label>
                     <div class="col-lg-10 text-center">
-                        <img src="{{ @asset('/uploads/students-trombi/'.$user->student_id.'.jpg') }}" style="width:100px" alt="Photo"/>
+                        <img src="{{ asset('/uploads/students-trombi/'.$user->student_id.'.jpg') }}" style="width:100px" alt="Photo"/>
                     </div>
                 </div>
             </fieldset>
@@ -256,7 +256,7 @@ Modification d'un étudiant
                                             <p>
                                                 Autorisation de prélèvement en ligne qui ne sera pas prélevé (sauf en cas de soucis)<br/>
                                                 Équivalent d'un chêque, mais en ligne, et qui expire en 29 jours.<br/>
-                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{@asset('docs/cgv.pdf')}}">conditions générales de vente</a>.
+                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">conditions générales de vente</a>.
                                             </p>
                                         </td>
                                         <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>

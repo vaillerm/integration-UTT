@@ -51,7 +51,7 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga,
                 </tr>
                 @foreach ($students as $student)
                     <tr>
-                        <td><a href="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
+                        <td><a href="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
                         <td>{{ $student->student_id }}</td>
                         <td>{{{ $student->first_name . ' ' . $student->last_name }}}</td>
                         <td>{{{ $student->email }}}</td>

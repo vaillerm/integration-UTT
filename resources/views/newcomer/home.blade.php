@@ -52,8 +52,8 @@ Informations diverses pour toi !
                 Si tu n'as pas reçu ton courrier, ou si tu souhaites récupérer les versions numériques de ce que tu as reçu par courrier, tu peux les télécharger en cliquant sur les liens ci-dessous :
             </p>
             <div class="text-center">
-                <a class="btn btn-default" href="{{{ @asset('docs/nutt.pdf') }}}">Ton N'UTT d'intégration</a>
-                <a class="btn btn-default" href="{{{ @asset('docs/cahiervacances.pdf') }}}">Ton cahier de vacances</a>
+                <a class="btn btn-default" href="{{{ asset('docs/nutt.pdf') }}}">Ton N'UTT d'intégration</a>
+                <a class="btn btn-default" href="{{{ asset('docs/cahiervacances.pdf') }}}">Ton cahier de vacances</a>
                 <a class="btn btn-default" href="{{{ route('newcomer.myletter') }}}">Ta fiche nouveau</a>
             </div>
         </div>

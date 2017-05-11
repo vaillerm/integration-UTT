@@ -1,11 +1,11 @@
 @extends('layouts.newcomer')
 
 @section('css')
-		<link rel="stylesheet" href="{{ @asset('css/flipclock.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/flipclock.css') }}">
 @endsection
 
 @section('js')
-    <script src="{{ @asset('js/flipclock.min.js') }}"></script>
+    <script src="{{ asset('js/flipclock.min.js') }}"></script>
     <script>
     var countdown = $('.countdown').FlipClock({{ (new DateTime(Config::get('services.wei.registrationStart')))->getTimestamp() - (new DateTime())->getTimestamp() }}, {
         countdown: true,

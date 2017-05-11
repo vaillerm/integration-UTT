@@ -133,7 +133,7 @@ class OAuthController extends Controller
         }
 
         // Remember the user accross the whole website.
-        Session::set('student_id', $json['studentId']);
+        Session::put('student_id', $json['studentId']);
         Session::forget('newcomer_id');
 
         return Redirect::route('menu');

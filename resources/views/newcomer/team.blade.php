@@ -15,7 +15,7 @@ Ton équipe !
     </div>
         <div class="box-body">
             <div class="thumbnail col-lg-2">
-                <img src="{{ @asset('/uploads/teams-logo/'.Auth::user()->team->id.'.'.Auth::user()->team->img) }}" alt="Photo"/>
+                <img src="{{ asset('/uploads/teams-logo/'.Auth::user()->team->id.'.'.Auth::user()->team->img) }}" alt="Photo"/>
             </div>
                 <div class="caption col-lg-10">
                     @if(substr(Auth::user()->team->facebook, 0, 4) == 'http')

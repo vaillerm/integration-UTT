@@ -132,7 +132,7 @@
 @endsection
 @section('js')
     @parent
-    <script src="{{ @asset('js/Chart.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/Chart.min.js') }}" type="text/javascript"></script>
     <script>
         var ctx = document.getElementById("myChart");
         var data = {

@@ -77,7 +77,7 @@
 				width:100%;
 				height: 100%;
 				background-repeat: no-repeat;
-				background-image: url("{{ @asset('/img/logo.png') }}");
+				background-image: url("{{ asset('/img/logo.png') }}");
 				background-size: 90% 90%;
 				background-position: center;
 				filter:alpha(opacity=10);

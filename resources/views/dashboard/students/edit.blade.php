@@ -33,7 +33,7 @@ Modification de profil
             <div class="form-group">
                 <label for="name" class="col-lg-2 control-label">Photo</label>
                 <div class="col-lg-10 text-center">
-                    <img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/>
+                    <img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/>
                 </div>
             </div>
 

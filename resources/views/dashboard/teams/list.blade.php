@@ -48,7 +48,7 @@ Gestion des équipes
                                     @foreach ($team->ce as $student)
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a><br/>
+                                                <a href="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a><br/>
                                                 {{{ $student->first_name . ' ' . $student->last_name }}}
                                             </td>
                                             <td></td>
@@ -74,8 +74,8 @@ Gestion des équipes
                         <td>{{{ $team->comment }}}</td>
                         @if ($team->img)
                             <td>
-                                <a href="{{ @asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}">
-                                    <img src="{{ @asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:100px;height:100px;" alt="Logo de l'équipe"/>
+                                <a href="{{ asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}">
+                                    <img src="{{ asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:100px;height:100px;" alt="Logo de l'équipe"/>
                                 </a>
                             </td>
                         @else

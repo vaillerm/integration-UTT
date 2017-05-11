@@ -5,13 +5,13 @@ Accueil
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ @asset('css/bootstrap.min.css') }}" media="screen">
-<link rel="stylesheet" href="{{ @asset('css/homepage.css') }}">
-<link rel="stylesheet" href="{{ @asset('css/flipclock.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" media="screen">
+<link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+<link rel="stylesheet" href="{{ asset('css/flipclock.css') }}">
 @endsection
 
 @section('js')
-    <script src="{{ @asset('js/flipclock.min.js') }}"></script>
+    <script src="{{ asset('js/flipclock.min.js') }}"></script>
     <script>
     var countdown = $('.countdown').FlipClock({{ (new DateTime(Config::get('services.wei.registrationStart')))->getTimestamp() - (new DateTime())->getTimestamp() }}, {
         countdown: true,
@@ -46,13 +46,13 @@ Accueil
             <div class="text-center">
                 <?php
                     $sponsors = [];
-                    $sponsors[] = [ 'link' => 'http://www.accesbureautique.fr/', 'img' => @asset("img/sponsors/access.png"), 'alt' => 'Access Bureautique' ];
-                    $sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => @asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
-                    $sponsors[] = [ 'link' => 'http://www.beijaflore.com/', 'img' => @asset("img/sponsors/beijaflore.png"), 'alt' => 'Beijaflore' ];
-                    $sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => @asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
-                    $sponsors[] = [ 'link' => 'http://www.memphis-coffee.com/memphis-coffee-troyes', 'img' => @asset("img/sponsors/memphis.png"), 'alt' => 'Memphis Coffe' ];
-                    $sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => @asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
-                    $sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => @asset("img/sponsors/popeye.png"), 'alt' => 'Popeye auto-école' ];
+                    $sponsors[] = [ 'link' => 'http://www.accesbureautique.fr/', 'img' => asset("img/sponsors/access.png"), 'alt' => 'Access Bureautique' ];
+                    $sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
+                    $sponsors[] = [ 'link' => 'http://www.beijaflore.com/', 'img' => asset("img/sponsors/beijaflore.png"), 'alt' => 'Beijaflore' ];
+                    $sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
+                    $sponsors[] = [ 'link' => 'http://www.memphis-coffee.com/memphis-coffee-troyes', 'img' => asset("img/sponsors/memphis.png"), 'alt' => 'Memphis Coffe' ];
+                    $sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
+                    $sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => asset("img/sponsors/popeye.png"), 'alt' => 'Popeye auto-école' ];
                     shuffle($sponsors);
                 ?>
                 @foreach($sponsors as $sponsor)

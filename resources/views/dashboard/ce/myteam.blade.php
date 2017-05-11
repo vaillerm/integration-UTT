@@ -94,7 +94,7 @@ Gestion de mon équipe
                 </tr>
                 @foreach ($team->ce as $student)
                     <tr>
-                        <td><a href="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ @asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
+                        <td><a href="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
                         <td>{{{ $student->first_name . ' ' . $student->last_name }}}</td>
                         <td>{{{ $student->email }}}</td>
                         <td>{{{ $student->phone }}}</td>
@@ -165,7 +165,7 @@ Gestion de mon équipe
                         <small class="text-muted">Image de 200x200 pixels représentant le thème de votre équipe.</small>
                         @if ($team->img)
                             <div class="text-center">
-                                <img src="{{ @asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:200px;height:200px;" alt="Logo de l'équipe"/>
+                                <img src="{{ asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:200px;height:200px;" alt="Logo de l'équipe"/>
                             </div>
                         @endif
                     </div>
