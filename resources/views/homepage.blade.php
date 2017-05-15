@@ -14,7 +14,7 @@ Accueil
     <script src="{{ asset('js/flipclock.min.js') }}"></script>
     <script>
     var countdown = $('.countdown').FlipClock({{ (new DateTime(Config::get('services.wei.registrationStart')))->getTimestamp() - (new DateTime())->getTimestamp() }}, {
-        countdown: true,
+        countdown: false,
 		clockFace: 'DailyCounter',
 		language: 'french',
     });
@@ -22,24 +22,28 @@ Accueil
 @endsection
 
 @section('bodycontent')
+
     <div class="container">
         <div class="row">
             <div class="text-center">
-                <h1>Bienvenue sur le site de l'intégration</h1>
+                <h1>Bienvenue sur le site de l'Intégration</h1>
+		<br/><br/>
+
                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-primary">Je suis nouveau !</a><br/>
                 <a href="{{ route('menu') }}" class="btn btn-default">Je suis étudiant à l'UTT</a>
 
                 <br/><br/>
-                @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
-                    <p>Ouverture des inscriptions pour le weekend dans</p>
-                    <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
-        			<p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jrs %h hrs %i min et %s sec') }}</big></p>
-                @else
-                    <p>Inscriptions pour le weekend ouvertes !</p>
-                @endif
+                                
+                    @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
+                        <p>Ouverture des inscriptions pour le weekend dans</p>
+                        <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
+                        <p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jrs %h hrs %i min et %s sec') }}</big></p>
+                    @else
+                        <p>Inscriptions pour le weekend ouvertes !</p>
+                    @endif
+                
                 <br/><br/>
-    <!--                    <br><br>-->
-            </div>
+	    </div>
         </div>
 
         <div class="row sponsor">
