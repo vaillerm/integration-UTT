@@ -19,24 +19,6 @@ a.btn {
     box-shadow: 6px 6px 6px black;
 }
 
-/**
-.about {
-    position: relative;
-    top: 25px;
-    left: 1015px;
-    width: 300px;
-    box-shadow: 6px 6px 6px black;
-}
-
-.about h2 {
-    color: red;
-}
-
-.about h3 {
-    color: #252525;
-}
-**/
-
 .container {
     position: relative;
     margin-top: 150px;
