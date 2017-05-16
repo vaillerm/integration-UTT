@@ -1,13 +1,16 @@
+<!-- Import a special layout for the homepage -->
 @extends('layouts.master2')
 
 @section('title')
-Accueil
+    <!--Modify page title-->
+    Accueil
 @endsection
 
 @section('css')
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('front/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" media="screen">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+
     <!-- Custom Fonts -->
     <link href="{{ asset('front/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -18,7 +21,6 @@ Accueil
 @endsection
 
 @section('bodycontent')
-
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -27,7 +29,7 @@ Accueil
                     Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i> <span class="light">Rejoins</span> l'Intégration
+                    <i class="fa fa-play-circle"></i><span class="light">Rejoins</span> l'Intégration
                 </a>
             </div>
 
@@ -86,27 +88,11 @@ Accueil
     </section>
 
     <!-- Sponsor Section -->
-    <section id="download" class="content-section text-center">
-        <div class="download-section">
+    <section id="wei" class="content-section text-center">
+        <div class="wei-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Nos Partenaires</h2>
-		        <div class="text-center">
-               		    <?php
-                    		$sponsors = [];
-                   	 	$sponsors[] = [ 'link' => 'http://www.accesbureautique.fr/', 'img' => asset("img/sponsors/access.png"), 'alt' => 'Access Bureautique' ];
-                   	 	$sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
-                    		$sponsors[] = [ 'link' => 'http://www.beijaflore.com/', 'img' => asset("img/sponsors/beijaflore.png"), 'alt' => 'Beijaflore' ];
-                    		$sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
-                    		$sponsors[] = [ 'link' => 'http://www.memphis-coffee.com/memphis-coffee-troyes', 'img' => asset("img/sponsors/memphis.png"), 'alt' => 'Memphis Coffe' ];
-                    		$sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
-                    		$sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => asset("img/sponsors/popeye.png"), 'alt' => 'Popeye auto-école' ];
-                    		shuffle($sponsors);
-               		    ?>
-                	@foreach($sponsors as $sponsor)
-        	        <a href="{{{ $sponsor['link'] }}}"><img src="{{{ $sponsor['img'] }}}" alt="{{{ $sponsor['alt'] }}}" /></a>
-	                @endforeach
-	           </div>
+                    <h2>Inscription au Wei</h2>
                     <!--<a href="#top" class="btn btn-default btn-lg">Nos Partenaires</a>-->
                 </div>
             </div>
@@ -117,21 +103,39 @@ Accueil
     <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contactez Nous</h2>
-                <p>Vous souhaitez participer à l'Intégration en tant que partenaire, bénévole ou vous arrivez à l'UTT à la rentrée? N'hesitez pas à nous contacter!</p>
-                <p><a href="mailto:feedback@startbootstrap.com">integration@utt.fr</a>
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li>
-                        <a href="https://twitter.com/IntegrationUTT" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>
-                    <li>
-                        <a href="https://facebook.com/integration.utt" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                    </li>
-                    <!-- <li> -->
-                        <!-- <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a> -->
-                    <!-- </li> -->
-                </ul>
+                <div class="text-center">
+                    <h2>Nos Partenaires</h2>
+                        <?php
+                            $sponsors = [];
+                            $sponsors[] = [ 'link' => 'http://www.accesbureautique.fr/', 'img' => asset("img/sponsors/access.png"), 'alt' => 'Access Bureautique' ];
+                            $sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
+                            $sponsors[] = [ 'link' => 'http://www.beijaflore.com/', 'img' => asset("img/sponsors/beijaflore.png"), 'alt' => 'Beijaflore' ];
+                            $sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
+                            $sponsors[] = [ 'link' => 'http://www.memphis-coffee.com/memphis-coffee-troyes', 'img' => asset("img/sponsors/memphis.png"), 'alt' => 'Memphis Coffe' ];
+                            $sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
+                            $sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => asset("img/sponsors/popeye.png"), 'alt' => 'Popeye auto-école' ];
+                            shuffle($sponsors);
+                        ?>
+                        @foreach($sponsors as $sponsor)
+                            <a href="{{{ $sponsor['link'] }}}"><img src="{{{ $sponsor['img'] }}}" alt="{{{ $sponsor['alt'] }}}" /></a>
+                        @endforeach
+                </div>
+                <div class="text-center">
+                    <h2>Contactez Nous</h2>
+                        <p>Vous souhaitez participer à l'Intégration en tant que partenaire, bénévole ou vous arrivez à l'UTT à la rentrée? N'hesitez pas à nous contacter!</p>
+                        <p><a href="mailto:feedback@startbootstrap.com">integration@utt.fr</a></p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://twitter.com/IntegrationUTT" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="https://facebook.com/integration.utt" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                        </li>
+                   <!-- <li> -->
+                       <!-- <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a> -->
+                   <!-- </li> -->
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
