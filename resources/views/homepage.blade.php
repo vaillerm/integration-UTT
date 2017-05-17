@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">Intégration UTT</h1>
-                        <p class="intro-text">Contes & Mythology</p>
+                        <p class="intro-text">Contes & Mythologie</p>
 							<br/><br/>
                             @if(Config::get('services.site.loginOpen') === '1')
                                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-top">Je suis nouveau !</a><br/>
@@ -115,6 +115,7 @@
                     <h1>Inscription au Wei</h1>
                         @if(Config::get('services.wei.open') === '0')
                             <p>Les inscriptions pour le WEI ne sont pas encore ouvertes!</p>
+			    <p>N'hésite pas à revenir dans quelques temps</p>
                         @else
                             @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
                                 <p>Ouverture des inscriptions pour le weekend dans :</p>
