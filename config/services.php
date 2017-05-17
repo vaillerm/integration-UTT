@@ -50,6 +50,10 @@ return [
          ],
     ],
 
+    'site' => [
+        'loginOpen' => env('LOGIN_OPEN'),
+    ],
+
     'referral' => [
         'fakeDeadline' => env('REFERRAL_DEADLINE_FAKE'),
         'deadline' => env('REFERRAL_DEADLINE'),
@@ -60,6 +64,7 @@ return [
         'maxteam' => env('CE_MAXTEAM'),
     ],
     'wei' => [
+        'open' => env('WEI_OPEN'),
         'price' => env('WEI_PRICES_REGISTRATION'),
         'price-ce' => env('WEI_PRICES_CE'),
         'price-orga' => env('WEI_PRICES_ORGA'),

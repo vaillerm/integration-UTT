@@ -65,7 +65,7 @@ a:focus {
 }
 .navbar-custom .navbar-toggle {
   color: white;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.99);
   font-size: 12px;
 }
 .navbar-custom .navbar-toggle:focus,
@@ -110,7 +110,7 @@ a:focus {
     padding: 20px 0;
     border-bottom: none;
     letter-spacing: 1px;
-    background: transparent;
+    background-color: rgba(25, 25, 25, 0.2);
     -webkit-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
     -moz-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
     transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
@@ -128,8 +128,7 @@ a:focus {
   padding: 100px 0;
   text-align: center;
   color: white;
-  background: url(../img/top_bg.jpg) no-repeat bottom center scroll;
-  background-color: black;
+  background: black url(../img/top_bg.jpg) no-repeat bottom center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -145,6 +144,9 @@ a:focus {
 }
 .intro .intro-body .intro-text {
   font-size: 18px;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #252525;
 }
 @media (min-width: 768px) {
   .intro {
@@ -157,6 +159,9 @@ a:focus {
   }
   .intro .intro-body .intro-text {
     font-size: 26px;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: #252525;
   }
 }
 .btn-circle {
@@ -224,18 +229,25 @@ a:focus {
   }
 }
 .content-section {
-  padding-top: 100px;
+  padding-top: 10px;
 }
 .wei-section {
   width: 100%;
   padding: 50px 0;
   color: white;
-  background: url(../img/mid_bg.jpg) no-repeat center center scroll;
-  background-color: black;
+  background: black url(../img/mid_bg.jpg) no-repeat scroll center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+}
+.wei-section h1 {
+  color: #fcbc65;
+  text-shadow: 2px 2px 2px black;
+}
+.wei-section p {
+  color: black;
+  text-shadow: 2px 2px 2px white;
 }
 #map {
   width: 100%;
@@ -244,7 +256,7 @@ a:focus {
 }
 @media (min-width: 767px) {
   .content-section {
-    padding-top: 250px;
+    padding-top: 100px;
   }
   .wei-section {
     padding: 100px 0;
@@ -264,9 +276,10 @@ a:focus {
   border-radius: 0;
 }
 .btn-default {
-  border: 1px solid #42DCA3;
-  color: #42DCA3;
-  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: white;
+  background-color: #00a7d0;
+  opacity: 50;
 }
 .btn-default:hover,
 .btn-default:focus {
@@ -274,6 +287,19 @@ a:focus {
   outline: none;
   color: black;
   background-color: #42DCA3;
+}
+.btn-top {
+    border: 1px solid #ffffff;
+    color: white;
+    background-color: #fcbc65;
+    opacity: 50;
+}
+.btn-top:hover,
+.btn-top:focus {
+    border: 1px solid #ffeb83;
+    outline: none;
+    color: black;
+    background-color: #ffeb83;
 }
 ul.banner-social-buttons {
   margin-top: 0;
@@ -294,10 +320,14 @@ ul.banner-social-buttons {
   }
 }
 footer {
-  padding: 50px 0;
+  padding: 20px;
+  margin-top: 50px;
+  background-color: black;
+  opacity: 0.2;
 }
 footer p {
   margin: 0;
+  color: white;
 }
 ::-moz-selection {
   text-shadow: none;
@@ -314,6 +344,16 @@ img::selection {
 }
 img::-moz-selection {
   background: transparent;
+}
+.sponsor img{
+  margin: 30px;
+  padding: 25px;
+  height: auto;
+  width: auto;
+  background: url("../img/back.png") repeat center top !important;
+  /*background-color: rgba(0,0,0,0.15);
+  max-width: 25%;
+  padding: 2%;*/
 }
 body {
   webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
