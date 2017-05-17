@@ -10,6 +10,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('front/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+
+    <!-- JS CountDown CSS -->
     <link href="{{ asset('css/flipclock.css') }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -38,7 +40,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    Menu <i class="fa fa-bars"></i>
+                     Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
                     <i class="fa fa-play-circle"></i><span class="light">Rejoins</span> l'Intégration
@@ -55,7 +57,7 @@
                     <li>
                         <a class="page-scroll" href="#about">C'est quoi ?</a>
                     </li>
-                    <li>
+                     <li>
                         <a class="page-scroll" href="#sponsor">Partenaires</a>
                     </li>
                     <li>
@@ -75,16 +77,16 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">Intégration UTT</h1>
-                        <p class="intro-text">Contes & Mythologie</p>
-							<br/><br/>
+                        <p class="intro-text">Contes & Mythology</p>
+                        <br/><br/>
                             @if(Config::get('services.site.loginOpen') === '1')
                                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-top">Je suis nouveau !</a><br/>
                                 <a href="{{ route('menu') }}" class="btn btn-top">Je suis étudiant à l'UTT</a>
                             @else
                                 <a class="btn btn-top">Tu pourra bientôt t'inscrire sur le site, patience jeune héro....</a>
                             @endif
-							<br/><br/>
-						<a href="#about" class="btn btn-circle page-scroll">
+                        <br/><br/>
+                        <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
                     </div>
@@ -98,11 +100,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>C'est quoi l'Inté?</h1>
-                <p>Pour sa 21ème édition, l'intégration verra s'affronter dans un combat épique dieux tout puissant, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
-                <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camps et entrer dans la bataille! Serez vous pret? Nous le verrons le <em>4 Septembre 2017</em>...</p>
-            <br/><br/><br/>
+                    <p>Pour sa 21ème édition, l'intégration verra s'affronter dans un combat épique dieux tout puissant, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
+                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camps et entrer dans la bataille! Serez vous pret? Nous le verrons le <em>4 Septembre 2017</em>...</p>
+                    <br/><br/><br/>
                 <h3>Info Pratiques</h3>
-                <p>Il n'y en a pas. De toute façon l'inté c'est pas pratique ;)</p>
+                    <p>Il n'y en a pas. De toute façon l'inté c'est pas pratique ;)</p>
             </div>
         </div>
     </section>
@@ -115,7 +117,6 @@
                     <h1>Inscription au Wei</h1>
                         @if(Config::get('services.wei.open') === '0')
                             <p>Les inscriptions pour le WEI ne sont pas encore ouvertes!</p>
-			    <p>N'hésite pas à revenir dans quelques temps</p>
                         @else
                             @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
                                 <p>Ouverture des inscriptions pour le weekend dans :</p>
@@ -150,13 +151,15 @@
                             shuffle($sponsors);
                         ?>
                         @foreach($sponsors as $sponsor)
-                                <a href="{{{ $sponsor['link'] }}}"><img src="{{{ $sponsor['img'] }}}" alt="{{{ $sponsor['alt'] }}}" /></a>
+                            <a href="{{{ $sponsor['link'] }}}"><img src="{{{ $sponsor['img'] }}}" alt="{{{ $sponsor['alt'] }}}" /></a>
                         @endforeach
                 </div>
             </div>
         </div>
     </section>
-    <br/><br/><br/><br/>
+
+        <br/><br/><br/><br/>
+
     <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -165,15 +168,15 @@
                         <p>Vous souhaitez participer à l'Intégration en tant que partenaire, bénévole ou bien vous arrivez à l'UTT à la rentrée? N'hesitez pas à nous contacter!</p>
                         <p><a href="mailto:feedback@startbootstrap.com">integration@utt.fr</a></p>
                     <ul class="list-inline banner-social-buttons">
-                        <li>
-                            <a href="https://twitter.com/IntegrationUTT" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                        </li>
-                        <li>
-                            <a href="https://facebook.com/integration.utt" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                        </li>
-                        <!-- <li> -->
-                            <!-- <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a> -->
-                        <!-- </li> -->
+                    <li>
+                        <a href="https://twitter.com/IntegrationUTT" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/integration.utt" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                    </li>
+                    <!-- <li> -->
+                        <!-- <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a> -->
+                    <!-- </li> -->
                     </ul>
                 </div>
             </div>
@@ -184,7 +187,7 @@
     <footer>
         <div class="container text-center">
             <br/>
-            <p>Copyright &copy; Intégration UTT 2017</p>
+                <p>Copyright &copy; Intégration UTT 2017</p>
             <br/>
         </div>
     </footer>
