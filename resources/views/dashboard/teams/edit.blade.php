@@ -41,7 +41,7 @@ Gestion des équipes
                     <small class="text-muted">Image de 200x200 pixels représentant le thème de votre équipe.</small>
                     @if ($team->img)
                         <div class="text-center">
-                            <img src="{{ @asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:200px;height:200px;" alt="Logo de l'équipe"/>
+                            <img src="{{ asset('/uploads/teams-logo/'.$team->id.'.'.$team->img) }}" style="width:200px;height:200px;" alt="Logo de l'équipe"/>
                         </div>
                     @endif
                 </div>

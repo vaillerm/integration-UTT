@@ -69,8 +69,11 @@ Menu
                                 @endif
                             @elseif (Authorization::can('ce', 'inTeam'))
                                 <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Voir mon profil de chef d'équipe !</a>
-                            @else
-                                <strong>Les inscriptions sont fermées.<br/>
+                            @elseif (Authorization::can('student','inTeam'))
+				<a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
+			    @else
+                                <strong>Désolé, le nombre maximal d'équipes est atteint.<br/>
+				    Pour rejoindre une équipe, tu dois valider ton profil en tant que bénévole !!</br>
                                     Contactez integration@utt.fr pour toute question.</strong>
                             @endif
                         </div>

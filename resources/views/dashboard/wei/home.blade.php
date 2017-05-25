@@ -47,8 +47,12 @@ Le Week-End d'Intégration
 				</p>
 
 			@if(!EtuUTT::student()->wei)
-				<a href="{{route('dashboard.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
-				<p>Si tu as le moindre soucis, n'hésite pas à nous contacter à <a href="mailto:integration@utt.fr">integration.utt.fr</a> en précisant en tant que quoi tu viens (bénévole, ce, orga, ..)</p>
+				@if(Config::get('services.wei.open') === '1')
+					<a href="{{route('dashboard.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
+					<p>Si tu as le moindre soucis, n'hésite pas à nous contacter à <a href="mailto:integration@utt.fr">integration.utt.fr</a> en précisant en tant que quoi tu viens (bénévole, ce, orga, ..)</p>
+				@else
+					<a href="" class="btn btn-primary">L'inscription au WEI n'est pas encore ouverte !</a>
+				@endif
 			@else
 
 				@if($wei)

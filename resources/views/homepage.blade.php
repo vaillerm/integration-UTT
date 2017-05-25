@@ -77,13 +77,13 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">Intégration UTT</h1>
-                        <p class="intro-text">Contes & Mythology</p>
+                        <p class="intro-text">Contes, Mythes & Légendes</p>
                         <br/><br/>
                             @if(Config::get('services.site.loginOpen') === '1')
                                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-top">Je suis nouveau !</a><br/>
                                 <a href="{{ route('menu') }}" class="btn btn-top">Je suis étudiant à l'UTT</a>
                             @else
-                                <a class="btn btn-top">Tu pourra bientôt t'inscrire sur le site, patience jeune héro....</a>
+                                <a class="btn btn-top">Tu pourras bientôt t'inscrire sur le site, patience jeune héros...</a>
                             @endif
                         <br/><br/>
                         <a href="#about" class="btn btn-circle page-scroll">
@@ -100,11 +100,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>C'est quoi l'Inté?</h1>
-                    <p>Pour sa 21ème édition, l'intégration verra s'affronter dans un combat épique dieux tout puissant, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
-                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camps et entrer dans la bataille! Serez vous pret? Nous le verrons le <em>4 Septembre 2017</em>...</p>
+                    <p>Pour sa 21<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
+                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous pret ? Nous le verrons le <em>4 septembre 2017</em>...</p>
                     <br/><br/><br/>
-                <h3>Info Pratiques</h3>
-                    <p>Il n'y en a pas. De toute façon l'inté c'est pas pratique ;)</p>
+                <h3>Infos Pratiques</h3>
+                    <p>Il n'y en a pas encore. De toute façon l'inté c'est pas pratique ;)</p>
             </div>
         </div>
     </section>
@@ -116,7 +116,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <h1>Inscription au Wei</h1>
                         @if(Config::get('services.wei.open') === '0')
-                            <p>Les inscriptions pour le WEI ne sont pas encore ouvertes!</p>
+                            <p>Les inscriptions pour le WEI ne sont pas encore ouvertes !</p>
                         @else
                             @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
                                 <p>Ouverture des inscriptions pour le weekend dans :</p>
@@ -165,7 +165,7 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="text-center">
                     <h1>Contactez Nous</h1>
-                        <p>Vous souhaitez participer à l'Intégration en tant que partenaire, bénévole ou bien vous arrivez à l'UTT à la rentrée? N'hesitez pas à nous contacter!</p>
+                        <p>Vous souhaitez participer à l'Intégration en tant que partenaire, bénévole ou bien vous arrivez à l'UTT à la rentrée ? N'hésitez pas à nous contacter !</p>
                         <p><a href="mailto:feedback@startbootstrap.com">integration@utt.fr</a></p>
                     <ul class="list-inline banner-social-buttons">
                     <li>

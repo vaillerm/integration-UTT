@@ -125,7 +125,7 @@
                     <div class="pull-right hidden-xs">
                         <b>Version</b> {{ Config::get('services.version.hash')}}
                     </div>
-                    <strong>En cas de problème,</strong> contacter <a href="mailto:aurelien.labate@utt.fr">Alabate</a> (pas trop non plus hein) (non mais c'est censé marcher) (t'as rebooté ?).
+                    <strong>En cas de problème,</strong> contacter <a href="mailto:integration@utt.fr">Intégration</a> (pas trop non plus hein) (non mais c'est censé marcher) (t'as rebooté ?).
                 </div>
             </footer>
         </div>
