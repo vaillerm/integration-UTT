@@ -67,14 +67,15 @@ Menu
                                 @else
                                     <a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
                                 @endif
-                            @elseif (Authorization::can('ce', 'inTeam'))
+                            @elseif (Authorization::can('ce','inTeam'))
                                 <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Voir mon profil de chef d'équipe !</a>
                             @elseif (Authorization::can('student','inTeam'))
-				<a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
+				<strong>Désolé, le nombre maximal d'équipes est atteint.</strong></br>
+				<a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Rejoins ton équipe !</a>
 			    @else
                                 <strong>Désolé, le nombre maximal d'équipes est atteint.<br/>
-				    Pour rejoindre une équipe, tu dois valider ton profil en tant que bénévole !!</br>
-                                    Contactez integration@utt.fr pour toute question.</strong>
+				Si tu souhaites rejoindre ton équipe, demandes à ton chef d'équipe de t'inviter !</br>
+                                Contactez integration@utt.fr pour toute autre question.</strong>
                             @endif
                         </div>
                     </div>

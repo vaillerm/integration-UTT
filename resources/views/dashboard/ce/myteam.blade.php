@@ -23,7 +23,7 @@ Gestion de mon équipe
         <div class="box-body">
             <div class="box-body">
                 <p>
-                    <strong>{{{ $team->respo->first_name }}} {{{ $team->respo->last_name }}}</strong> a proposé de vous ajouter à l'équipe. Souhaites-vous la rejoindre ?
+                    <strong></strong> a proposé de vous ajouter à l'équipe. Souhaites-vous la rejoindre ?
                 </p>
                 <a href="{{{ route('dashboard.ce.join') }}}" class="btn btn-success form-control">Rejoindre l'équipe <strong>{{{ $team->name }}}</strong></a>
                 <a href="{{{ route('dashboard.ce.unjoin') }}}" class="btn btn-danger form-control">Ne pas rejoindre l'équipe</a>

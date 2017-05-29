@@ -122,6 +122,7 @@ class Authorization
                             || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
                             return false;
                         }
+			break;
                     case 'join':
                         if (!$student->team
                             || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
@@ -131,6 +132,11 @@ class Authorization
                 }
             } elseif ($group == 'student') {
                 switch ($action) {
+		    case 'inTeam':
+			if (!$student->team) {
+			    return false;
+			}
+			break;
                     case 'referral':
                         if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
                             || $student->referral_validated
