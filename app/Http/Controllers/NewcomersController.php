@@ -52,7 +52,7 @@ class NewcomersController extends Controller
             'country' => 'required',
         ]);
 
-        $newcomer = Newcomer::create(Request::only([
+        $newcomer_data = Request::only([
             'first_name',
             'last_name',
             'sex',
@@ -64,7 +64,10 @@ class NewcomersController extends Controller
             'country',
             'branch',
             'ine',
-        ]));
+        ]);
+        $newcomer_data['is_newcomer'] = true;
+
+        $newcomer = Student::create($newcomer_data);
 
         if ($newcomer->save()) {
             return $this->success('L\'utilisateur a été créé !');
@@ -138,7 +141,8 @@ class NewcomersController extends Controller
 
         // Save array to db
         foreach ($result as $value) {
-            if (!Newcomer::create($value)) {
+            $value['is_newcomer'] = true;
+            if (!Student::create($value)) {
                 return $this->error('Impossible de créer tous les nouveaux !');
             };
         }

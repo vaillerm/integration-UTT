@@ -50,7 +50,8 @@ class Student extends Model implements Authenticatable
         'parent_phone',
         'medical_allergies',
         'medical_treatment',
-        'medical_note'
+        'medical_note',
+        'is_newcomer'
     ];
 
     public $hidden = [
