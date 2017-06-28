@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Newcomer;
 use App\Models\Payment;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +29,8 @@ class NewcomersController extends Controller
     public function list()
     {
         return View::make('dashboard.newcomers.list', [
-            'newcomers' => Newcomer::all(),
-            'branches' => Newcomer::distinct()->select('branch')->groupBy('branch')->get(),
+            'newcomers' => Student::where('is_newcomer', true)->get(),
+            'branches' => Student::where('is_newcomer', true)->distinct()->select('branch')->groupBy('branch')->get(),
         ]);
     }
 

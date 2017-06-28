@@ -82,7 +82,7 @@ class OAuthController extends Controller
         $json = json_decode($response->getBody()->getContents(), true)['data'];
 
         // If the user is new, import some values from the API response.
-        $student = Student::find($json['studentId']);
+        $student = Student::where('student_id', $json['studentId'])->first();
         if ($student === null) {
             $student = new Student([
                 'student_id'    => $json['studentId'],
