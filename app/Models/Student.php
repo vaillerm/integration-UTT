@@ -100,6 +100,13 @@ class Student extends Model implements Authenticatable
         ],
     ];
 
+    /**
+     *  Return the part of the query to get only the newcomers
+     */
+    public static function NewcomersFilter() {
+        return Student::where('is_newcomer', true);
+    }
+
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];

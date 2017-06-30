@@ -117,7 +117,7 @@ class PagesController extends Controller
      */
     public function getExportNewcomers()
     {
-        $newcomers = Newcomer::select([\DB::raw('newcomers.first_name'), \DB::raw('newcomers.last_name'), \DB::raw('newcomers.branch')])
+        $newcomers = Student::NewcomersFilter()->select([\DB::raw('newcomers.first_name'), \DB::raw('newcomers.last_name'), \DB::raw('newcomers.branch')])
         ->orderBy('last_name')
         ->leftjoin('students as s', 's.student_id', '=', 'newcomers.referral_id')
         ->addSelect([\DB::raw('s.first_name as referral_first_name'), \DB::raw('s.last_name as referral_last_name'), \DB::raw('s.email as referral_email'), \DB::raw('s.phone as referral_phone')])

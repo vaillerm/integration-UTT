@@ -30,7 +30,7 @@ class AuthController extends Controller
      */
     public function loginSubmit()
     {
-        $newcomer = Student::where('is_newcomer', true)->where('login', Request::get('login'))->get()->first();
+        $newcomer = Student::NewcomersFilter()->where('login', Request::get('login'))->get()->first();
         if ($newcomer) {
             $password = Crypt::decrypt($newcomer->password);
             if ($password == Request::get('password')) {

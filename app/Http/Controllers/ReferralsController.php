@@ -179,7 +179,7 @@ class ReferralsController extends Controller
             if ($key === 0) {
                 $key = '';
             }
-            Newcomer::where('country', $key)->update(['country' => $value]);
+            Student::NewcomersFilter()->where('country', $key)->update(['country' => $value]);
         }
         // Referral branches
         foreach ($input['referralBranches'] as $key => $value) {
@@ -193,7 +193,7 @@ class ReferralsController extends Controller
             if ($key === 0) {
                 $key = '';
             }
-            Newcomer::where('branch', $key)->update(['branch' => $value]);
+            Student::NewcomersFilter()->where('branch', $key)->update(['branch' => $value]);
         }
 
         // Redirect to referral assignation
