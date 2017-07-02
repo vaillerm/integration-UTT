@@ -424,6 +424,26 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'StudentsController@editSubmit'
             ]);
         });
+
+        Route::group(['prefix' => 'configs'], function () {
+            Route::get('/parameters', [
+                'as'   => 'dashboard.configs.parameters',
+                'middleware' => 'authorize:admin',
+                'uses' => 'SettingsController@getIndex'
+            ]);
+
+            Route::get('/parameters/edit/{settings_name}', [
+                'as'   => 'dashboard.configs.parameters.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'SettingsController@getEdit'
+            ]);
+
+            Route::post('/parameters/edit/{settings_name}', [
+                'as'   => 'dashboard.configs.parameters.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'SettingsController@postEdit'
+            ]);
+        });
     });
 });
 

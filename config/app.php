@@ -110,7 +110,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -142,6 +142,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -165,6 +166,8 @@ return [
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        \Terbium\DbConfig\DbConfigServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -173,6 +176,8 @@ return [
          App\Providers\AuthorizationServiceProvider::class,
          App\Providers\AssetVersionServiceProvider::class,
          App\Providers\CountdownServiceProvider::class,
+         Laravel\Tinker\TinkerServiceProvider::class,
+
 
     ],
 
@@ -194,7 +199,8 @@ return [
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
-        'Config' => Illuminate\Support\Facades\Config::class,
+        'DbConf' => \Terbium\DbConfig\Facade::class,
+        'Config' => \Terbium\DbConfig\Facade::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
         'DB' => Illuminate\Support\Facades\DB::class,

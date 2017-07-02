@@ -59,6 +59,12 @@
                                             <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
                                         </ul>
                                     </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('dashboard.configs.parameters') }}">Paramétrages</a></li>
+                                        </ul>
+                                    </li>
                                 @elseif (EtuUTT::student()->isModerator())
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
