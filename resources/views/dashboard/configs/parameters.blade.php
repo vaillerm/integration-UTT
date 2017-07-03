@@ -29,7 +29,7 @@
                     <th>Valeur</th>
                     <th>Action</th>
                 </tr>
-                @foreach (array_dot(Config::all()) as $key=>$value)
+                @foreach ($configs as $key=>$value)
                     <tr>
                         <td>{{ $key }}</td>
                         <td> @if(is_string($value))
