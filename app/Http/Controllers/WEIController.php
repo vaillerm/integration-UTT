@@ -45,7 +45,7 @@ class WEIController extends Controller
                 'guarantee' => 0,
             ],
         ];
-        $newscomers = Student::NewcomersFilter()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
+        $newscomers = Student::newcomer()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
             ->get();
 
         $students = Student::with('weiPayment', 'sandwichPayment', 'guaranteePayment')
@@ -139,7 +139,7 @@ class WEIController extends Controller
         $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
         $underage = (Auth::user()->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
-        $count = Student::NewcomersFilter()->where('wei', 1)->count();
+        $count = Student::newcomer()->where('wei', 1)->count();
 
         Auth::user()->updateWei();
 
@@ -552,7 +552,7 @@ class WEIController extends Controller
         }
 
         // Find newcomers
-        $newcomer = Student::NewcomersFilter()->select(['id', 'first_name', 'last_name', DB::raw('"" AS surname'), DB::raw('0 AS student'),
+        $newcomer = Student::newcomer()->select(['id', 'first_name', 'last_name', DB::raw('"" AS surname'), DB::raw('0 AS student'),
         DB::raw('0 AS ce'), DB::raw('0 AS volunteer'), DB::raw('0 AS orga'),
         'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', DB::raw('1 AS wei_validated')]);
         if (count($words) <= 1 && is_numeric($input['search'])) {
@@ -614,11 +614,11 @@ class WEIController extends Controller
      */
     public function newcomerEdit($id)
     {
-        $newcomer =Student::NewcomersFilter()->findOrFail($id);
+        $newcomer =Student::newcomer()->findOrFail($id);
         $newcomer->updateWei();
 
         $underage = ($newcomer->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
-        $count = Student::NewcomersFilter()->where('wei', 1)->count();
+        $count = Student::newcomer()->where('wei', 1)->count();
 
         // Calculate count
         $weiCount = 1;
@@ -643,7 +643,7 @@ class WEIController extends Controller
      */
     public function newcomerEditSubmit($id)
     {
-        $newcomer = Student::NewcomersFilter()->findOrFail($id);
+        $newcomer = Student::newcomer()->findOrFail($id);
         $newcomer->updateWei();
 
         $underage = ($newcomer->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
@@ -849,7 +849,7 @@ class WEIController extends Controller
     {
         if($type == "newcomers")
         {
-            $user = Student::NewcomersFilter()->findOrFail($id);
+            $user = Student::newcomer()->findOrFail($id);
         }elseif($type == "students")
         {
             $user = Student::findOrFail($id);
@@ -1037,7 +1037,7 @@ class WEIController extends Controller
         ;
 
         // Find newcomers
-        $newcomer = Student::NewcomersFilter()->select(['id', 'first_name', 'last_name', 'phone', DB::raw('0 AS student'), 'parent_authorization',
+        $newcomer = Student::newcomer()->select(['id', 'first_name', 'last_name', 'phone', DB::raw('0 AS student'), 'parent_authorization',
         'wei_payment', 'sandwich_payment', 'guarantee_payment',
         DB::raw('0 AS ce'), DB::raw('0 AS volunteer'), DB::raw('0 AS orga'), DB::raw('1 AS wei_validated')])
         ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment');

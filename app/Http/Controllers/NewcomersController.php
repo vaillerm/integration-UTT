@@ -29,8 +29,8 @@ class NewcomersController extends Controller
     public function list()
     {
         return View::make('dashboard.newcomers.list', [
-            'newcomers' => Student::NewcomersFilter()->get(),
-            'branches' => Student::NewcomersFilter()->distinct()->select('branch')->groupBy('branch')->get(),
+            'newcomers' => Student::newcomer()->get(),
+            'branches' => Student::newcomer()->distinct()->select('branch')->groupBy('branch')->get(),
         ]);
     }
 
@@ -160,11 +160,11 @@ class NewcomersController extends Controller
     public function letter($id, $limit = null, $category = null)
     {
         if ($limit === null) {
-            $newcomers = [Student::NewcomersFilter()->findOrFail($id)];
+            $newcomers = [Student::newcomer()->findOrFail($id)];
         } elseif ($category != null) {
-            $newcomers = Student::NewcomersFilter()->where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
+            $newcomers = Student::newcomer()->where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
         } else {
-            $newcomers = Student::NewcomersFilter()->offset($id)->limit($limit)->get();
+            $newcomers = Student::newcomer()->offset($id)->limit($limit)->get();
         }
 
         // Parse phone number and save it to db
@@ -179,7 +179,7 @@ class NewcomersController extends Controller
             }
         }
 
-        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => Student::NewcomersFilter()->count() ]);
+        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => Student::newcomer()->count() ]);
     }
 
     /**

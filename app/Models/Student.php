@@ -101,10 +101,14 @@ class Student extends Model implements Authenticatable
     ];
 
     /**
-     *  Return the part of the query to get only the newcomers
+     * Scope a query to only include students that are newcomers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function NewcomersFilter() {
-        return Student::where('is_newcomer', true);
+    public function scopeNewcomer($query)
+    {
+        return $query->where('is_newcomer', true);
     }
 
     public function getDates()
