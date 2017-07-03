@@ -79,7 +79,7 @@
                         <h1 class="brand-heading">Intégration UTT</h1>
                         <p class="intro-text">Contes, Mythes & Légendes</p>
                         <br/><br/>
-                            @if(Config::get('services.site.loginOpen') === '1')
+                            @if(Config::get('services.site.loginOpen') == 1)
                                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-top">Je suis nouveau !</a><br/>
                                 <a href="{{ route('menu') }}" class="btn btn-top">Je suis étudiant à l'UTT</a>
                             @else
