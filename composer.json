@@ -50,6 +50,13 @@
             "php artisan optimize"
         ]
     },
+    "extra": {
+        "heroku": {
+            "framework": "silex",
+            "document-root": "public",
+            "index-document": "index.php"
+        }
+    },
     "config": {
         "preferred-install": "dist"
     }
