@@ -157,10 +157,10 @@ class ReferralsController extends Controller
     public function prematch()
     {
         return View::make('dashboard.referrals.prematch', [
-            'referralCountries' => Student::select('country')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('country')->lists('country'),
-            'newcomerCountries' => Newcomer::select('country')->groupBy('country')->lists('country'),
-            'referralBranches' => Student::select('branch')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('branch')->lists('branch'),
-            'newcomerBranches' => Newcomer::select('branch')->groupBy('branch')->lists('branch'),
+            'referralCountries' => Student::select('country')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('country')->pluck('country'),
+            'newcomerCountries' => Student::newcomer()->select('country')->groupBy('country')->pluck('country'),
+            'referralBranches' => Student::select('branch')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('branch')->pluck('branch'),
+            'newcomerBranches' => Student::newcomer()->select('branch')->groupBy('branch')->pluck('branch'),
         ]);
     }
 

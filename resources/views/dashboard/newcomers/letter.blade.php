@@ -293,28 +293,28 @@
 				<span class="page-indicator">{{ ++$i }}/{{ $count }}</span>
 			@endif
 			<div class="page">
-				@if($newcomer->referral)
+				@if($newcomer->godfather)
 					<img class="top" src="{{ asset('/img/letter/top.png') }}" />
 					<div class="parrain">
 						<div class="photo" id="parrain_photo_{{ $newcomer->id }}"></div>
 						<div class="nom_bulle">
-							<div class="nom"><div>{{ $newcomer->referral->first_name }} <span class="famille">{{ $newcomer->referral->last_name }}</span></div></div>
+							<div class="nom"><div>{{ $newcomer->godfather->first_name }} <span class="famille">{{ $newcomer->godfather->last_name }}</span></div></div>
 							<div class="pointe_bulle">
 								<img src="{{ asset('/img/letter/bubble_point.png') }}" />
 							</div>
-							<div class="bulle">{!! nl2br(e($newcomer->referral->referral_text)) !!}</div>
+							<div class="bulle">{!! nl2br(e($newcomer->godfather->referral_text)) !!}</div>
 						</div>
 						<div class="tel">
 							<img src="{{ asset('/img/letter/phone.svg') }}" />
-							<span>{{ $newcomer->referral->phone }}</span>
+							<span>{{ $newcomer->godfather->phone }}</span>
 						</div>
 						<div class="mail">
 							<span class="img">@</span>
-							<span>{{ $newcomer->referral->email }}</span>
+							<span>{{ $newcomer->godfather->email }}</span>
 						</div>
 						<div class="info">
 								<p>
-								@if($newcomer->referral->sex == 0)
+								@if($newcomer->godfather->sex == 0)
 									Lui, c'est <strong>ton parrain</strong> !
 									Son rôle est de te guider durant<br/>
 									toute l'intégration, et au-delà ! On te conseille de<br/>

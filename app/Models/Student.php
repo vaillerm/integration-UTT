@@ -111,6 +111,23 @@ class Student extends Model implements Authenticatable
         return $query->where('is_newcomer', true);
     }
 
+    /**
+     * Query referrals newscomers
+     */
+    public function newcomers()
+    {
+        return $this->hasMany(Student::class, 'student_id', 'referral_id');
+    }
+
+    /**
+     * Return newcomers referal
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function godFather()
+    {
+        return $this->belongsTo(Student::class, 'referral_id', 'student_id')->where('referral', true);
+    }
+
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];
@@ -123,7 +140,7 @@ class Student extends Model implements Authenticatable
      */
     public function team()
     {
-        return $this->belongsTo('App\Models\Team');
+        return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
     /**

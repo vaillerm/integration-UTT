@@ -110,8 +110,8 @@ Affichage des profils
                             <span title="Identifiant">{{ $newcomer->login }}</span><br/>
                             <em title="Mot de passe">{{{ Crypt::decrypt($newcomer->password) }}}</em>
                         </td>
-                        @if ($newcomer->referral)
-                            <td>{{{ $newcomer->referral->first_name . ' ' . strtoupper($newcomer->referral->last_name) }}}</td>
+                        @if ($newcomer->godFather)
+                            <td>{{{ $newcomer->godFather->first_name . ' ' . strtoupper($newcomer->godFather->last_name) }}}</td>
                         @else
                             <td>Aucun !</td>
                         @endif

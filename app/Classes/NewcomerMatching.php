@@ -127,7 +127,7 @@ class NewcomerMatching
      */
     public static function matchTeams()
     {
-        $newcomers = Student::NewcomersFilter()->whereNull('team_id')->get();
+        $newcomers = Student::newcomer()->whereNull('team_id')->get();
 
         // Create an array to branch_id with number of newcomers in the team
         $countPerTeam = [];
@@ -280,7 +280,7 @@ class NewcomerMatching
 
         foreach ($counts as $branch => $data) {
             // Get number of newcomers for this branch
-            $newcomers = Student::NewcomersFilter()->where(['branch' => $branch, 'referral_id' => null])->count();
+            $newcomers = Student::newcomer()->where(['branch' => $branch, 'referral_id' => null])->count();
             $currentGoal = 1;
             $overflow = 0; // Is true when we decide to add one to each maximum (but still < 5)
             while ($newcomers > 0 && $currentGoal <= 5) {
@@ -331,7 +331,7 @@ class NewcomerMatching
          **********************************************************************/
 
         $round = 0;
-        $allNewcomers = Student::NewcomersFilter()->whereNull('referral_id')->get();
+        $allNewcomers = Student::newcomer()->whereNull('referral_id')->get();
         $newcomers = [];
         foreach ($allNewcomers as $value) {
             $newcomers[] = $value;
