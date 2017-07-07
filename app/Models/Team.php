@@ -25,7 +25,7 @@ class Team extends Model
      */
     public function newcomers()
     {
-        return $this->hasMany('App\Models\Newcomer');
+        return $this->hasMany('App\Models\Student');
     }
 
     /**
