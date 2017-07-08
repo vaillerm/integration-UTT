@@ -10,6 +10,7 @@ use View;
 use Crypt;
 use Redirect;
 use Auth;
+use Response;
 
 class AuthController extends Controller
 {
@@ -39,6 +40,25 @@ class AuthController extends Controller
             }
         }
         return $this->error('Identifiant ou mot de passe incorrect. Contactez integration@utt.fr si vous n\'arrivez pas à vous connecter.');
+    }
+
+    /**
+     * Authenticate the newcomer
+     */
+    public function apiLogin() {
+        $newcomer = Student::newcomer()->where('login', Request::get('login'))->get()->first();
+        if ($newcomer) {
+            $password = Crypt::decrypt($newcomer->password);
+            if ($password == Request::get('password')) {
+                Auth::login($newcomer, true);
+                return Response::json([
+                    "aze" => "ok"
+                ], 200);
+            }
+        }
+        return Response::json([
+            "aze" => "err"
+        ], 401);
     }
 
     /**

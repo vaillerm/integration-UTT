@@ -178,6 +178,8 @@ return [
          App\Providers\CountdownServiceProvider::class,
          Laravel\Tinker\TinkerServiceProvider::class,
 
+         Barryvdh\Cors\ServiceProvider::class,
+
 
     ],
 
