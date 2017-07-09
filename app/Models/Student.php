@@ -112,6 +112,17 @@ class Student extends Model implements Authenticatable
     }
 
     /**
+     * Scope a query to only include students that are students.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStudent($query)
+    {
+        return $query->where('is_newcomer', false)->whereNotNull('student_id');
+    }
+
+    /**
      * Query referrals newscomers
      */
     public function newcomers()
@@ -119,6 +130,15 @@ class Student extends Model implements Authenticatable
         return $this->hasMany(Student::class, 'student_id', 'referral_id');
     }
 
+    public function isStudent()
+    {
+        return !($this->is_newcomer);
+    }
+
+    public function isNewcomer()
+    {
+        return !($this->isStudent());
+    }
     /**
      * Return newcomers referal
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

@@ -44,7 +44,7 @@ class Authorization
     {
         if ($group == 'newcomer') {
             // Check if newcomer is identified
-            if (!Auth::check() || !(Auth::user() instanceof Student)) {
+            if (!Auth::check() || !(Auth::user()->isStudent())) {
                 return false;
             }
 
