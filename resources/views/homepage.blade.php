@@ -101,7 +101,7 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>C'est quoi l'Inté?</h1>
                     <p>Pour sa 21<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
-                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous pret ? Nous le verrons le <em>4 septembre 2017</em>...</p>
+                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous pret ? Nous le verrons le <em>lundi 04 septembre 2017</em>...</p>
                     <br/><br/><br/>
                 <h3>Infos Pratiques</h3>
                     <p>Il n'y en a pas encore. De toute façon l'inté c'est pas pratique ;)</p>
