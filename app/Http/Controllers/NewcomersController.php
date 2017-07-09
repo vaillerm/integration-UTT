@@ -29,7 +29,7 @@ class NewcomersController extends Controller
     public function list()
     {
         return View::make('dashboard.newcomers.list', [
-            'newcomers' => Student::newcomer()->get(),
+            'newcomers' => Student::newcomer()->with(['weiPayment', 'sandwichPayment', 'guaranteePayment', 'godFather', 'team'])->get(),
             'branches' => Student::newcomer()->distinct()->select('branch')->groupBy('branch')->get(),
         ]);
     }
@@ -89,7 +89,7 @@ class NewcomersController extends Controller
         fseek($temp, 0);
         $i = 0;
         while (($data = fgetcsv($temp, 0, ";")) !== false) {
-            if ($data === false) {
+            if ($data == false) {
                 return Redirect::back()
                             ->withErrors('Erreur de lecture à la ligne '.($i+1))
                             ->withInput();
@@ -111,13 +111,12 @@ class NewcomersController extends Controller
                 'country' => $data[9],
                 'ine' => $data[10],
             ];
-
             // Validate
             $validator = Validator::make($line, [
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'sex' => 'required|in:M,F,m,f',
-                'birth' => 'date',
+                'birth' => 'date_format:d/m/Y|required',
                 'registration_email' => 'email',
                 'branch' => 'required'
             ],
@@ -125,6 +124,7 @@ class NewcomersController extends Controller
                 'sex.in' => 'Le champ sex doit valoir seulement M ou F'
             ]);
             if ($validator->fails()) {
+                dd($validator->errors(), $line);
                 $errors = $validator->errors();
                 $errors->add('form', 'Les erreurs ont été trouvés à la ligne '.($i+1));
                 return Redirect::back()
@@ -134,6 +134,7 @@ class NewcomersController extends Controller
 
             // Transform fields and save it to the main array
             $line['sex'] = (strtolower($line['sex']) == 'f')?1:0;
+            $line['birth'] = Carbon::createFromFormat('d/m/Y', $line['birth']);
             $result[] = $line;
             $i++;
         }
