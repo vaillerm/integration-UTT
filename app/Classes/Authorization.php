@@ -3,7 +3,7 @@
 namespace App\Classes;
 
 use App\Models\Team;
-use App\Models\Newcomer;
+use App\Models\Student;
 use Config;
 use Auth;
 
@@ -44,12 +44,12 @@ class Authorization
     {
         if ($group == 'newcomer') {
             // Check if newcomer is identified
-            if (!Auth::check() || !(Auth::user() instanceof Newcomer)) {
+            if (!Auth::check() || !(Auth::user()->isStudent())) {
                 return false;
             }
 
             // Action verification
-            $count = Newcomer::where('wei', 1)->count();
+            $count = Student::where('wei', 1)->count();
             switch ($action) {
                 case 'wei':
                     if (!Auth::user()->wei

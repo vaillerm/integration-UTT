@@ -23,7 +23,7 @@ class StudentsController extends Controller
          */
         public function list($filter = '')
         {
-            $students = Student::orderBy('last_name', 'asc');
+            $students = Student::student()->orderBy('last_name', 'asc');
             switch ($filter) {
                 case 'admin':
                     $students = $students->where('admin', '=', Student::ADMIN_FULL);

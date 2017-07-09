@@ -40,7 +40,7 @@ class ImportStudentPictures extends Command
      */
     public function fire()
     {
-        foreach (Student::all() as $student) {
+        foreach (Student::student()->get() as $student) {
             $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
             file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
         }

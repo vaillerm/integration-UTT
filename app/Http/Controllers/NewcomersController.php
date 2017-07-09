@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Newcomer;
 use App\Models\Payment;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +29,8 @@ class NewcomersController extends Controller
     public function list()
     {
         return View::make('dashboard.newcomers.list', [
-            'newcomers' => Newcomer::all(),
-            'branches' => Newcomer::distinct()->select('branch')->groupBy('branch')->get(),
+            'newcomers' => Student::newcomer()->get(),
+            'branches' => Student::newcomer()->distinct()->select('branch')->groupBy('branch')->get(),
         ]);
     }
 
@@ -53,7 +52,7 @@ class NewcomersController extends Controller
             'country' => 'required',
         ]);
 
-        $newcomer = Newcomer::create(Request::only([
+        $newcomer_data = Request::only([
             'first_name',
             'last_name',
             'sex',
@@ -65,7 +64,10 @@ class NewcomersController extends Controller
             'country',
             'branch',
             'ine',
-        ]));
+        ]);
+        $newcomer_data['is_newcomer'] = true;
+
+        $newcomer = Student::create($newcomer_data);
 
         if ($newcomer->save()) {
             return $this->success('L\'utilisateur a été créé !');
@@ -139,7 +141,8 @@ class NewcomersController extends Controller
 
         // Save array to db
         foreach ($result as $value) {
-            if (!Newcomer::create($value)) {
+            $value['is_newcomer'] = true;
+            if (!Student::create($value)) {
                 return $this->error('Impossible de créer tous les nouveaux !');
             };
         }
@@ -157,11 +160,11 @@ class NewcomersController extends Controller
     public function letter($id, $limit = null, $category = null)
     {
         if ($limit === null) {
-            $newcomers = [Newcomer::findOrFail($id)];
+            $newcomers = [Student::newcomer()->findOrFail($id)];
         } elseif ($category != null) {
-            $newcomers = Newcomer::where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
+            $newcomers = Student::newcomer()->where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
         } else {
-            $newcomers = Newcomer::offset($id)->limit($limit)->get();
+            $newcomers = Student::newcomer()->offset($id)->limit($limit)->get();
         }
 
         // Parse phone number and save it to db
@@ -176,7 +179,7 @@ class NewcomersController extends Controller
             }
         }
 
-        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => Newcomer::count() ]);
+        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => Student::newcomer()->count() ]);
     }
 
     /**

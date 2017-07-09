@@ -67,7 +67,7 @@ return [
     'providers' => [
         'newcomers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Newcomer::class,
+            'model' => App\Models\Student::class,
         ],
 
         // 'users' => [

@@ -109,17 +109,17 @@ class EtuUTT
             return $this->student;
         }
 
-        $id = Session::get('student_id');
+        $student_id = Session::get('student_id');
 
         // First we will try to load the user using the identifier in the session if
         // one exists. Otherwise we will check for a "remember me" cookie in this
         // request, and if one exists, attempt to retrieve the user using that.
         $student = null;
-        if (! is_null($id)) {
-            $student = Student::find(Session::get('student_id'));
+        if (!is_null($student_id)) {
+            $student = Student::where('student_id', $student_id)->first();
         }
 
-        if ($student === null && $id !== null) {
+        if ($student === null && $student_id !== null) {
             Session::forget('student_id');
             abort(500);
         }
