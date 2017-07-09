@@ -25,7 +25,7 @@ class Team extends Model
      */
     public function newcomers()
     {
-        return $this->hasMany('App\Models\Student');
+        return $this->hasMany('App\Models\Student')->where('is_newcomer', '1');
     }
 
     /**
@@ -41,7 +41,7 @@ class Team extends Model
      */
     public function ce()
     {
-        return $this->hasMany('App\Models\Student');
+        return $this->hasMany('App\Models\Student')->where('is_newcomer', '0');
     }
 
     /**
