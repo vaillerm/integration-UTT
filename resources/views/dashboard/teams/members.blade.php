@@ -39,7 +39,7 @@ Membres d'équipe
             <tbody>
                 <tr>
                     <th>Nom complet</th>
-                    <th>Email</th>
+                    <th>Mail</th>
                     <th>Niveau</th>
                 </tr>
                 @foreach ($newcomers as $newcomer)

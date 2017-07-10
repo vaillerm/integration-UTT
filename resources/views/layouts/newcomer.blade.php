@@ -55,7 +55,7 @@
                         @endif
                         <div class="box box-default">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Es-tu prêt pour l'Intégration ?</h3>
+                                <h3 class="box-title">Es-tu prêt pour l'intégration ?</h3>
                                 <span class="pull-right">Prochaine action : <a href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">{{{ Auth::user()->getNextCheck()['action'] }}}</a></span>
 
                             </div>

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Week-end d'intégration
+    Week-End d'Intégration
 @endsection
 
 @section('smalltitle')
@@ -70,7 +70,7 @@
                     <thead>
                     <tr>
                         <th>Dénomination</th>
-                        <th>Wei</th>
+                        <th>WEI</th>
                         <th>Caution</th>
                         <th>Repas</th>
                     </tr>

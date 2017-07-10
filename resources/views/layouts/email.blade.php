@@ -49,8 +49,8 @@
 				<table style="max-width: 600px; width:100%; margin: 0 auto; border-collapse: collapse;">
 					<tr>
 						<td>
-							Généré et envoyé par le site de l'intégration de l'Université de Technologie de Troyes<br />
-							Pour ne plus recevoir d'emails de notre part, contactez <a href="mailto:integration@utt.fr">integration@utt.fr</a>
+							Généré et envoyé par le site de l'intégration de l'Université de Technologie de Troyes.<br />
+							Pour ne plus recevoir de mails de notre part, contactez <a href="mailto:integration@utt.fr">integration@utt.fr</a>.
 						</td>
 					</tr>
 				</table>

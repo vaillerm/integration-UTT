@@ -11,20 +11,18 @@ Recherche de participant au WEI
 
 <div class="callout callout-info">
     <h4>Information !</h4>
-    <p>
-        Vous pouvez rechercher les anciens et les nouveaux par
-    </p>
+    <p>Vous pouvez rechercher les anciens et les nouveaux par</p>
     <ul>
         <li>Numéro etu (ancien uniquement)</li>
         <li>Nom</li>
         <li>Prénom</li>
-        <li>Surnom (Ancien uniquement)</li>
-        <li>Email</li>
-        <li>Identifiant (Nouveau uniquement)</li>
+        <li>Surnom (ancien uniquement)</li>
+        <li>Mail</li>
+        <li>Identifiant (nouveau uniquement)</li>
     </ul>
-    <p>Si vous ne trouvez pas un nouveau, contactez <em>Alabate</em> : 06.62.12.74.36</p>
-    <p>Si vous ne trouvez pas un ancien (CE, Bénévole, Orga, ...), demandez lui de se connecter sur le site de l'intégration et de "devenir bénévole" sur le site.</p>
-    <p>Pour pouvoir venir au WEI, un ancien doit d'abord demander à devenir bénévole, lui même, sur le site.</p>
+    <p>Si vous ne trouvez pas un nouveau, contactez l'Intégration : 03.25.71.76.74.</p>
+    <p>Si vous ne trouvez pas un ancien (CE, bénévole, orga...), demandez-lui de se connecter sur le site de l'intégration et de "devenir bénévole" sur le site.</p>
+    <p>Pour pouvoir venir au WEI, un ancien doit d'abord demander à devenir bénévole, lui-même, sur le site.</p>
 </div>
 
 <div class="box box-default">

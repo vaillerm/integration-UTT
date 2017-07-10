@@ -63,9 +63,9 @@ Parrainage
                         </div>
 
                         <div class="form-group">
-                          <label for="email" class="col-lg-2 control-label">Email</label>
+                          <label for="email" class="col-lg-2 control-label">Mail</label>
                           <div class="col-lg-10">
-                            <input class="form-control" name="email" id="email" placeholder="Adresse email" type="text" value="{{{ $referral->email }}}">
+                            <input class="form-control" name="email" id="email" placeholder="Adresse mail" type="text" value="{{{ $referral->email }}}">
                           </div>
                         </div>
 
@@ -77,9 +77,9 @@ Parrainage
                         </div>
 
                         <div class="form-group">
-                          <label for="facebook" class="col-lg-2 control-label">Profil facebook</label>
+                          <label for="facebook" class="col-lg-2 control-label">Profil Facebook</label>
                           <div class="col-lg-10">
-                            <input class="form-control" type="text" name="facebook" id="facebook" placeholder="https://facebook.com/ton.profil"value="{{{ $referral->facebook }}}">
+                            <input class="form-control" type="text" name="facebook" id="facebook" placeholder="https://www.facebook.com/ton.profil" value="{{{ $referral->facebook }}}">
                           </div>
                         </div>
 
@@ -91,7 +91,7 @@ Parrainage
                         </div>
 
                         <div class="form-group">
-                          <label for="postal_code" class="col-lg-2 control-label">Code postal de ta ville d'origine (met 0 si tu viens de l'étranger)</label>
+                          <label for="postal_code" class="col-lg-2 control-label">Code postal (met 0 si tu viens de l'étranger)</label>
                           <div class="col-lg-10">
                             <input class="form-control" name="postal_code" id="postal_code" placeholder="Code postal" type="text" value="{{{ $referral->postal_code }}}">
                           </div>

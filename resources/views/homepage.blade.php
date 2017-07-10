@@ -100,11 +100,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>C'est quoi l'Inté?</h1>
-                    <p>Pour sa 21<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
-                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga agueri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous pret ? Nous le verrons le <em>lundi 04 septembre 2017</em>...</p>
+                    <p>Pour sa 22<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
+                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga aguerri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous prêts ? Nous le verrons le <em>lundi 04 septembre 2017</em>...</p>
                     <br/><br/><br/>
                 <h3>Infos Pratiques</h3>
-                    <p>Il n'y en a pas encore. De toute façon l'inté c'est pas pratique ;)</p>
+                    <p>Il n'y en a pas encore. De toute façon l'inté c'est pas pratique. ;)</p>
             </div>
         </div>
     </section>
@@ -114,18 +114,18 @@
         <div class="wei-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h1>Inscription au Wei</h1>
+                    <h1>Inscription au WEI</h1>
                         @if(Config::get('services.wei.open') === '0')
                             <p>Les inscriptions pour le WEI ne sont pas encore ouvertes !</p>
                         @else
                             @if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
-                                <p>Ouverture des inscriptions pour le weekend dans :</p>
+                                <p>Ouverture des inscriptions pour le week-end dans :</p>
                                 <br/><br/>
                                 <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
-                                <p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jrs %h hrs %i min et %s sec') }}</big></p>
+                                <p><big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big></p>
                             @else
                                 <br/><br/>
-                                <p>Les inscriptions pour le weekend sont ouvertes !</p>
+                                <p>Les inscriptions pour le week-end sont ouvertes !</p>
                             @endif
                         @endif
                 </div>
@@ -141,11 +141,8 @@
                     <h1>Nos Partenaires</h1>
                         <?php
                             $sponsors = [];
-                            $sponsors[] = [ 'link' => 'http://www.accesbureautique.fr/', 'img' => asset("img/sponsors/access.png"), 'alt' => 'Access Bureautique' ];
                             $sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
-                            $sponsors[] = [ 'link' => 'http://www.beijaflore.com/', 'img' => asset("img/sponsors/beijaflore.png"), 'alt' => 'Beijaflore' ];
                             $sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
-                            $sponsors[] = [ 'link' => 'http://www.memphis-coffee.com/memphis-coffee-troyes', 'img' => asset("img/sponsors/memphis.png"), 'alt' => 'Memphis Coffe' ];
                             $sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
                             $sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => asset("img/sponsors/popeye.png"), 'alt' => 'Popeye auto-école' ];
                             shuffle($sponsors);
@@ -164,19 +161,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="text-center">
-                    <h1>Contactez Nous</h1>
-                        <p>Vous souhaitez participer à l'Intégration en tant que partenaire, bénévole ou bien vous arrivez à l'UTT à la rentrée ? N'hésitez pas à nous contacter !</p>
-                        <p><a href="mailto:feedback@startbootstrap.com">integration@utt.fr</a></p>
+                    <h1>Contactez-nous</h1>
+                        <p>Vous souhaitez participer à l'intégration en tant que partenaire, bénévole ou bien vous arrivez à l'UTT à la rentrée ? N'hésitez pas à nous contacter !</p>
+                        <p><a href="mailto:integration@utt.fr">integration@utt.fr</a></p>
                     <ul class="list-inline banner-social-buttons">
                     <li>
-                        <a href="https://twitter.com/IntegrationUTT" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        <a href="https://facebook.com/integration.utt/" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
                     </li>
-                    <li>
-                        <a href="https://facebook.com/integration.utt" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                    </li>
-                    <!-- <li> -->
-                        <!-- <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a> -->
-                    <!-- </li> -->
                     </ul>
                 </div>
             </div>

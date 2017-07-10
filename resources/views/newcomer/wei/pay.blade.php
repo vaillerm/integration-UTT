@@ -1,7 +1,7 @@
 @extends('layouts.newcomer')
 
 @section('title')
-Paiement du week-end
+Paiement du Week-End
 @endsection
 
 @section('smalltitle')
@@ -53,10 +53,10 @@ Le Week-End d'Intégration
     		            <tbody>
     						<tr class="vert-align">
     							<td>
-    								<strong>Week-end d'intégration</strong>
+    								<strong>Week-End d'Intégration</strong>
     								<ul>
-    									<li>Départ le vendredi 9 septembre 2016 à 11h30</li>
-    									<li>Retour à Troyes le dimanche vers 19h</li>
+    									<li>Départ le vendredi 8 septembre 2016 à 11h30</li>
+    									<li>Retour à Troyes le dimanche vers 18h</li>
     									<li>Hébergement compris (sauf sac de couchage)</li>
     									<li>Repas compris</li>
     								</ul>
@@ -73,9 +73,9 @@ Le Week-End d'Intégration
     								<strong>Panier repas du vendredi midi</strong>
 
     								<p>
-    								Le départ au weekend se faisant à partir de 11h30, vous n'aurez généralement pas le temps d'aller acheter à manger, (sauf si vous l'avez préparé avant).<br/>
+    								Le départ au weekend se faisant à partir de 11h30, vous n'aurez généralement pas le temps d'aller acheter à manger (sauf si vous l'avez préparé avant).<br/>
     								Nous vous proposons donc un panier repas (sandwich, chips, fruit et bouteille d'eau) préparé par le CROUS (qui gère le restaurant universitaire).<br/>
-                                    Si tu as un régime particulier (sans porc, vegetarien, ...) pense à préciser dans <em>régime particulier</em> sur ton profil.
+                                    Si tu as un régime particulier (sans porc, végétarien, ...) pense à le préciser dans <em>régime particulier</em> sur ton profil.
     								</p>
     							</td>
     							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice')) }} €</td>
@@ -102,14 +102,14 @@ Le Week-End d'Intégration
     			</div>
     		    <div class="box-body">
     				<div class="checkbox">
-    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{ asset('docs/cgv.pdf')}}">Conditions générales de vente</a></label>
+    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{ asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a></label>
     				</div>
     				<input type="submit" class="btn btn-success form-control" value="Payer"/>
     				<div class="text-center">
     					<a href="#cannotpay" data-toggle="collapse">Je ne peux pas payer en ligne !</a>
     					<p id="cannotpay" class="collapse">
     						Il faudra passer nous voir à la rentrée pour payer par chèque au nom de <em>BDE UTT</em>, par carte bancaire ou en espèce.<br/>
-    						<a href="{{ route('newcomer.wei.guarantee')}}" class="btn btn-warning">Passer cette étape<br/>Je viendrais payer à la rentrée</a>
+    						<a href="{{ route('newcomer.wei.guarantee')}}" class="btn btn-warning">Passer cette étape<br/>Je viendrai payer à la rentrée</a>
     					</p>
     				</div>
     			</div>

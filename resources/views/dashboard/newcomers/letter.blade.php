@@ -273,9 +273,9 @@
 	</head>
 	<body>
 		@if(Auth::user() && Auth::user()->id == $newcomers[0]->id)
-			<p class="page-indicator">Pour imprimer, utilisez Google Chrome en selectionnant "Marges : Aucune" au moment de l'impression.<br/>Pour faire un PDF choisissez "Enregistrer au format PDF" comme destination.</p>
+			<p class="page-indicator">Pour imprimer, utilisez Google Chrome en selectionnant "Marge : aucune" au moment de l'impression.<br/>Pour faire un PDF choisissez "Enregistrer au format PDF" comme destination.</p>
 		@else
-			<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucunes Marges (ne passez pas par PDF Creator ou equivalent, le pdf sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
+			<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucune marge (ne passez pas par PDF Creator ou équivalent, le PDF sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
 		@endif
 		@foreach($newcomers as $newcomer)
 			<style>
@@ -328,7 +328,7 @@
 							</p>
 							<p>
 								<strong>Tu n'oses pas faire le premier pas ?</strong><br/>
-								Rendez-vous sur <u>integration.utt.fr</u> !
+								Rendez-vous sur <a href="https://integration.utt.fr/">integration.utt.fr</a> !
 							</p>
 						</div>
 					</div>
@@ -342,8 +342,8 @@
 							</div>
 							<div class="texte">
 								<strong>{{ $newcomer->first_name }} <span class="famille">{{ $newcomer->last_name }}</span></strong>,
-								voici ton compte pour accéder au site de l'intégration sur <u>integration.utt.fr</u><br/>
-								Tu pourra y trouver des informations sur ta première semaine, l'inscription au week-end, des bons plans et plus encore !<br/>
+								voici ton compte pour accéder au site de l'intégration sur <a href="https://integration.utt.fr/">integration.utt.fr</a><br/>
+								Tu pourras y trouver des informations sur ta première semaine, l'inscription au week-end, des bons plans et plus encore !<br/>
 
 							</div>
 						</div>
@@ -367,7 +367,7 @@
 					@endif
 				</div>
 				<div class="facebook">
-					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <span>Integration UTT</span>
+					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <a href="https://www.facebook.com/integration.utt/">Intégration UTT</a>
 				</div>
 			</div>
 		@endforeach

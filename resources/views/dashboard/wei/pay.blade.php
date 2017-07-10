@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Paiement du week-end
+Paiement du Week-End
 @endsection
 
 @section('smalltitle')
@@ -53,11 +53,11 @@ Le Week-End d'Intégration
     		            <tbody>
     						<tr class="vert-align">
     							<td>
-    								<strong>Week-end d'intégration</strong><br/>
+    								<strong>Week-End d'Intégration</strong><br/>
                                     <em>Vous payez le tarif "{{$weiPriceName}}", contactez un coord si pensez que ce n'est pas le bon tarif.</em>
     								<ul>
-    									<li>Départ le vendredi 9 septembre 2016 à 11h30</li>
-    									<li>Retour à Troyes le dimanche vers 19h</li>
+    									<li>Départ le vendredi 8 septembre 2016 à 11h30</li>
+    									<li>Retour à Troyes le dimanche vers 18h</li>
     									<li>Hébergement compris (sauf sac de couchage)</li>
     									<li>Repas compris</li>
     								</ul>
@@ -74,7 +74,7 @@ Le Week-End d'Intégration
     								<strong>Panier repas du vendredi midi</strong>
 
     								<p>
-    								Le départ au weekend se faisant à partir de 11h30, vous n'aurez généralement pas le temps d'aller acheter à manger, (sauf si vous l'avez préparé avant).<br/>
+    								Le départ au week-end se faisant à partir de 11h30, vous n'aurez généralement pas le temps d'aller acheter à manger (sauf si vous l'avez préparé avant).<br/>
     								Nous vous proposons donc un panier repas (sandwich, chips, fruit et bouteille d'eau) préparé par le CROUS (qui gère le restaurant universitaire).<br/>
     								</p>
     							</td>
@@ -102,7 +102,7 @@ Le Week-End d'Intégration
     			</div>
     		    <div class="box-body">
     				<div class="checkbox">
-    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{asset('docs/cgv.pdf')}}">Conditions générales de vente</a></label>
+    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a></label>
     				</div>
     				<input type="submit" class="btn btn-success form-control" value="Payer"/>
     			</div>

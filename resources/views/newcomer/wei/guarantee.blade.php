@@ -1,7 +1,7 @@
 @extends('layouts.newcomer')
 
 @section('title')
-Dépôt de la caution du week-end
+Dépôt de la caution du Week-End
 @endsection
 
 @section('smalltitle')
@@ -53,11 +53,11 @@ Le Week-End d'Intégration
     		            <tbody>
     						<tr class="vert-align">
     							<td>
-    								<strong>Caution du week-end</strong>
+    								<strong>Caution du Week-End</strong>
     								<p>
-                                        Autorisation de prélèvement en ligne qui ne sera pas prélevé (sauf en cas de soucis)<br/>
-                                        Équivalent d'un chêque, mais en ligne, et qui expire en 29 jours.<br/>
-                                        Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{ asset('docs/cgv.pdf')}}">conditions générales de vente</a>.
+                                        Autorisation de prélèvement en ligne qui ne sera pas prélevée (sauf en cas de soucis).<br/>
+                                        Équivalent d'un chèque, mais en ligne, et qui expire en 29 jours.<br/>
+                                        Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{ asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
     								</p>
     							</td>
     							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>
@@ -81,7 +81,7 @@ Le Week-End d'Intégration
     			</div>
     		    <div class="box-body">
     				<div class="checkbox">
-    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{ asset('docs/cgv.pdf') }}">Conditions générales de vente</a></label>
+    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{ asset('docs/cgv.pdf') }}">Conditions Générales de Vente</a></label>
     				</div>
     				<input type="submit" class="btn btn-success form-control" value="Donner ma caution"/>
     				<div class="text-center">

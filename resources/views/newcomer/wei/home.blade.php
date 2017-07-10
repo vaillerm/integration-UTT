@@ -31,8 +31,8 @@ Le Week-End d'Intégration
 				<h3 class="box-title">Mon inscription au Week-End</h3>
 			</div>
 			<div class="box-body">
-				<p>Le week-end d’intégration commence le vendredi 9 septembre à 11h30 par un voyage en bus dans un lieu dont on garde le mystère (c’est pas Dunkerque promis !). Durant ce week-end, de nombreuses activités, soirées et surprises te seront proposés, c’est surtout l’occasion de rencontrer pleins de nouveaux, des futurs potes ;-). On te ramène à Troyes, le dimanche au soir vers 18h.</p>
-				<p>Le prix du week-end est de 55€ , on te demandera également une caution de 60€.</p>
+				<p>Le Week-End d’Intégration commence le vendredi 08 septembre à 11h30 par un voyage en bus dans un lieu dont on garde le mystère (c’est pas en Creuse promis !). Durant ce week-end, de nombreuses activités, soirées et surprises te seront proposées, c’est surtout l’occasion de rencontrer pleins de nouveaux, des futurs potes ;-). On te ramène à Troyes le dimanche au soir vers 18h.</p>
+				<p>Le prix du week-end est de 55€, on te demandera également une caution de 60€.</p>
 
 
 			@if(!Auth::user()->isPageChecked('profil'))
@@ -42,8 +42,8 @@ Le Week-End d'Intégration
             	</div>
 			@elseif(!Auth::user()->wei && !Auth::user()->parent_authorization)
 				<a href="{{route('newcomer.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
-				<p>Si tu as le moindre soucis, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
-				<small>Note : Ton inscription pour le weekend sera validé une fois que tu auras payé. Donc cette page s'affichera tant qu'il n'y aura aucun paiement enregistré :)</small>
+				<p>Si tu as le moindre souci, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
+				<small>Note : ton inscription pour le week-end sera validée une fois que tu auras payé. Donc cette page s'affichera tant qu'il n'y aura aucun paiement enregistré. :)</small>
 			@else
 
 				@if($wei)
@@ -96,7 +96,7 @@ Le Week-End d'Intégration
 					@endif
 				@endif
 
-				<small>Note : Pour les opérations manuelles (donner l'autorisation parentale, payer par chèque...), la case sera coché une fois que l'action aura été fait grâce au stand qui sera installé pendant la semaine d'intégration à l'UTT.</small>
+				<small>Note : pour les opérations manuelles (donner l'autorisation parentale, payer par chèque...), la case sera cochée une fois que l'action aura été faite grâce au stand qui sera installé pendant la semaine d'intégration à l'UTT.</small>
 			@endif
 			</div>
         </div>
@@ -106,20 +106,20 @@ Le Week-End d'Intégration
 			</div>
 			<div class="box-body">
 				<ul>
-					<li>Un duvet</li>
+					<li>Un sac de couchage chaud</li>
 					<li>Ton déguisement</li>
 					<li>Des vêtements qui ne craignent rien</li>
 					<li>Des vêtements qui tiennent chaud</li>
-					<li>Une boîte à clou !</li>
 					<li>Un k-way</li>
 					<li>Ton autorisation parentale si tu es mineur</li>
+					<li>Un ananas (primordial)</li>
 				</ul>
 			</div>
 		</div>
     @elseif((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">Ouverture des inscriptions pour le week-end dans ...</h3>
+                <h3 class="box-title">Ouverture des inscriptions pour le week-end dans...</h3>
             </div>
             <div class="box-body text-center">
                 <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
@@ -129,13 +129,13 @@ Le Week-End d'Intégration
     @elseif($count >= Config::get('services.wei.newcomerMax'))
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">On est vraiment désolé, il n'y a plus de places disponibles pour le WEI :/</h3>
+                <h3 class="box-title">On est vraiment désolés, il n'y a plus de places disponibles pour le WEI. :(</h3>
             </div>
         </div>
     @else
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">Les inscriptions pour le week-end sont fermés</h3>
+                <h3 class="box-title">Les inscriptions pour le week-end sont fermées.</h3>
             </div>
         </div>
 	@endif
