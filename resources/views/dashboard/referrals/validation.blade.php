@@ -5,7 +5,7 @@ Validation des messages
 @endsection
 
 @section('smalltitle')
-Pour les yeux chastes des parents...
+Pour les yeux chastes des parents ou innocents des TC...
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Pour les yeux chastes des parents...
     <h4>Rappel</h4>
     <p>
         Il n'est possible de valider les messages que des personnes qui ont déjà indiqué à
-        la fois leur <b>téléphone</b>, <b>adresse email</b>, <b>texte de parrain</b>.<br>
+        la fois leur <b>téléphone</b>, <b>adresse mail</b> et <b>texte de parrain</b>.<br>
         <b>Les conflits d'édition ne sont pas encore gérés : si vous modifiez quelqu'un qui vient de l'être, vous aurez juste un message d'erreur.</b>
     </p>
 </div>
@@ -35,7 +35,7 @@ Pour les yeux chastes des parents...
 @else
 <div class="box box-default">
     <div class="box-body text-center">
-        <b>Tout a déjà été validé :-) Regarde du côté des personnes aux informations incomplètes !</b>
+        <b>Tout a déjà été validé. :-) Regarde du côté des personnes aux informations incomplètes !</b>
     </div>
 </div>
 @endif

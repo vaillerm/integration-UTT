@@ -21,7 +21,7 @@ Ton équipe !
                     @if(substr(Auth::user()->team->facebook, 0, 4) == 'http')
                         <div style="position:relative;margin-bottom:5px;">
                             <i class="fa fa-facebook" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
-                            <span style="margin-left:25px;text-align:justify;"><a href="{{ Auth::user()->team->facebook }}">Groupe facebook</a></span>
+                            <span style="margin-left:25px;text-align:justify;"><a href="{{ Auth::user()->team->facebook }}">Groupe Facebook</a></span>
                         </div>
                     @endif
                     <div style="position:relative;margin-bottom:5px;">
@@ -33,17 +33,17 @@ Ton équipe !
                 <h4>Mais pourquoi avoir une équipe ?</h4>
                 <p>
                     Ton équipe est composé de nouveaux et de {{ Auth::user()->team->ce->count() }} chefs d'équipes.
-                    Ils t'accompagnerons pendant toute ta semaine d'intégration, au cours des différents jeux et activités te seront proposés.<br/>
-                    Tout au long de la semaine, tu pourras rapporter des points à ton équipe, en gagnant les différents jeux, et en représentant au mieux ton équipe.<br/>
+                    Ils t'accompagneront pendant toute ta semaine d'intégration, au cours des différents jeux et activités te seront proposés.<br/>
+                    Tout au long de la semaine, tu pourras rapporter des points à ton équipe en gagnant les différents jeux et en représentant au mieux ton équipe.<br/>
                 </p>
                 <p>
-                    Pour être sûr d'avoir un max de chance de marquer des points, commencer par faire les actions suivantes :
+                    Pour être sûr d'avoir un maximum de chances de marquer des points, commence par faire les actions suivantes :
                 <ul>
-                    <li>Rejoins le <a href="{{ Auth::user()->team->facebook }}">groupe facebook</a> de ton équipe</li>
+                    <li>Rejoins le <a href="{{ Auth::user()->team->facebook }}">groupe Facebook</a> de ton équipe</li>
                     <li>Fais un déguisement qui déchire !
-                        <br/>Si tu ne sais pas quoi faire, demande des conseils à ton équipe sur le groupe facebook.</li>
-                        <li>Poste une photo de ton déguisement dans le groupe facebook de ton équipe.</li>
-                    <li>Inscrit toi au weekend pour terminé ton intégration en beauté !</li>
+                        <br/>Si tu ne sais pas quoi faire, demande des conseils à ton équipe sur le groupe Facebook.</li>
+                        <li>Poste une photo de ton déguisement dans le groupe Facebook de ton équipe.</li>
+                    <li>Inscris-toi au week-end pour terminer ton intégration en beauté !</li>
                 <p>
 
                 </p>
@@ -51,14 +51,14 @@ Ton équipe !
 
                 <div class="text-center">
                 @if(Auth::user()->isChecked('team_disguise'))
-                    <h4 id="question">Félécitation, tu as rejoint le groupe facebook de ton équipe et tu as fait ton déguisement !</h4>
+                    <h4 id="question">Félicitations, tu as rejoins le groupe Facebook de ton équipe et tu as fait ton déguisement !</h4>
                     <a href="{{ route('newcomer.team', [ 'step' => 'cancel']) }}#question" class="btn btn-danger">Ce n'est pas le cas ?</a>
 
                     <div class="text-center">
                         <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
                     </div>
                 @else
-                    <h4 id="question">As-tu fait ton déguisement et rejoint ton équipe sur facebook ?</h4>
+                    <h4 id="question">As-tu fait ton déguisement et rejoint ton équipe sur Facebook ?</h4>
                     <a href="{{ route('newcomer.team', [ 'step' => 'yes']) }}#question" class="btn btn-success">Oui !</a>
                 @endif
                 </div>

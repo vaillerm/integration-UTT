@@ -14,13 +14,13 @@ Liste des équipes
     <div class="box box-default">
         <div class="box-header with-border">
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }}
-                ou dans {{ $teamLeft }} création d'équipe</div>
+                ou dans {{ $teamLeft }} créations d'équipes.</div>
             <h3 class="box-title">Créer mon équipe</h3>
         </div>
         <div class="box-body text-center">
             <p>
                 Faites attention à prendre un nom d'équipe qui n'a pas déjà été pris en regardant la liste ci-dessous.<br/>
-                Un seul membre de votre équipe doit créer l'équipe et ajouter les autres.
+                Un seul membre de votre équipe doit créer l'équipe puis ajouter les autres.
                 Le reste des membres de l'équipe devrons ensuite se connecter pour accepter d'être dans l'équipe.
             </p>
             <form class="" action="{{ route('dashboard.ce.teamcreate') }}" method="post">
