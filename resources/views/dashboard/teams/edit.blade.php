@@ -58,14 +58,14 @@ Gestion des équipes
                 <label for="branch" class="col-lg-2 control-label">Branche</label>
                 <div class="col-lg-10">
                     <input class="form-control" type="text" id="branch" name="branch" placeholder="TC,SM,MM,.." value="{{{ old('branch') ?? $team->branch }}}">
-                    <small class="text-muted">Si une branche est precisé, tous les nouveaux de cette branche seront dans cette équipe. Laissez vide pour laisser l'aléatoire faire son travail.</small>
+                    <small class="text-muted">Si une branche est precisée, tous les nouveaux de cette branche seront dans cette équipe. Laissez vide pour laisser l'aléatoire faire son travail.</small>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="comment" class="col-lg-2 control-label">Commentaire administrateur</label>
                 <div class="col-lg-10">
-                    <textarea class="form-control" name="comment" id="comment" placeholder="Qui a répondu quand les CE ont été appelés ? Eventuelles conneries ou trucs bien qu\'ils ont fait. etc.">{{{ old('comment') ?? $team->comment }}}</textarea>
+                    <textarea class="form-control" name="comment" id="comment" placeholder="Qui a répondu quand les CE ont été appelés ? Eventuelles conneries ou trucs bien qu\'ils ont fait, etc.">{{{ old('comment') ?? $team->comment }}}</textarea>
                 </div>
             </div>
 
