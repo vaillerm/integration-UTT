@@ -19,10 +19,10 @@ La personne qui te guidera tout au long de ta vie à l'UTT
         <p>
             Ton parrain est un étudiant de l'UTT depuis un an ou plus, il a donc lui aussi vécu ce que tu vis actuellement.
             Il peut répondre à toutes tes questions : où est-ce qu'on mange le midi, est-ce qu'un cours est difficile, etc.
-            Mais surtout il peut t'accueillir dès ton arrivé à Troyes, c'est toujours sympa de passer un peu de temps avec son parrain avant la rentrée !
+            Mais surtout il peut t'accueillir dès ton arrivée à Troyes, c'est toujours sympa de passer un peu de temps avec son parrain avant la rentrée !
         </p>
         <p>
-            <strong>Tu rencontrera ton parrain à la rentrée lors de la cérémonie du parrainage le premier jour :)</strong>
+            <strong>Tu rencontrera ton parrain à la rentrée lors de la cérémonie du parrainage le premier jour. :)</strong>
         </p>
         <div class="text-center">
             <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
@@ -47,7 +47,7 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                     @if(substr(Auth::user()->godFather->facebook, 0, 4) == 'http')
                         <div style="position:relative;margin-bottom:5px;">
                             <i class="fa fa-facebook" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
-                            <span style="margin-left:25px;text-align:justify;"><a href="{{ Auth::user()->godFather->facebook }}">Profil facebook</a></span>
+                            <span style="margin-left:25px;text-align:justify;"><a href="{{ Auth::user()->godFather->facebook }}">Profil Facebook</a></span>
                         </div>
                     @endif
                     <div style="position:relative;margin-bottom:5px;">
@@ -58,50 +58,50 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                 <div class="clearfix"></div>
                 <h4>Mais pourquoi avoir un parrain ?</h4>
                 <p>
-                    Ton parrain est un étudiant de l'UTT depuis un an ou plus, il a donc lui aussi vécu ce que tu vis actuellement.
-                    Il peut répondre à toutes tes questions : où est-ce qu'on mange le midi, est-ce qu'un cours est difficile, etc.
-                    Mais surtout il peut t'accueillir dès ton arrivé à Troyes, c'est toujours sympa de passer un peu de temps avec son parrain avant la rentrée !
-                </p>
+					Ton parrain est un étudiant de l'UTT depuis un an ou plus, il a donc lui aussi vécu ce que tu vis actuellement.
+					Il peut répondre à toutes tes questions : où est-ce qu'on mange le midi, est-ce qu'un cours est difficile, etc.
+					Mais surtout il peut t'accueillir dès ton arrivée à Troyes, c'est toujours sympa de passer un peu de temps avec son parrain avant la rentrée !
+				</p>
                 <p>
-                    Cependant, ton parrain ne sait pas qui tu es, il sait juste qu'il a un fillot ! C'est donc à tois de faire le premier pas et de lui
-                    envoyer un doux message. Pas besoin de faire compliqué, un simple <em>&laquo;&nbsp;Salut, je suis ton fillot !&nbsp;&raquo;</em> suffira ;)
+                    Cependant, ton parrain ne sait pas qui tu es, il sait juste qu'il a un fillot ! C'est donc à toi de faire le premier pas et de lui
+                    envoyer un doux message. Pas besoin de faire compliqué, un simple <em>&laquo;&nbsp;Salut, je suis ton fillot !&nbsp;&raquo;</em> suffira. ;)
                 </p>
                 <hr/>
 
                 <div class="text-center">
                 @if(Auth::user()->isChecked('referral'))
-                    <h4 id="question">Félécitation, tu as pris contact avec {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }} !</h4>
+                    <h4 id="question">Félicitation, tu as pris contact avec {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }} !</h4>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'cancel']) }}#question" class="btn btn-danger">Ce n'est pas le cas ?</a>
                     <div class="text-center">
                         <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
                     </div>
                 @elseif($step == 'contacted')
-                    <h4 id="question">As-t-il répondu ?</h4>
+                    <h4 id="question">A-t-il répondu ?</h4>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'answered']) }}#question" class="btn btn-primary">Oui</a>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'notAnswered']) }}#question" class="btn btn-danger">Non</a>
                 @elseif($step == 'notAnswered')
                     <h4 id="question">Ah :/</h4>
                     <p>{{ (Auth::user()->godFather->sex)?'Ta marraine':'Ton parrain' }} est peut-être en vacances ou à l'étranger..</p>
-                    <p>Tente de {{ (Auth::user()->godFather->sex)?'la':'le' }} contacter par tous les moyens disponibles : sms, email, facebook..</p>
+                    <p>Tente de {{ (Auth::user()->godFather->sex)?'la':'le' }} contacter par tous les moyens disponibles : SMS, mail, Facebook, canard..</p>
                     @if(!Auth::user()->referral_emailed)
-                        <p>Si tu le souhaites, nous pouvons lui envoyer tes coordonées par email, pour qu'{{ (Auth::user()->godFather->sex)?'elle':'il' }} puisse te contacter dès que possible.</p>
+                        <p>Si tu le souhaites, nous pouvons lui envoyer tes coordonées par mail, pour qu'{{ (Auth::user()->godFather->sex)?'elle':'il' }} puisse te contacter dès que possible.</p>
                         <div class="row">
                             <div class="col-lg-6 col-lg-offset-3">
                                 <form action="{{ route('newcomer.referral.submit') }}"method="post">
-                                    <input class="form-control" name="email" id="email" placeholder="Email" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
+                                    <input class="form-control" name="email" id="email" placeholder="Mail" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
                                     <input class="form-control" name="phone" id="phone" placeholder="Numéro de téléphone" type="text" value="{{{ old('phone') ?? Auth::user()->phone }}}">
                                     <input class="form-control btn btn-primary" type="submit" value="Envoyer mes coordonées à mon parrain">
                                 </form>
                             </div>
                         </div>
                     @else
-                        <em>Un email avec tes coordonées a déjà été envoyé à {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }}.</em>
+                        <em>Un mail avec tes coordonnées a déjà été envoyé à {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }}.</em>
                     @endif
                 @elseif($step == 'notContacted')
                     <h4 id="question">Bah alors ?</h4>
-                    <p>Essaye de lui envoyer un petit SMS, email ou un message Facebook rapidement !</p>
+                    <p>Essaye de lui envoyer un petit SMS, mail ou un message Facebook rapidement !</p>
                     @if(!Auth::user()->referral_emailed)
-                        <p>Si tu le souhaites, nous pouvons aussi lui envoyer tes coordonées par email, pour qu'{{ (Auth::user()->godFather->sex)?'elle':'il' }} puisse te contacter de lui même.</p>
+                        <p>Si tu le souhaites, nous pouvons aussi lui envoyer tes coordonées par mail, pour qu'{{ (Auth::user()->godFather->sex)?'elle':'il' }} puisse te contacter de lui même.</p>
                         <div class="row">
                             <div class="col-lg-6 col-lg-offset-3">
                                 <form action="{{ route('newcomer.referral.submit') }}"method="post">
@@ -112,7 +112,7 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                             </div>
                         </div>
                     @else
-                        <em>Un email avec tes coordonées a déjà été envoyé à ton parrain.</em>
+                        <em>Un mail avec tes coordonnées a déjà été envoyé à ton parrain.</em>
                     @endif
                 @else
                     <h4 id="question">As-tu déjà essayé de contacter {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }} ?</h4>

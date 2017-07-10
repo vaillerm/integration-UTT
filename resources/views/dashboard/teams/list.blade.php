@@ -89,7 +89,7 @@ Gestion des équipes
                                     <i class="fa fa-facebook" aria-hidden="true"></i>acebook
                                 </a>
                             @else
-                                <span class="btn btn-xs btn-primary disabled" title="Cette équipe n'a pas envoyé le lien de son groupe facebook">
+                                <span class="btn btn-xs btn-primary disabled" title="Cette équipe n'a pas envoyé le lien de son groupe Facebook">
                                     <del><i class="fa fa-facebook" aria-hidden="true"></i>acebook</del>
                                 </span>
                             @endif

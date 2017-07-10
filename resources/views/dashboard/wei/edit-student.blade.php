@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Week-end d'intégration
+Week-End d'Intégration
 @endsection
 
 @section('smalltitle')
@@ -115,8 +115,8 @@ Modification d'un étudiant
                                 <tbody>
                                     <tr class="vert-align">
                                         <td>
-                                            <strong>Week-end d'intégration</strong><br/>
-                                            <em>{{$user->first_name. ' '.$user->last_name}} paye le tarif "{{$priceName}}", contactez un coord si pensez que ce n'est pas le bon tarif.</em>
+                                            <strong>Week-End d'Intégration</strong><br/>
+                                            <em>{{$user->first_name. ' '.$user->last_name}} paye le tarif "{{$priceName}}", contactez un coord si vous pensez que ce n'est pas le bon tarif.</em>
                                         </td>
                                         <td class="price">{{ sprintf('%04.2f', $price) }} €</td>
                                         <td>
@@ -213,7 +213,7 @@ Modification d'un étudiant
                             </div>
 
                             <div class="form-group">
-                                <label for="check-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le cheque</label>
+                                <label for="check-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le chèque</label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" id="check-write" name="check-write" @if (old('check-write')) checked="checked" @endif/>
                                 </div>
@@ -238,7 +238,7 @@ Modification d'un étudiant
 
                     @if(!$guaranteeCount)
                         <div class="callout callout-success">
-                            Caution payé !
+                            Caution payée !
                         </div>
                     @else
                             <table class="table table-hover basket">
@@ -254,9 +254,9 @@ Modification d'un étudiant
                                         <td>
                                             <strong>Caution du week-end</strong>
                                             <p>
-                                                Autorisation de prélèvement en ligne qui ne sera pas prélevé (sauf en cas de soucis)<br/>
-                                                Équivalent d'un chêque, mais en ligne, et qui expire en 29 jours.<br/>
-                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">conditions générales de vente</a>.
+                                                Autorisation de prélèvement en ligne qui ne sera pas prélevée (sauf en cas de soucis).<br/>
+                                                Équivalent d'un chèque, mais en ligne, et qui expire en 29 jours.<br/>
+                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{@asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                             </p>
                                         </td>
                                         <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>
@@ -312,7 +312,7 @@ Modification d'un étudiant
                         </div>
 
                         <div class="form-group">
-                            <label for="check2-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le cheque</label>
+                            <label for="check2-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le chèque</label>
                             <div class="col-lg-10">
                                 <input type="checkbox" id="check2-write" name="check2-write" @if (old('check2-write')) checked="checked" @endif/>
                             </div>
@@ -324,11 +324,11 @@ Modification d'un étudiant
                 </form>
             @else
                 <h3>Inscription au WEI</h3>
-                <strong>{{ $user->first_name }}</strong> doit d'abord lui même se connecter au site de l'inté pour demander à <strong>"devenir bénévole"</strong>. Il ne pourra pas être inscrit au WEI tant que ce n'est pas fait.
+                <strong>{{ $user->first_name }}</strong> doit d'abord se connecter lui même au site de l'inté pour demander à <strong>"devenir bénévole"</strong>. Il ne pourra pas être inscrit au WEI tant que ce n'est pas fait.
             @endif
         </form>
                 <fieldset class="panel">
-                    <legend>WeekEnd</legend>
+                    <legend>Week-End</legend>
                     <?php
                         if($user->ce)
                             $type = "CE";
@@ -345,7 +345,7 @@ Modification d'un étudiant
                             <a href="{{ route('dashboard.wei.checkin', ['type'=> 'students', 'id'=> (int)$user->student_id]) }}" class="btn btn-success form-control">Check-In</a>
                         @else
                             <div class="callout callout-warning">
-                                Checkin déja effectué
+                                Check-In déja effectué
                             </div>
                         @endif
 

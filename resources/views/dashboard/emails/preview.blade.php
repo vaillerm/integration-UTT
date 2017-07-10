@@ -1,21 +1,21 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Emails
+Mails
 @endsection
 
 @section('smalltitle')
-Envoi d'emails en maaasse
+Envoi de mails en maaasse
 @endsection
 
 @section('content')
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Object : {{ $email->subject }}</h3>
+        <h3 class="box-title">Objet : {{ $email->subject }}</h3>
 		<div class="pull-right">
 			{{-- @if(!$email->started) --}}
-				{{-- <a class="btn btn-xs btn-warning" href="{{ route('dashboard.emails.index', ['id' => $email->id ])}}">Modifier l'email</a> --}}
+				{{-- <a class="btn btn-xs btn-warning" href="{{ route('dashboard.emails.index', ['id' => $email->id ])}}">Modifier le mail</a> --}}
 			{{-- @endif --}}
 			<a class="btn btn-xs btn-primary" href="{{ route('dashboard.emails.index')}}">Retour à la liste</a>
 		</div>
@@ -65,7 +65,7 @@ Envoi d'emails en maaasse
 						<tr>
 							<td>
 								Généré et envoyé par le site de l'intégration de l'Université de Technologie de Troyes<br />
-								Pour ne plus recevoir d'emails de notre part, contactez <a href="mailto:integration@utt.fr">integration@utt.fr</a>
+								Pour ne plus recevoir d'emails de notre part, contactez <a href="mailto:integration@utt.fr">integration@utt.fr</a>.
 							</td>
 						</tr>
 					</table>

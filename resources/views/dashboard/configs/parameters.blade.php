@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Paramétres
+    Paramètres
 @endsection
 
 @section('smalltitle')
-    Editions des paramétres par défault
+    Edition des paramètres par défaut
 @endsection
 
 @section('content')
@@ -13,13 +13,13 @@
     <div class="callout callout-info">
         <h4>Informations</h4>
         <p>
-            Cette page vous permet d'interragir avec l'ensemble des parametres disponible. La fonctionnalitée est réservé a un public averti ! La modification n'étant pas anodine.
+            Cette page vous permet d'interagir avec l'ensemble des paramètres disponibles. La fonctionnalité est réservée à un public averti ! La modification n'étant pas anodine.
         </p>
     </div>
 
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">Liste des parametres</h3>
+            <h3 class="box-title">Liste des paramètres</h3>
         </div>
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">

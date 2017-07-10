@@ -5,7 +5,7 @@ Parrains
 @endsection
 
 @section('smalltitle')
-Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
+Liste de toutes les personnes qui ont visionné le formulaire au moins une fois.
 @endsection
 
 @section('content')
@@ -165,7 +165,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Listes d'adresses email</h3>
+        <h3 class="box-title">Listes d'adresses mail</h3>
     </div>
     <div class="box-body">
         <h4>Tous les profils validés</h4>
@@ -173,7 +173,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois
 
         <h4>Tous les profils incomplets</h4>
         <p><em>Note: Les personnes qui sont dans cette liste ont parfois juste regardé le formulaire.<br/>
-        Il ne veulent donc pas forcément devenir parrain. Prennez celà en compte si vous leur écrivez un email.</em></p>
+        Il ne veulent donc pas forcément devenir parrain. Prenez ça en compte si vous leur écrivez un mail.</em></p>
         <textarea class="form-control" readonly>{{ $emailsIncomplete }}</textarea>
 
         <h4>Tous les profils en attente</h4>

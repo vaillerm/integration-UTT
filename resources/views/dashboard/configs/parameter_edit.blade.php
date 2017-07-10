@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Paramétres
+    Paramètres
 @endsection
 
 @section('smalltitle')
-    Edition d'un parametre
+    Edition d'un paramètre
 @endsection
 
 @section('content')

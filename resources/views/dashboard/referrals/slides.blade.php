@@ -103,7 +103,7 @@
 		</style>
 	</head>
 	<body>
-		<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucunes Marges (ne passez pas par PDF Creator ou equivalent, le pdf sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
+		<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucune marge (ne passez pas par PDF Creator ou équivalent, le PDF sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
 		@foreach($referrals as $referral)
 			<div class="page">
 					<div class="referral">
