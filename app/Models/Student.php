@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Crypt;
@@ -9,6 +12,8 @@ use Config;
 
 class Student extends Model implements Authenticatable
 {
+    use HasApiTokens, Notifiable;
+
     public $table = 'students';
     public $timestamps = true;
 
@@ -99,6 +104,27 @@ class Student extends Model implements Authenticatable
             'page' => 'wei',
         ],
     ];
+
+    /**
+     * Change the identifier for passport ('email' field by default, we want 'login')
+     *
+     * @param String $identifier the value of the 'username' parameter sent in the request
+     * @return User
+     */
+    public static function findForPassport($identifier) {
+        return Student::where('login', $identifier)->first();
+    }
+
+    /**
+     * Rewrite the way passport check if the password is right (because we encrypt the newcomer's passwords)
+     *
+     * @param String $password: the password sent as in the request
+     * @return Boolean
+     */
+    public function validateForPassportPasswordGrant($password) {
+        // decrypt the password of the user to compare it
+        return Crypt::decrypt($this->password) == $password;
+    }
 
     /**
      * Scope a query to only include students that are newcomers.

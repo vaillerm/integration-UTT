@@ -43,25 +43,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Authenticate the newcomer
-     */
-    public function apiLogin() {
-        $newcomer = Student::newcomer()->where('login', Request::get('login'))->get()->first();
-        if ($newcomer) {
-            $password = Crypt::decrypt($newcomer->password);
-            if ($password == Request::get('password')) {
-                Auth::login($newcomer, true);
-                return Response::json([
-                    "aze" => "ok"
-                ], 200);
-            }
-        }
-        return Response::json([
-            "aze" => "err"
-        ], 401);
-    }
-
-    /**
      * log out the newcomer
      *
      * @return Response

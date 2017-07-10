@@ -179,6 +179,7 @@ return [
          Laravel\Tinker\TinkerServiceProvider::class,
 
          Barryvdh\Cors\ServiceProvider::class,
+         Laravel\Passport\PassportServiceProvider::class,
 
 
     ],
