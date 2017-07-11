@@ -48,6 +48,10 @@
 			div {
 				position: absolute;
 			}
+			
+			a, a:visited {
+				color: blue;
+			}
 
 			.top {
 				z-index: 2;
