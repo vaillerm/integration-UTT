@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CreateFirstCron;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
         Commands\NewcomersImport::class,
         Commands\RenderNewcomers::class,
         Commands\PutScheduledEmailToQueue::class,
+        CreateFirstCron::class,
     ];
 
     /**

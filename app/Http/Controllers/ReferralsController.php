@@ -55,7 +55,9 @@ class ReferralsController extends Controller
      */
     public function update(Request $request)
     {
-        $referral = Student::findOrFail(Session::get('student_id'));
+        $referral = Student::where('student_id',Session::get('student_id'))->first();
+        if(!$referral)
+            abort(404);
 
         if ($referral->validated == 1) {
             return $this->success('Ton profil a déjà été validé, tu ne peux plus modifier tes informations.');
@@ -108,7 +110,10 @@ class ReferralsController extends Controller
     public function postValidation()
     {
         $id = Request::input('student-id');
-        $referral = Student::findOrFail($id);
+        $referral = Student::where('student_id',$id)->first();
+        if(!$referral)
+            abort(404);
+
         if ($referral->referral_validated) {
             return Redirect::back()->withError('Quelqu\'un a déjà validé cette personne :-(');
         }
@@ -126,7 +131,7 @@ class ReferralsController extends Controller
      */
     public function index()
     {
-        $referrals = Student::where('referral', true)->orderBy('created_at', 'asc')->get();
+        $referrals = Student::student()->where('referral', true)->orderBy('created_at', 'asc')->get();
         return View::make('dashboard.referrals.list', [
             'referrals' => $referrals,
         ]);
