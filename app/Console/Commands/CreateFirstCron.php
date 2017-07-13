@@ -39,7 +39,6 @@ class CreateFirstCron extends Command
      */
     public function handle()
     {
-        Queue::pop();
         $job = (new mailCron())
             ->onQueue('high');
         dispatch($job);

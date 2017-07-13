@@ -56,7 +56,7 @@ class mailCron implements ShouldQueue
 
         $job = (new mailCron())
             ->onQueue('high')
-            ->delay(Carbon::now()->addSecond(10));
+            ->delay(Carbon::now()->addMinutes(10));
         dispatch($job);
     }
 }
