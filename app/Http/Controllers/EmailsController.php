@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Email;
+use App\Models\MailHistory;
+use App\Models\MailRevision;
+use App\Models\Student;
+use Carbon\Carbon;
 use View;
 use Excel;
 use Request;
@@ -22,7 +26,10 @@ class EmailsController extends Controller
     public function getIndex()
     {
         $emails = Email::all();
-        return View::make('dashboard.emails.index', [ 'emails' => $emails ]);
+        return View::make('dashboard.emails.index', [
+            'emails' => $emails,
+            'mail_revisions' => MailRevision::all()
+        ]);
     }
 
     /**
@@ -41,5 +48,37 @@ class EmailsController extends Controller
         }
 
         return View::make('dashboard.emails.preview', [ 'email' => $email, 'view' => $view ]);
+    }
+
+    public function getRevisionPreview($id, $user_id=null)
+    {
+        $mail = MailRevision::findOrFail($id);
+        $student = Student::find($user_id);
+
+        return $mail->generateHtml($student);
+    }
+
+    public function getUnsubscribe($mail)
+    {
+        $student = Student::where('email', $mail)->first();
+        $student->allow_publicity = false;
+        $student->save();
+
+        return 'Mail unsubscribed';
+    }
+
+    public function trackOpening($mail_id)
+    {
+        //On trace le mail
+        $mail = MailHistory::find($mail_id);
+        if($mail && !$mail->open_at)
+        {
+            $mail->open_at = Carbon::now();
+            $mail->save();
+        }
+
+
+        $image = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
+        return response($image)->header('Content-Type', 'image/png');
     }
 }

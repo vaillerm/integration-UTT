@@ -319,6 +319,41 @@ class NewcomersController extends Controller
         return Redirect::back()->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
     }
 
+    public function loginAndSendCoordonate($user_id, $hash)
+    {
+        $user = Student::find($user_id);
+        if(!$user || ($user && $user->getHashAuthentification() != $hash))
+        {
+            session()->flash('error', "Impossible de vous identifier !");
+            return redirect()->route('newcomer.auth.login');
+        }
+
+        Auth::login($user);
+        if(!$user->referral_emailed)
+        {
+            $referral = $user->godFather;
+            $sent = Mail::send('emails.contactReferral', ['newcomer' => $user, 'referral' => $referral], function ($m) use ($referral, $user) {
+                $m->from('integrat@utt.fr', 'Intégration UTT');
+                $m->to($referral->email);
+                if ($user->sex) {
+                    $m->subject('[parrainage] Ta fillote souhaite que tu la contacte !');
+                } else {
+                    $m->subject('[parrainage] Ton fillot souhaite que tu le contacte !');
+                }
+
+            });
+
+
+            // Note in db that referral has been mailed
+            $user->referral_emailed = true;
+            $user->save();
+
+            return Redirect::route('newcomer.home')->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
+        }
+        return Redirect::route('newcomer.home')->withSuccess('Vous êtes bien connecté !');
+
+    }
+
     /**
      * Display the team
      *
