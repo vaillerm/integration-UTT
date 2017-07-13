@@ -35,7 +35,7 @@
 				width: 29.7cm;
 				height: 21cm;
 
-				background-image: url("{{ asset('/img/letter/bg.jpg') }}");
+				background-image: url("{{ asset('/img/letter/bg.png') }}");
 				background-repeat: no-repeat;
 				background-size: 100% 100%;
 				position: relative;
@@ -181,7 +181,7 @@
 			}
 
 			.blocs .acces .info {
-				background-color: rgba(143, 39, 203, 0.8);
+				background-color: #33691E;
 				font-size: 0.85em;
 				padding: 2.54mm;
 			}
