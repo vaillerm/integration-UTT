@@ -101,6 +101,16 @@ class Student extends Model implements Authenticatable
     ];
 
     /**
+     * Accessors mail
+     */
+
+    public function getEmailAttribute($value)
+    {
+        if(!$value)
+            return $this->registration_email;
+        else return $value;
+    }
+    /**
      * Scope a query to only include students that are newcomers.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -231,6 +241,15 @@ class Student extends Model implements Authenticatable
         $name = $this->getAuthIdentifierName();
 
         return $this->attributes[$name];
+    }
+
+    /**
+     * Retourne le secret d'authentification
+     */
+
+    public function getHashAuthentification()
+    {
+        return sha1($this->registration_email.$this->created_at->timestamp);
     }
 
     /**
