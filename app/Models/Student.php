@@ -110,6 +110,11 @@ class Student extends Model implements Authenticatable
             return $this->registration_email;
         else return $value;
     }
+
+    public function getPostalCodeAttribute($value)
+    {
+        return intval($value);
+    }
     /**
      * Scope a query to only include students that are newcomers.
      *
@@ -158,6 +163,10 @@ class Student extends Model implements Authenticatable
         return $this->belongsTo(Student::class, 'referral_id', 'student_id')->where('referral', true);
     }
 
+    public function mailHistories()
+    {
+        return $this->hasMany(MailHistory::class);
+    }
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];
