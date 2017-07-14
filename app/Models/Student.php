@@ -110,6 +110,11 @@ class Student extends Model implements Authenticatable
             return $this->registration_email;
         else return $value;
     }
+
+    public function getPostalCodeAttribute($value)
+    {
+        return intval($value);
+    }
     /**
      * Scope a query to only include students that are newcomers.
      *
