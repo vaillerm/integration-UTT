@@ -158,6 +158,10 @@ class Student extends Model implements Authenticatable
         return $this->belongsTo(Student::class, 'referral_id', 'student_id')->where('referral', true);
     }
 
+    public function mailHistories()
+    {
+        return $this->hasMany(MailHistory::class);
+    }
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];
