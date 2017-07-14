@@ -645,9 +645,11 @@
 
                                                                     <p dir="ltr"><span style="font-size:14px">Nous sommes l’équipe d’intégration, des étudiants bénévoles, présents pour faire en sorte que ton arrivée à l’UTT se déroule de la meilleure façon possible.</span></p>
 
+                                                                    @if($user->godFather)
                                                                     <p dir="ltr"><span style="font-size:14px">Lorsque tu arrives à l'UTT, un étudiant plus ancien devient ton parrain ou ta marraine. Cet étudiant sera ton contact privilégié pour découvrir l'école, mais aussi la vie étudiante troyenne. N’hésite pas à le contacter pendant les vacances, il pourra répondre à la plupart de tes questions, que ce soit sur l’UTT, les logements, les cours, la vie à Troyes...</span></p>
 
                                                                     <p dir="ltr"><span style="font-size:14px">Qui sera donc ton parrain ou ta marraine ? (Roulement de tambours...)</span></p>
+                                                                    @endif
                                                                 </div>
 
                                                             </td>
@@ -664,7 +666,9 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock">
+                                        </table>
+                                        @if($user->godFather)
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock">
                                             <tbody class="mcnImageCardBlockOuter">
                                             <tr>
                                                 <td class="mcnImageCardBlockInner" valign="top" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">
@@ -954,7 +958,9 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
+                                        </table>
+                                            @endif
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
                                             <!--[if gte mso 9]>
                                             <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
                                             <![endif]-->
@@ -977,8 +983,10 @@
                                                                             L’intégration comporte un grand jeu dont le thème cette année est :<br>
                                                                             <br>
                                                                             <span style="font-size:24px"><strong>“Contes, Mythes et Légendes”</strong></span><br>
+                                                                            @if($user->team)
                                                                             <br>
                                                                             Ainsi, durant ta semaine d’intégration tu feras partie de l'équipe :
+                                                                            @endif
                                                                         </td>
                                                                     </tr>
                                                                     </tbody></table>
@@ -996,7 +1004,9 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock">
+                                        </table>
+                                        @if($user->team)
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock">
                                             <tbody class="mcnImageCardBlockOuter">
                                             <tr>
                                                 <td class="mcnImageCardBlockInner" valign="top" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">
@@ -1085,7 +1095,9 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
+                                        </table>
+                                            @endif
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
                                             <!--[if gte mso 9]>
                                             <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
                                             <![endif]-->
@@ -1147,7 +1159,7 @@
 
                                                                 <p dir="ltr" style="text-align: justify;"><span style="font-size:12px">Sacré programme hein! Cependant, n’oublie pas :<br>
 <strong>Les inscriptions en ligne </strong><a href="http://admission.utt.fr/">http://admission.utt.fr/</a> et <strong>l’UT3L</strong> <a
-                                                                                href="https://ut3l.utt.fr/"></a>.</span></p>
+                                                                                href="https://ut3l.utt.fr/">https://ut3l.utt.fr/</a>.</span></p>
 
                                                                 <p dir="ltr" style="text-align: justify;"><span style="font-size:12px">Nous sommes présents tous l'été pour répondre à tes questions, ainsi n'hésite pas à nous contacter ou venir nous voir !</span></p>
 
