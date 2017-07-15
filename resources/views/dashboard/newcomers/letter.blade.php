@@ -49,8 +49,8 @@
 				position: absolute;
 			}
 			
-			a, a:visited {
-				color: blue;
+			u {
+				color: #ababff;
 			}
 
 			.top {
@@ -332,7 +332,7 @@
 							</p>
 							<p>
 								<strong>Tu n'oses pas faire le premier pas ?</strong><br/>
-								Rendez-vous sur <a href="https://integration.utt.fr/">integration.utt.fr</a> !
+								Rendez-vous sur <u>integration.utt.fr</u> !
 							</p>
 						</div>
 					</div>
@@ -346,7 +346,7 @@
 							</div>
 							<div class="texte">
 								<strong>{{ $newcomer->first_name }} <span class="famille">{{ $newcomer->last_name }}</span></strong>,
-								voici ton compte pour accéder au site de l'intégration sur <a href="https://integration.utt.fr/">integration.utt.fr</a><br/>
+								voici ton compte pour accéder au site de l'intégration sur <u>integration.utt.fr</u><br/>
 								Tu pourras y trouver des informations sur ta première semaine, l'inscription au week-end, des bons plans et plus encore !<br/>
 
 							</div>
@@ -371,7 +371,7 @@
 					@endif
 				</div>
 				<div class="facebook">
-					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <a href="https://www.facebook.com/integration.utt/">Intégration UTT</a>
+					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <u>Intégration UTT</u>
 				</div>
 			</div>
 		@endforeach
