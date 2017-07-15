@@ -602,17 +602,3 @@ Route::post('/etupay/callback', [
     'as'   => 'etupay.callback',
     'uses' => 'EtupayController@etupayCallback'
 ]);
-
-// API
-Route::group(['prefix' => 'api', 'middleware' => ['cors']], function () {
-
-    // authentication routes
-    Route::group(['prefix' => 'auth'], function () {
-
-        Route::post('/newcomer', [
-            'uses' => 'authController@apiLogin'
-        ]);
-
-    });
-
-});

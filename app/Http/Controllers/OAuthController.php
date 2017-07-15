@@ -9,6 +9,8 @@ use View;
 use Redirect;
 use Session;
 use Config;
+use Response;
+use Auth;
 
 /**
  * OAuth authentication with the etu.utt.fr website.
@@ -151,5 +153,9 @@ class OAuthController extends Controller
         // him from the etu.utt.fr website. Then he'll be redirected to the
         // application index. That's dirty but I don't see any alternative.
         return View::make('redirection');
+    }
+
+    public function revokeApiToken() {
+        return Response::json(["ok" => Auth::guard('api')->user()]);
     }
 }
