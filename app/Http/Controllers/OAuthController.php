@@ -155,7 +155,16 @@ class OAuthController extends Controller
         return View::make('redirection');
     }
 
+    /**
+     * Revoke and delete the passport token of the authenticated student
+     *
+     * @return Response
+     */
     public function revokeApiToken() {
-        return Response::json(["ok" => Auth::guard('api')->user()]);
+        $token = Auth::guard('api')->user()->token();
+        $token->revoke();
+        $token->delete(); 
+
+        return Response::json(["success" => true]);
     }
 }
