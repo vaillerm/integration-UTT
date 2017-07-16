@@ -48,6 +48,10 @@ return [
              'id'     => env('ETUUTT_CLIENT_ID'),
              'secret' => env('ETUUTT_CLIENT_SECRET'),
          ],
+         'mobile_client' => [
+             'id'     => env('ETUUTT_MOBILE_CLIENT_ID'),
+             'secret' => env('ETUUTT_MOBILE_CLIENT_SECRET'),
+         ]
     ],
 
     'site' => [
