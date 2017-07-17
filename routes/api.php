@@ -6,5 +6,6 @@ Route::post('/oauth/etuutt/callback', ['uses' => 'OAuthController@mobileCallback
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('/oauth/token/revoke', ['uses' => 'OAuthController@revokeApiToken']);
+    Route::post('/oauth/token/check', ['uses' => 'OAuthController@checkApiToken']);
 
 });

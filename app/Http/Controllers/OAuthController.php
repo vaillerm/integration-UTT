@@ -216,6 +216,16 @@ class OAuthController extends Controller
     }
 
     /**
+     * if the request passed the auth:api middleware, it means that the token is still valid.
+     * So return code 200.
+     *
+     * @return Response
+     */
+    public function checkApiToken() {
+        return Response::json(["message" => "valid token"]);
+    }
+
+    /**
      * Disconnect the user by resetting his session and redirecting him to etu.utt.fr.
      *
      * @return Response
