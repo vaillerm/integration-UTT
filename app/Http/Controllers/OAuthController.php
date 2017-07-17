@@ -210,8 +210,7 @@ class OAuthController extends Controller
         $passport_access_token = $createdToken->accessToken;
 
         return Response::json([
-            "access_token" => $passport_access_token,
-            "student" => $student
+            "access_token" => $passport_access_token
         ]);
     }
 
@@ -223,6 +222,24 @@ class OAuthController extends Controller
      */
     public function checkApiToken() {
         return Response::json(["message" => "valid token"]);
+    }
+
+    /**
+     * Return the user main info (first name and roles)
+     *
+     * @return Response
+     */
+    public function getUserInfo() {
+        $user = Auth::guard('api')->user();
+        $mainInfo = [
+            "first_name" => $user["first_name"],
+            "ce" => $user["ce"],
+            "volunteer" => $user["volunteer"],
+            "orga" => $user["orga"],
+            "admin" => $user["admin"],
+        ];
+
+        return Response::json(["user" => $mainInfo]);
     }
 
     /**
