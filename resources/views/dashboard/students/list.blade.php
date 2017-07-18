@@ -70,7 +70,7 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga.
                             @if ($student->volunteer)
                                 <span class="label label-info">Bénévole</span>
                             @endif
-                            @if ($student->orga)https://gitlab.uttnetgroup.fr/
+                            @if ($student->orga)
                                 <span class="label label-warning">Orga</span>
                             @endif
                         </td>
