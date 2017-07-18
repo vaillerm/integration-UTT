@@ -8,12 +8,34 @@ use EtuUTT;
 use Mail;
 use Request;
 use Redirect;
+use Response;
+use Auth;
 
 /**
  * Handle student management pages and administrators actions
  */
 class StudentsController extends Controller
 {
+
+    /**
+     * REST API method: GET on Student model
+     *
+     * @return Response 
+     */
+    public function find()
+    {
+        $id = Request::route('id');
+
+        // if id, return only the asked ressource
+        if ($id != null) {
+            // if id is 0 or the id of the authenticated user, return the authenticated user
+            if ($id == "0" || $id == Auth::guard('api')->user()->id) {
+                return Response::json(Auth::guard('api')->user());
+            }
+        }
+
+        return Response::json(array(["message" => "not allowed"]), 403);
+    }
 
     /**
          * Display student list

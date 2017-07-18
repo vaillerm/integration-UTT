@@ -225,24 +225,6 @@ class OAuthController extends Controller
     }
 
     /**
-     * Return the user main info (first name and roles)
-     *
-     * @return Response
-     */
-    public function getUserInfo() {
-        $user = Auth::guard('api')->user();
-        $mainInfo = [
-            "first_name" => $user["first_name"],
-            "ce" => $user["ce"],
-            "volunteer" => $user["volunteer"],
-            "orga" => $user["orga"],
-            "admin" => $user["admin"],
-        ];
-
-        return Response::json(["user" => $mainInfo]);
-    }
-
-    /**
      * Disconnect the user by resetting his session and redirecting him to etu.utt.fr.
      *
      * @return Response
