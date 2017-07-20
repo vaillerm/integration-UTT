@@ -25,12 +25,29 @@ class StudentsController extends Controller
     public function find()
     {
         $id = Request::route('id');
+        $user = Auth::guard('api')->user();
 
-        // if id, return only the asked ressource
-        if ($id != null) {
+        // if no id in the route parameters and user allowed, return a list of users
+        if ($id == null && $user->admin) {
+            // check if there is a filter
+            $filter = Request::input('filter');
+
+            // return only newcomers
+            if ($filter == "newcomers") {
+                return Response::json(Student::newcomer()->get());
+            }
+
+            // return only UTT students
+            if ($filter == "students") {
+                return Response::json(Student::student()->get());
+            }
+
+            // return all by default
+            return Response::json(Student::get());
+
+        } else {
             // if id is 0 or the id of the authenticated user, return the authenticated user
-            if ($id == "0" || $id == Auth::guard('api')->user()->id) {
-                $user = Auth::guard('api')->user();
+            if ($id == "0" || $id == $user()->id) {
                 $user->referral_info = Student::where('student_id', $user->referral_id)->first();
                 return Response::json($user);
             }
