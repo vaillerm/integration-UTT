@@ -20,7 +20,7 @@ class StudentsController extends Controller
     /**
      * REST API method: GET on Student model
      *
-     * @return Response 
+     * @return Response
      */
     public function find()
     {
@@ -30,7 +30,9 @@ class StudentsController extends Controller
         if ($id != null) {
             // if id is 0 or the id of the authenticated user, return the authenticated user
             if ($id == "0" || $id == Auth::guard('api')->user()->id) {
-                return Response::json(Auth::guard('api')->user());
+                $user = Auth::guard('api')->user();
+                $user->referral_info = Student::where('student_id', $user->referral_id)->first();
+                return Response::json($user);
             }
         }
 

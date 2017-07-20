@@ -125,7 +125,7 @@ class Student extends Model implements Authenticatable
         // decrypt the password of the user to compare it
         return Crypt::decrypt($this->password) == $password;
     }
-    
+
     /*
      * Accessors mail
      */
