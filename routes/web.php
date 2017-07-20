@@ -18,6 +18,16 @@ Route::get('/', [
     'uses' => 'PagesController@getHomepage'
 ]);
 
+Route::get('/emails/unsubscribe/{email}', [
+    'as'   => 'emails.unsubscribe',
+    'uses' => 'EmailsController@getUnsubscribe'
+]);
+
+Route::get('/emails/opening/{mail_id}.png', [
+    'as'   => 'emails.opening',
+    'uses' => 'EmailsController@trackOpening'
+]);
+
 Route::group(['middleware' => 'oauth'], function () {
     Route::get('/menu', [
         'as'   => 'menu',
@@ -251,11 +261,20 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'EmailsController@getIndex'
             ]);
+            /**
             Route::get('/preview/{id}', [
                 'as'   => 'dashboard.emails.preview',
                 'middleware' => 'authorize:admin',
                 'uses' => 'EmailsController@getPreview'
             ]);
+             * **/
+
+            Route::get('/preview/{id}/{user_id?}', [
+                'as'   => 'dashboard.emails.revisionpreview',
+                'middleware' => 'authorize:admin',
+                'uses' => 'EmailsController@getRevisionPreview'
+            ]);
+
         });
 
 
@@ -480,6 +499,12 @@ Route::post('/login', [
     'as'   => 'newcomer.auth.login.submit',
     'uses' => 'authController@loginSubmit'
 ]);
+
+Route::get('/referral/{user_id}/{hash}', [
+    'as'   => 'newcomer.referral.autorisation',
+    'uses' => 'NewcomersController@loginAndSendCoordonate'
+]);
+
 Route::get('/logout', [
     'as'   => 'newcomer.auth.logout',
     'middleware' => 'authorize:newcomer',

@@ -5,7 +5,7 @@ Inscriptions au WEI
 @endsection
 
 @section('smalltitle')
-Liste de toutes les personnes inscrits au wei
+Liste de toutes les personnes inscrits au WEI
 @endsection
 
 @section('content')

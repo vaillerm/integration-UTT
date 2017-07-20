@@ -35,7 +35,7 @@
 				width: 29.7cm;
 				height: 21cm;
 
-				background-image: url("{{ asset('/img/letter/bg.jpg') }}");
+				background-image: url("{{ asset('/img/letter/bg.png') }}");
 				background-repeat: no-repeat;
 				background-size: 100% 100%;
 				position: relative;
@@ -47,6 +47,10 @@
 
 			div {
 				position: absolute;
+			}
+			
+			u {
+				color: #ababff;
 			}
 
 			.top {
@@ -177,7 +181,7 @@
 			}
 
 			.blocs .acces .info {
-				background-color: rgba(143, 39, 203, 0.8);
+				background-color: #33691E;
 				font-size: 0.85em;
 				padding: 2.54mm;
 			}
@@ -273,9 +277,9 @@
 	</head>
 	<body>
 		@if(Auth::user() && Auth::user()->id == $newcomers[0]->id)
-			<p class="page-indicator">Pour imprimer, utilisez Google Chrome en selectionnant "Marges : Aucune" au moment de l'impression.<br/>Pour faire un PDF choisissez "Enregistrer au format PDF" comme destination.</p>
+			<p class="page-indicator">Pour imprimer, utilisez Google Chrome en selectionnant "Marge : aucune" au moment de l'impression.<br/>Pour faire un PDF choisissez "Enregistrer au format PDF" comme destination.</p>
 		@else
-			<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucunes Marges (ne passez pas par PDF Creator ou equivalent, le pdf sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
+			<p class="page-indicator">Pour imprimer, utilisez Google Chrome. Pour faire un PDF de plusieurs pages, choisissez "Enregistrer au format PDF" avec aucune marge (ne passez pas par PDF Creator ou équivalent, le PDF sera très lourd si vous en imprimez beaucoup). Faites des groupes de 50 à 100 pages en fonction de la puissance de votre PC.</p>
 		@endif
 		@foreach($newcomers as $newcomer)
 			<style>
@@ -343,7 +347,7 @@
 							<div class="texte">
 								<strong>{{ $newcomer->first_name }} <span class="famille">{{ $newcomer->last_name }}</span></strong>,
 								voici ton compte pour accéder au site de l'intégration sur <u>integration.utt.fr</u><br/>
-								Tu pourra y trouver des informations sur ta première semaine, l'inscription au week-end, des bons plans et plus encore !<br/>
+								Tu pourras y trouver des informations sur ta première semaine, l'inscription au week-end, des bons plans et plus encore !<br/>
 
 							</div>
 						</div>
@@ -367,7 +371,7 @@
 					@endif
 				</div>
 				<div class="facebook">
-					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <span>Integration UTT</span>
+					<img src="{{ asset('/img/letter/facebook.png') }}" alt="Facebook"> <u>Intégration UTT</u>
 				</div>
 			</div>
 		@endforeach

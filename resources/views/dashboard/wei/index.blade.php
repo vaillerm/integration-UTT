@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Week-end d'intégration
+Week-End d'Intégration
 @endsection
 
 @section('smalltitle')

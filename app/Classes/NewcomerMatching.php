@@ -249,7 +249,7 @@ class NewcomerMatching
         ];*/
         $counts = [];
         $counts2 = [];
-        $referrals = Student::where(['referral' => 1, 'referral_validated' => 1])->get();
+        $referrals = Student::student()->where(['referral' => 1, 'referral_validated' => 1])->get();
         foreach ($referrals as $referral) {
             if (!isset($counts[$referral->branch])) {
                 $counts[$referral->branch] = [];

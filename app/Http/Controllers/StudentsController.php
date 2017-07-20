@@ -45,7 +45,7 @@ class StudentsController extends Controller
          */
         public function list($filter = '')
         {
-            $students = Student::orderBy('last_name', 'asc');
+            $students = Student::student()->orderBy('last_name', 'asc');
             switch ($filter) {
                 case 'admin':
                     $students = $students->where('admin', '=', Student::ADMIN_FULL);
@@ -143,7 +143,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('student_id', $id)->firstOrFail();
         return View::make('dashboard.students.edit', [
             'student' => $student
         ]);
@@ -157,7 +157,7 @@ class StudentsController extends Controller
      */
     public function editSubmit($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('student_id', $id)->firstOrFail();
         $data = Request::only([
             'surname',
             'sex',

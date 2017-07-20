@@ -36,7 +36,7 @@ Gestion de mon équipe
     <div class="callout callout-success">
         <h4>Vous avez été approuvé</h4>
         <p>
-            Un adminstrateur a validé votre équipe.
+            Un administrateur a validé votre équipe.
             @if (Authorization::can('ce','edit'))
                 Mais vous pouvez toujours modifier votre équipe si vous le souhaitez.
             @endif
@@ -47,7 +47,7 @@ Gestion de mon équipe
 @if(count($newcomers)>0)
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">Nouveaux assigné a l'équipe</h3>
+            <h3 class="box-title">Nouveaux assignés a l'équipe</h3>
         </div>
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover trombi">
@@ -73,7 +73,7 @@ Gestion de mon équipe
         @if(Authorization::can('ce','edit'))
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
         @else
-            <div class="box-countdown">Les modifications d'équipe ne sont plus autorisés.</div>
+            <div class="box-countdown">Les modifications d'équipe ne sont plus autorisées.</div>
         @endif
         <h3 class="box-title">Membres de l'équipe</h3>
     </div>
@@ -87,7 +87,7 @@ Gestion de mon équipe
                 <tr>
                     <th>Photo</th>
                     <th>Nom complet</th>
-                    <th>Email</th>
+                    <th>Mail</th>
                     <th>Téléphone</th>
                     <th>Labels</th>
                     <th>Actions</th>
@@ -128,7 +128,7 @@ Gestion de mon équipe
         @if(Authorization::can('ce','edit'))
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
         @else
-            <div class="box-countdown">Les modifications d'équipe ne sont plus autorisés.</div>
+            <div class="box-countdown">Les modifications d'équipe ne sont plus autorisées.</div>
         @endif
         <h3 class="box-title">Informations générales</h3>
     </div>

@@ -12,7 +12,7 @@ Tu as tout complété
 <div class="box box-default">
 
         <div class="box-header with-border">
-            <h3 class="box-title">Félicitation, tu es fin prêt pour ton intégration !</h3>
+            <h3 class="box-title">Félicitations, tu es fin prêt pour ton intégration !</h3>
         </div>
         <div class="box-body">
             <p>

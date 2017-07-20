@@ -87,7 +87,7 @@
         <footer class="main-footer">
             <div class="container">
                 <div class="hidden-xs text-center">
-                    <h3>Que la meilleure faction gagnge !</h3>
+                    <h3>Que la meilleure faction gagne !</h3>
                 </div>
             </div>
         </footer>

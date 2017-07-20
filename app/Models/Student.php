@@ -125,6 +125,22 @@ class Student extends Model implements Authenticatable
         // decrypt the password of the user to compare it
         return Crypt::decrypt($this->password) == $password;
     }
+    
+    /*
+     * Accessors mail
+     */
+
+    public function getEmailAttribute($value)
+    {
+        if(!$value)
+            return $this->registration_email;
+        else return $value;
+    }
+
+    public function getPostalCodeAttribute($value)
+    {
+        return intval($value);
+    }
 
     /**
      * Scope a query to only include students that are newcomers.
@@ -138,6 +154,17 @@ class Student extends Model implements Authenticatable
     }
 
     /**
+     * Scope a query to only include students that are students.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStudent($query)
+    {
+        return $query->where('is_newcomer', false)->whereNotNull('student_id');
+    }
+
+    /**
      * Query referrals newscomers
      */
     public function newcomers()
@@ -145,6 +172,15 @@ class Student extends Model implements Authenticatable
         return $this->hasMany(Student::class, 'student_id', 'referral_id');
     }
 
+    public function isStudent()
+    {
+        return !($this->is_newcomer);
+    }
+
+    public function isNewcomer()
+    {
+        return !($this->isStudent());
+    }
     /**
      * Return newcomers referal
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -154,6 +190,10 @@ class Student extends Model implements Authenticatable
         return $this->belongsTo(Student::class, 'referral_id', 'student_id')->where('referral', true);
     }
 
+    public function mailHistories()
+    {
+        return $this->hasMany(MailHistory::class);
+    }
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];
@@ -237,6 +277,15 @@ class Student extends Model implements Authenticatable
         $name = $this->getAuthIdentifierName();
 
         return $this->attributes[$name];
+    }
+
+    /**
+     * Retourne le secret d'authentification
+     */
+
+    public function getHashAuthentification()
+    {
+        return sha1($this->registration_email.$this->created_at->timestamp);
     }
 
     /**

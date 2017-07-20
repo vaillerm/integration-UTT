@@ -45,7 +45,7 @@ Menu
                                 <a class="form-control btn btn-danger" href="{{ route('referrals.destroy') }}">Ne plus être parrain</a>
                             @else
                                 <strong>Les inscriptions sont fermées.<br/>
-                                    Contacte integration@utt.fr pour toute question.</strong>
+                                    Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.</strong>
                             @endif
                         </div>
                     </div>
@@ -60,7 +60,7 @@ Menu
                             <br/><br/>
                             @if (Authorization::can('student','ce') || Authorization::can('ce','create'))
                                 <strong>Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }}</strong><br/>
-                                <strong>Plus que {{ $teamLeft }} création d'équipe avant fermeture</strong>
+                                <strong>Plus que {{ $teamLeft }} créations d'équipe avant fermeture</strong>
                                 <br/><br/>
                                 @if (Authorization::can('ce','create'))
                                     <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>
@@ -74,8 +74,8 @@ Menu
 				<a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Rejoins ton équipe !</a>
 			    @else
                                 <strong>Désolé, le nombre maximal d'équipes est atteint.<br/>
-				Si tu souhaites rejoindre ton équipe, demandes à ton chef d'équipe de t'inviter !</br>
-                                Contactez integration@utt.fr pour toute autre question.</strong>
+								Si tu souhaites rejoindre ton équipe, demandes à ton chef d'équipe de t'inviter !</br>
+                                Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute autre question.</strong>
                             @endif
                         </div>
                     </div>
@@ -87,7 +87,7 @@ Menu
                             </div>
                             <div class="panel-body">
                                 Tu souhaite donner un petit coup de main pendant l'intégration ?<br/>
-                                En cliquant sur ce bouton, tu recevera des emails pour te tenir au courant de l'avancement de l'intégration et des moments où nous avons besoins de bénévoles.
+                                En cliquant sur ce bouton, tu receveras des mails pour te tenir au courant de l'avancement de l'intégration et des moments où nous avons besoins de bénévoles.
                                 <br/><br/>
                                 @if (!$student->volunteer)
                                     <a href="{{ route('dashboard.students.profil') }}" class="btn form-control btn-success">Devenir bénévole !</a>
@@ -123,7 +123,7 @@ Menu
                 @endif
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <a href="{{ route('oauth.logout') }}" class="active btn form-control btn-default">Se déconnecter</a>
+                        <a href="{{ route('oauth.logout') }}" class="btn form-control btn-default">Se déconnecter</a>
                     </div>
                 </div>
             </div>

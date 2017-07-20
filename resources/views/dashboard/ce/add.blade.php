@@ -5,7 +5,7 @@ Ajouter un membre
 @endsection
 
 @section('smalltitle')
-Parce que être tout seul c'est triste
+Parce qu'être tout seul c'est triste
 @endsection
 
 @section('content')

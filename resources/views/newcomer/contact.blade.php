@@ -1,11 +1,11 @@
 @extends('layouts.newcomer')
 
 @section('title')
-Contacter l'équipe d'Intégration
+Contacter l'équipe d'intégration
 @endsection
 
 @section('smalltitle')
-Une question, une remarque, un mot d'amour, ...
+Une question, une remarque, un mot d'amour...
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@ Une question, une remarque, un mot d'amour, ...
         <div class="box-body">
         <form class="form-horizontal" action="{{ route('newcomer.contact') }}" method="post">
                 <p class="text-center">
-                    Si tu as la moindre question, remarque ou autre message, n'hésite pas !<br/>Envoi nous un petit message, on mord pas ;)
+                    Si tu as la moindre question, remarque ou autre message, n'hésite pas !<br/>Envoie-nous un petit message, on mord pas. ;)
                 </p>
 
                 <div class="form-group">
@@ -28,9 +28,9 @@ Une question, une remarque, un mot d'amour, ...
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="col-lg-2 control-label">Email</label>
+                    <label for="email" class="col-lg-2 control-label">Mail</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="email" id="email" placeholder="email@domain.fr" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
+                        <input class="form-control" name="email" id="email" placeholder="mail@domain.tld" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
                     </div>
                 </div>
 

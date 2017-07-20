@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Week-end d'intégration
+Week-End d'Intégration
 @endsection
 
 @section('smalltitle')
@@ -71,7 +71,7 @@ Modification d'un étudiant
 
         @if($count >= Config::get('services.wei.newcomerMax') && $user->wei == 0)
             <div class="callout callout-danger">
-                Impossible d'inscrire ce nouveau au WEI, il n'y a plus de place :/
+                Impossible d'inscrire ce nouveau au WEI, il n'y a plus de place. :/
             </div>
         @else
             <form class="form-horizontal" action="{{ route('dashboard.wei.newcomer.edit.submit', $user->id) }}" method="post" enctype="multipart/form-data">
@@ -88,10 +88,10 @@ Modification d'un étudiant
                 @if(!$user->isPageChecked('profil'))
 
                     <div class="form-group">
-                        <label for="email" class="col-lg-2 control-label">Email</label>
+                        <label for="email" class="col-lg-2 control-label">Mail</label>
                         <div class="col-lg-10">
-                            <input class="form-control" name="email" id="email" placeholder="email@domain.fr" type="text" value="{{{ old('email') ?? $user->email }}}">
-                            <small class="text-muted">Il sera utilisé pour te tenir informé avant l'intégration. Par exemple, pour te prévenir qu'il y a une nouveauté sur le site.<br/>Si tu ne souhaites plus recevoir d'emails tu peux à tout moment revenir sur ce site et enlever ton adresse email.</small>
+                            <input class="form-control" name="email" id="email" placeholder="mail@domain.tld" type="text" value="{{{ old('email') ?? $user->email }}}">
+                            <small class="text-muted">Il sera utilisé pour te tenir informé avant l'intégration. Par exemple, pour te prévenir qu'il y a une nouveauté sur le site.<br/>Si tu ne souhaites plus recevoir de mails, tu peux à tout moment revenir sur ce site et retirer ton adresse.</small>
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@ Modification d'un étudiant
                         <label for="phone" class="col-lg-2 control-label">Portable</label>
                         <div class="col-lg-10">
                             <input class="form-control" name="phone" id="phone" placeholder="06.12.34.56.78" type="text" value="{{{ old('phone') ?? $user->phone }}}">
-                            <small class="text-muted">Il sera utilisé pour te tenir informé par sms pendant l'intégration. Par exemple, pour te prévenir d'un changement de programme le lendemain.<br/>Si tu ne souhaites plus recevoir de sms tu peux à tout moment revenir sur ce site et enlever ton numéro.</small>
+                            <small class="text-muted">Il sera utilisé pour te tenir informé par SMS pendant l'intégration. Par exemple, pour te prévenir d'un changement de programme le lendemain.<br/>Si tu ne souhaites plus recevoir de SMS tu peux à tout moment revenir sur ce site et supprimer ton numéro.</small>
                         </div>
                     </div>
 
@@ -108,9 +108,9 @@ Modification d'un étudiant
             <fieldset>
                 <legend>Informations <em>en cas de soucis</em></legend>
                 <p class="text-center">
-                    Pendant l'intégration tu vas être amené à manger des repas que nous t'aurons préparés et à faire des activités sportives.<br/>
-                    Ces informations seront utilisés uniquement pour réagir rapidement en cas de soucis.<br/>
-                    Elles ne seront accessible que par les responsables de l'Intégration et par l'association de secourisme de l'école (SecUTT) qui s'occupe de mettre en place des postes de secours.
+                    Pendant l'intégration, tu seras amené à manger des repas que nous t'aurons préparés et à faire des activités sportives.<br/>
+                    Ces informations seront utilisés uniquement pour réagir rapidement en cas de problème.<br/>
+                    Elles ne seront accessibles que par les coordinateurs de l'intégration, les secouristes présents la semaine (association SecUTT) et l'infirmière de l'UTT.
                 </p>
 
                 <div class="form-group">
@@ -124,7 +124,7 @@ Modification d'un étudiant
                     <label for="parent_phone" class="col-lg-2 control-label">Numéro de téléphone de cette personne</label>
                     <div class="col-lg-10">
                         <input class="form-control" name="parent_phone" id="parent_phone" placeholder="06.12.34.56.78" type="text" value="{{{ old('parent_phone') ?? $user->parent_phone }}}">
-                        <small class="text-muted">Note : Numéro de téléphone étranger accepté. N'oublie pas l'indicatif pour un numéro étranger.</small>
+                        <small class="text-muted">Note : numéro de téléphone étranger accepté. N'oublie pas l'indicatif pour un numéro étranger (+33...).</small>
                     </div>
                 </div>
 
@@ -183,10 +183,10 @@ Modification d'un étudiant
                                 <tbody>
                                     <tr class="vert-align">
                                         <td>
-            								<strong>Week-end d'intégration</strong>
+            								<strong>Week-End d'Intégration</strong>
             								<ul>
-            									<li>Départ le vendredi 9 septembre 2016 à 11h30</li>
-            									<li>Retour à Troyes le dimanche vers 19h</li>
+            									<li>Départ le vendredi 8 septembre 2016 à 11h30</li>
+            									<li>Retour à Troyes le dimanche vers 18h</li>
             									<li>Hébergement compris (sauf sac de couchage)</li>
             									<li>Repas compris</li>
             								</ul>
@@ -202,7 +202,7 @@ Modification d'un étudiant
                                         <td>
                                             <strong>Panier repas du vendredi midi</strong>
                                             <p>
-                                            Le départ au weekend se faisant à partir de 11h30, vous n'aurez généralement pas le temps d'aller acheter à manger, (sauf si vous l'avez préparé avant).<br/>
+                                            Le départ au weekend se faisant à partir de 11h30, vous n'aurez généralement pas le temps d'aller acheter à manger (sauf si vous l'avez préparé avant).<br/>
                                             Nous proposons donc un panier repas (sandwich, chips, fruit et bouteille d'eau) préparé par le CROUS (qui gère le restaurant universitaire).<br/>
                                             </p>
                                         </td>
@@ -286,7 +286,7 @@ Modification d'un étudiant
                             </div>
 
                             <div class="form-group">
-                                <label for="check-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le cheque</label>
+                                <label for="check-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le chèque</label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" id="check-write" name="check-write" @if (old('check-write')) checked="checked" @endif/>
                                 </div>
@@ -312,7 +312,7 @@ Modification d'un étudiant
 
                     @if(!$guaranteeCount)
                         <div class="callout callout-success">
-                            Caution payé !
+                            Caution payée !
                         </div>
                     @else
                             <table class="table table-hover basket">
@@ -328,9 +328,9 @@ Modification d'un étudiant
                                         <td>
                                             <strong>Caution du week-end</strong>
                                             <p>
-                                                Autorisation de prélèvement en ligne qui ne sera pas prélevé (sauf en cas de soucis)<br/>
-                                                Équivalent d'un chêque, mais en ligne, et qui expire en 29 jours.<br/>
-                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{@asset('docs/cgv.pdf')}}">conditions générales de vente</a>.
+                                                Autorisation de prélèvement en ligne qui ne sera pas prélevée (sauf en cas de soucis).<br/>
+                                                Équivalent d'un chèque, mais en ligne, et qui expire en 29 jours.<br/>
+                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{@asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                             </p>
                                         </td>
                                         <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>
@@ -386,7 +386,7 @@ Modification d'un étudiant
                         </div>
 
                         <div class="form-group">
-                            <label for="check2-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le cheque</label>
+                            <label for="check2-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le chèque</label>
                             <div class="col-lg-10">
                                 <input type="checkbox" id="check2-write" name="check2-write" @if (old('check2-write')) checked="checked" @endif/>
                             </div>
@@ -407,12 +407,12 @@ Modification d'un étudiant
                         </div>
                     @elseif($user->parent_authorization)
                         <div class="callout callout-success">
-                            Autorisation donné !
+                            Autorisation donnée !
                         </div>
                     @else
 
                         <div class="form-group">
-                            <label for="authorization1" class="col-lg-2 text-right">Autorisation parentale signé récupérée</label>
+                            <label for="authorization1" class="col-lg-2 text-right">Autorisation parentale signée et récupérée</label>
                             <div class="col-lg-10">
                                 <input type="checkbox" id="authorization1" name="authorization1" @if (old('authorization1')) checked="checked" @endif/>
                             </div>
@@ -424,7 +424,7 @@ Modification d'un étudiant
                                 <input type="checkbox" id="authorization2" name="authorization2" @if (old('authorization2')) checked="checked" @endif/>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-success form-control" value="Autorisation parentale récupéré !" />
+                        <input type="submit" class="btn btn-success form-control" value="Autorisation parentale récupérée" />
                     @endif
                 </fieldset>
                 </form>
@@ -432,7 +432,7 @@ Modification d'un étudiant
         </form>
     @endif
             <fieldset class="panel">
-                <legend>WeekEnd</legend>
+                <legend>Week-End</legend>
                 <div class="form-group">
                     <p>Type: <strong>Nouveau</strong></p>
                 </div>
@@ -446,7 +446,7 @@ Modification d'un étudiant
                         <a href="{{ route('dashboard.wei.checkin', ['type'=> 'newcomers', 'id'=> $user->id]) }}" class="btn btn-success form-control">Check-In</a>
                     @else
                         <div class="callout callout-warning">
-                            Checkin déja effectué
+                            Check-In déja effectué
                         </div>
                     @endif
 

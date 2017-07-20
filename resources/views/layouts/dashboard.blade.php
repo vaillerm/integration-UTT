@@ -39,13 +39,13 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
-                                    <li><a href="{{ route('dashboard.students.list') }}">Etudiants</a></li>
+                                    <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
                                     <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
-                                    <li><a href="{{ route('dashboard.emails.index') }}">Emails</a></li>
+                                    <li><a href="{{ route('dashboard.emails.index') }}">Mails</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ route('dashboard.wei') }}">M'inscrire</a></li>
+                                            <li><a href="{{ route('dashboard.wei') }}">Inscription</a></li>
                                             <li><a href="{{ route('dashboard.wei.graph') }}">Graphique</a></li>
                                             <li><a href="{{ route('dashboard.wei.search') }}">Gérer</a></li>
                                             <li><a href="{{ route('dashboard.wei.list') }}">Liste</a></li>
@@ -54,7 +54,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ route('dashboard.exports.newcomers') }}">Nouveaux -> parrain</a></li>
+                                            <li><a href="{{ route('dashboard.exports.newcomers') }}">Nouveaux -> parrains</a></li>
                                             <li><a href="{{ route('dashboard.exports.referrals') }}">Parrains -> nouveaux</a></li>
                                             <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
                                         </ul>
@@ -69,7 +69,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ route('dashboard.wei') }}">M'inscrire</a></li>
+                                            <li><a href="{{ route('dashboard.wei') }}">Inscription</a></li>
                                             <li><a href="{{ route('dashboard.wei.search') }}">Gérer</a></li>
                                         </ul>
                                     </li>
@@ -128,9 +128,6 @@
 
             <footer class="main-footer">
                 <div class="container">
-                    <div class="pull-right hidden-xs">
-                        <b>Version</b> {{Config::get('services.version.hash')}}
-                    </div>
                     <strong>En cas de problème,</strong> contacter <a href="mailto:integration@utt.fr">Intégration</a> (pas trop non plus hein) (non mais c'est censé marcher) (t'as rebooté ?).
                 </div>
             </footer>

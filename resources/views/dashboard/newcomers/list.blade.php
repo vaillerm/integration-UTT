@@ -15,10 +15,10 @@ Affichage des profils
 <div class="callout callout-info">
     <h4>Informations</h4>
     <p>
-        Cliquez sur le <strong>+</strong> si vous voullez ajouter des nouveaux.
+        Cliquez sur le <strong>+</strong> si vous voulez ajouter des nouveaux.
     </p>
     <p>
-        Pour avoir plus de précision sur un champ restez dessus avec votre souris quelques secondes
+        Pour avoir plus de précision sur un champ, restez dessus avec votre souris quelques secondes.
     </p>
 </div>
 
@@ -28,7 +28,7 @@ Affichage des profils
     <div class="box box-default collapsed-box">
 @endif
     <div class="box-header with-border">
-        <h3 class="box-title">Creation de compte nouveau</h3>
+        <h3 class="box-title">Création de compte nouveau</h3>
         <button class="btn btn-box-tool" data-widget="collapse">
             @if(Request::old())
                 <i class="fa fa-minus"></i>
@@ -47,19 +47,19 @@ Affichage des profils
                 <option value="1" @if (old('sex') == 1) selected="selected" @endif >Femme</option>
             </select>
             <input type="text" name="birth" class="form-control" placeholder="Date de naissance (AAAA-MM-JJ)" value="{{ old('birth') }}">
-            <input type="text" name="registration_email" class="form-control" placeholder="Adresse email" value="{{ old('registration_email') }}">
+            <input type="text" name="registration_email" class="form-control" placeholder="Adresse mail" value="{{ old('registration_email') }}">
             <input type="text" name="registration_cellphone" class="form-control" placeholder="Téléphone portable" value="{{ old('registration_cellphone') }}">
-            <input type="text" name="registration_phone" class="form-control" placeholder="Téléphone Fixe" value="{{ old('registration_phone') }}">
-            <input type="text" name="postal_code" class="form-control" placeholder="Code postale" value="{{ old('postal_code') }}">
+            <input type="text" name="registration_phone" class="form-control" placeholder="Téléphone fixe" value="{{ old('registration_phone') }}">
+            <input type="text" name="postal_code" class="form-control" placeholder="Code postal" value="{{ old('postal_code') }}">
             <input type="text" name="country" class="form-control" placeholder="Pays" value="{{ old('country') }}">
-            <input type="text" name="branch" class="form-control" placeholder="Branche (TC, ISI, MM, etc)" value="{{ old('branch') }}">
+            <input type="text" name="branch" class="form-control" placeholder="Branche (TC, ISI, MM...)" value="{{ old('branch') }}">
             <input type="text" name="ine" class="form-control" placeholder="INE" value="{{ old('ine') }}">
             <input type="submit" class="btn btn-success form-control" value="Créer le nouveau">
         </form>
 
         <h4>Ajouter des nouveaux</h4>
         <form class="" action="{{ route('dashboard.newcomers.createcsv') }}" method="post">
-            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;nom&quot;;&quot;sexe(M/F)&quot;;&quot;naissance(AAAA-MM-JJ)&quot;;&quot;branche&quot;;&quot;email&quot;;&quot;telephone portable&quot;;&quot;telephone fixe&quot;;&quot;Code postale&quot;;&quot;Pays&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
+            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;Nom&quot;;&quot;Sexe(M/F)&quot;;&quot;Date de naissance (AAAA-MM-JJ)&quot;;&quot;Branche&quot;;&quot;Mail&quot;;&quot;Téléphone portable&quot;;&quot;Téléphone fixe&quot;;&quot;Code postal&quot;;&quot;Pays&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
             <input type="submit" class="btn btn-success form-control" value="Créer les nouveaux">
         </form>
     </div>
@@ -75,13 +75,13 @@ Affichage des profils
                 <tr>
                     <th>Nom</th>
                     <th>Branche</th>
-                    <th>Email</th>
+                    <th>Mail</th>
                     <th>Téléphones</th>
                     <th>Identifiants</th>
                     <th>Parrain</th>
                     <th>Équipe</th>
-                    <th>Paiement Wei</th>
-                    <th>Sandwitch</th>
+                    <th>Paiement WEI</th>
+                    <th>Sandwich</th>
                     <th>Caution</th>
                     <th>Action</th>
                 </tr>
@@ -92,7 +92,7 @@ Affichage des profils
                             {{ $newcomer->branch }}
                         </td>
                         <td>
-                            <span title="Email donné volontairement sur ce site">{{{ $newcomer->email }}}</span><br/>
+                            <span title="Mail donné volontairement sur ce site">{{{ $newcomer->email }}}</span><br/>
                             <del title="Email donné lors de l'inscription à l'UTT. A n'utiliser qu'en cas de necessité.">{{{ $newcomer->registration_email }}}</del>
                         </td>
                         <td>
@@ -151,7 +151,7 @@ Affichage des profils
                 @endforeach
             </ul>
         </div>
-        <p>Pour annuler des répartition, demandez à la personne chargé du développement du site.</p>
+        <p>Pour annuler des répartitions, ça se passe en base de données.</p>
     </div>
 </div>
 @endsection

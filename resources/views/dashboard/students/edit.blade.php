@@ -55,7 +55,7 @@ Modification de profil
             </div>
 
             <div class="form-group">
-                <label for="email" class="col-lg-2 control-label">Email</label>
+                <label for="email" class="col-lg-2 control-label">Mail</label>
                 <div class="col-lg-10">
                     <input class="form-control" name="email" id="email" placeholder="Adresse email" type="text" value="{{{ old('email') ?? $student->email }}}">
                 </div>
@@ -102,7 +102,7 @@ Modification de profil
                 </div>
 
                 <div class="form-group">
-                    <label for="facebook" class="col-lg-2 control-label">Profil facebook</label>
+                    <label for="facebook" class="col-lg-2 control-label">Profil Facebook</label>
                     <div class="col-lg-10">
                         <input class="form-control" type="text" name="facebook" id="facebook" placeholder="https://facebook.com/ton.profil" value="{{{ old('facebook') ?? $student->facebook }}}">
                     </div>
@@ -116,7 +116,7 @@ Modification de profil
                 </div>
 
                 <div class="form-group">
-                    <label for="postal_code" class="col-lg-2 control-label">Code postal de ta ville d'origine (met 0 si tu viens de l'étranger)</label>
+                    <label for="postal_code" class="col-lg-2 control-label">Code postal (met 0 si tu viens de l'étranger)</label>
                     <div class="col-lg-10">
                         <input class="form-control" name="postal_code" id="postal_code" placeholder="Code postal" type="text" value="{{{ old('postal_code') ?? $student->postal_code }}}">
                     </div>
@@ -191,7 +191,7 @@ Modification de profil
                     <label for="admin" class="col-lg-2 text-right">Admin</label>
                     <div class="col-lg-10">
                         <input type="checkbox" id="admin" name="admin" @if (old('admin') ?? ($student->admin == 100)) checked="checked" @endif/><br/>
-                        <small class="text-muted">Il est conseillé de donner le droit `organisateur` aux administrateur. Ils sont complémentaires.</small>
+                        <small class="text-muted">Il est conseillé de donner le droit <em>organisateur</em> aux administrateurs. Ils sont complémentaires.</small>
                     </div>
                 </div>
                 <div class="form-group">

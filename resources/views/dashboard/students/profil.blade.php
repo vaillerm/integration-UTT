@@ -17,8 +17,8 @@ Parce que l'intégration, c'est surtout vous !
     <div class="box-body">
         <br/>
         <p class="text-center">
-            En devenant bénévole, vous serez ajouté à la liste d'email à contacter pour demander des coups de main pour l'intégration (stupre-liste).<br/>
-            Si tu veux donner plus qu'un coup de main pour l'intégration et que tu es dispo fin août, envoi un email à <a href="mailto:integration@utt.fr">integration@utt.fr</a>. Promis, on est gentil :)
+            En devenant bénévole, vous serez ajouté à la liste de mails à contacter pour demander des coups de main pour l'intégration (stupre-liste).<br/>
+            Si tu veux donner plus qu'un coup de main pour l'intégration et que tu es dispo fin août, envoi un mail à <a href="mailto:integration@utt.fr">integration@utt.fr</a>. Promis, on est gentils. :)
         </p>
         <br/>
         <form class="form-horizontal" action="{{ route('dashboard.students.profil') }}" method="post">
@@ -50,9 +50,9 @@ Parce que l'intégration, c'est surtout vous !
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="col-lg-2 control-label">Email</label>
+                    <label for="email" class="col-lg-2 control-label">Mail</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="email" id="email" placeholder="Adresse email" type="text" value="{{{ $student->email }}}">
+                        <input class="form-control" name="email" id="email" placeholder="Adresse mail" type="text" value="{{{ $student->email }}}">
                     </div>
                 </div>
 
@@ -88,16 +88,16 @@ Parce que l'intégration, c'est surtout vous !
                         </p>
 
                         <ul>
-                            <li>Si un nouveau ne veut pas faire quelquechose, vous ne devez pas insister pour qu'il le fasse.</li>
+                            <li>Si un nouveau ne veut pas faire quelque chose, vous ne devez pas insister pour qu'il le fasse.</li>
                             <li>Ce n'est pas parce qu'on vous l'a fait à votre intégration que c'est acceptable.</li>
                             <li>Ce n'est pas parce que vous trouvez cela drôle que cela l'est aussi pour les nouveaux.</li>
-                            <li>Si vous êtes témoins de bizutage pendant l'intégration, ou que vous avez un doute si quelquechose est acceptable, contactez l'un des organisateurs de l'intégration.</li>
-                            <li>Pendant l'intégration, nous vous communiquerons un numéro d'urgence permettant de joindre 24h/24 un responsable de l'intégration.</li>
+                            <li>Si vous êtes témoins de bizutage pendant l'intégration, ou que vous avez un doute si quelque chose est acceptable, contactez un coordinateur.</li>
+							<li>Notez ce numéro d'urgence, à ne <strong>jamais</strong> utiliser pour jouer (c'est comme le 15 ou le 112) : 07.68.74.02.59.</li>
                         </ul>
 
                         <p>
                             <strong>Le bizutage est un <em>délit</em>, puni par la <em>loi</em>. Ceux qui le pratiquent risquent des peines de prison ou de fortes amendes.
-                            Ils seront immédiatement et définitivement exclus de l’École sans attendre les poursuites judiciaires éventuelles.</strong>
+                            Ils seront immédiatement et définitivement exclus de l’école sans attendre les poursuites judiciaires éventuelles.</strong>
                         </p>
 
                         <div class="well convention-well">
@@ -124,14 +124,14 @@ Parce que l'intégration, c'est surtout vous !
 
                             <p>
                                 «&nbsp;Article 225-16-3.Les personnes morales déclarées responsables pénalement, dans
-                                les conditions prévues parl'article 121-2, des infractions définies aux
-                                articles 225-16-1 et 225-16-2encourent, outre l'amende suivant les modalités
-                                prévues par l'article 131-38, les peines prévues par les 4° et 9° del'article 131-39.&nbsp;»
+                                les conditions prévues par l'article 121-2, des infractions définies aux
+                                articles 225-16-1 et 225-16-2 encourent, outre l'amende suivant les modalités
+                                prévues par l'article 131-38, les peines prévues par les 4° et 9° de l'article 131-39.&nbsp;»
                             </p>
                         </div>
                         <input type="checkbox" id="convention" name="convention" @if ($student->volunteer == 1) checked="checked" @endif/>
                         <label for="convention" class="control-label">
-                            Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000€ d'amende.
+                            Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000 € d'amende.
                         </label>
                     </div>
                 </div>

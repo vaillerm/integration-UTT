@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Emails
+Mails
 @endsection
 
 @section('smalltitle')
-Envoi d'emails en maaasse
+Envoi de mails en maaasse
 @endsection
 
 @section('content')
@@ -13,16 +13,16 @@ Envoi d'emails en maaasse
 <div class="callout callout-info">
     <h4>Informations</h4>
     <p>
-        Une fois programmé les emails seront envoyés un par un, séparés de 5 secondes. Donc si vous envoyez à 600 personnes prévoyez un peu plus de 1h d'envoi. Evitez de chevaucher les envois d'emails.
+        Une fois programmés, les mails seront envoyés un par un, séparés de 5 secondes. Donc si vous envoyez à 600 personnes prévoyez un peu plus d'une heure d'envoi. Evitez de chevaucher les envois d'emails.
     </p>
     <p>
-        La fonction email étant en developpement, il faut modifier et programmer les emails directement depuis la base de donnée. Il n'y a pas d'interface pour le faire.
+        La fonction mail étant en developpement, il faut modifier et programmer les envois directement depuis la base de données. Il n'y a pas (encore) d'interface pour le faire.
     </p>
 </div>
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Liste des envoi d'emails</h3>
+        <h3 class="box-title">Liste des envoi de mails</h3>
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
@@ -30,8 +30,8 @@ Envoi d'emails en maaasse
                 <tr>
                     <th>Contenu</th>
                     <th>Destinataires</th>
-                    <th>Progammé pour</th>
-                    <th>Etat</th>
+                    <th>Programmé pour</th>
+                    <th>État</th>
                     <th>Action</th>
                 </tr>
                 @foreach ($emails as $email)
@@ -44,7 +44,7 @@ Envoi d'emails en maaasse
                             @if($email->donelist)
                                 <a href="#emailList{{$email->id}}" data-toggle="collapse">{{$email::$listToFrench[$email->list]}}</a>
                                 <div id="emailList{{$email->id}}" class="collapse">
-                                    <strong>Emails envoyés :</strong>
+                                    <strong>Mails envoyés :</strong>
                                     <pre>{{$email->donelist}}</pre>
                                 </div>
                             @else
@@ -64,7 +64,7 @@ Envoi d'emails en maaasse
                             @elseif($email->started)
                                 <span class="label label-warning">En cours</span>
                             @elseif($email->scheduled_for && !$email->started)
-                                <span class="label label-info">Progammé</span>
+                                <span class="label label-info">Programmé</span>
                             @else
                                 <span class="label label-danger">Non programmé</span>
                             @endif
