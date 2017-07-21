@@ -187,7 +187,7 @@ class Student extends Model implements Authenticatable
      */
     public function godFather()
     {
-        return $this->belongsTo(Student::class, 'referral_id', 'student_id')->where('referral', true);
+        return $this->belongsTo(Student::class, 'referral_id', 'student_id');
     }
 
     public function mailHistories()
