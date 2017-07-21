@@ -47,9 +47,17 @@ class StudentsController extends Controller
 
         } else {
             // if id is 0 or the id of the authenticated user, return the authenticated user
-            if ($id == "0" || $id == $user()->id) {
+            if ($id == "0" || $id == $user->id) {
                 $user->referral_info = Student::where('student_id', $user->referral_id)->first();
                 return Response::json($user);
+            } else if ($user->admin) {
+                $requested_user = Student::where('id', $id)->first();
+                if ($requested_user) {
+                    $requested_user->referral_info = Student::where('student_id', $requested_user->referral_id)->first();
+                    return Response::json($requested_user);
+                } else {
+                    return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
+                }
             }
         }
 
