@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Classes\NewcomerMatching;
 use App\Models\Team;
-use App\Models\Newcomer;
 use Request;
 use View;
 use Redirect;
 use EtuUTT;
+use Auth;
+use Response;
 
 /**
  * Team management.
@@ -18,6 +19,30 @@ use EtuUTT;
  */
 class TeamsController extends Controller
 {
+
+    /**
+     * REST API method: GET on Team model
+     *
+     * @return Response
+     */
+    public function find()
+    {
+        $id = Request::route('id');
+        $user = Auth::guard('api')->user();
+
+        // if no id in the route parameters and user allowed, return all the teams
+        if ($id == null && $user->admin) {
+            // return all by default
+            return Response::json(Team::with('newcomers', 'ce', 'respo')->get());
+        } else {
+            // if the requested team is the user's team, or if the user has rights, return the requested team
+            if ($id == $user->team_id || $user->admin) {
+                return Response::json(Team::where('id', $id)->with('newcomers', 'ce', 'respo')->first());
+            }
+        }
+
+        return Response::json(array(["message" => "not allowed"]), 403);
+    }
 
     /**
      * List all the teams and show a creation form.
