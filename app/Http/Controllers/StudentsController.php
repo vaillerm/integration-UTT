@@ -46,16 +46,18 @@ class StudentsController extends Controller
             return Response::json(Student::get());
 
         } else {
-            // if id is 0 or the id of the authenticated user, return the authenticated user
-            if ($id == "0" || $id == $user->id) {
-                return Response::json(Student::where('id', $user->id)->with('team', 'godFather')->first());
-            } else if ($user->admin) {
-                $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
-                if ($requested_user) {
-                    return Response::json($requested_user);
-                } else {
-                    return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
-                }
+
+            // if id is "0" in the route, it becomes the authenticated user's id
+            if ($id == "0") {
+                $id = $user->id;
+            }
+
+            $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
+            
+            if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
+                return Response::json($requested_user);
+            } else {
+                return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
             }
         }
 
