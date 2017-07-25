@@ -41,7 +41,9 @@ class mailCron implements ShouldQueue
         {
             foreach ($crons as $cron)
             {
-                $listes = Email::mailFromLists(explode(',', $cron->lists), $cron->mail_revision->isPublicity);
+                $listes = Email::mailFromLists(explode(',', $cron->lists), $cron->mail_revision->isPublicity, $cron->mail_revision, $cron->unique_send);
+                if(!$listes)
+                    continue;
                 foreach ($listes as $mail=>$val)
                 {
                     $message = (new MailRevision($val['user'], $cron->mail_revision))->onQueue('low');
