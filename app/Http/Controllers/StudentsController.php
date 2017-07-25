@@ -53,15 +53,43 @@ class StudentsController extends Controller
             }
 
             $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
-            
+
             if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
-                return Response::json($requested_user);
+                return Response::json($this->removeUnauthorizedFields($requested_user));
             } else {
                 return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
             }
         }
 
         return Response::json(array(["message" => "not allowed"]), 403);
+    }
+
+    /**
+     * Remove field that the requester can't see, depending of his roles
+     *
+     * @param Student $student
+     * @return Object
+     */
+    private function removeUnauthorizedFields($student)
+    {
+        $user = Auth::guard('api')->user();
+
+        unset($student->password);
+        unset($student->login);
+        unset($student->etuutt_access_token);
+        unset($student->etuutt_refresh_token);
+
+        // an admin can access all informations. If the user is not admin
+        // remove all the fields that can only be seen by an admin
+        if ($user->admin) {
+            return $student;
+        } else if ($user->id != $student->id) {
+            unset($student->medical_allergies);
+            unset($student->medical_treatment);
+            unset($student->medical_note);
+        }
+
+        return $student;
     }
 
     /**
