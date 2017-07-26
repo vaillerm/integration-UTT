@@ -87,7 +87,7 @@ Frequently Asked Questions
 
 				<h4><a href="#question2500" data-toggle="collapse">Est-ce que je peux venir si je suis mineur(e) ?</a></h4>
 				<p id="question2500" class="collapse">
-					Oui, évidemment ! Mais il faudra nous fournir l’autorisation parentale que tu as reçue ou téléchargeable <a href="{{asset('docs/autorisation.png')}}">ici</a> remplie et signée par tes parents.
+					Oui, évidemment ! Mais il faudra nous fournir l’autorisation parentale que tu as reçue ou téléchargeable <a href="{{asset('docs/autorisation.pdf')}}">ici</a> remplie et signée par tes parents.
 				</p>
 
 				<h4><a href="#question2600" data-toggle="collapse">Combien ça coûte ?</a></h4>
