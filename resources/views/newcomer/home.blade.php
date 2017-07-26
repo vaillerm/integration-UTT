@@ -53,7 +53,6 @@ Informations diverses pour toi !
             </p>
             <div class="text-center">
                 <a class="btn btn-default" href="{{{ asset('docs/nutt.pdf') }}}">Ton NUTT d'intégration</a>
-                <a class="btn btn-default" href="{{{ asset('docs/cahiervacances.pdf') }}}">Ton cahier de vacances</a>
                 <a class="btn btn-default" href="{{{ route('newcomer.myletter') }}}">Ta fiche nouveau</a>
             </div>
         </div>
