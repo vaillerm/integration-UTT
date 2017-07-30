@@ -50,3 +50,9 @@ deploy_to_dokku:
   only:
     - master
   environment: production
+
+deploy_to_dokku_dev:
+  variables:
+    PROJECT_NAME: 'integration-dev.uttnetgroup.fr'
+  <<: *deploy_definition
+  environment: Dev
