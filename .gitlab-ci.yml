@@ -36,8 +36,8 @@ cache:
     # Add dokku to known hosts
     - ssh-keyscan -H $DOKKU_HOST >> ~/.ssh/known_hosts
   script:
-    - echo git push dokku@$DOKKU_HOST:$PROJECT_NAME master # debug
-    - git push dokku@$DOKKU_HOST:$PROJECT_NAME master
+    - echo git push dokku@$DOKKU_HOST:$PROJECT_NAME $BRANCH # debug
+    - git push dokku@$DOKKU_HOST:$PROJECT_NAME $BRANCH
 
 ###############################################################################
 #                                  Stages                                     #
@@ -54,5 +54,8 @@ deploy_to_dokku:
 deploy_to_dokku_dev:
   variables:
     PROJECT_NAME: 'integration-dev.uttnetgroup.fr'
+    BRANCH: 'feature/mobile'
   <<: *deploy_definition
+  only:
+    - $BRANCH
   environment: Dev
