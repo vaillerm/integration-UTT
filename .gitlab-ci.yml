@@ -46,6 +46,8 @@ stages:
   - deploy
 
 deploy_to_dokku:
+  variables:
+    BRANCH: 'master'
   <<: *deploy_definition
   only:
     - master
