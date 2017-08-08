@@ -821,7 +821,7 @@
 
 
                                                                                                                         <td align="left" valign="middle" class="mcnFollowTextContent" style="padding-left:5px;">
-                                                                                                                            <a href="mailto:{{ $user->godFather->email }}" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Par Email</a>
+                                                                                                                            <a href="mailto:{{ $user->godFather->email }}" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Par mail</a>
                                                                                                                         </td>
 
                                                                                                                     </tr>
