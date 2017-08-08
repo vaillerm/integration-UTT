@@ -93,7 +93,7 @@ Affichage des profils
                         </td>
                         <td>
                             <span title="Mail donné volontairement sur ce site">{{{ $newcomer->email }}}</span><br/>
-                            <del title="Email donné lors de l'inscription à l'UTT. A n'utiliser qu'en cas de necessité.">{{{ $newcomer->registration_email }}}</del>
+                            <del title="Mail donné lors de l'inscription à l'UTT. A n'utiliser qu'en cas de necessité.">{{{ $newcomer->registration_email }}}</del>
                         </td>
                         <td>
                             @if($newcomer->phone)
