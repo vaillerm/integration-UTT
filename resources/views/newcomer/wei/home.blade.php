@@ -40,10 +40,25 @@ Le Week-End d'Intégration
 	                <big>Tu dois compléter totalement ton profil pour pouvoir t'inscrire au week-end !</big><br/>
 					<a href="{{route('newcomer.profil')}}" class="btn btn-primary">Compléter mon profil</a>
             	</div>
-			@elseif(!Auth::user()->wei && !Auth::user()->parent_authorization)
-				<a href="{{route('newcomer.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
-				<p>Si tu as le moindre souci, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
-				<small>Note : ton inscription pour le week-end sera validée une fois que tu auras payé. Donc cette page s'affichera tant qu'il n'y aura aucun paiement enregistré. :)</small>
+
+			@elseif(Config::get('services.wei.open') === '1')
+
+				@if((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
+					<div class="box box-default">
+						<div class="box-header with-border">
+							<h3 class="box-title">Ouverture des inscriptions pour le week-end dans...</h3>
+						</div>
+						<div class="box-body text-center">
+							<div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
+							<big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big>
+						</div>
+					</div
+				@else(!Auth::user()->wei && !Auth::user()->parent_authorization)
+					<a href="{{route('newcomer.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
+						<p>Si tu as le moindre souci, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
+					<small>Note : ton inscription pour le week-end sera validée une fois que tu auras payé. Donc cette page s'affichera tant qu'il n'y aura aucun paiement enregistré. :)</small>
+				@endif
+
 			@else
 
 				@if($wei)
@@ -116,16 +131,6 @@ Le Week-End d'Intégration
 				</ul>
 			</div>
 		</div>
-    @elseif((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
-        <div class="box box-default">
-            <div class="box-header with-border">
-                <h3 class="box-title">Ouverture des inscriptions pour le week-end dans...</h3>
-            </div>
-            <div class="box-body text-center">
-                <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
-    			<big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big>
-            </div>
-        </div
     @elseif($count >= Config::get('services.wei.newcomerMax'))
         <div class="box box-default">
             <div class="box-header with-border">
