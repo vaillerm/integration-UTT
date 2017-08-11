@@ -51,6 +51,7 @@
                     @else
                         <a href="" class="btn btn-primary">L'inscription au WEI n'est pas encore ouverte !</a>
                     @endif
+                    
                 @else
 
                     @if($wei)

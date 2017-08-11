@@ -52,7 +52,7 @@ Le Week-End d'Intégration
 							<div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
 							<big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big>
 						</div>
-					</div
+					</div>
 				@else(!Auth::user()->wei && !Auth::user()->parent_authorization)
 					<a href="{{route('newcomer.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
 						<p>Si tu as le moindre souci, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
