@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
+use Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -197,6 +197,14 @@ class Student extends Model implements Authenticatable
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];
+    }
+
+    /**
+     * The chekins that belong to the User.
+     */
+    public function students()
+    {
+        return $this->belongsToMany(Checkin::class);
     }
 
     /**

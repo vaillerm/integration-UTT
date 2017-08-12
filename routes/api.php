@@ -10,5 +10,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/student/{id?}', ['uses' => 'StudentsController@find']);
 
-    Route::get('/team/{id?}', ['uses' => 'TeamsController@find']);
+    Route::get('/team/{id?}', ['uses' => 'TeamsController@index']);
+
+    Route::get('/checkin/{id}', ['uses' => 'CheckinController@show']);
+    Route::get('/checkin', ['uses' => 'CheckinController@index']);
+    Route::post('/checkin', ['uses' => 'CheckinController@store']);
+
 });
