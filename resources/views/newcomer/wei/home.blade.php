@@ -53,65 +53,67 @@ Le Week-End d'Intégration
 							<big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big>
 						</div>
 					</div>
-				@else(!Auth::user()->wei && !Auth::user()->parent_authorization)
+				@elseif(!Auth::user()->wei && !Auth::user()->parent_authorization)
 					<a href="{{route('newcomer.wei.pay')}}" class="btn btn-primary">S'inscrire au week-end</a><br/>
 						<p>Si tu as le moindre souci, n'hésite pas à utiliser le bouton <em>Nous contacter</em> en haut à droite de la page !</p>
 					<small>Note : ton inscription pour le week-end sera validée une fois que tu auras payé. Donc cette page s'affichera tant qu'il n'y aura aucun paiement enregistré. :)</small>
+				@else
+
+                    @if($wei)
+                        <big>
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            Payer le week-end
+                        </big><br/>
+                    @else
+                        <big><a href="{{ route('newcomer.wei.pay') }}">
+                                <i class="fa fa-square-o" aria-hidden="true"></i>
+                                Payer le week-end
+                            </a></big><br/>
+                    @endif
+
+                    @if($sandwich)
+                        <big>
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            Prendre le panier repas du vendredi midi
+                        </big><br/>
+                    @else
+                        <big><a href="{{ route('newcomer.wei.pay') }}">
+                                <i class="fa fa-square-o" aria-hidden="true"></i>
+                                Prendre le panier repas du vendredi midi
+                            </a></big><br/>
+                    @endif
+
+                    @if($guarantee)
+                        <big>
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            Déposer la caution
+                        </big><br/>
+                    @else
+                        <big><a href="{{ route('newcomer.wei.guarantee') }}">
+                                <i class="fa fa-square-o" aria-hidden="true"></i>
+                                Déposer la caution
+                            </a></big><br/>
+                    @endif
+
+                    @if($underage)
+                        @if(Auth::user()->parent_authorization)
+                            <big>
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                Donner l'autorisation parentale
+                            </big><br/>
+                        @else
+                            <big><a href="{{ route('newcomer.wei.authorization') }}">
+                                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                                    Donner l'autorisation parentale
+                                </a></big><br/>
+                        @endif
+                    @endif
+
+                    <small>Note : pour les opérations manuelles (donner l'autorisation parentale, payer par chèque...), la case sera cochée une fois que l'action aura été faite grâce au stand qui sera installé pendant la semaine d'intégration à l'UTT.</small>
 				@endif
 
 			@else
-
-				@if($wei)
-					<big>
-						<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						Payer le week-end
-					</big><br/>
-				@else
-					<big><a href="{{ route('newcomer.wei.pay') }}">
-						<i class="fa fa-square-o" aria-hidden="true"></i>
-						Payer le week-end
-					</a></big><br/>
-				@endif
-
-				@if($sandwich)
-					<big>
-						<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						Prendre le panier repas du vendredi midi
-					</big><br/>
-				@else
-					<big><a href="{{ route('newcomer.wei.pay') }}">
-						<i class="fa fa-square-o" aria-hidden="true"></i>
-						Prendre le panier repas du vendredi midi
-					</a></big><br/>
-				@endif
-
-				@if($guarantee)
-					<big>
-						<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						Déposer la caution
-					</big><br/>
-				@else
-					<big><a href="{{ route('newcomer.wei.guarantee') }}">
-						<i class="fa fa-square-o" aria-hidden="true"></i>
-						Déposer la caution
-					</a></big><br/>
-				@endif
-
-				@if($underage)
-					@if(Auth::user()->parent_authorization)
-						<big>
-							<i class="fa fa-check-square-o" aria-hidden="true"></i>
-							Donner l'autorisation parentale
-						</big><br/>
-					@else
-						<big><a href="{{ route('newcomer.wei.authorization') }}">
-							<i class="fa fa-square-o" aria-hidden="true"></i>
-							Donner l'autorisation parentale
-						</a></big><br/>
-					@endif
-				@endif
-
-				<small>Note : pour les opérations manuelles (donner l'autorisation parentale, payer par chèque...), la case sera cochée une fois que l'action aura été faite grâce au stand qui sera installé pendant la semaine d'intégration à l'UTT.</small>
+                <a href="" class="btn btn-primary">L'inscription au WEI n'est pas encore ouverte !</a>
 			@endif
 			</div>
         </div>
@@ -140,7 +142,8 @@ Le Week-End d'Intégration
     @else
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">Les inscriptions pour le week-end sont fermées.</h3>
+                <h3 class="box-title">Oups... Il semblerait que tu ne puisses pas t'inscire au WEI. Si tu penses qu'il s'agit d'une erreur, contacte nous.</h3>
+                <p><a href="mailto:integration@utt.fr">integration@utt.fr</a></p>
             </div>
         </div>
 	@endif
