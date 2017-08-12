@@ -7,7 +7,9 @@
 @section('js')
     <script src="{{ asset('js/flipclock.min.js') }}"></script>
     <script>
-    var countdown = $('.countdown').FlipClock({{ (new DateTime(Config::get('services.wei.registrationStart')))->getTimestamp() - (new DateTime())->getTimestamp() }}, {
+    var countdown = $('.countdown').FlipClock(
+        {{ (new DateTime(Config::get('services.wei.registrationStart')))->getTimestamp() - (new DateTime('now'))->getTimestamp() }},
+        {
         countdown: true,
 		clockFace: 'DailyCounter',
 		language: 'french',
@@ -141,10 +143,23 @@ Le Week-End d'Intégration
         </div>
     @else
         <div class="box box-default">
+            @if((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Ouverture des inscriptions pour le week-end dans...</h3>
+                    </div>
+                    <div class="box-body text-center">
+                        {{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}
+                        <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
+                        <big class="visible-xs">{{ ((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->format('%d jours %h heures %i minutes et %s secondes') }}</big>
+                    </div>
+                </div>
+            @else
             <div class="box-header with-border">
                 <h3 class="box-title">Oups... Il semblerait que tu ne puisses pas t'inscire au WEI. Si tu penses qu'il s'agit d'une erreur, contacte nous.</h3>
                 <p><a href="mailto:integration@utt.fr">integration@utt.fr</a></p>
             </div>
+            @endif
         </div>
 	@endif
 
