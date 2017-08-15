@@ -13,16 +13,16 @@ Envoi de mails en maaasse
 <div class="callout callout-info">
     <h4>Informations</h4>
     <p>
-        Une fois programmés, les mails seront envoyés un par un, séparés de 5 secondes. Donc si vous envoyez à 600 personnes prévoyez un peu plus d'une heure d'envoi. Evitez de chevaucher les envois de mails.
+        Une fois programmés, les mails seront envoyés un par un, séparés de 5 secondes. Donc si vous envoyez à 600 personnes prévoyez un peu plus d'une heure d'envoi. Évitez de chevaucher les envois de mails.
     </p>
     <p>
-        La fonction mail étant en developpement, il faut modifier et programmer les envois directement depuis la base de données. Il n'y a pas (encore) d'interface pour le faire.
+        La fonction mail étant en développement, il faut modifier et programmer les envois directement depuis la base de données. Il n'y a pas (encore) d'interface pour le faire.
     </p>
 </div>
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Liste des envoi de mails</h3>
+        <h3 class="box-title">Liste des envois de mails</h3>
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
