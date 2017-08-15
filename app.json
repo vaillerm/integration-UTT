@@ -1,7 +1,6 @@
 {
   "scripts": {
     "dokku": {
-#      "postdeploy": "php artisan migrate && php artisan passport:install -vvv"
       "postdeploy": "pwd && date"
     }
   }
