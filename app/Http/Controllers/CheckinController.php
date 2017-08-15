@@ -30,4 +30,5 @@ class CheckinController extends Controller
         $checkin = Checkin::create(Request::all());
         return Response::json($checkin);
     }
+    
 }
