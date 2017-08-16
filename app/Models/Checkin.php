@@ -34,6 +34,17 @@ class Checkin extends Model
 	}
 
     /**
+	 * Define constraints of the Model's attributes for store action
+	 *
+	 * @return array
+	 */
+	public static function addStudentRules() {
+		return [
+			'email' => 'required|email|exists:students,email'
+		];
+	}
+
+    /**
      * The students that belong to the Checkin.
      */
     public function students()

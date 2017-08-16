@@ -15,5 +15,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/checkin/{id}', ['uses' => 'CheckinController@show']);
     Route::get('/checkin', ['uses' => 'CheckinController@index']);
     Route::post('/checkin', ['uses' => 'CheckinController@store']);
+    Route::put('/checkin/{id}/student', ['uses' => 'CheckinController@addStudent']);
 
 });
