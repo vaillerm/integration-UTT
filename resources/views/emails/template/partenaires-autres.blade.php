@@ -101,8 +101,6 @@
             table-layout:fixed !important;
         }
         /*
-       @verbatim
-         */
 @tab Page
 	@section Heading 1
 	@style heading 1
@@ -282,7 +280,7 @@
 	@section Footer Interior Style
 	*/
         .footerContainer{
-            /*@editable*/background-color:transparent;
+            /*@editable*/background-color:#transparent;
             /*@editable*/background-image:none;
             /*@editable*/background-repeat:no-repeat;
             /*@editable*/background-position:center;
@@ -484,7 +482,6 @@
             }
 
         }</style></head>
-@endverbatim
 <body>
 <!--*|IF:MC_PREVIEW_TEXT|*-->
 <!--[if !gte mso 9]><!----><span class="mcnPreviewText" style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">*|MC_PREVIEW_TEXT|*</span><!--<![endif]-->
@@ -520,7 +517,7 @@
 
 
 
-                                                                            <img alt="" src="{{ asset('img/mails/godfather/logo.png') }}" width="192" style="max-width:238px;" class="mcnImage">
+                                                                            <img alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/3f2450c1-565b-4d06-913b-a4df250430d2.png" width="192" style="max-width:238px;" class="mcnImage">
 
 
 
@@ -530,7 +527,8 @@
                                                                 <table class="mcnImageCardRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="352">
                                                                     <tbody><tr>
                                                                         <td valign="top" class="mcnTextContent" style="padding-right: 18px;padding-top: 18px;padding-bottom: 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;line-height: 100%;text-align: center;">
-                                                                            <h2 class="null" style="text-align: center;"><span style="color:#FFB300">Intégration de l'UTT Édition 2017</span></h2>
+                                                                            <h2 class="null" style="text-align: center;"><span style="color:#FFB300">Intégration de l'UTT Édition 2017<br>
+Mail 3/3</span></h2>
 
                                                                         </td>
                                                                     </tr>
@@ -598,14 +596,9 @@
 
                                                                 <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;background-color: #FFB300;">
                                                                     <tbody><tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                                                            <h2 class="null" dir="ltr" style="text-align: center;"><span style="color:#FFFFFF">Bonjour<br>
-{{ $user->first_name }} {{ $user->last_name }}</span></h2>
-
-                                                                            <h3 class="null" dir="ltr" style="text-align: center;"><span style="color:#FFFFFF">Bienvenue à</span></h3>
-
-                                                                            <h3 class="null" style="text-align: center;"><span style="color:#FFFFFF">l'Université de Technologie de Troyes</span></h3>
-
+                                                                        <td valign="top" class="mcnTextContent" style="color: #222222;font-family: Helvetica;font-size: 12px;font-weight: normal;text-align: center;">
+                                                                            <strong><span style="font-size:14px">Hercule avait Pégase, Cendrillon son carrosse, et vous un cadre vide pour y entreposer le code que vous vous attellerez à obtenir<br>
+"quand vous aurez le temps"</span></strong>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody></table>
@@ -641,15 +634,7 @@
                                                             <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
                                                                 <div style="text-align: justify;">
-                                                                    <p dir="ltr"><span style="font-size:14px">Tu reçois ce mail, car tu as été accepté à l’UTT et nous t’en félicitons !</span></p>
-
-                                                                    <p dir="ltr"><span style="font-size:14px">Nous sommes l’équipe d’intégration, des étudiants bénévoles, présents pour faire en sorte que ton arrivée à l’UTT se déroule de la meilleure façon possible.</span></p>
-
-                                                                    @if($user->godFather)
-                                                                    <p dir="ltr"><span style="font-size:14px">Lorsque tu arrives à l'UTT, un étudiant plus ancien devient ton parrain ou ta marraine. Cet étudiant sera ton contact privilégié pour découvrir l'école, mais aussi la vie étudiante troyenne. N’hésite pas à le contacter pendant les vacances, il pourra répondre à la plupart de tes questions, que ce soit sur l’UTT, les logements, les cours, la vie à Troyes...</span></p>
-
-                                                                    <p dir="ltr"><span style="font-size:14px">Qui sera donc ton parrain ou ta marraine ? (Roulement de tambours...)</span></p>
-                                                                    @endif
+                                                                    <p>Mais la vie est un sablier percé et le temps que vous ne prenez pas est condamné à se perdre. Avec quatre auto-écoles dans l’agglomération, Popeye demeure l’auto-école de référence pour s’émanciper du réseau de bus troyen.</p>
                                                                 </div>
 
                                                             </td>
@@ -666,83 +651,21 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table>
-                                        @if($user->godFather)
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock">
-                                            <tbody class="mcnImageCardBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+                                            <tbody class="mcnImageBlockOuter">
                                             <tr>
-                                                <td class="mcnImageCardBlockInner" valign="top" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
-
-
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnImageCardRightContentOuter" width="100%">
+                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
+                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
                                                         <tbody><tr>
-                                                            <td align="center" valign="top" class="mcnImageCardRightContentInner" style="padding: 0px;background-color: #795548;">
-                                                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardRightImageContentContainer">
-                                                                    <tbody><tr>
-                                                                        <td class="mcnImageCardRightImageContent" align="center" valign="top" style="padding-top:18px; padding-right:0; padding-bottom:18px; padding-left:18px;">
-
-                                                                            <img alt="" src="{{ asset('uploads/students-trombi/'.$user->godFather->student_id).'.jpg' }}" width="132" style="max-width:240px;" class="mcnImage">
-
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody></table>
-                                                                <table class="mcnImageCardRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="396">
-                                                                    <tbody><tr>
-                                                                        <td valign="top" class="mcnTextContent" style="padding-right: 18px;padding-top: 18px;padding-bottom: 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                                                            <div style="text-align: justify;"><span style="font-size:24px">{{ $user->godFather->first_name }} {{ $user->godFather->last_name }}</span><br>
-                                                                                <br>
-                                                                                <span style="font-size:14px">Voici le petit mot qu'il/elle t'a préparé :</span><br>
-                                                                                <br>
-                                                                                <span style="font-size:12px">{!! nl2br($user->godFather->referral_text) !!}</span><br>
-                                                                                <br>
-                                                                                @if($user->godFather->phone)
-                                                                                Voici son numéro de téléphone :<br>
-                                                                                    {{ $user->godFather->phone }}<br> @endif
-                                                                                <br>
-                                                                                &nbsp;</div>
-
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody></table>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
+                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
 
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
-                                            <tbody class="mcnTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-                                                    <!--[if mso]>
-                                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
-                                                        <tr>
-                                                    <![endif]-->
+                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/368148a1-64bf-49f7-a646-9157e77aa4c4.png" width="196.5" style="max-width:393px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
 
-                                                    <!--[if mso]>
-                                                    <td valign="top" width="600" style="width:600px;">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
-                                                        <tbody><tr>
-
-                                                            <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
-                                                                <div style="text-align: center;"><strong>Je le ou la&nbsp;contacte&nbsp;:</strong></div>
 
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
-                                                    <!--[if mso]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if mso]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -768,7 +691,7 @@
                                                                                         <td align="center" valign="top">
                                                                                         <![endif]-->
 
-                                                                                        @if($user->godFather->facebook)
+
                                                                                         <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
                                                                                             <tbody><tr>
                                                                                                 <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -779,12 +702,12 @@
                                                                                                                     <tbody><tr>
 
                                                                                                                         <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                                                            <a href="{{ $user->godFather->facebook }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                                                            <a href="http://www.popeye-troyes.fr/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;" height="24" width="24" class=""></a>
                                                                                                                         </td>
 
 
                                                                                                                         <td align="left" valign="middle" class="mcnFollowTextContent" style="padding-left:5px;">
-                                                                                                                            <a href="{{ $user->godFather->facebook }}" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Par facebook</a>
+                                                                                                                            <a href="http://www.popeye-troyes.fr/" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Site web</a>
                                                                                                                         </td>
 
                                                                                                                     </tr>
@@ -798,7 +721,6 @@
 
                                                                                         <!--[if mso]>
                                                                                         </td>
-                                                                                        @endif
                                                                                         <![endif]-->
 
                                                                                         <!--[if mso]>
@@ -816,12 +738,12 @@
                                                                                                                     <tbody><tr>
 
                                                                                                                         <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                                                            <a href="mailto:{{ $user->godFather->email }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-forwardtofriend-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                                                            <a href="mailto:autoecole.popeye@orange.fr" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-forwardtofriend-48.png" style="display:block;" height="24" width="24" class=""></a>
                                                                                                                         </td>
 
 
                                                                                                                         <td align="left" valign="middle" class="mcnFollowTextContent" style="padding-left:5px;">
-                                                                                                                            <a href="mailto:{{ $user->godFather->email }}" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Par mail</a>
+                                                                                                                            <a href="mailto:autoecole.popeye@orange.fr" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Email</a>
                                                                                                                         </td>
 
                                                                                                                     </tr>
@@ -871,7 +793,9 @@
 
                                                             <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-                                                                <div style="text-align: center;"><strong>Il / Elle n'a pas tes coordonnées, tu peux aussi :</strong></div>
+                                                                <div style="text-align: justify;">
+                                                                    <p>Mais qu’en sais-je, je me fourvoie peut-être et je suppose probablement à tort que vous n’avez ni code ni permis. Qu’importe et tant mieux, car dans l’aventure qui se profile devant vous, il apparaît dément de partir dans une guerre de plusieurs années sans prendre ses armes avec soi. Et par arme, j’entends meuble. Nous avons les métaphores que l’on mérite. Et bien si vous souhaitez louer un char pour effectuer ces transports, nous vous invitons à joindre notre partenaire, ADA.&nbsp;</p>
+                                                                </div>
 
                                                             </td>
                                                         </tr>
@@ -884,6 +808,24 @@
                                                     </tr>
                                                     </table>
                                                     <![endif]-->
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+                                            <tbody class="mcnImageBlockOuter">
+                                            <tr>
+                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
+                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+                                                        <tbody><tr>
+                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+
+
+                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/fc355d07-68cb-45b3-95de-86f80f3ef371.png" width="430" style="max-width:860px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+
+
+                                                            </td>
+                                                        </tr>
+                                                        </tbody></table>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -920,12 +862,12 @@
                                                                                                                     <tbody><tr>
 
                                                                                                                         <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                                                            <a href="{{ url()->route('newcomer.referral.autorisation', ['user_id'=>$user->id, 'hash'=>$user->getHashAuthentification()]) }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                                                            <a href="http://www.ada.fr/location-voiture-troyes.html" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;" height="24" width="24" class=""></a>
                                                                                                                         </td>
 
 
                                                                                                                         <td align="left" valign="middle" class="mcnFollowTextContent" style="padding-left:5px;">
-                                                                                                                            <a href="{{ url()->route('newcomer.referral.autorisation', ['user_id'=>$user->id, 'hash'=>$user->getHashAuthentification()]) }}" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Lui envoyer mes coordonnées</a>
+                                                                                                                            <a href="http://www.ada.fr/location-voiture-troyes.html" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Site web</a>
                                                                                                                         </td>
 
                                                                                                                     </tr>
@@ -958,90 +900,126 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table>
-                                            @endif
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
-                                            <!--[if gte mso 9]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
-                                            <![endif]-->
-                                            <tbody class="mcnBoxedTextBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+                                            <tbody class="mcnTextBlockOuter">
                                             <tr>
-                                                <td valign="top" class="mcnBoxedTextBlockInner">
-
-                                                    <!--[if gte mso 9]>
-                                                    <td align="center" valign="top" ">
+                                                <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
+                                                    <!--[if mso]>
+                                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
+                                                        <tr>
                                                     <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnBoxedTextContentContainer">
+
+                                                    <!--[if mso]>
+                                                    <td valign="top" width="600" style="width:600px;">
+                                                    <![endif]-->
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
                                                         <tbody><tr>
 
-                                                            <td style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:18px;">
+                                                            <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-                                                                <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;background-color: #4CAF50;">
-                                                                    <tbody><tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                                                            <br>
-                                                                            L’intégration comporte un grand jeu dont le thème cette année est :<br>
-                                                                            <br>
-                                                                            <span style="font-size:24px"><strong>“Contes, Mythes et Légendes”</strong></span><br>
-                                                                            @if($user->team)
-                                                                            <br>
-                                                                            Ainsi, durant ta semaine d’intégration tu feras partie de l'équipe :
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody></table>
+                                                                <div style="text-align: justify;">
+                                                                    <p>Comment ? Je vous ennuie avec cette publicité à peine camouflée par des phrases pompeuses et grandiloquentes&nbsp;? Je ferais mieux de me mêler de mes affaires&nbsp;? Trouvons un terrain d’entente&nbsp;: les victuailles. Vous aimez boustifailler ? Vous aimez les burgers de qualités&nbsp;? Alors profitez des 20% de réduction que le <em>Memphis coffee</em> prodigue aux étudiants UTTiens.</p>
+                                                                </div>
+
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
-                                                    <!--[if gte mso 9]>
+                                                    <!--[if mso]>
                                                     </td>
                                                     <![endif]-->
 
-                                                    <!--[if gte mso 9]>
+                                                    <!--[if mso]>
                                                     </tr>
                                                     </table>
                                                     <![endif]-->
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table>
-                                        @if($user->team)
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageCardBlock">
-                                            <tbody class="mcnImageCardBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+                                            <tbody class="mcnImageBlockOuter">
                                             <tr>
-                                                <td class="mcnImageCardBlockInner" valign="top" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnImageCardLeftContentOuter" width="100%">
+                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
+                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
                                                         <tbody><tr>
-                                                            <td align="center" valign="top" class="mcnImageCardLeftContentInner" style="padding: 0px;background-color: #795548;">
-                                                                <table align="right" border="0" cellpadding="0" cellspacing="0" class="mcnImageCardLeftImageContentContainer">
+                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+
+
+                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/41966710-4782-4e97-8e87-c54b7af379b3.png" width="135" style="max-width:270px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+
+
+                                                            </td>
+                                                        </tr>
+                                                        </tbody></table>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
+                                            <tbody class="mcnFollowBlockOuter">
+                                            <tr>
+                                                <td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
+                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
+                                                        <tbody><tr>
+                                                            <td align="center" style="padding-left:9px;padding-right:9px;">
+                                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
                                                                     <tbody><tr>
-                                                                        <td class="mcnImageCardLeftImageContent" align="center" valign="top" style="padding-top:18px; padding-right:18px; padding-bottom:18px; padding-left:0;">
+                                                                        <td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
+                                                                            <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                                                                <tbody><tr>
+                                                                                    <td align="center" valign="top">
+                                                                                        <!--[if mso]>
+                                                                                        <table align="center" border="0" cellspacing="0" cellpadding="0">
+                                                                                            <tr>
+                                                                                        <![endif]-->
 
-                                                                            <img alt="" src="{{ asset('uploads/teams-logo/'.$user->team->id.'.'.$user->team->img) }}" width="200" style="max-width:200px;" class="mcnImage">
+                                                                                        <!--[if mso]>
+                                                                                        <td align="center" valign="top">
+                                                                                        <![endif]-->
 
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody></table>
-                                                                <table class="mcnImageCardLeftTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="264">
-                                                                    <tbody><tr>
-                                                                        <td valign="top" class="mcnTextContent" style="padding-left: 18px;padding-top: 18px;padding-bottom: 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                                                            <div style="text-align: justify;"><span style="color:#FFFFFF"><span style="font-size:18px">{{ $user->team->name }}</span><br>
-<br>
-<span style="font-size:14px">Mais laissons-les se présenter !</span></span></div>
 
-                                                                            <div style="text-align: justify;"><br>
-                                                                                <span style="font-size:12px"><span style="color:#FFFFFF">{!! nl2br($user->team->description) !!}</span></span></div>
+                                                                                        <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+                                                                                            <tbody><tr>
+                                                                                                <td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+                                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+                                                                                                        <tbody><tr>
+                                                                                                            <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+                                                                                                                <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+                                                                                                                    <tbody><tr>
 
+                                                                                                                        <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+                                                                                                                            <a href="https://memphis-coffee.com/memphis-troyes" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                                                        </td>
+
+
+                                                                                                                        <td align="left" valign="middle" class="mcnFollowTextContent" style="padding-left:5px;">
+                                                                                                                            <a href="https://memphis-coffee.com/memphis-troyes" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Site web</a>
+                                                                                                                        </td>
+
+                                                                                                                    </tr>
+                                                                                                                    </tbody></table>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        </tbody></table>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            </tbody></table>
+
+                                                                                        <!--[if mso]>
+                                                                                        </td>
+                                                                                        <![endif]-->
+
+                                                                                        <!--[if mso]>
+                                                                                        </tr>
+                                                                                        </table>
+                                                                                        <![endif]-->
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody></table>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody></table>
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
-
-
-
 
                                                 </td>
                                             </tr>
@@ -1063,7 +1041,9 @@
 
                                                             <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-                                                                <div style="text-align: center;"><strong>Je rejoins la page Facebook de mon équipe d'inté&nbsp;:</strong></div>
+                                                                <div style="text-align: justify;">
+                                                                    <p>Le dernier conseil que nous vous pouvons vous donner, si vous êtes à la recherche d’un nouvel ordinateur, portable ou fixe, c’est de voir avec DEL qui propose des promotions pour vous autres étudiants fauchés et chanceux.</p>
+                                                                </div>
 
                                                             </td>
                                                         </tr>
@@ -1079,25 +1059,25 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width:100%;">
-                                            <tbody class="mcnButtonBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+                                            <tbody class="mcnImageBlockOuter">
                                             <tr>
-                                                <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #2BAADF;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 15px;">
-                                                                <a class="mcnButton " title="Bonjour la team !" href="{{ $user->team->facebook }}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Bonjour la team !</a>
+                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
+                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+                                                        <tbody><tr>
+                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+
+
+                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/7dac4cfb-52d9-4f75-baf6-5353bd7059ef.png" width="564" style="max-width:617px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+
+
                                                             </td>
                                                         </tr>
-                                                        </tbody>
-                                                    </table>
+                                                        </tbody></table>
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table>
-                                            @endif
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnBoxedTextBlock" style="min-width:100%;">
                                             <!--[if gte mso 9]>
                                             <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
                                             <![endif]-->
@@ -1115,13 +1095,10 @@
 
                                                                 <table border="0" cellpadding="18" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;background-color: #4CAF50;">
                                                                     <tbody><tr>
-                                                                        <td valign="top" class="mcnTextContent" style="color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                                                            <div style="text-align: left;">Pour te connecter au site internet de l'intégration : <strong><a href="http://integration.utt.fr" target="_blank">integration.utt.fr</a></strong></div>
+                                                                        <td valign="top" class="mcnTextContent" style="color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: left;">
+                                                                            <p style="color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: left;">Nouveaux paladins de l’ellipse, il est venu le temps des adieux, mais vous nous retrouverez sur le champ de bataille, pendant la semaine d’intégration, et sûrement autour d’une table et de breuvages doux et somptueux pour festoyer ensemble.</p>
 
-                                                                            <div style="text-align: left;"><br>
-                                                                                Voici tes identifiants :<br>
-                                                                                <strong>Login</strong> : {{ $user->login }}<br>
-                                                                                <strong>Mot de passe</strong> : {{ Crypt::decrypt($user->password) }}</div>
+                                                                            <div style="text-align: left;">&nbsp;</div>
 
                                                                         </td>
                                                                     </tr>
@@ -1140,7 +1117,26 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+                                        </table></td>
+                                </tr>
+                            </table>
+                            <!--[if gte mso 9]>
+                            </td>
+                            </tr>
+                            </table>
+                            <![endif]-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top" id="templateFooter" data-template-container>
+                            <!--[if gte mso 9]>
+                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
+                                <tr>
+                                    <td align="center" valign="top" width="600" style="width:600px;">
+                            <![endif]-->
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
+                                <tr>
+                                    <td valign="top" class="footerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
                                             <tbody class="mcnTextBlockOuter">
                                             <tr>
                                                 <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
@@ -1155,13 +1151,9 @@
                                                     <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
                                                         <tbody><tr>
 
-                                                            <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+                                                            <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; text-align: center;">
 
-                                                                <p dir="ltr" style="text-align: justify;"><span style="font-size:12px">Sacré programme hein! Cependant, n’oublie pas :<br>
-<strong>Les inscriptions en ligne </strong><a href="http://admission.utt.fr/">http://admission.utt.fr/</a> et <strong>l’UT3L</strong> <a
-                                                                                href="https://ut3l.utt.fr/">https://ut3l.utt.fr/</a>.</span></p>
-
-                                                                <p dir="ltr" style="text-align: justify;"><span style="font-size:12px">Nous sommes présents tous l'été pour répondre à tes questions, ainsi n'hésite pas à nous contacter ou venir nous voir !</span></p>
+                                                                <p dir="ltr" style="text-align: center;"><span style="font-size:14px">Pour toute question n'hésite pas à nous contacter ou venir nous voir !</span></p>
 
                                                             </td>
                                                         </tr>
@@ -1325,50 +1317,8 @@
 
                                                             <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-                                                                <p dir="ltr" style="text-align: center;">Nous rendre visite : 12 rue Marie Curie 10000 Troyes, parking Nord, bâtiment “BDE”.<br>
-                                                                    <a data-saferedirecturl="https://www.google.com/url?q=https://goo.gl/maps/F4Z9xd3DGW72&amp;source=gmail&amp;ust=1499629862002000&amp;usg=AFQjCNHhgkH-2HJ0vzpkQjdEc9FvPeGbDA" href="https://goo.gl/maps/F4Z9xd3DGW72" target="_blank">https://goo.gl/maps/F4Z9xd3DGW72</a>&nbsp;<br>
-                                                                    OU</p>
-
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    <!--[if mso]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if mso]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCodeBlock">
-                                            <tbody class="mcnTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnTextBlockInner">
-
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
-                                            <tbody class="mcnTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-                                                    <!--[if mso]>
-                                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
-                                                        <tr>
-                                                    <![endif]-->
-
-                                                    <!--[if mso]>
-                                                    <td valign="top" width="600" style="width:600px;">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
-                                                        <tbody><tr>
-
-                                                            <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
-                                                                <p dir="ltr" style="text-align: center;"><span style="font-size:16px"><strong>Tu seras toujours accueilli(e) par des sourires et dans la bonne humeur !</strong></span></p>
+                                                                <p dir="ltr" style="text-align: center;">Vous ne voulez plus recevoir ces mails ?<br>
+                                                                    <a href="{{ $unsuscribe_link }}" target="_blank">Vous pouvez&nbsp;</a><a href="{{ $unsuscribe_link }}">vous désinscrire de la liste</a>.</p>
 
                                                             </td>
                                                         </tr>
@@ -1391,86 +1341,9 @@
                             </td>
                             </tr>
                             </table>
-                            <![endif]-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" valign="top" id="templateFooter" data-template-container>
-                            <!--[if gte mso 9]>
-                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
-                                <tr>
-                                    <td align="center" valign="top" width="600" style="width:600px;">
-                            <![endif]-->
-                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
-                                <tr>
-                                    <td valign="top" class="footerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">
-                                            <tbody class="mcnDividerBlockOuter">
-                                            <tr>
-                                                <td class="mcnDividerBlockInner" style="min-width:100%; padding:18px;">
-                                                    <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;border-top: 2px solid #505050;">
-                                                        <tbody><tr>
-                                                            <td>
-                                                                <span></span>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody></table>
-                                                    <!--
-                                                                    <td class="mcnDividerBlockInner" style="padding: 18px;">
-                                                                    <hr class="mcnDividerContent" style="border-bottom-color:none; border-left-color:none; border-right-color:none; border-bottom-width:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:0; margin-bottom:0; margin-left:0;" />
-                                                    -->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
-                                            <tbody class="mcnTextBlockOuter">
-                                            <tr>
-                                                <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-                                                    <!--[if mso]>
-                                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
-                                                        <tr>
-                                                    <![endif]-->
-
-                                                    <!--[if mso]>
-                                                    <td valign="top" width="600" style="width:600px;">
-                                                    <![endif]-->
-                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
-                                                        <tbody><tr>
-
-                                                            <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
-                                                                <em>Copyright © Intégration UTT 2017 All rights reserved.</em><br>
-                                                                <br>
-                                                                <strong>Notre adresse mail est :</strong><br>
-                                                                <a href="mailto:integration@utt.fr" target="_blank">integration@utt.fr</a><br>
-                                                                <br>
-                                                                @if($mail->publicity)
-                                                                Vous ne voulez plus recevoir ces mails ?<br>
-                                                                <a href="{{ $unsuscribe_link }}" target="_blank">Vous pouvez&nbsp;&nbsp;</a><a href="{{ $unsuscribe_link }}">vous désinscrire de la liste</a><a href="{{ $unsuscribe_link }}">.</a>
-                                                                    @endif
-                                                            </td>
-                                                            @if($mail_id)
-                                                            <img src="{{ url()->route('emails.opening', ['mail_id' => $mail_id]) }}" height="1" width="1" class="">
-                                                            @endif
-                                                        </tr>
-                                                        </tbody></table>
-                                                    <!--[if mso]>
-                                                    </td>
-                                                    <![endif]-->
-
-                                                    <!--[if mso]>
-                                                    </tr>
-                                                    </table>
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table></td>
-                                </tr>
-                            </table>
-                            <!--[if gte mso 9]>
-                            </td>
-                            </tr>
-                            </table>
+                            @if($mail_id)
+                            <img src="{{ url()->route('emails.opening', ['mail_id' => $mail_id]) }}" height="1" width="1" class="">
+                            @endif
                             <![endif]-->
                         </td>
                     </tr>
