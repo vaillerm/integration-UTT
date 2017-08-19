@@ -25,7 +25,7 @@ class TeamsController extends Controller
      *
      * @return Response
      */
-    public function find()
+    public function index()
     {
         $id = Request::route('id');
         $user = Auth::guard('api')->user();

@@ -11,16 +11,31 @@ use Validator;
 
 class CheckinController extends Controller
 {
+    /**
+     * Get all the checkins
+     *
+     * @return Response
+     */
     public function index()
     {
         return Response::json(Checkin::all());
     }
 
+    /**
+     * Get a checkin, with his relationships
+     *
+     * @return Response
+     */
     public function show($id)
     {
         return Response::json(Checkin::with('students')->find($id));
     }
 
+    /**
+     * Store a new checkin
+     *
+     * @return Response
+     */
     public function store()
     {
         // validate the request inputs
@@ -33,6 +48,12 @@ class CheckinController extends Controller
         return Response::json($checkin);
     }
 
+    /**
+     * Attach a Student to a Checkin
+     *
+     * @param string $id: the checkin id
+     * @return Response
+     */
     public function addStudent($id)
     {
         // validate the request inputs

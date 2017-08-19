@@ -8,7 +8,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/oauth/token/revoke', ['uses' => 'OAuthController@revokeApiToken']);
     Route::post('/oauth/token/check', ['uses' => 'OAuthController@checkApiToken']);
 
-    Route::get('/student/{id?}', ['uses' => 'StudentsController@find']);
+    Route::get('/student/{id?}', ['uses' => 'StudentsController@index']);
 
     Route::get('/team/{id?}', ['uses' => 'TeamsController@index']);
 
