@@ -172,6 +172,16 @@ class Student extends Model implements Authenticatable
         return $this->hasMany(Student::class, 'student_id', 'referral_id');
     }
 
+    /**
+     * Define the One-to-Many relation with Message;
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
+
     public function isStudent()
     {
         return !($this->is_newcomer);
