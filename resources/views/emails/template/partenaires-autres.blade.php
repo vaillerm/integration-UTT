@@ -1082,7 +1082,7 @@ Mail 3/3</span></h2>
                                                                         <td valign="top" class="mcnTextContent">
                                                                             <br>
                                                                             <br>
-                                                                            Alors profitez des 20% de réduction que le <em>Memphis coffee</em> prodigue aux étudiants UTTiens.<br>
+                                                                            Alors profitez des 25% de réduction que le <em>Memphis coffee</em> prodigue aux étudiants UTTiens.<br>
                                                                             <br>
                                                                             Parc commercial Be Green Rue de l'Avenir - 10410 St Parres aux Tertres<br>
                                                                             <br>
