@@ -9,6 +9,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/oauth/token/check', ['uses' => 'OAuthController@checkApiToken']);
 
     Route::get('/student/{id?}', ['uses' => 'StudentsController@index']);
+    Route::put('/student/{id}', ['uses' => 'StudentsController@update']);
 
     Route::get('/team/{id?}', ['uses' => 'TeamsController@index']);
 

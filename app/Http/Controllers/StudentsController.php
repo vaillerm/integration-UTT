@@ -65,6 +65,31 @@ class StudentsController extends Controller
     }
 
     /**
+     * Update the given student
+     *
+     * @param string $id: the id of the student to update
+     * @return Response
+     */
+    public function update($id)
+    {
+        $requester = Auth::guard('api')->user();
+
+        // check if the requester is authorized to update this User
+        if (!$requester->admin && $requester->id != $id) {
+            return Response::json(["message" => "You are not allowed to update this User."], 403);
+        }
+
+        $student = Student::find($id);
+        if (!$student) {
+            return Response::json(["message" => "Cant't find this Student."], 404);
+        }
+
+        $student->update(Request::all());
+
+        return Response::json($student);
+    }
+
+    /**
      * Remove field that the requester can't see, depending of his roles
      *
      * @param Student $student
