@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\Student;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Request;
 use Response;
 use Validator;
 use Auth;
 
+use App\Traits\PushNotifications;
+
 class MessageController extends Controller
 {
+
+    use PushNotifications;
+
     /**
      * Get all the messages
      *
@@ -47,23 +50,13 @@ class MessageController extends Controller
         // create the message
         $message = Auth::guard('api')->user()->messages()->create(Request::all());
 
-        $notificationTargets = Student::where('admin', '!=', 0)->pluck('device_token')->toArray();
-
-        $client = new Client();
-        $result = $client->post('https://api.ionic.io/push/notifications', [
-            "body" => json_encode([
-                "tokens" => $notificationTargets,
-                "profile" => env("IONIC_PUSH_PROFILE"),
-                "notification" => [
-                    "message" => "Nouveau message dans '".Request::get('channel')."'"
-                ]
-            ]),
-            "headers" => [
-                'content-type' => 'application/json',
-                "Authorization" => "Bearer ".env("IONIC_API_TOKEN")
-            ],
-            'debug' => true
-        ]);
+        // notify the members of this channel that a new message has been created
+        $query = Student::where('admin', '>', 0)->orWhere('orga', '>', 0);
+        if (Request::get('channel') == 'general') {
+            $query = $query->orWhere('ce', '>', 0);
+        }
+        $notificationTargets = $query->pluck('device_token')->toArray();
+        $this->postNotification($notificationTargets, "Nouveau message dans '".Request::get('channel')."'");
 
         return Response::json($message);
     }
