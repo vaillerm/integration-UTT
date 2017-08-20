@@ -58,7 +58,7 @@ class MessageController extends Controller
         $notificationTargets = $query->pluck('device_token')->toArray();
         $this->postNotification($notificationTargets, "Nouveau message dans '".Request::get('channel')."'");
 
-        return Response::json($message);
+        return Response::json(Message::with('student')->find($message->id));
     }
 
 }
