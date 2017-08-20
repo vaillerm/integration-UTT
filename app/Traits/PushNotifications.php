@@ -13,8 +13,9 @@ trait PushNotifications {
      *
      * @param array $tokens: the devices tokens
      * @param string $message: the notification message
+     * @param string $title: the notification title (optionnal)
      */
-    public function postNotification($tokens, $message)
+    public function postNotification($tokens, $message, $title = "")
     {
         $client = new Client();
         $result = $client->post('https://api.ionic.io/push/notifications', [
@@ -22,7 +23,8 @@ trait PushNotifications {
                 "tokens" => $tokens,
                 "profile" => env("IONIC_PUSH_PROFILE"),
                 "notification" => [
-                    "message" => $message
+                    "message" => $message,
+                    "title" => $title
                 ]
             ]),
             "headers" => [

@@ -21,4 +21,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/message', ['uses' => 'MessageController@index']);
     Route::post('/message', ['uses' => 'MessageController@store']);
 
+    Route::post('/notification', ['uses' => 'NotificationController@store']);
+
 });
