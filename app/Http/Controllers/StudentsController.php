@@ -10,6 +10,7 @@ use Request;
 use Redirect;
 use Response;
 use Auth;
+use DB;
 
 /**
  * Handle student management pages and administrators actions
@@ -29,21 +30,18 @@ class StudentsController extends Controller
 
         // if no id in the route parameters and user allowed, return a list of users
         if ($id == null && $user->admin) {
-            // check if there is a filter
-            $filter = Request::input('filter');
 
-            // return only newcomers
-            if ($filter == "newcomers") {
-                return Response::json(Student::newcomer()->get());
-            }
+            $query = DB::table('students');
 
-            // return only UTT students
-            if ($filter == "students") {
-                return Response::json(Student::student()->get());
+            // apply query filters
+            if (Request::all()) {
+                foreach (Request::all() as $key => $value) {
+                    $query = $query->where($key, $value);
+                }
             }
 
             // return all by default
-            return Response::json(Student::get());
+            return Response::json($query->get());
 
         } else {
 
