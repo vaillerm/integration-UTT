@@ -59,7 +59,7 @@ Affichage des profils
 
         <h4>Ajouter des nouveaux</h4>
         <form class="" action="{{ route('dashboard.newcomers.createcsv') }}" method="post">
-            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;Nom&quot;;&quot;Sexe(M/F)&quot;;&quot;Date de naissance (AAAA-MM-JJ)&quot;;&quot;Branche&quot;;&quot;Mail&quot;;&quot;Téléphone portable&quot;;&quot;Téléphone fixe&quot;;&quot;Code postal&quot;;&quot;Pays&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
+            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;Nom&quot;;&quot;Sexe(M/F)&quot;;&quot;Date de naissance (JJ/MM/AAAA)&quot;;&quot;Branche&quot;;&quot;Mail&quot;;&quot;Téléphone portable&quot;;&quot;Téléphone fixe&quot;;&quot;Code postal&quot;;&quot;Pays&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
             <input type="submit" class="btn btn-success form-control" value="Créer les nouveaux">
         </form>
     </div>
