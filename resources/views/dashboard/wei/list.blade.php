@@ -36,7 +36,7 @@ Liste de toutes les personnes inscrits au WEI
                         <td>{{{ $user->phone }}}</td>
                         <td>
                             @if ($user->orga)
-                                <span class="label label-warning">Orga</span>
+                                <span class="label label-wa rning">Orga</span>
                             @elseif ($user->ce)
                                 <span class="label label-primary">CE</span>
                             @elseif ($user->volunteer)
@@ -83,7 +83,7 @@ Liste de toutes les personnes inscrits au WEI
                         <td>
                             @if($user->parent_authorization)
                                 <span class="label label-success">OK</span>
-                            @else
+                            @elseif($user->isUnderage())
                                 <span class="label label-danger">Non</span>
                             @endif
                         </td>
@@ -95,7 +95,7 @@ Liste de toutes les personnes inscrits au WEI
                             @endif
                         </td>
                         <td class=".hidden-print">
-                            @if($user->student)
+                            @if($user->isStudent())
                                 <a class="btn btn-xs btn-info" href="{{ route('dashboard.students.edit', [ 'id' => $user->id ])}}">Utilisateur</a>
                                 <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">WEI</a>
                             @else

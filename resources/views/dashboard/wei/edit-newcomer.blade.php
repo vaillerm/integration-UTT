@@ -330,7 +330,7 @@ Modification d'un étudiant
                                             <p>
                                                 Autorisation de prélèvement en ligne qui ne sera pas prélevée (sauf en cas de soucis).<br/>
                                                 Équivalent d'un chèque, mais en ligne, et qui expire en 29 jours.<br/>
-                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{@asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
+                                                Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                             </p>
                                         </td>
                                         <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>

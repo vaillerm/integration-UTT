@@ -121,7 +121,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::where('student_id', $id)->firstOrFail();
+        $student = Student::findOrFail($id);
         return View::make('dashboard.students.edit', [
             'student' => $student
         ]);

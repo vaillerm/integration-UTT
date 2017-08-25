@@ -59,6 +59,12 @@ class Student extends Model implements Authenticatable
         'updated_at',
     ];
 
+    public $dates = [
+        'created_at',
+        'updated_at',
+        'birth'
+    ];
+
     public $checklistArray = [];
 
     const CHECKLIST_DEFINITION = [
@@ -116,6 +122,19 @@ class Student extends Model implements Authenticatable
         return intval($value);
     }
     /**
+     * Return if underage
+     */
+
+    public function isUnderage()
+    {
+        if($this->isStudent())
+            return false;
+
+        if($this->birth)
+            return ($this->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
+        else return true;
+    }
+    /**
      * Scope a query to only include students that are newcomers.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -147,12 +166,12 @@ class Student extends Model implements Authenticatable
 
     public function isStudent()
     {
-        return !($this->is_newcomer);
+        return !$this->isNewcomer();
     }
 
     public function isNewcomer()
     {
-        return !($this->isStudent());
+        return $this->is_newcomer;
     }
     /**
      * Return newcomers referal
