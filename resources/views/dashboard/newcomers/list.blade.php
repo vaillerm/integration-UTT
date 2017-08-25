@@ -46,7 +46,7 @@ Affichage des profils
                 <option value="0" @if (old('sex') == 0) selected="selected" @endif >Homme</option>
                 <option value="1" @if (old('sex') == 1) selected="selected" @endif >Femme</option>
             </select>
-            <input type="text" name="birth" class="form-control" placeholder="Date de naissance (AAAA-MM-JJ)" value="{{ old('birth') }}">
+            <input type="text" name="birth" class="form-control" placeholder="Date de naissance (JJ/MM/AAAA)" value="{{ old('birth') }}">
             <input type="text" name="registration_email" class="form-control" placeholder="Adresse mail" value="{{ old('registration_email') }}">
             <input type="text" name="registration_cellphone" class="form-control" placeholder="Téléphone portable" value="{{ old('registration_cellphone') }}">
             <input type="text" name="registration_phone" class="form-control" placeholder="Téléphone fixe" value="{{ old('registration_phone') }}">
