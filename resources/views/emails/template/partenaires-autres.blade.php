@@ -482,7 +482,7 @@
             }
 
         }</style>
-        @endverbatim
+@endverbatim
 </head>
 <body>
 <!--*|IF:MC_PREVIEW_TEXT|*-->
@@ -653,21 +653,45 @@ Mail 3/3</span></h2>
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
-                                            <tbody class="mcnImageBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
+                                            <tbody class="mcnCaptionBlockOuter">
                                             <tr>
-                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+                                                <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
+
+
+
+
+                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">
                                                         <tbody><tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+                                                            <td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">
+                                                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">
+                                                                    <tbody><tr>
+                                                                        <td class="mcnCaptionRightImageContent" valign="top">
 
 
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/368148a1-64bf-49f7-a646-9157e77aa4c4.png" width="196.5" style="max-width:393px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+
+                                                                            <img alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/368148a1-64bf-49f7-a646-9157e77aa4c4.png" width="264" style="max-width:393px;" class="mcnImage">
 
 
+
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody></table>
+                                                                <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264">
+                                                                    <tbody><tr>
+                                                                        <td valign="top" class="mcnTextContent">
+                                                                            <br>
+                                                                            Input caption text here. Use the block's Settings tab to change the caption position and set other styles.
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody></table>
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
+
+
+
+
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -813,21 +837,44 @@ Mail 3/3</span></h2>
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
-                                            <tbody class="mcnImageBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
+                                            <tbody class="mcnCaptionBlockOuter">
                                             <tr>
-                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+                                                <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
+
+
+
+
+                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">
                                                         <tbody><tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+                                                            <td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">
+                                                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">
+                                                                    <tbody><tr>
+                                                                        <td class="mcnCaptionRightImageContent" valign="top">
 
 
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/fc355d07-68cb-45b3-95de-86f80f3ef371.png" width="430" style="max-width:860px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+
+                                                                            <img alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/fc355d07-68cb-45b3-95de-86f80f3ef371.png" width="264" style="max-width:860px;" class="mcnImage">
 
 
+
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody></table>
+                                                                <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264">
+                                                                    <tbody><tr>
+                                                                        <td valign="top" class="mcnTextContent">
+                                                                            -20% sur le prix de location sous présentation de la carte étudiante
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody></table>
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
+
+
+
+
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -920,7 +967,7 @@ Mail 3/3</span></h2>
                                                             <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
                                                                 <div style="text-align: justify;">
-                                                                    <p>Comment ? Je vous ennuie avec cette publicité à peine camouflée par des phrases pompeuses et grandiloquentes&nbsp;? Je ferais mieux de me mêler de mes affaires&nbsp;? Trouvons un terrain d’entente&nbsp;: les victuailles. Vous aimez boustifailler ? Vous aimez les burgers de qualités&nbsp;? Alors profitez des 20% de réduction que le <em>Memphis coffee</em> prodigue aux étudiants UTTiens.</p>
+                                                                    <p>Maintenant que tu pourras parcourir les chemins dans ton fier carosse, peut-être te faudrait-il une bourse afin de ranger les piecettes gagnées en combattant dragon, et retrouvant autre objets perdus par des pnj peu doués... Nous avons ce qu'il te faut grâce à notre partenaire LCL !</p>
                                                                 </div>
 
                                                             </td>
@@ -937,21 +984,119 @@ Mail 3/3</span></h2>
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
-                                            <tbody class="mcnImageBlockOuter">
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageGroupBlock">
+                                            <tbody class="mcnImageGroupBlockOuter">
+
                                             <tr>
-                                                <td valign="top" style="padding:9px" class="mcnImageBlockInner">
-                                                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+                                                <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
+
+                                                    <table align="left" width="273" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                                                         <tbody><tr>
-                                                            <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+                                                            <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
 
 
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/41966710-4782-4e97-8e87-c54b7af379b3.png" width="135" style="max-width:270px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+                                                                <img alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/371a650b-b277-4cbb-96d2-872c064ceb76.png" width="264" style="max-width:1943px; padding-bottom: 0;" class="mcnImage">
 
 
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
+
+                                                    <table align="right" width="273" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                                                        <tbody><tr>
+                                                            <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
+
+
+                                                                <img alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/a6d5e52c-5cee-411a-afcd-c356b593dd09.png" width="264" style="max-width:1946px; padding-bottom: 0;" class="mcnImage">
+
+
+                                                            </td>
+                                                        </tr>
+                                                        </tbody></table>
+
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+                                            <tbody class="mcnTextBlockOuter">
+                                            <tr>
+                                                <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
+                                                    <!--[if mso]>
+                                                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
+                                                        <tr>
+                                                    <![endif]-->
+
+                                                    <!--[if mso]>
+                                                    <td valign="top" width="600" style="width:600px;">
+                                                    <![endif]-->
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+                                                        <tbody><tr>
+
+                                                            <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+                                                                <div style="text-align: justify;">
+                                                                    <p>Comment ? Je vous ennuie avec cette publicité à peine camouflée par des phrases pompeuses et grandiloquentes&nbsp;? Je ferais mieux de me mêler de mes affaires&nbsp;? Trouvons un terrain d’entente&nbsp;: les victuailles. Vous aimez boustifailler ? Vous aimez les burgers de qualités&nbsp;?</p>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                        </tbody></table>
+                                                    <!--[if mso]>
+                                                    </td>
+                                                    <![endif]-->
+
+                                                    <!--[if mso]>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]-->
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
+                                            <tbody class="mcnCaptionBlockOuter">
+                                            <tr>
+                                                <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
+
+
+
+
+                                                    <table border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightContentOuter" width="100%">
+                                                        <tbody><tr>
+                                                            <td valign="top" class="mcnCaptionRightContentInner" style="padding:0 9px ;">
+                                                                <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionRightImageContentContainer">
+                                                                    <tbody><tr>
+                                                                        <td class="mcnCaptionRightImageContent" valign="top">
+
+
+
+                                                                            <img alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/c0bc9ebc-8ef7-4d7f-bc49-580affaf2edd.png" width="135" style="max-width:135px;" class="mcnImage">
+
+
+
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody></table>
+                                                                <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="352">
+                                                                    <tbody><tr>
+                                                                        <td valign="top" class="mcnTextContent">
+                                                                            <br>
+                                                                            <br>
+                                                                            Alors profitez des 25% de réduction que le <em>Memphis coffee</em> prodigue aux étudiants UTTiens.<br>
+                                                                            <br>
+                                                                            Parc commercial Be Green Rue de l'Avenir - 10410 St Parres aux Tertres<br>
+                                                                            <br>
+                                                                            &nbsp;
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody></table>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody></table>
+
+
+
+
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -993,7 +1138,7 @@ Mail 3/3</span></h2>
 
 
                                                                                                                         <td align="left" valign="middle" class="mcnFollowTextContent" style="padding-left:5px;">
-                                                                                                                            <a href="https://memphis-coffee.com/memphis-troyes" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Site web</a>
+                                                                                                                            <a href="https://memphis-coffee.com/memphis-troyes" target="" style="font-family: Arial;font-size: 11px;text-decoration: none;color: #202020;font-weight: normal;">Site web ou Téléphone :  03 25 41 63 10</a>
                                                                                                                         </td>
 
                                                                                                                     </tr>
@@ -1069,9 +1214,9 @@ Mail 3/3</span></h2>
                                                         <tbody><tr>
                                                             <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
-
-                                                                <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/7dac4cfb-52d9-4f75-baf6-5353bd7059ef.png" width="564" style="max-width:617px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
-
+                                                                <a href="http://www.portable-etudiant.com/?ID=T305UEAUTMITZ4ICZJNN" title="Catalogue DELL" class="" target="_blank">
+                                                                    <img align="center" alt="" src="https://gallery.mailchimp.com/1c1375bfdec91be7e90724ea4/images/7dac4cfb-52d9-4f75-baf6-5353bd7059ef.png" width="564" style="max-width:617px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+                                                                </a>
 
                                                             </td>
                                                         </tr>
@@ -1343,14 +1488,14 @@ Mail 3/3</span></h2>
                             </td>
                             </tr>
                             </table>
-                            @if($mail_id)
-                            <img src="{{ url()->route('emails.opening', ['mail_id' => $mail_id]) }}" height="1" width="1" class="">
-                            @endif
                             <![endif]-->
                         </td>
                     </tr>
                 </table>
                 <!-- // END TEMPLATE -->
+                @if($mail_id)
+                    <img src="{{ url()->route('emails.opening', ['mail_id' => $mail_id]) }}" height="1" width="1" class="">
+                @endif
             </td>
         </tr>
     </table>
