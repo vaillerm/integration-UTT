@@ -81,7 +81,7 @@ Le Week-End d'Intégration
     			</div>
     		    <div class="box-body">
     				<div class="checkbox">
-    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{@asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a></label>
+    					<label><input type="checkbox" name="cgv"> J'accepte les <a href="{{ asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a></label>
     				</div>
     				<input type="submit" class="btn btn-success form-control" value="Donner ma caution"/>
     			</div>
