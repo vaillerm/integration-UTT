@@ -48,7 +48,7 @@ class WEIController extends Controller
         $newscomers = Student::newcomer()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
             ->get();
 
-        $students = Student::with('weiPayment', 'sandwichPayment', 'guaranteePayment')
+        $students = Student::student()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
             ->get();
 
         foreach ($newscomers as $newcomer) {
@@ -1030,21 +1030,12 @@ class WEIController extends Controller
     public function list()
     {
         // Find students
-        $students = Student::select([DB::raw('student_id AS id'), 'first_name', 'last_name', 'phone', DB::raw('1 AS student'), DB::raw('1 AS parent_authorization'),
+        $students = Student::select(['student_id','is_newcomer', 'id', 'first_name', 'last_name', 'phone',
         'wei_payment', 'sandwich_payment', 'guarantee_payment',
         DB::raw('(ce AND team_accepted) AS ce'), 'volunteer', 'orga', 'wei_validated'])
-        ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment');
-        ;
+        ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment')->get();
 
-        // Find newcomers
-        $newcomer = Student::newcomer()->select(['id', 'first_name', 'last_name', 'phone', DB::raw('0 AS student'), 'parent_authorization',
-        'wei_payment', 'sandwich_payment', 'guarantee_payment',
-        DB::raw('0 AS ce'), DB::raw('0 AS volunteer'), DB::raw('0 AS orga'), DB::raw('1 AS wei_validated')])
-        ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment');
 
-        // Union between newcomers and students
-        $users = $students->union($newcomer)->orderBy('last_name')->get();
-
-        return View::make('dashboard.wei.list', ['users' => $users]);
+        return View::make('dashboard.wei.list', ['users' => $students]);
     }
 }
