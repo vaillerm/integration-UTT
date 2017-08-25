@@ -36,7 +36,7 @@ class Payment extends Model
      */
     public function newcomerWei()
     {
-        return $this->hasOne('App\Models\Newcomer', 'wei_payment');
+        return $this->hasOne('App\Models\Student', 'wei_payment');
     }
 
     /**
@@ -46,7 +46,7 @@ class Payment extends Model
      */
     public function newcomerSandwich()
     {
-        return $this->hasOne('App\Models\Newcomer', 'sandwich_payment');
+        return $this->hasOne('App\Models\Student', 'sandwich_payment');
     }
 
     /**
@@ -56,18 +56,18 @@ class Payment extends Model
      */
     public function newcomerGuarantee()
     {
-        return $this->hasOne('App\Models\Newcomer', 'guarantee_payment');
+        return $this->hasOne('App\Models\Student', 'guarantee_payment');
     }
 
     public function newcomer()
     {
-        if ($this->newcomerSandwich) {
-            return $this->newcomerSandwich();
+        if ($this->studentSandwich) {
+            return $this->studentSandwich();
         }
-        if ($this->newcomerGuarantee) {
-            return $this->newcomerGuarantee();
+        if ($this->studentGuarantee) {
+            return $this->studentGuarantee();
         }
-        return $this->newcomerWei();
+        return $this->studentWei();
     }
 
     public function paymentByDay()
