@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
+use Validator;
+use Redirect;
 
 use App\Models\Event;
 
@@ -26,7 +29,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.events.create');
     }
 
     /**
@@ -37,7 +40,28 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->flash();
+
+        // validate the request inputs
+        $validator = Validator::make($request->all(), Event::storeRules());
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
+        $request['categories'] = json_encode($request->categories);
+
+        $event = Event::create($request->all());
+        $event->start_at = $this->formatEventDate($request->start_at_date, $request->start_at_hour);
+        $event->end_at = $this->formatEventDate($request->end_at_date, $request->end_at_hour);
+        $event->save();
+
+        return redirect('dashboard/event');
+    }
+
+    private function formatEventDate($date, $hour)
+    {
+        $date = implode('-', array_reverse(explode('-', $date)));
+        return strtotime($date.' '.$hour);
     }
 
     /**
@@ -82,6 +106,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Event::destroy($id);
+        return redirect('dashboard/event');
     }
 }

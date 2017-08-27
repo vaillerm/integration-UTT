@@ -17,19 +17,16 @@
         </p>
     </div>
 
+    <div class="box-header with-border">
+        <h3 class="box-title">Création d'un nouvel évènement</h3>
+        <a href="{{ url('dashboard/event/create') }}" class="btn btn-box-tool">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+
     <div class="box box-default">
         <div class="box-header with-border">
             <h3 class="box-title">Liste des évènements</h3>
-            <div class="pull-right">
-                Filtres :
-                <a class="btn btn-xs btn-danger{{ ($filter=='admin')?' active':'' }}" href="{{ route('dashboard.students.list', [ 'filter' => 'admin' ])}}">Admin</a>
-                <a class="btn btn-xs btn-dark{{ ($filter=='newcomer')?' active':'' }}" href="{{ route('dashboard.students.list', [ 'filter' => 'newcomer' ])}}">Nouveau</a>
-                <a class="btn btn-xs btn-warning{{ ($filter=='orga')?' active':'' }}" href="{{ route('dashboard.students.list', [ 'filter' => 'orga' ])}}">Orga</a>
-                <a class="btn btn-xs btn-success{{ ($filter=='referral')?' active':'' }}" href="{{ route('dashboard.students.list', [ 'filter' => 'referral' ])}}">Parrain</a>
-                <a class="btn btn-xs btn-primary{{ ($filter=='ce')?' active':'' }}" href="{{ route('dashboard.students.list', [ 'filter' => 'ce' ])}}">CE</a>
-                <a class="btn btn-xs btn-info{{ ($filter=='volunteer')?' active':'' }}" href="{{ route('dashboard.students.list', [ 'filter' => 'volunteer' ])}}">Bénévole</a>
-                <a class="btn btn-xs btn-default{{ ($filter=='')?' active':'' }}" href="{{ route('dashboard.students.list')}}">Aucun</a>
-            </div>
         </div>
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
@@ -44,9 +41,10 @@
                     @foreach ($events as $event)
                         <tr>
                             <td>{{ $event->name }}</td>
-                            <td>{{ $event->start_at }}</td>
-                            <td>{{{ $student->end_at }}}</td>
+                            <td>{{ date('d/m H:i', $event->start_at) }}</td>
+                            <td>{{ date('d/m H:i', $event->end_at) }}</td>
                             <td>
+                                <?php $event->categories = json_decode($event->categories) ?>
                                 @if (in_array('admin', $event->categories))
                                     <span class="label label-danger">Admin</span>
                                 @endif
@@ -67,7 +65,11 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $student->student_id ])}}">Modifier</a>
+                                <a class="btn btn-xs btn-warning" href="{{ url('dashboard/event/edit/'.$event->id) }}">Modifier</a>
+                                <form action="{{ url('dashboard/event/'.$event->id) }}" method="post">
+                                    {{ method_field('DELETE') }}
+                                    <button class="btn btn-xs btn-danger" type="submit">Supprimer</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

@@ -47,3 +47,10 @@ a.btn {
 .table tbody>tr.vert-align>td{
     vertical-align: middle;
 }
+
+.label-dark, .btn-dark {
+	background: #333;
+}
+.btn-dark, .btn-dark:hover {
+	color: #fff;
+}

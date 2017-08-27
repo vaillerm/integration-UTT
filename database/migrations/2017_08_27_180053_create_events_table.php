@@ -21,8 +21,9 @@ class CreateEventsTable extends Migration
             $table->text('place');
             $table->text('categories');
 
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            // i have an error when using timestamp
+            $table->text('start_at');
+            $table->text('end_at');
         });
     }
 
