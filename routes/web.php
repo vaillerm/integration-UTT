@@ -75,8 +75,10 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::group(['middleware' => 'authorize:admin'], function () {
             Route::get('/event', ['uses' => 'EventController@index']);
             Route::get('/event/create', ['uses' => 'EventController@create']);
+            Route::get('/event/edit/{id}', ['uses' => 'EventController@edit']);
             Route::post('/event', ['uses' => 'EventController@store']);
             Route::delete('/event/{id}', ['uses' => 'EventController@destroy']);
+            Route::put('/event/{id}', ['uses' => 'EventController@update']);
         });
 
         // Delete, validate and edit referrals.

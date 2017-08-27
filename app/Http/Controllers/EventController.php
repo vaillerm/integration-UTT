@@ -16,10 +16,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($filter = '')
+    public function index()
     {
         $events = Event::orderBy('start_at')->get();
-        return view('dashboard.events.index', compact('events', 'filter'));
+        return view('dashboard.events.index', compact('events'));
     }
 
     /**
@@ -83,7 +83,8 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::find($id);
+        return view('dashboard.events.edit', compact('event'));
     }
 
     /**
@@ -95,7 +96,21 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate the request inputs
+        $validator = Validator::make($request->all(), Event::storeRules());
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
+        $request['categories'] = json_encode($request->categories);
+
+        $event = Event::find($id);
+        $event->fill($request->all());
+        $event->start_at = $this->formatEventDate($request->start_at_date, $request->start_at_hour);
+        $event->end_at = $this->formatEventDate($request->end_at_date, $request->end_at_hour);
+        $event->save();
+
+        return redirect('dashboard/event');
     }
 
     /**
