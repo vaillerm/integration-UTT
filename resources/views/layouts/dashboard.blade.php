@@ -41,6 +41,7 @@
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
                                     <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
                                     <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
+                                    <li><a href="{{ url('dashboard/events') }}">Évènements</a></li>
                                     <li><a href="{{ route('dashboard.emails.index') }}">Mails</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>

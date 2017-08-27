@@ -71,6 +71,11 @@ Route::group(['prefix' => 'dashboard'], function () {
             'uses' => 'DashboardController@getIndex'
         ]);
 
+        // Event model's routes
+        Route::group(['middleware' => 'authorize:admin'], function () {
+            Route::get('/events', ['uses' => 'EventController@index']);
+        });
+
         // Delete, validate and edit referrals.
         Route::group(['prefix' => 'referrals'], function () {
             Route::get('/validation', [
