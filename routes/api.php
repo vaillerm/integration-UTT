@@ -23,4 +23,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('/notification', ['uses' => 'NotificationController@store']);
 
+    Route::get('/event', ['uses' => 'EventController@index']);
+    Route::get('/event/{id}', ['uses' => 'EventController@show']);
+
 });

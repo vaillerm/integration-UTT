@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 use Response;
 use Validator;
 use Redirect;
@@ -18,7 +18,41 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('start_at')->get();
+        $query = Event::orderBy('start_at');
+        // if there is a student, get only the events of this student
+        if (Request::has('student')) {
+            $student = Student::find(Request::get('student'));
+
+            // get the categories of this student
+            $categories = [];
+            if ($student->admin) {
+                array_push('admin', $categories);
+            }
+            if ($student->ce) {
+                array_push('ce', $categories);
+            }
+            if ($student->volunteer) {
+                array_push('volunteer', $categories);
+            }
+            if ($student->is_newcomer) {
+                array_push('newcomer', $categories);
+            }
+            if ($student->referral) {
+                array_push('referral', $categories);
+            }
+            // add where conditions for each categories
+            $query = $query->where('categories', 'like', '%'.$categories[0].'%');
+            for ($i = 1; $i < sizeof($categories); $i++) {
+                $query = $query->orWhere('categories', 'like', '%'.$categories[0].'%');
+            }
+        }
+        $events = $query->get();
+
+        // handle api request
+        if (Request::wantsJson()) {
+            return Response::json($events);
+        }
+
         return view('dashboard.events.index', compact('events'));
     }
 
@@ -35,24 +69,22 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $request->flash();
+        Request::flash();
 
         // validate the request inputs
-        $validator = Validator::make($request->all(), Event::storeRules());
+        $validator = Validator::make(Request::all(), Event::storeRules());
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
 
-        $request['categories'] = json_encode($request->categories);
-
-        $event = Event::create($request->all());
-        $event->start_at = $this->formatEventDate($request->start_at_date, $request->start_at_hour);
-        $event->end_at = $this->formatEventDate($request->end_at_date, $request->end_at_hour);
+        $event = Event::create(Request::all());
+        $event->categories = json_encode(Request::get('categories'));
+        $event->start_at = $this->formatEventDate(Request::get('start_at_date'), Request::get('$request->start_at_hour'));
+        $event->end_at = $this->formatEventDate(Request::get('$request->end_at_date'), Request::get('$request->end_at_hour'));
         $event->save();
 
         return redirect('dashboard/event');
@@ -72,7 +104,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $event = Event::find($id);
+        return Response::json($event);
     }
 
     /**
@@ -90,24 +123,22 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         // validate the request inputs
-        $validator = Validator::make($request->all(), Event::storeRules());
+        $validator = Validator::make(Request::all(), Event::storeRules());
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
 
-        $request['categories'] = json_encode($request->categories);
-
         $event = Event::find($id);
-        $event->fill($request->all());
-        $event->start_at = $this->formatEventDate($request->start_at_date, $request->start_at_hour);
-        $event->end_at = $this->formatEventDate($request->end_at_date, $request->end_at_hour);
+        $event->fill(Request::all());
+        $event->categories = json_encode(Request::get('categories'));
+        $event->start_at = $this->formatEventDate(Request::get('start_at_date'), Request::get('start_at_hour'));
+        $event->end_at = $this->formatEventDate(Request::get('end_at_date'), Request::get('end_at_hour'));
         $event->save();
 
         return redirect('dashboard/event');
