@@ -36,7 +36,7 @@ Liste de toutes les personnes inscrits au WEI
                         <td>{{{ $user->phone }}}</td>
                         <td>
                             @if ($user->orga)
-                                <span class="label label-wa rning">Orga</span>
+                                <span class="label label-warning">Orga</span>
                             @elseif ($user->ce)
                                 <span class="label label-primary">CE</span>
                             @elseif ($user->volunteer)
