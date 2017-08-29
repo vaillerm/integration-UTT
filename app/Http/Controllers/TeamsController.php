@@ -27,18 +27,22 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        $id = Request::route('id');
+        return Response::json(Team::with('newcomers', 'ce', 'respo')->get());
+    }
+
+    /**
+     * Return the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
         $user = Auth::guard('api')->user();
 
-        // if no id in the route parameters and user allowed, return all the teams
-        if ($id == null && $user->admin) {
-            // return all by default
-            return Response::json(Team::with('newcomers', 'ce', 'respo')->get());
-        } else {
-            // if the requested team is the user's team, or if the user has rights, return the requested team
-            if ($id == $user->team_id || $user->admin) {
-                return Response::json(Team::where('id', $id)->with('newcomers', 'ce', 'respo')->first());
-            }
+        // if the requested team is the user's team, or if the user has rights, return the requested team
+        if ($id == $user->team_id || $user->admin) {
+            return Response::json(Team::where('id', $id)->with('newcomers', 'ce', 'respo')->first());
         }
 
         return Response::json(array(["message" => "not allowed"]), 403);

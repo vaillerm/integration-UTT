@@ -25,41 +25,41 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        $id = Request::route('id');
-        $user = Auth::guard('api')->user();
+        $query = DB::table('students');
 
-        // if no id in the route parameters and user allowed, return a list of users
-        if ($id == null && $user->admin) {
-
-            $query = DB::table('students');
-
-            // apply query filters
-            if (Request::all()) {
-                foreach (Request::all() as $key => $value) {
-                    $query = $query->where($key, $value);
-                }
-            }
-
-            // return all by default
-            return Response::json($query->get());
-
-        } else {
-
-            // if id is "0" in the route, it becomes the authenticated user's id
-            if ($id == "0") {
-                $id = $user->id;
-            }
-
-            $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
-
-            if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
-                return Response::json($this->removeUnauthorizedFields($requested_user));
-            } else {
-                return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
+        // apply query filters
+        if (Request::all()) {
+            foreach (Request::all() as $key => $value) {
+                $query = $query->where($key, $value);
             }
         }
 
-        return Response::json(array(["message" => "not allowed"]), 403);
+        // return all by default
+        return Response::json($query->get());
+    }
+
+    /**
+     * Return the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = Auth::guard('api')->user();
+        
+        // if id is "0" in the route, it becomes the authenticated user's id
+        if ($id == "0") {
+            $id = $user->id;
+        }
+
+        $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
+
+        if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
+            return Response::json($this->removeUnauthorizedFields($requested_user));
+        } else {
+            return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
+        }
     }
 
     /**
