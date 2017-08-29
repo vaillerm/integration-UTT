@@ -24,6 +24,12 @@ class NotificationController extends Controller
      */
     public function store()
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->admin && !$user->secu) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         // validate the request inputs
         $validator = Validator::make(Request::all(), $this->storeRules());
         if ($validator->fails()) {
@@ -46,6 +52,10 @@ class NotificationController extends Controller
         return Response::json();
     }
 
+    /**
+     * Define the rules that check if the parameters of a request
+     * to create a new NotificationController are valid.
+     */
     private static function storeRules()
     {
         return [

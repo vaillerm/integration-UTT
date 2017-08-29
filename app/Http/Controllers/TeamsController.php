@@ -27,6 +27,12 @@ class TeamsController extends Controller
      */
     public function index()
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->admin && !$user->secu) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         return Response::json(Team::with('newcomers', 'ce', 'respo')->get());
     }
 
@@ -41,7 +47,7 @@ class TeamsController extends Controller
         $user = Auth::guard('api')->user();
 
         // if the requested team is the user's team, or if the user has rights, return the requested team
-        if ($id == $user->team_id || $user->admin) {
+        if ($id == $user->team_id || $user->admin || $user->secu) {
             return Response::json(Team::where('id', $id)->with('newcomers', 'ce', 'respo')->first());
         }
 

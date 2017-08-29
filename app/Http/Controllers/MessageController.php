@@ -24,11 +24,21 @@ class MessageController extends Controller
      */
     public function index()
     {
+        $user = $user = Auth::guard('api')->user();
+
+        // check if the user can access one of the channel
+        if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         $query = Message::with('student');
 
         // if there is a channel parameter, return only the message of this channel
-        if (Request::has('channel')) {
+        if (Request::has('channel') && ($user->admin || $user->secu)) {
             $query = $query->where('channel', Request::get('channel'));
+        } else {
+            // else, by default, only the messages on general
+            $query = $query->where('channel', 'general');
         }
 
         return Response::json($query->get());
@@ -41,6 +51,13 @@ class MessageController extends Controller
      */
     public function store()
     {
+        $user = $user = Auth::guard('api')->user();
+        
+        // check if the user can access one of the channel
+        if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         // validate the request inputs
         $validator = Validator::make(Request::all(), Message::storeRules());
         if ($validator->fails()) {

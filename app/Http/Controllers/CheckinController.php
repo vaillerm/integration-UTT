@@ -8,6 +8,7 @@ use App\Models\Student;
 use Request;
 use Response;
 use Validator;
+use Auth;
 
 class CheckinController extends Controller
 {
@@ -18,6 +19,12 @@ class CheckinController extends Controller
      */
     public function index()
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         return Response::json(Checkin::all());
     }
 
@@ -28,6 +35,12 @@ class CheckinController extends Controller
      */
     public function show($id)
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         return Response::json(Checkin::with('students')->find($id));
     }
 
@@ -38,6 +51,12 @@ class CheckinController extends Controller
      */
     public function store()
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         // validate the request inputs
         $validator = Validator::make(Request::all(), Checkin::storeRules());
         if ($validator->fails()) {
@@ -56,6 +75,12 @@ class CheckinController extends Controller
      */
     public function addStudent($id)
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         // validate the request inputs
         $validator = Validator::make(Request::all(), Checkin::addStudentRules());
         if ($validator->fails()) {

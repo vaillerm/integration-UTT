@@ -25,6 +25,12 @@ class StudentsController extends Controller
      */
     public function index()
     {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->admin && !$user->secu) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
         $query = DB::table('students');
 
         // apply query filters
@@ -47,7 +53,7 @@ class StudentsController extends Controller
     public function show($id)
     {
         $user = Auth::guard('api')->user();
-        
+
         // if id is "0" in the route, it becomes the authenticated user's id
         if ($id == "0") {
             $id = $user->id;
@@ -55,6 +61,7 @@ class StudentsController extends Controller
 
         $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
 
+        // check if authorized to see this user
         if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
             return Response::json($this->removeUnauthorizedFields($requested_user));
         } else {
