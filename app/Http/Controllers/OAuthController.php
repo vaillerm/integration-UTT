@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App;
+use Illuminate\Support\Facades\Auth;
 use Request;
 use View;
 use Redirect;

@@ -50,12 +50,17 @@
 					<tr>
 						<td>
 							Généré et envoyé par le site de l'intégration de l'Université de Technologie de Troyes.<br />
-							Pour ne plus recevoir de mails de notre part, contactez <a href="mailto:integration@utt.fr">integration@utt.fr</a>.
+							@if(isset($mail) && isset($unsuscribe_link) && $mail->isPublicity)
+							Pour ne plus recevoir de mails de notre part, cliquez <a href="{{  $unsuscribe_link }}">ici</a>.
+							@endif
 						</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 	</table>
+	@if($mail_id)
+		<img src="{{ url()->route('emails.opening', ['mail_id' => $mail_id]) }}" height="1" width="1" class="">
+	@endif
 </body>
 </html>

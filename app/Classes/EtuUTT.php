@@ -3,6 +3,7 @@
 namespace App\Classes;
 
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Config;
 use App;
@@ -105,8 +106,8 @@ class EtuUTT
         // If we've already retrieved the user for the current request we can just
         // return it back immediately. We do not want to fetch the user data on
         // every call to this method because that would be tremendously slow.
-        if (! is_null($this->student)) {
-            return $this->student;
+        if (Auth::user() && Auth::user()->isStudent()) {
+            return Auth::user();
         }
 
         $student_id = Session::get('student_id');
@@ -117,6 +118,7 @@ class EtuUTT
         $student = null;
         if (!is_null($student_id)) {
             $student = Student::where('student_id', $student_id)->first();
+            Auth::login($student, true);
         }
 
         if ($student === null && $student_id !== null) {

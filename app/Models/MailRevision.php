@@ -23,10 +23,11 @@ class MailRevision extends Model
             $content = $this->content;
             foreach ($user_dot as $key=>$value)
             {
-                $content = str_replace('%'.$key.'%', $value, $content);
+                //$content = str_replace('%'.$key.'%', $value, $content);
             }
         }
         return view('emails.template.'.$this->template, [
+            'subject' => $this->subject,
             'content'=> $content,
             'user' => $user,
             'mail' => $this,
@@ -34,4 +35,5 @@ class MailRevision extends Model
             'unsuscribe_link' => url()->route('emails.unsubscribe', ['email' => $user->email])
         ])->render();
     }
+
 }

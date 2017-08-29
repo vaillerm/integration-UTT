@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Email;
+use App\Models\MailCron;
 use App\Models\MailHistory;
 use App\Models\MailRevision;
 use App\Models\Student;
@@ -25,10 +26,10 @@ class EmailsController extends Controller
      */
     public function getIndex()
     {
-        $emails = Email::all();
+
         return View::make('dashboard.emails.index', [
-            'emails' => $emails,
-            'mail_revisions' => MailRevision::all()
+            'mail_revisions' => MailRevision::all(),
+            'mail_crons'    => MailCron::all(),
         ]);
     }
 
