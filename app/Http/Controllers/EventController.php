@@ -81,7 +81,10 @@ class EventController extends Controller
             return Redirect::back()->withErrors($validator);
         }
 
-        $event = Event::create(Request::all());
+        $event = new Event();
+        $event->name = Request::get('name');
+        $event->description = Request::get('description');
+        $event->place = Request::get('place');
         $event->categories = json_encode(Request::get('categories'));
         $event->start_at = $this->formatEventDate(Request::get('start_at_date'), Request::get('$request->start_at_hour'));
         $event->end_at = $this->formatEventDate(Request::get('$request->end_at_date'), Request::get('$request->end_at_hour'));
