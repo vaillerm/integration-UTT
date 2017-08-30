@@ -86,8 +86,8 @@ class EventController extends Controller
         $event->description = Request::get('description');
         $event->place = Request::get('place');
         $event->categories = json_encode(Request::get('categories'));
-        $event->start_at = $this->formatEventDate(Request::get('start_at_date'), Request::get('$request->start_at_hour'));
-        $event->end_at = $this->formatEventDate(Request::get('$request->end_at_date'), Request::get('$request->end_at_hour'));
+        $event->start_at = $this->formatEventDate(Request::get('start_at_date'), Request::get('start_at_hour'));
+        $event->end_at = $this->formatEventDate(Request::get('end_at_date'), Request::get('end_at_hour'));
         $event->save();
 
         return redirect('dashboard/event');
