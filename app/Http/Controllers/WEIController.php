@@ -578,7 +578,7 @@ class WEIController extends Controller
      */
     public function studentEdit($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('student_id',$id)->firstOrFail();
 
         //calculate price
         $price = Config::get('services.wei.price-other');
@@ -867,7 +867,7 @@ class WEIController extends Controller
      */
     public function studentEditSubmit($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('student_id',$id)->firstOrFail();
 
         // WEI payment form
         if (Request::has(['wei', 'sandwich', 'wei-total'])) {
