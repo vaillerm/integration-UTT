@@ -81,8 +81,8 @@ Recherche de participant au WEI
                                 @endif
                             </td>
                             <td>
-                                @if($user->student == 1)
-                                    <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">Modifier</a>
+                                @if($user->is_newcomer == 0)
+                                    <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->student_id ])}}">Modifier</a>
                                 @else
                                     <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.newcomer.edit', [ 'id' => $user->id ])}}">Modifier</a>
                                 @endif

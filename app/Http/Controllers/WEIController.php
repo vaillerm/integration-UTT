@@ -538,35 +538,21 @@ class WEIController extends Controller
         $words = explode(' ', $input['search']);
 
         // Find students
-        $students = Student::select([DB::raw('student_id AS id'), 'first_name', 'last_name', 'surname', DB::raw('1 AS student'),
-        DB::raw('(ce AND team_accepted) AS ce'), DB::raw('volunteer AS volunteer'), DB::raw('orga AS orga'),
-        'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', 'wei_validated']);
+        $students = Student::select(['id', 'student_id', 'first_name', 'last_name',
+            'surname', 'is_newcomer', 'ce', 'volunteer', 'orga',
+            'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', 'wei_validated']);
         if (count($words) <= 1 && is_numeric($input['search'])) {
-            $students = $students->where('student_id', $input['search']);
+            $students = $students->where('id', $input['search']);
         }
         foreach ($words as $word) {
             $students = $students->orWhere('first_name', 'like', '%'.$word.'%');
             $students = $students->orWhere('last_name', 'like', '%'.$word.'%');
-            $students = $students->orWhere('surname', 'like', '%'.$word.'%');
             $students = $students->orWhere('email', 'like', '%'.$word.'%');
-        }
-
-        // Find newcomers
-        $newcomer = Student::newcomer()->select(['id', 'first_name', 'last_name', DB::raw('"" AS surname'), DB::raw('0 AS student'),
-        DB::raw('0 AS ce'), DB::raw('0 AS volunteer'), DB::raw('0 AS orga'),
-        'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', DB::raw('1 AS wei_validated')]);
-        if (count($words) <= 1 && is_numeric($input['search'])) {
-            $newcomer = $newcomer->where('id', $input['search']);
-        }
-        foreach ($words as $word) {
-            $newcomer = $newcomer->orWhere('first_name', 'like', '%'.$word.'%');
-            $newcomer = $newcomer->orWhere('last_name', 'like', '%'.$word.'%');
-            $newcomer = $newcomer->orWhere('email', 'like', '%'.$word.'%');
-            $newcomer = $newcomer->orWhere('login', 'like', '%'.$word.'%');
+            $students = $students->orWhere('login', 'like', '%'.$word.'%');
         }
 
         // Union between newcomers and students
-        $users = $students->union($newcomer)->get();
+        $users = $students->get();
 
         return View::make('dashboard.wei.search', ['users' => $users, 'search' => $input['search']]);
     }
