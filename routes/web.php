@@ -71,6 +71,16 @@ Route::group(['prefix' => 'dashboard'], function () {
             'uses' => 'DashboardController@getIndex'
         ]);
 
+        // Event model's routes
+        Route::group(['middleware' => 'authorize:admin'], function () {
+            Route::get('/event', ['uses' => 'EventController@index']);
+            Route::get('/event/create', ['uses' => 'EventController@create']);
+            Route::get('/event/edit/{id}', ['uses' => 'EventController@edit']);
+            Route::post('/event', ['uses' => 'EventController@store']);
+            Route::delete('/event/{id}', ['uses' => 'EventController@destroy']);
+            Route::put('/event/{id}', ['uses' => 'EventController@update']);
+        });
+
         // Delete, validate and edit referrals.
         Route::group(['prefix' => 'referrals'], function () {
             Route::get('/validation', [
@@ -490,7 +500,8 @@ Route::group(['prefix' => 'oauth'], function () {
 });
 
 // Newcomer website
-Route::get('/login', [
+Route::get('/
+', [
     'as'   => 'newcomer.auth.login',
     'uses' => 'authController@login'
 ]);

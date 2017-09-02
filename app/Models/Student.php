@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Laravel\Passport\HasApiTokens;
+use Hash;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Crypt;
@@ -9,6 +12,8 @@ use Config;
 
 class Student extends Model implements Authenticatable
 {
+    use HasApiTokens, Notifiable;
+
     public $table = 'students';
     public $timestamps = true;
 
@@ -51,7 +56,10 @@ class Student extends Model implements Authenticatable
         'medical_allergies',
         'medical_treatment',
         'medical_note',
-        'is_newcomer'
+        'is_newcomer',
+        'device_token',
+        'latitude',
+        'longitude'
     ];
 
     public $hidden = [
@@ -107,6 +115,27 @@ class Student extends Model implements Authenticatable
     ];
 
     /**
+     * Change the identifier for passport ('email' field by default, we want 'login')
+     *
+     * @param String $identifier the value of the 'username' parameter sent in the request
+     * @return User
+     */
+    public static function findForPassport($identifier) {
+        return Student::where('login', $identifier)->first();
+    }
+
+    /**
+     * Rewrite the way passport check if the password is right (because we encrypt the newcomer's passwords)
+     *
+     * @param String $password: the password sent as in the request
+     * @return Boolean
+     */
+    public function validateForPassportPasswordGrant($password) {
+        // decrypt the password of the user to compare it
+        return Crypt::decrypt($this->password) == $password;
+    }
+
+    /*
      * Accessors mail
      */
 
@@ -121,6 +150,7 @@ class Student extends Model implements Authenticatable
     {
         return intval($value);
     }
+
     /**
      * Return if underage
      */
@@ -164,6 +194,16 @@ class Student extends Model implements Authenticatable
         return $this->hasMany(Student::class, 'student_id', 'referral_id');
     }
 
+    /**
+     * Define the One-to-Many relation with Message;
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
+
     public function isStudent()
     {
         return !$this->isNewcomer();
@@ -179,7 +219,7 @@ class Student extends Model implements Authenticatable
      */
     public function godFather()
     {
-        return $this->belongsTo(Student::class, 'referral_id', 'student_id')->where('referral', true);
+        return $this->belongsTo(Student::class, 'referral_id', 'student_id');
     }
 
     public function mailHistories()
@@ -189,6 +229,14 @@ class Student extends Model implements Authenticatable
     public function getDates()
     {
         return ['created_at', 'updated_at', 'last_login', 'birth'];
+    }
+
+    /**
+     * The chekins that belong to the User.
+     */
+    public function students()
+    {
+        return $this->belongsToMany(Checkin::class);
     }
 
     /**

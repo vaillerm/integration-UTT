@@ -10,6 +10,7 @@ use View;
 use Crypt;
 use Redirect;
 use Auth;
+use Response;
 
 class AuthController extends Controller
 {

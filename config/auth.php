@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'newcomers',
+        'passwords' => 'students',
     ],
 
     /*
@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'newcomers',
+            'provider' => 'students',
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'newcomers',
+            'driver' => 'passport',
+            'provider' => 'students',
         ],
     ],
 
@@ -65,7 +65,7 @@ return [
     */
 
     'providers' => [
-        'newcomers' => [
+        'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
         ],

@@ -8,12 +8,119 @@ use EtuUTT;
 use Mail;
 use Request;
 use Redirect;
+use Response;
+use Auth;
+use DB;
 
 /**
  * Handle student management pages and administrators actions
  */
 class StudentsController extends Controller
 {
+
+    /**
+     * REST API method: GET on Student model
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->admin && !$user->secu) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+
+        $query = DB::table('students');
+
+        // apply query filters
+        if (Request::all()) {
+            foreach (Request::all() as $key => $value) {
+                $query = $query->where($key, $value);
+            }
+        }
+
+        // return all by default
+        return Response::json($query->get());
+    }
+
+    /**
+     * Return the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = Auth::guard('api')->user();
+
+        // if id is "0" in the route, it becomes the authenticated user's id
+        if ($id == "0") {
+            $id = $user->id;
+        }
+
+        $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
+
+        // check if authorized to see this user
+        if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
+            return Response::json($this->removeUnauthorizedFields($requested_user));
+        } else {
+            return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
+        }
+    }
+
+    /**
+     * Update the given student
+     *
+     * @param string $id: the id of the student to update
+     * @return Response
+     */
+    public function update($id)
+    {
+        $requester = Auth::guard('api')->user();
+
+        // check if the requester is authorized to update this User
+        if (!$requester->admin && $requester->id != $id) {
+            return Response::json(["message" => "You are not allowed to update this User."], 403);
+        }
+
+        $student = Student::find($id);
+        if (!$student) {
+            return Response::json(["message" => "Cant't find this Student."], 404);
+        }
+
+        $student->update(Request::all());
+
+        return Response::json($student);
+    }
+
+    /**
+     * Remove field that the requester can't see, depending of his roles
+     *
+     * @param Student $student
+     * @return Object
+     */
+    private function removeUnauthorizedFields($student)
+    {
+        $user = Auth::guard('api')->user();
+
+        unset($student->password);
+        unset($student->login);
+        unset($student->etuutt_access_token);
+        unset($student->etuutt_refresh_token);
+
+        // an admin can access all informations. If the user is not admin
+        // remove all the fields that can only be seen by an admin
+        if ($user->admin) {
+            return $student;
+        } else if ($user->id != $student->id) {
+            unset($student->medical_allergies);
+            unset($student->medical_treatment);
+            unset($student->medical_note);
+        }
+
+        return $student;
+    }
 
     /**
          * Display student list

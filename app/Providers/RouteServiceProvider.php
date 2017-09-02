@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes($router);
 
-        //
+        $this->mapApiRoutes($router);
     }
 
     /**
@@ -56,7 +56,25 @@ class RouteServiceProvider extends ServiceProvider
         $router->group([
             'namespace' => $this->namespace, 'middleware' => 'web',
         ], function ($router) {
-            require app_path('Http/routes.php');
+            require base_path('routes/web.php');
         });
     }
+
+    /**
+     * Define the "api" routes for the application
+     *
+     * @param \Illuminate\Routing\Router $router
+     * @return void
+     */
+    protected function mapApiRoutes(Router $router)
+    {
+        $router->group([
+            'middleware' => ['cors'],
+            'namespace' => $this->namespace,
+            'prefix' => 'api',
+        ], function ($router) {
+            require base_path('routes/api.php');
+        });
+    }
+
 }

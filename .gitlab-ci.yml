@@ -36,8 +36,8 @@ cache:
     # Add dokku to known hosts
     - ssh-keyscan -H $DOKKU_HOST >> ~/.ssh/known_hosts
   script:
-    - echo git push dokku@$DOKKU_HOST:$PROJECT_NAME master # debug
-    - git push dokku@$DOKKU_HOST:$PROJECT_NAME master
+    - echo git push dokku@$DOKKU_HOST:$PROJECT_NAME HEAD:refs/heads/master -f # debug
+    - git push dokku@$DOKKU_HOST:$PROJECT_NAME HEAD:refs/heads/master -f
 
 ###############################################################################
 #                                  Stages                                     #
@@ -46,7 +46,17 @@ stages:
   - deploy
 
 deploy_to_dokku:
+  variables:
+    BRANCH: 'master'
   <<: *deploy_definition
   only:
     - master
   environment: production
+
+deploy_to_dokku_dev:
+  variables:
+    PROJECT_NAME: 'integration-dev.uttnetgroup.fr'
+  <<: *deploy_definition
+  except:
+    - master
+  environment: Dev
