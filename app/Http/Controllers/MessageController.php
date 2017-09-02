@@ -52,7 +52,7 @@ class MessageController extends Controller
     public function store()
     {
         $user = $user = Auth::guard('api')->user();
-        
+
         // check if the user can access one of the channel
         if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
             return Response::json(["message" => "You are not allowed."], 403);
