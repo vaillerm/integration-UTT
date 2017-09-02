@@ -543,6 +543,7 @@ class WEIController extends Controller
             'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', 'wei_validated']);
         if (count($words) <= 1 && is_numeric($input['search'])) {
             $students = $students->where('id', $input['search']);
+            $students = $students->orWhere('student_id', $input['search']);
         }
         foreach ($words as $word) {
             $students = $students->orWhere('first_name', 'like', '%'.$word.'%');
