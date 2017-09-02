@@ -500,8 +500,7 @@ Route::group(['prefix' => 'oauth'], function () {
 });
 
 // Newcomer website
-Route::get('/
-', [
+Route::get('/login', [
     'as'   => 'newcomer.auth.login',
     'uses' => 'authController@login'
 ]);
