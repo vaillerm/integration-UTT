@@ -228,7 +228,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::where('student_id',$id)->firstOrFail();
+        $student = Student::where('id',$id)->firstOrFail();
         return View::make('dashboard.students.edit', [
             'student' => $student
         ]);
@@ -242,7 +242,7 @@ class StudentsController extends Controller
      */
     public function editSubmit($id)
     {
-        $student = Student::where('student_id', $id)->firstOrFail();
+        $student = Student::where('id', $id)->firstOrFail();
         $data = Request::only([
             'surname',
             'sex',
@@ -250,16 +250,27 @@ class StudentsController extends Controller
             'phone',
             'branch',
             'level',
-            'facebook',
-            'city',
-            'postal_code',
-            'country',
+            'parent_name',
+            'parent_phone',
+            'birth',
+            'allow_publicity',
             'referral',
+            'facebook',
             'referral_max',
             'referral_text',
             'referral_validated',
+            'city',
+            'postal_code',
+            'country',
+            'medical_allergies',
+            'medical_treatment',
+            'medical_note',
             'admin',
-            'orga']);
+            'orga',
+            'secu',
+            'wei_validated',
+            'parent_authorization'
+        ]);
         $this->validate(Request::instance(), [
             'surname' => 'max:50',
             'sex' => 'boolean',
@@ -284,23 +295,39 @@ class StudentsController extends Controller
             });
         }
 
-        // Update team informations
+        // Update student informations
         $student->surname = $data['surname'];
         $student->sex = $data['sex'];
         $student->email = $data['email'];
         $student->phone = $data['phone'];
         $student->branch = $data['branch'];
-        $student->level = $data['level'];
-        $student->facebook = $data['facebook'];
         $student->city = $data['city'];
         $student->postal_code = $data['postal_code'];
         $student->country = $data['country'];
-        $student->referral = !empty($data['referral']);
-        $student->referral_max = $data['referral_max'];
-        $student->referral_text = $data['referral_text'];
-        $student->referral_validated = !empty($data['referral_validated']);
-        $student->admin = (!empty($data['admin']))?100:0;
-        $student->orga = !empty($data['orga']);
+        $student->medical_allergies = $data['medical_allergies'];
+        $student->medical_treatment = $data['medical_treatment'];
+        $student->medical_note = $data['medical_note'];
+        $student->wei_validated = !empty($data['wei_validated']);
+        $student->parent_authorization = !empty($data['parent_authorization']);
+
+        if ($student->is_newcomer) {
+            $student->parent_name = $data['parent_name'];
+            $student->parent_phone = $data['parent_phone'];
+            $student->birth = $data['birth'];
+            $student->allow_publicity = !empty($data['allow_publicity']);
+        }
+        else {
+            $student->level = $data['level'];
+            $student->referral = !empty($data['referral']);
+            $student->facebook = $data['facebook'];
+            $student->referral_max = $data['referral_max'];
+            $student->referral_text = $data['referral_text'];
+            $student->referral_validated = !empty($data['referral_validated']);
+            $student->admin = (!empty($data['admin']))?100:0;
+            $student->orga = !empty($data['orga']);
+            $student->secu = !empty($data['secu']);
+        }
+
         $student->save();
 
         return Redirect::back()->withSuccess('Vos modifications ont été sauvegardées.');
