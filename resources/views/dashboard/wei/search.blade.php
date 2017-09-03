@@ -57,7 +57,7 @@ Recherche de participant au WEI
                             <td>{{ $user->id }}</td>
                             <td>{{{ $user->first_name . ' ' . $user->last_name . ' (' . $user->surname . ')' }}}</td>
                             <td>
-                                @if ($user->student)
+                                @if (!$user->is_newcomer)
                                     @if ($user->ce)
                                         <span class="label label-primary">CE</span>
                                     @endif
