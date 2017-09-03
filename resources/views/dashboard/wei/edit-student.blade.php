@@ -418,6 +418,41 @@ Modification d'un étudiant
                         @endif
                     </fieldset>
                 </form>
+                @if($user->is_newcomer)
+                    <form class="form-horizontal" action="{{ route('dashboard.wei.student.edit.submit', $user->id) }}" method="post" enctype="multipart/form-data">
+
+                        <fieldset>
+                            <legend id="parrainage">Autorisation parentale</legend>
+
+                            @if(!$user->isUnderage())
+                                <div class="callout callout-success">
+                                    Majeur ! Pas besoin d'autorisation !
+                                </div>
+                            @elseif($user->parent_authorization)
+                                <div class="callout callout-success">
+                                    Autorisation donnée !
+                                </div>
+                            @else
+
+                                <div class="form-group">
+                                    <label for="authorization1" class="col-lg-2 text-right">Autorisation parentale signée et récupérée</label>
+                                    <div class="col-lg-10">
+                                        <input type="checkbox" id="authorization1" name="authorization1" @if (old('authorization1')) checked="checked" @endif/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="authorization2" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière l'autorisation parentale</label>
+                                    <div class="col-lg-10">
+                                        <input type="checkbox" id="authorization2" name="authorization2" @if (old('authorization2')) checked="checked" @endif/>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-success form-control" value="Autorisation parentale récupérée" />
+                            @endif
+                        </fieldset>
+                    </form>
+                @endif
+
                 <fieldset class="panel">
                     <legend>Week-End</legend>
                     <div class="form-group">
