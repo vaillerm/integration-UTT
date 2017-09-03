@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Team;
 use App\Models\Faction;
 use App\Models\Newcomer;
+use App;
 use View;
 use Excel;
 use Request;
@@ -202,5 +203,25 @@ class PagesController extends Controller
     public function getDeals()
     {
         return View::make('newcomer.deals');
+    }
+
+    /**
+     * @return Response
+     */
+    public function getQrCode($id)
+    {
+        if (!$id || !filter_var($id, FILTER_VALIDATE_INT)
+            && $id > 0 && $id < 100000) {
+            return App::abort(401);
+        }
+
+        if (!file_exists(storage_path() . '/qrcodes/' . $id . '.png')) {
+            \PHPQRCode\QRcode::png($id, storage_path() . '/qrcodes/' . $id . '.png', 2, 25, 2);
+        }
+
+        return response()->file(storage_path() . '/qrcodes/' . $id . '.png');
+
+
+        // return View::make('newcomer.deals');
     }
 }

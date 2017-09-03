@@ -36,6 +36,11 @@ Route::group(['middleware' => 'oauth'], function () {
     ]);
 });
 
+Route::get('/qrcode/{id}.png', [
+    'as'   => 'pages.qrcode',
+    'uses' => 'PagesController@getQrCode'
+]);
+
 Route::group(['prefix' => 'referrals'], function () {
     Route::group(['middleware' => 'oauth'], function () {
         Route::get('/firsttime', [

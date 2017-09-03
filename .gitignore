@@ -6,5 +6,6 @@ Homestead.json
 .env
 .idea
 storage/debugbar
+storage/qrcodes/
 
 /storage/oauth-*
