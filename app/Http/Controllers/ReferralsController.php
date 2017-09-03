@@ -209,14 +209,14 @@ class ReferralsController extends Controller
     public function signsTC()
     {
         return View::make('dashboard.referrals.signs', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->orderBy('last_name')->get(),
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->with('newcomers')->where('branch', 'TC')->orderBy('last_name')->get(),
         ]);
     }
 
     public function slidesTC()
     {
         return View::make('dashboard.referrals.slides', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->orderBy('last_name')->get(),
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->with('newcomers')->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 
@@ -224,14 +224,14 @@ class ReferralsController extends Controller
     public function signsBranch()
     {
         return View::make('dashboard.referrals.signs', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->get(),
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 
     public function slidesBranch()
     {
         return View::make('dashboard.referrals.slides', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->get(),
+            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 }
