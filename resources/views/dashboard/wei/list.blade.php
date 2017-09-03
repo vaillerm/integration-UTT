@@ -96,11 +96,7 @@ Liste de toutes les personnes inscrits au WEI
                         </td>
                         <td class=".hidden-print">
                             <a class="btn btn-xs btn-info" href="{{ route('dashboard.students.edit', [ 'id' => $user->id ])}}">Utilisateur</a>
-                            @if($user->isStudent())
-                                <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">WEI</a>
-                            @else
-                                <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.newcomer.edit', [ 'id' => $user->id ])}}">WEI</a>
-                            @endif
+                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">WEI</a>
                         </td>
                     </tr>
                 @endforeach

@@ -346,18 +346,6 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'WEIController@studentEditSubmit'
             ]);
 
-            Route::get('/edit/newcomer/{id}', [
-                'as'   => 'dashboard.wei.newcomer.edit',
-                'middleware' => 'authorize:moderator',
-                'uses' => 'WEIController@newcomerEdit'
-            ]);
-
-            Route::post('/edit/newcomer/{id}', [
-                'as'   => 'dashboard.wei.newcomer.edit.submit',
-                'middleware' => 'authorize:moderator',
-                'uses' => 'WEIController@newcomerEditSubmit'
-            ]);
-
             Route::get('/checkin/{type}/{id}', [
                 'as'   => 'dashboard.wei.checkin',
                 'middleware' => 'authorize:moderator',
