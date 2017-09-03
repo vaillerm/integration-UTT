@@ -191,7 +191,7 @@ class Student extends Model implements Authenticatable
      */
     public function newcomers()
     {
-        return $this->hasMany(Student::class, 'student_id', 'referral_id');
+        return $this->hasMany(Student::class, 'referral_id', 'student_id');
     }
 
     /**
