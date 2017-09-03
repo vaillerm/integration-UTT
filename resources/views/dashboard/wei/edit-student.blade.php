@@ -263,6 +263,9 @@ Modification d'un étudiant
                                         <option value="cash" @if ((old('mean')) == 'cash') selected="selected" @endif>Espèce</option>
                                         <option value="check" @if ((old('mean')) == 'check') selected="selected" @endif>Chèque</option>
                                         <option value="card" @if ((old('mean')) == 'card') selected="selected" @endif>CB</option>
+                                        @if (Auth::user()->isAdmin())
+                                            <option value="free" @if ((old('mean')) == 'free') selected="selected" @endif>Partenaire</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>

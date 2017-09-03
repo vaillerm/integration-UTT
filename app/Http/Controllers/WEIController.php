@@ -645,12 +645,23 @@ class WEIController extends Controller
         // WEI payment form
         if (Request::has(['wei', 'sandwich', 'wei-total'])) {
             $input = Request::only(['wei', 'sandwich', 'wei-total', 'mean', 'cash-number', 'cash-color', 'check-number', 'check-bank', 'check-name', 'check-write', 'card-write']);
-            $rules = [
-                'wei' => 'required',
-                'sandwich' => 'required',
-                'wei-total' => 'required',
-                'mean' => 'required|in:card,check,cash',
-            ];
+            if(Auth::user()->isAdmin())
+            {
+                $rules = [
+                    'wei' => 'required',
+                    'sandwich' => 'required',
+                    'wei-total' => 'required',
+                    'mean' => 'required|in:card,check,cash,free',
+                ];
+            } else {
+                $rules = [
+                    'wei' => 'required',
+                    'sandwich' => 'required',
+                    'wei-total' => 'required',
+                    'mean' => 'required|in:card,check,cash',
+                ];
+            }
+
             $informations = [];
             switch ($input['mean']) {
                 case 'card':
@@ -714,6 +725,9 @@ class WEIController extends Controller
             if ($amount/100 != $input['wei-total']) {
                 return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
             }
+
+            if($input['mean'] == 'free')
+                $amount = 0;
 
             // Create payment
             $payment = new Payment([
