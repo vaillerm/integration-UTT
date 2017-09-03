@@ -309,7 +309,7 @@ Modification d'un étudiant
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="check-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le chèque</label>
+                                    <label for="check-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le chèque</label>
                                     <div class="col-lg-10">
                                         <input type="checkbox" id="check-write" name="check-write" @if (old('check-write')) checked="checked" @endif/>
                                     </div>
@@ -317,7 +317,7 @@ Modification d'un étudiant
                             </div>
                             <div class="input-card">
                                 <div class="form-group">
-                                    <label for="card-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le ticket et le mettre dans la caisse</label>
+                                    <label for="card-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le ticket et le mettre dans la caisse</label>
                                     <div class="col-lg-10">
                                         <input type="checkbox" id="card-write" name="card-write" @if (old('card-write')) checked="checked" @endif/>
                                     </div>
@@ -408,7 +408,7 @@ Modification d'un étudiant
                             </div>
 
                             <div class="form-group">
-                                <label for="check2-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->student_id }}</strong> derrière le chèque</label>
+                                <label for="check2-write" class="col-lg-2 text-right">Écrire le numéro <strong>{{ $user->id }}</strong> derrière le chèque</label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" id="check2-write" name="check2-write" @if (old('check2-write')) checked="checked" @endif/>
                                 </div>
