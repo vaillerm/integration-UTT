@@ -618,14 +618,11 @@ class WEIController extends Controller
 
         // Profil form
         $list = ['email', 'phone', 'parent_name', 'parent_phone', 'medical_allergies', 'medical_treatment', 'medical_note'];
-        if ($student->is_newcomer && Request::has('fullName')) {
+        if ($student->is_newcomer && Request::has('email')) {
             $input = Request::only($list);
             $this->validate(Request::instance(), [
                 'email' => 'email|required',
-                'phone' => [
-                    'regex:/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/',
-                    'required',
-                ],
+                'phone' => 'required',
                 'parent_name' => 'required',
                 'parent_phone' => 'required',
             ],
@@ -633,33 +630,37 @@ class WEIController extends Controller
                 'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone français valide.'
             ]);
 
-            $newcomer->update($input);
+            $student->update($input);
 
-            if (preg_match('/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', Request::get('phone'), $m)) {
-                $newcomer->phone = '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6];
-            } elseif (Request::get('phone') == '') {
-                $newcomer->phone = '';
-            }
+            $student->setCheck('profil_email', !empty($student->email));
+            $student->setCheck('profil_phone', !empty($student->phone));
+            $student->setCheck('profil_parent_name', !empty($student->parent_name));
+            $student->setCheck('profil_parent_phone', !empty($student->parent_phone));
 
-            $newcomer->setCheck('profil_email', !empty($newcomer->email));
-            $newcomer->setCheck('profil_phone', !empty($newcomer->phone));
-            $newcomer->setCheck('profil_parent_name', !empty($newcomer->parent_name));
-            $newcomer->setCheck('profil_parent_phone', !empty($newcomer->parent_phone));
+            $student->save();
 
-            $newcomer->save();
-
-            return Redirect(route('dashboard.wei.newcomer.edit', ['id' => $newcomer->id]))->withSuccess('Vos modifications ont été enregistrées.');
+            return Redirect(route('dashboard.wei.student.edit', ['id' => $student->id]))->withSuccess('Vos modifications ont été enregistrées.');
         }
 
         // WEI payment form
         if (Request::has(['wei', 'sandwich', 'wei-total'])) {
             $input = Request::only(['wei', 'sandwich', 'wei-total', 'mean', 'cash-number', 'cash-color', 'check-number', 'check-bank', 'check-name', 'check-write', 'card-write']);
-            $rules = [
-                'wei' => 'required',
-                'sandwich' => 'required',
-                'wei-total' => 'required',
-                'mean' => 'required|in:card,check,cash',
-            ];
+            if(Auth::user()->isAdmin())
+            {
+                $rules = [
+                    'wei' => 'required',
+                    'sandwich' => 'required',
+                    'wei-total' => 'required',
+                    'mean' => 'required|in:card,check,cash,free',
+                ];
+            } else {
+                $rules = [
+                    'wei' => 'required',
+                    'sandwich' => 'required',
+                    'wei-total' => 'required',
+                    'mean' => 'required|in:card,check,cash',
+                ];
+            }
             $informations = [];
             switch ($input['mean']) {
                 case 'card':
@@ -724,6 +725,10 @@ class WEIController extends Controller
                 return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
             }
 
+            if($input['mean'] == 'free') {
+                $amount = 0;
+            }
+
             // Create payment
             $payment = new Payment([
                 'type' => 'payment',
@@ -744,7 +749,6 @@ class WEIController extends Controller
             }
             $user->updateWei();
             $user->save();
-
 
             return Redirect(route('dashboard.wei.student.edit', ['id' => $student->id]))->withSuccess('Vos modifications ont été enregistrées.');
         }
