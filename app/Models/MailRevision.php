@@ -15,7 +15,8 @@ class MailRevision extends Model
         }
 
         $user = $user->load(['team', 'godFather']);
-        $user_dot = array_dot($user);
+        $user_array = $user->toArray();
+        $user_dot = array_dot($user_array);
 
         $content = '';
 
@@ -23,7 +24,7 @@ class MailRevision extends Model
             $content = $this->content;
             foreach ($user_dot as $key=>$value)
             {
-                //$content = str_replace('%'.$key.'%', $value, $content);
+                $content = str_replace('%'.$key.'%', $value, $content);
             }
         }
         return view('emails.template.'.$this->template, [
