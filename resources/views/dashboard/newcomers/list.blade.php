@@ -125,6 +125,7 @@ Affichage des profils
                         <td>{{ ((isset($newcomer->guaranteePayment) && $newcomer->guaranteePayment->state == 'paid')?'Oui':'Non') }}</td>
                         <td>
                             <a href="{{ route('dashboard.newcomers.letter', ['id' => $newcomer->id ]) }}" class="btn btn-success btn-xs">Lettre</a>
+                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $newcomer->id ])}}">Modifier</a>
                         </td>
                     </tr>
                 @endforeach

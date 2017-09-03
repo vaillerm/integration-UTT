@@ -114,7 +114,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois.
                             @endif
                         </td>
                         <td>
-                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $referral->student_id ])}}">Modifier</a>
+                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $referral->id ])}}">Modifier</a>
                         </td>
                     </tr>
                 @endforeach
