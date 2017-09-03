@@ -9,6 +9,14 @@ Recherche de participant au WEI
 
 @section('content')
 
+@section('js')
+    <script>
+    $(function(){
+        $('#search').focus();
+    })
+    </script>
+@endsection
+
 <div class="callout callout-info">
     <h4>Information !</h4>
     <p>Vous pouvez rechercher les anciens et les nouveaux par</p>
@@ -31,7 +39,7 @@ Recherche de participant au WEI
     </div>
     <div class="box-body">
         <form action="{{ route('dashboard.wei.search.submit') }}" method="post">
-            <input name="search" class="form-control text-center" value="{{{ old('search') ?? $search ?? '' }}}" min="2" max="60" required placeholder="Nom, Prénom, ...">
+            <input name="search" id="search" class="form-control text-center" value="{{{ old('search') ?? $search ?? '' }}}" min="2" max="60" required placeholder="Nom, Prénom, ...">
             <input type="submit" class="btn btn-success form-control" value="Rechercher">
         </form>
     </div>

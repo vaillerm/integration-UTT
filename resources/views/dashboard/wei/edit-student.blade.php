@@ -460,7 +460,7 @@ Modification d'un étudiant
                     </div>
                     <div class="form-group">
                         @if(!$user->checkin)
-                            <a href="{{ route('dashboard.wei.checkin', ['type'=> 'students', 'id'=> (int)$user->student_id]) }}" class="btn btn-success form-control">Check-In</a>
+                            <a href="{{ route('dashboard.wei.checkin', ['id'=> (int)$user->id]) }}" class="btn btn-success form-control">Check-In</a>
                         @else
                             <div class="callout callout-warning">
                                 Check-In déja effectué

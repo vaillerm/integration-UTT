@@ -830,20 +830,13 @@ class WEIController extends Controller
         return Redirect(route('dashboard.wei.student.edit', ['id' => $student->id]))->withError('Formulaire non remplis !');
     }
 
-    public function checkIn($type, $id)
+    public function checkIn($id)
     {
-        if($type == "newcomers")
-        {
-            $user = Student::newcomer()->findOrFail($id);
-        }elseif($type == "students")
-        {
-            $user = Student::findOrFail($id);
-        }else abort(404, 'Inconnu type');
-
+        $user = Student::findOrFail($id);
         $user->checkin = true;
         $user->save();
 
-        return \Illuminate\Support\Facades\Redirect::back();
+        return Redirect(route('dashboard.wei.search'))->withSuccess('Le checkin a bien été enregistré.');
     }
 
 
@@ -856,7 +849,7 @@ class WEIController extends Controller
         // Find students
         $students = Student::select(['student_id','is_newcomer', 'id', 'first_name', 'last_name', 'phone',
         'wei_payment', 'sandwich_payment', 'guarantee_payment', 'parent_authorization',
-        DB::raw('(ce AND team_accepted) AS ce'), 'volunteer', 'orga', 'wei_validated'])
+        DB::raw('(ce AND team_accepted) AS ce'), 'volunteer', 'orga', 'wei_validated', 'checkin'])
         ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment')->get();
 
 
