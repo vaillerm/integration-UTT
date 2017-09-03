@@ -170,6 +170,7 @@ Modification d'un étudiant
                                     <option value="cash" @if ((old('mean')) == 'cash') selected="selected" @endif>Espèce</option>
                                     <option value="check" @if ((old('mean')) == 'check') selected="selected" @endif>Chèque</option>
                                     <option value="card" @if ((old('mean')) == 'card') selected="selected" @endif>CB</option>
+                                    <option value="free" @if ((old('mean')) == 'free') selected="selected" @endif>Partenaire</option>
                                 </select>
                             </div>
                         </div>
