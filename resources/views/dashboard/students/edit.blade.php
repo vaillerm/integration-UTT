@@ -369,6 +369,8 @@ Modification de profil
                         <label for="wei" class="col-lg-2 text-right">wei</label>
                         <div class="col-lg-10">
                             <input type="checkbox" id="wei" name="wei" @if (old('wei') ?? ($student->wei == 1)) checked="checked" @endif disabled/>
+                            <br/>
+                            <small class="text-muted">A effectué au moins le paiement ou la caution du wei. Et compte donc déjà dans les inscrits au wei, même si son inscription est incomplète.</small>
                         </div>
                     </div>
 
