@@ -135,11 +135,10 @@ class WEIController extends Controller
      */
     public function newcomersHome()
     {
-        $sandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $underage = (Auth::user()->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
-        $count = Student::newcomer()->where('wei', 1)->count();
+        $sandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
+        $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded']))?1:0);
+        $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
+        $count = Student::where('is_newcomer', 1)->where('wei', 1)->count();
 
         Auth::user()->updateWei();
 
@@ -147,7 +146,6 @@ class WEIController extends Controller
             'sandwich' => $sandwich,
             'wei' => $wei,
             'guarantee' => $guarantee,
-            'underage' => $underage,
             'count' => $count,
         ]);
     }
@@ -181,8 +179,8 @@ class WEIController extends Controller
         $input = Request::only(['wei', 'sandwich', 'cgv']);
 
         // Check errors
-        $oldSandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $oldWei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
+        $oldSandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
+        $oldWei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded']))?1:0);
         $sandwich = ($input['sandwich'])?1:0;
         $wei = ($input['wei'])?1:0;
 
@@ -245,7 +243,7 @@ class WEIController extends Controller
      */
     public function newcomersGuarantee()
     {
-        if (Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded'])) {
+        if (Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded'])) {
             return Redirect(route('newcomer.wei.authorization'))->withSuccess('Vous avez déjà donné votre caution !');
         }
         return View::make('newcomer.wei.guarantee');
@@ -260,7 +258,7 @@ class WEIController extends Controller
     {
         $input = Request::only(['guarantee', 'cgv']);
         // Check errors
-        $oldGuarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
+        $oldGuarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
         $guarantee = ($input['guarantee'])?1:0;
         if ($input['guarantee'] && $oldGuarantee) {
             return Redirect::back()->withError('Vous ne pouvez pas payer deux fois la caution')->withInput();
@@ -326,9 +324,9 @@ class WEIController extends Controller
      */
     public function etuHome()
     {
-        $sandwich = ((EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $wei = ((EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $guarantee = ((EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
+        $sandwich = ((EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
+        $wei = ((EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'refunded']))?1:0);
+        $guarantee = ((EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
         $validated = (EtuUTT::student()->wei_validated?1:0);
 
         return View::make('dashboard.wei.home', [
@@ -380,8 +378,8 @@ class WEIController extends Controller
         $input = Request::only(['wei', 'sandwich', 'cgv']);
 
         // Check errors
-        $oldSandwich = ((EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'returned', 'refunded']))?1:0);
-        $oldWei = ((EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'returned', 'refunded']))?1:0);
+        $oldSandwich = ((EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
+        $oldWei = ((EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'refunded']))?1:0);
         $sandwich = ($input['sandwich'])?1:0;
         $wei = ($input['wei'])?1:0;
 
@@ -452,7 +450,7 @@ class WEIController extends Controller
      */
     public function etuGuarantee()
     {
-        if (EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'returned', 'refunded'])) {
+        if (EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'refunded'])) {
             return Redirect(route('dashboard.wei.authorization'))->withSuccess('Vous avez déjà donné votre caution !');
         }
         return View::make('dashboard.wei.guarantee');
@@ -468,7 +466,7 @@ class WEIController extends Controller
         $input = Request::only(['guarantee', 'cgv']);
 
         // Check errors
-        $oldGuarantee = ((EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'returned', 'refunded']))?1:0);
+        $oldGuarantee = ((EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
         $guarantee = ($input['guarantee'])?1:0;
 
         if ($input['guarantee'] && $oldGuarantee) {

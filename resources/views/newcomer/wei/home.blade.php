@@ -97,7 +97,7 @@ Le Week-End d'Intégration
                             </a></big><br/>
                     @endif
 
-                    @if($underage)
+                    @if(Auth::user()->isUnderage())
                         @if(Auth::user()->parent_authorization)
                             <big>
                                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
