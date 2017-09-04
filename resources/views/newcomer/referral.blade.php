@@ -11,7 +11,7 @@ La personne qui te guidera tout au long de ta vie à l'UTT
 @section('content')
 <div class="box box-default">
 
-    @if(!Auth::user()->godFather)
+    @if(Auth::user()->referral_id === null)
         <div class="box-header with-border">
             <h3 class="box-title">Pourquoi avoir un parrain ?</h3>
         </div>

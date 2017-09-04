@@ -244,7 +244,7 @@ class NewcomersController extends Controller
     public function referralForm($step = '')
     {
         $user = Auth::user();
-        if ($user->referral == null) {
+        if ($user->referral_id == null) {
             $user->setCheck('referral', true);
             $user->save();
         }
