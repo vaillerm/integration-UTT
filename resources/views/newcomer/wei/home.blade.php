@@ -138,7 +138,7 @@ Le Week-End d'Intégration
     @elseif($count >= Config::get('services.wei.newcomerMax'))
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">On est vraiment désolés, il n'y a plus de places disponibles pour le WEI. :(</h3>
+                <h3 class="box-title">On est vraiment désolés, il n'y a plus de places disponibles pour le WEI :(</h3>
             </div>
         </div>
     @else

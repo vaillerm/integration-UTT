@@ -49,7 +49,7 @@ class Authorization
             }
 
             // Action verification
-            $count = Student::where('wei', 1)->count();
+            $count = Student::where('is_newcomer', 1)->where('wei', 1)->count();
             switch ($action) {
                 case 'wei':
                     if (!Auth::user()->wei
