@@ -19,7 +19,7 @@
 
     <div class="box box-default">
         <div class="box-body table-responsive">
-            <form action="{{ url('dashboard/checkin') }}" method="post">
+            <form action="{{ url('dashboard/checkin') }}" method="post" id="checkinForm">
                 <div class="form-group">
                     <label for="name">Nom du checkin</label>
                     <input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -29,13 +29,13 @@
                     <label for="name">Ajouter par nom</label>
                     <input type="text" class="form-control" id="student_autocomplete">
                 </div>
+
                 <div id="student_autocomplete_matches_container">
                     <div id="student_autocomplete_matches"></div>
                 </div>
-
                 <ul class="list-group" id="student_autocomplete_selected_container"></ul>
 
-                <button type="submit" class="btn btn-success">Créer le checkin</button>
+                <button type="submit" id="checkinFormSubmit" class="btn btn-success">Créer le checkin</button>
             </form>
         </div>
     </div>

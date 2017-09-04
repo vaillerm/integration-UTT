@@ -92,6 +92,7 @@ class CheckinController extends Controller
         }
 
         $checkin = Checkin::create(array_merge(Request::all(), ['prefilled' => true]));
+        $checkin->students()->attach(Request::get('students'));
         return redirect('dashboard/checkin');
     }
 

@@ -9,6 +9,12 @@ $(document).ready(function() {
         }
     });
 
+    $('#checkinFormSubmit').on('click', function(event) {
+        event.preventDefault();
+        getSelectedStudentsIds().map(id => $(this).append(`<input name="students[]" type="hidden" value=${id}>`))
+        $("#checkinForm").submit();
+    });
+
     function refreshStudents(name) {
         $.ajax({
             url: `/api/student/autocomplete?name=${name}`,

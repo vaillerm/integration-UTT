@@ -42,7 +42,9 @@ class Checkin extends Model
 	 */
 	public static function webStoreRules() {
 		return [
-			'name' => 'required|string|unique:checkins,name'
+			'name' => 'required|string|unique:checkins,name',
+            'students' => 'required|array',
+            'students.*' => 'exists:students,id'
 		];
 	}
 
