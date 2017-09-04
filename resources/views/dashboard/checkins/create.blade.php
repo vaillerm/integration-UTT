@@ -19,7 +19,7 @@
 
     <div class="box box-default">
         <div class="box-body table-responsive">
-            <form action="{{ url('dashboard/checkin') }}" method="post" id="checkinForm">
+            <form autocomplete="off" action="{{ url('dashboard/checkin') }}" method="post" id="checkinForm">
                 <div class="form-group">
                     <label for="name">Nom du checkin</label>
                     <input type="text" class="form-control" name="name" value="{{ old('name') }}">

@@ -16,7 +16,7 @@
 
     <div class="box box-default">
         <div class="box-body table-responsive">
-            <form action="{{ url('dashboard/checkin/'.$checkin->id) }}" id="checkinForm" method="post">
+            <form autocomplete="off" action="{{ url('dashboard/checkin/'.$checkin->id) }}" id="checkinForm" method="post">
                 {{ method_field('PUT') }}
                 <div class="form-group">
                     <label for="name">Nom du checkin</label>
