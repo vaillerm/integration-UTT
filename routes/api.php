@@ -3,6 +3,10 @@
 Route::get('/oauth/etuutt/link', ['uses' => 'OAuthController@getRedirectLink']);
 Route::post('/oauth/etuutt/callback', ['uses' => 'OAuthController@mobileCallback']);
 
+
+Route::get('/student/autocomplete', ['uses' => 'StudentsController@autocomplete']);
+
+
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('/oauth/token/revoke', ['uses' => 'OAuthController@revokeApiToken']);
