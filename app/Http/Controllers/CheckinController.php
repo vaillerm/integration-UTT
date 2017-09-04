@@ -124,9 +124,14 @@ class CheckinController extends Controller
         // the email is already check by the validator, so this student exists
         $student = Student::where('email', Request::get('email'))->first();
 
-        // attach only if not already attached
-        if (!$checkin->students->contains($student->id)) {
-            $checkin->students()->attach($student->id);
+        if ($checkin->prefilled) {
+            // prefilled checkin, so we just have to set check to true in pivot table
+            $checkin->students()->sync([$student->id => ['checked' => true] ], false);
+        } else {
+            // attach the student to the checkin
+            if (!$checkin->students->contains($student->id)) {
+                $checkin->students()->attach($student->id);
+            }
         }
 
         return Response::json(Checkin::with('students')->find($id));
