@@ -153,7 +153,7 @@ class CheckinController extends Controller
     public function update($id)
     {
         // validate the request inputs
-        $validator = Validator::make(Request::all(), Checkin::webStoreRules());
+        $validator = Validator::make(Request::all(), Checkin::webUpdateRules($id));
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
@@ -161,6 +161,7 @@ class CheckinController extends Controller
         $checkin = Checkin::find($id);
         $checkin->fill(Request::all());
         $checkin->save();
+        $checkin->students()->sync(Request::get('students'));
 
         return redirect('dashboard/checkin');
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 use App\Models\Student;
 use Auth;
@@ -43,6 +44,25 @@ class Checkin extends Model
 	public static function webStoreRules() {
 		return [
 			'name' => 'required|string|unique:checkins,name',
+            'students' => 'required|array',
+            'students.*' => 'exists:students,id'
+		];
+	}
+
+    /**
+	 * Define constraints of the Model's attributes for update action
+     * from web requests
+	 *
+     * @param string $checkinId : the checkin to update
+	 * @return array
+	 */
+	public static function webUpdateRules($checkinId) {
+		return [
+			'name' => [
+                'required',
+                'string',
+                Rule::unique('checkins')->ignore($checkinId)
+            ],
             'students' => 'required|array',
             'students.*' => 'exists:students,id'
 		];

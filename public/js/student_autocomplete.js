@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    listenRemoveStudent();
+
     $("#student_autocomplete").on('input', function() {
         const name = $(this).val();
         if (name.length > 2) {
@@ -42,13 +44,17 @@ $(document).ready(function() {
                         `);
                     }
 
-                    $(".autocomplete_remove").on('click', function() {
-                        $(this).parent().remove();
-                    });
+                    listenRemoveStudent();
 
                 });
             }
         })
+    }
+
+    function listenRemoveStudent() {
+        $(".autocomplete_remove").on('click', function() {
+            $(this).parent().remove();
+        });
     }
 
     /**

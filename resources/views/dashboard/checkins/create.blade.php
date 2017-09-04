@@ -29,7 +29,6 @@
                     <label for="name">Ajouter par nom</label>
                     <input type="text" class="form-control" id="student_autocomplete">
                 </div>
-
                 <div id="student_autocomplete_matches_container">
                     <div id="student_autocomplete_matches"></div>
                 </div>
