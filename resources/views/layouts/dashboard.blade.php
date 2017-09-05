@@ -13,7 +13,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <nav class="navbar navbar-static-top">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
                                 <span class="sr-only">Toggle navigation</span>
@@ -42,6 +42,7 @@
                                     <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
                                     <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
                                     <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>
+                                    <li><a href="{{ url('dashboard/checkin') }}">Checkins</a></li>
                                     <li><a href="{{ route('dashboard.emails.index') }}">Mails</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>

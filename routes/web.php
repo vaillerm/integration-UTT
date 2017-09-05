@@ -86,6 +86,16 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::put('/event/{id}', ['uses' => 'EventController@update']);
         });
 
+        // Checkin model's routes
+        Route::group(['middleware' => 'authorize:admin'], function () {
+            Route::get('/checkin', ['uses' => 'CheckinController@index']);
+            Route::get('/checkin/create', ['uses' => 'CheckinController@create']);
+            Route::get('/checkin/edit/{id}', ['uses' => 'CheckinController@edit']);
+            Route::post('/checkin', ['uses' => 'CheckinController@store']);
+            Route::delete('/checkin/{id}', ['uses' => 'CheckinController@destroy']);
+            Route::put('/checkin/{id}', ['uses' => 'CheckinController@update']);
+        });
+
         // Delete, validate and edit referrals.
         Route::group(['prefix' => 'referrals'], function () {
             Route::get('/validation', [

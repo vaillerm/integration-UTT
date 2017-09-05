@@ -45,6 +45,28 @@ class StudentsController extends Controller
     }
 
     /**
+     * Return the students that match the name in the request
+     *
+     * @return Response
+     */
+    public function autocomplete()
+    {
+        if (!Request::has('name')) {
+            return Response::json(array(["message" => "Missing name parameter."]), 400);
+        }
+
+        $parts = explode(' ', Request::get('name'));
+        $query = DB::table('students');
+        for ($i = 0; $i < sizeof($parts); $i++) {
+            $query = $query
+                ->whereRaw("lower(first_name) like '".strtolower($parts[$i])."%'")
+                ->orWhereRaw("lower(last_name) like '".strtolower($parts[$i])."%'");
+        }
+
+        return Response::json($query->get());
+    }
+
+    /**
      * Return the specified resource.
      *
      * @param  string  $id
