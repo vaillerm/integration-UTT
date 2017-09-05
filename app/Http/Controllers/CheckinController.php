@@ -126,7 +126,7 @@ class CheckinController extends Controller
 
         if ($checkin->prefilled) {
             // if user is admin and there is a force attribute, add the user to the prefilled checkin
-            if (Request::has('force') && $$user->admin) {
+            if (Request::has('force') && Request::get('force') && $user->admin) {
                 $checkin->students()->attach($student->id);
             }
             // prefilled checkin, so we just have to set check to true in pivot table
