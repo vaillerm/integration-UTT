@@ -125,8 +125,17 @@ class CheckinController extends Controller
         $student = Student::where('email', Request::get('email'))->first();
 
         if ($checkin->prefilled) {
+            // if user is admin and there is a force attribute, add the user to the prefilled checkin
+            if (Request::has('force') && $$user->admin) {
+                $checkin->students()->attach($student->id);
+            }
             // prefilled checkin, so we just have to set check to true in pivot table
-            $checkin->students()->sync([$student->id => ['checked' => true] ], false);
+            if ($checkin->students->contains($student->id)) {
+                $checkin->students()->sync([$student->id => ['checked' => true] ], false);
+            } else {
+                // try to check a student who is not in the prefilled students
+                return Response::json(["message" => "Pas dans la liste."], 403);
+            }
         } else {
             // attach the student to the checkin
             if (!$checkin->students->contains($student->id)) {
