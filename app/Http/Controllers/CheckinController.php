@@ -140,6 +140,7 @@ class CheckinController extends Controller
             // attach the student to the checkin
             if (!$checkin->students->contains($student->id)) {
                 $checkin->students()->attach($student->id);
+                $checkin->students()->sync([$student->id => ['checked' => true] ], false);
             }
         }
 
