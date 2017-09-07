@@ -75,7 +75,7 @@ class Checkin extends Model
 	 */
 	public static function addStudentRules() {
 		return [
-			'email' => 'required|email|exists:students,email'
+			'uid' => 'required|numeric|exists:students,id'
 		];
 	}
 

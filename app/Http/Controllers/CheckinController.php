@@ -122,7 +122,7 @@ class CheckinController extends Controller
         }
 
         // the email is already check by the validator, so this student exists
-        $student = Student::where('email', Request::get('email'))->first();
+        $student = Student::find(Request::get('uid'));
 
         if ($checkin->prefilled) {
             // if user is admin and there is a force attribute, add the user to the prefilled checkin
