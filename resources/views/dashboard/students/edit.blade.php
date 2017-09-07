@@ -408,6 +408,13 @@ Modification de profil
                             <input type="checkbox" id="parent_authorization" name="parent_authorization" @if (old('parent_authorization') ?? ($student->parent_authorization == 1)) checked="checked" @endif/>
                         </div>
                     </div>
+
+                <div class="form-group">
+                    <label for="bus_id" class="col-lg-2 control-label">Numéro du bus</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" name="bus_id" id="bus_id" placeholder="Numéro du bus" type="text" value="{{ old('bus_id') ?? $student->bus_id }}">
+                    </div>
+                </div>
             </fieldset>
 
 

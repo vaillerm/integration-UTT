@@ -59,7 +59,8 @@ class Student extends Model implements Authenticatable
         'is_newcomer',
         'device_token',
         'latitude',
-        'longitude'
+        'longitude',
+        'bus_id',
     ];
 
     public $hidden = [

@@ -291,7 +291,8 @@ class StudentsController extends Controller
             'orga',
             'secu',
             'wei_validated',
-            'parent_authorization'
+            'parent_authorization',
+            'bus_id',
         ]);
         $this->validate(Request::instance(), [
             'surname' => 'max:50',
@@ -331,6 +332,7 @@ class StudentsController extends Controller
         $student->medical_note = $data['medical_note'];
         $student->wei_validated = !empty($data['wei_validated']);
         $student->parent_authorization = !empty($data['parent_authorization']);
+        $student->bus_id = $data['bus_id'];
 
         if ($student->is_newcomer) {
             $student->parent_name = $data['parent_name'];
