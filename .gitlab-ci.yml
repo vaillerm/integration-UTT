@@ -2,7 +2,7 @@
 #                               Variables                                     #
 ###############################################################################
 variables:
-    DOKKU_HOST: 'dokku.uttnetgroup.net'
+    DOKKU_HOST: 'node1.dokku.uttnetgroup.net'
     PROJECT_NAME: 'integration.utt.fr'
 
 ###############################################################################
@@ -36,7 +36,6 @@ cache:
     # Add dokku to known hosts
     - ssh-keyscan -H $DOKKU_HOST >> ~/.ssh/known_hosts
   script:
-    - echo git push dokku@$DOKKU_HOST:$PROJECT_NAME HEAD:refs/heads/master -f # debug
     - git push dokku@$DOKKU_HOST:$PROJECT_NAME HEAD:refs/heads/master -f
 
 ###############################################################################
