@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Newcomer;
 use App\Models\Student;
+use App\Models\Team;
 use \Carbon\Carbon;
 use App\Models\WEIRegistration;
 use App\Models\Payment;
-use Request;
 use Redirect;
 use Config;
+use Symfony\Component\HttpFoundation\Request;
 use View;
 use Auth;
 use Illuminate\Encryption\Encrypter;
@@ -22,6 +23,38 @@ use EtuUTT;
 class WEIController extends Controller
 {
 
+    public function adminTeamAssignation(Request $request)
+    {
+        if($request->isMethod('POST'))
+        {
+            $count = 0;
+            foreach ($request->request as $team_id => $bus_id)
+            {
+                $team = Team::find($team_id);
+                if($team && !empty($bus_id))
+                {
+                    foreach ($team->newcomers->where('wei', 1) as $newcomers)
+                    {
+                        $newcomers->bus_id = $bus_id;
+                        $newcomers->save();
+                        $count++;
+                    }
+
+                    foreach ($team->ce->where('wei', 1) as $ce)
+                    {
+                        $ce->bus_id = $bus_id;
+                        $ce->save();
+                        $count++;
+                    }
+                }
+            }
+            $request->session()->flash('success', $count.' personnes mis à jour.');
+        }
+        $teams = Team::all();
+
+        return view('dashboard.wei.bus-team-assign', compact('teams'));
+
+    }
 
     public function adminGraph()
     {
