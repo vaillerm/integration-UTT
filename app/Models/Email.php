@@ -48,7 +48,7 @@ class Email extends Model
         self::NEWCOMERS_FILLED_BRANCH => 'Nouveaux Branche qui ont entré leur email',
         self::NEWCOMERS_FILLED_MASTER => 'Nouveaux Master  qui ont entré leur email',
         self::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM => 'Tous les nouveaux ayant un parrain et une équipe',
-        self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI',
+        self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI et ayant un numéro de bus',
     ];
 
     /**
@@ -135,7 +135,7 @@ class Email extends Model
                     $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->whereNotNull('referral_id')->get();
                     break;
                 case Email::WEI_SUSCBRIBED:
-                    $students = Student::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->get();
+                    $students = Student::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->where('bus_id','>', 0)->get();
                     break;
                 default:
                     echo 'Error : Unknown email list id';
