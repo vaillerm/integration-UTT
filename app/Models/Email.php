@@ -28,6 +28,7 @@ class Email extends Model
     const NEWCOMERS_FILLED_BRANCH      = 15;
     const NEWCOMERS_FILLED_MASTER      = 16;
     const NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM  = 17;
+    const WEI_SUSCBRIBED  = 18;
 
     public static $listToFrench = [
         self::STUPRELISTE => 'Bénévoles et personnes inscrites sur la stupre-liste',
@@ -47,6 +48,7 @@ class Email extends Model
         self::NEWCOMERS_FILLED_BRANCH => 'Nouveaux Branche qui ont entré leur email',
         self::NEWCOMERS_FILLED_MASTER => 'Nouveaux Master  qui ont entré leur email',
         self::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM => 'Tous les nouveaux ayant un parrain et une équipe',
+        self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI',
     ];
 
     /**
@@ -131,6 +133,9 @@ class Email extends Model
                     break;
                 case Email::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM:
                     $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->whereNotNull('referral_id')->get();
+                    break;
+                case Email::WEI_SUSCBRIBED:
+                    $students = Student::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->get();
                     break;
                 default:
                     echo 'Error : Unknown email list id';
