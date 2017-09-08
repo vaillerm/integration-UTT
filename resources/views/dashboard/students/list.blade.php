@@ -47,7 +47,7 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga.
                     <th>Téléphone</th>
                     <th>Semestre</th>
                     <th>Labels</th>
-                    <th>Actions</th>
+                    <th class="hidden-print">Actions</th>
                 </tr>
                 @foreach ($students as $student)
                     <tr>
@@ -74,7 +74,7 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga.
                                 <span class="label label-warning">Orga</span>
                             @endif
                         </td>
-                        <td>
+                        <td class="hidden-print">
                             <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $student->id ])}}">Modifier</a>
                         </td>
                     </tr>
