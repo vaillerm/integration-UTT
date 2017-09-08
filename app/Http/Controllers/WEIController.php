@@ -10,7 +10,7 @@ use App\Models\WEIRegistration;
 use App\Models\Payment;
 use Redirect;
 use Config;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Request;
 use View;
 use Auth;
 use Illuminate\Encryption\Encrypter;
@@ -23,9 +23,9 @@ use EtuUTT;
 class WEIController extends Controller
 {
 
-    public function adminTeamAssignation(Request $request)
+    public function adminTeamAssignation(\Illuminate\Http\Request $request)
     {
-        if($request->isMethod('POST'))
+        if(Request::isMethod('POST'))
         {
             $count = 0;
             foreach ($request->request as $team_id => $bus_id)
