@@ -385,6 +385,12 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'WEIController@adminTeamAssignation'
             ]);
 
+            Route::get('/bus/list', [
+                'as'   => 'dashboard.wei.bus.list',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@adminBusList'
+            ]);
+
             Route::post('/assign/team', [
                 'middleware' => 'authorize:admin',
                 'uses' => 'WEIController@adminTeamAssignation'
