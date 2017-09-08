@@ -88,7 +88,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         // Checkin model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
-            Route::get('/checkin', ['uses' => 'CheckinController@index']);
+            Route::get('/checkin', ['uses' => 'CheckinController@index', 'as'=> 'dashboard.checkin']);
             Route::get('/checkin/create', ['uses' => 'CheckinController@create']);
             Route::get('/checkin/edit/{id}', ['uses' => 'CheckinController@edit']);
             Route::post('/checkin', ['uses' => 'CheckinController@store']);
@@ -395,6 +395,13 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'WEIController@adminTeamAssignation'
             ]);
+
+            Route::get('/checkin/generateBus', [
+                'as'   => 'dashboard.wei.bus.generate.checklist',
+                'middleware' => 'authorize:admin',
+                'uses' => 'WEIController@adminBusGenerateChecklist'
+            ]);
+
         });
 
         // Checks handling.
