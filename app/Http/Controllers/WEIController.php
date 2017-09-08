@@ -56,6 +56,12 @@ class WEIController extends Controller
 
     }
 
+    public function adminBusList(Request $request)
+    {
+        $buses = Student::where('wei', 1)->get()->groupBy('bus_id');
+        return view('dashboard.wei.bus-list', compact('buses'));
+    }
+
     public function adminGraph()
     {
         $result = [
