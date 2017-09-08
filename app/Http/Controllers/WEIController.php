@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checkin;
 use App\Models\Newcomer;
 use App\Models\Student;
 use App\Models\Team;
@@ -62,6 +63,34 @@ class WEIController extends Controller
         $buses->put(0,$buses->get(0)->merge($buses->get("")));
         $buses->forget("");
         return view('dashboard.wei.bus-list', compact('buses'));
+    }
+
+    public function adminBusGenerateChecklist(Request $request)
+    {
+        $buses = Student::where('wei', 1)->get()->groupBy('bus_id')->sort();
+        $buses->put(0,$buses->get(0)->merge($buses->get("")));
+        $buses->forget("");
+
+        foreach ($buses as $bus_id=>$students)
+        {
+            if(!empty($bus_id) && $bus_id>0)
+            {
+                $bus_check = new Checkin([
+                    'name'=> 'Bus #'.$bus_id.' checkin',
+                    'prefilled'=> true
+                ]);
+                $bag_check = new Checkin([
+                    'name'=> 'Bag #'.$bus_id.' checkin',
+                    'prefilled'=> true
+                ]);
+                $bus_check->save();
+                $bag_check->save();
+
+                $bus_check->students()->attach($students->pluck('id')->toArray());
+                $bag_check->students()->attach($students->pluck('id')->toArray());
+            }
+        }
+        return redirect()->route('dashboard.checkin');
     }
 
     public function adminGraph()
@@ -874,6 +903,21 @@ class WEIController extends Controller
         $user = Student::findOrFail($id);
         $user->checkin = true;
         $user->save();
+
+        //Gestion du repas
+        if($user->sandwichPayment && in_array($user->sandwichPayment->state, ['paid']))
+        {
+            $checkin = Checkin::where('name','Repas WEI')->first();
+            if(!$checkin) {
+                $checkin = new Checkin([
+                    'name' => 'Repas WEI',
+                    'prefilled' => true,
+                ]);
+                $checkin->save();
+            }
+
+            $checkin->students()->attach($user->id);
+        }
 
         return Redirect(route('dashboard.wei.search'))->withSuccess('Le checkin a bien été enregistré.');
     }

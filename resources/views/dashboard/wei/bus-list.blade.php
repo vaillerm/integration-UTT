@@ -9,6 +9,15 @@
 @endsection
 
 @section('content')
+    <div class="callout callout-info">
+        <h4>Listes des bus</h4>
+
+        <p>
+            Trop de blabla, pas assez d'action !
+        </p>
+        <a href="{{ url()->route('dashboard.wei.bus.generate.checklist') }}" class="btn btn-success">Générer les checkin</a>
+    </div>
+
 @foreach($buses as $bus_id=>$students)
     <div class="box box-default">
         <div class="box-header with-border">
