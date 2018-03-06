@@ -86,29 +86,14 @@ class PagesController extends Controller
     {
         $referrals = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name')])
         ->orderBy('last_name')
-        ->rightjoin('newcomers as n', 'students.student_id', '=', 'n.referral_id')
+        ->rightjoin('students as n', 'students.student_id', '=', 'n.referral_id')
         ->addSelect([\DB::raw('n.branch as branch'), \DB::raw('n.first_name as newcomer_first_name'), \DB::raw('n.last_name as newcomer_last_name'), \DB::raw('n.phone as newcomer_phone')])
         ->get();
-        return Excel::create('Referrals', function ($file) use ($referrals) {
-            $file->sheet('', function ($sheet) use ($referrals) {
-                $sheet->fromArray($referrals);
-            });
-        })->export('csv');
-
-
-        $referrals = Referral::orderBy('last_name')->where('validated', 1)->get();
-        // Embed the referral's newcomers in the document.
-        foreach ($referrals as &$referral) {
-            for ($i=0; $i < $referral->newcomers()->count(); $i++) {
-                $newcomer = $referral->newcomers()->get()->toArray()[$i];
-                $referral['Fillot '.$i] = $newcomer['first_name'].' '.$newcomer['last_name'];
-            }
-        }
         return Excel::create('Parrains', function ($file) use ($referrals) {
             $file->sheet('', function ($sheet) use ($referrals) {
                 $sheet->fromArray($referrals);
             });
-        })->export('csv');
+        })->export('xls');
     }
 
     /**
@@ -118,20 +103,21 @@ class PagesController extends Controller
      */
     public function getExportNewcomers()
     {
-        $newcomers = Student::newcomer()->select([\DB::raw('newcomers.first_name'), \DB::raw('newcomers.last_name'), \DB::raw('newcomers.branch')])
+        $newcomers = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name'), \DB::raw('students.branch')])
+        ->where('students.is_newcomer', true)
         ->orderBy('last_name')
-        ->leftjoin('students as s', 's.student_id', '=', 'newcomers.referral_id')
+        ->leftjoin('students as s', 's.student_id', '=', 'students.referral_id')
         ->addSelect([\DB::raw('s.first_name as referral_first_name'), \DB::raw('s.last_name as referral_last_name'), \DB::raw('s.email as referral_email'), \DB::raw('s.phone as referral_phone')])
         ->get();
-        return Excel::create('Newcomers', function ($file) use ($newcomers) {
+        return Excel::create('Nouveaux', function ($file) use ($newcomers) {
             $file->sheet('', function ($sheet) use ($newcomers) {
                 $sheet->fromArray($newcomers);
             });
-        })->export('csv');
+        })->export('xls');
     }
 
     /**
-     * Export the teams and CE into a CSV file.
+     * Export the teams and CE into a XLS file.
      *
      * @return string
      */
@@ -145,11 +131,29 @@ class PagesController extends Controller
         ->join('teams as t', 't.id', '=', 'students.team_id')
         ->addSelect(\DB::raw('t.name as team_name'))
         ->get();
-        return Excel::create('Teams', function ($file) use ($students) {
+        return Excel::create('Equipe', function ($file) use ($students) {
             $file->sheet('', function ($sheet) use ($students) {
                 $sheet->fromArray($students);
             });
-        })->export('csv');
+        })->export('xls');
+    }
+
+    /**
+     * Export all the students wither their contact informations
+     *
+     * @return string
+     */
+    public function getExportStudents()
+    {
+        $students = Student::select(['first_name', 'last_name', 'student_id', 'phone', 'email',
+        \DB::raw('is_newcomer as nouveau'), \DB::raw('referral_validated as parrain'), \DB::raw('IF(team_id > 0,1,0) as ce'), \DB::raw('volunteer as benevole'), 'orga', 'secu'])
+        ->orderBy('last_name')
+        ->get();
+        return Excel::create('Etudiants', function ($file) use ($students) {
+            $file->sheet('', function ($sheet) use ($students) {
+                $sheet->fromArray($students);
+            });
+        })->export('xls');
     }
 
     /**

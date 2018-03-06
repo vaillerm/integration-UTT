@@ -61,6 +61,7 @@
                                             <li><a href="{{ route('dashboard.exports.newcomers') }}">Nouveaux -> parrains</a></li>
                                             <li><a href="{{ route('dashboard.exports.referrals') }}">Parrains -> nouveaux</a></li>
                                             <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
+                                            <li><a href="{{ route('dashboard.exports.students') }}">Tous les utilisateurs</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
