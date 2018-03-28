@@ -103,8 +103,6 @@
                     <p>Pour sa 22<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
                     <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga aguerri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous prêts ? Nous le verrons le <em>lundi 04 septembre 2017</em>...</p>
                     <br/><br/><br/>
-                <h3>Infos Pratiques</h3>
-                    <p>Il n'y en a pas encore. De toute façon l'inté c'est pas pratique. ;)</p>
             </div>
         </div>
     </section>
