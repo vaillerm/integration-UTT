@@ -85,7 +85,7 @@ Parce que l'intégration, c'est surtout vous !
                         @foreach ($student::VOLUNTEER_PREFERENCES as $key => $preference)
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key,$student->volunteer_preferences) )) checked="checked" @endif/>
+                                <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key, $student->volunteer_preferences ?? []) )) checked="checked" @endif/>
                                 <strong>{{{ $preference['title'] }}}</strong><span class="hidden-xs"> : {{{ $preference['description'] }}}</span>
                             </label>
                         </div>
