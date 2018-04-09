@@ -59,10 +59,12 @@ return [
     ],
 
     'referral' => [
+        'opening' => env('REFERRAL_OPENING'),
         'fakeDeadline' => env('REFERRAL_DEADLINE_FAKE'),
         'deadline' => env('REFERRAL_DEADLINE'),
     ],
     'ce' => [
+        'opening' => env('CE_OPENING'),
         'fakeDeadline' => env('CE_DEADLINE_FAKE'),
         'deadline' => env('CE_DEADLINE'),
         'maxteam' => env('CE_MAXTEAM'),

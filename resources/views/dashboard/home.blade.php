@@ -16,17 +16,25 @@ Informations diverses pour toi !
         </div>
         <div class="box-body">
             <p>Si tu vois ce message, c'est que tu fais partie de la grande famille des bénévoles de l'intégration. <strong>Et nous t'en remercions !</strong></p>
-            <p>Tu te trouves sur le panneau de gestion du site de l'intégration. Ta mission la plus importante sur ce site est de tenir à jour ton numéro de téléphone et ton adresse mail afin de pouvoir être contacté lorsque l'intégration a besoin de toi. Tu peux les modifier en allant dans <strong>Mon compte > Mon profil bénévole</strong>.</p>
+            <p>Ta mission la plus importante sur ce site est de tenir tes informations de contact à jour et de rejoindre le groupe Facebook suivant afin de pouvoir être contacté lorsque l'intégration a besoin de toi !</p>
+
+            <p><a class="btn btn-success" href="https://www.facebook.com/groups/benevoleinte2018/" target="_blank">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                Rejoindre le groupe facebook des bénévoles
+            </a></p>
+
 
             @if (EtuUTT::student()->isAdmin())
+                <hr/>
                 <p>
                     Comme tu es administrateur, ce site te permettra de faire pleins d'autres truc, mais j'ai la flemme de tous les décrire.
                     Du coup je te laisse faire joujou avec. ;)<br/> <em>Enfin.. évite de tout casser, hein !</em>
                 </p>
             @endif
             @if (EtuUTT::student()->ce)
+                <hr/>
                 <p>
-                    Ce site te permettra donc en tant que <strong>chef d'équipe</strong> de constituer et de mettre à jour les informations de ton équipe.</em>
+                    En tant que <strong>chef d'équipe</strong>, ce site te permet de constituer et de mettre à jour les informations de ton équipe.</em>
                 </p>
                 @if (!EtuUTT::student()->team)
                     <a class="btn btn-primary" href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a>

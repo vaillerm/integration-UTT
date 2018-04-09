@@ -32,8 +32,8 @@ Menu
                             Tu seras contacté par tes fillots dans l'été puis présenté à eux pendant la semaine d'intégration !
                             <br/><br/>
                             @if ($student->referral_validated)
-                                <strong>Ton profil a été validé par l'orga, tu ne peux plus modifier tes informations !<br/>
-                                    Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.</strong>
+                                <strong>Ton profil a été validé par l'orga, tu ne peux plus modifier tes informations !<br/></strong>
+                                Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.
                             @elseif (Authorization::can('student','referral'))
                                 <strong>Fermeture dans {{ @countdown(Authorization::countdown('student','referral')) }}</strong>
                                 <br/><br/>
@@ -44,8 +44,11 @@ Menu
                                 <a href="{{ route('referrals.edit') }}" class="btn form-control btn-success">Modifier mon profil !</a>
                                 <a class="form-control btn btn-danger" href="{{ route('referrals.destroy') }}">Ne plus être parrain</a>
                             @else
-                                <strong>Les inscriptions sont fermées.<br/>
-                                    Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.</strong>
+                                <strong>Les inscriptions sont fermées.</strong><br/>
+                                    Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute question.<br/>
+                                    @if (Authorization::countdown('student','referral'))
+                                        <strong>Ouverture dans {{ @countdown(Authorization::countdown('student','referral')) }}</strong>
+                                    @endif
                             @endif
                         </div>
                     </div>
@@ -70,12 +73,16 @@ Menu
                             @elseif (Authorization::can('ce','inTeam'))
                                 <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Voir mon profil de chef d'équipe !</a>
                             @elseif (Authorization::can('student','inTeam'))
-				<strong>Désolé, le nombre maximal d'équipes est atteint.</strong></br>
-				<a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Rejoins ton équipe !</a>
-			    @else
-                                <strong>Désolé, le nombre maximal d'équipes est atteint.<br/>
-								Si tu souhaites rejoindre ton équipe, demandes à ton chef d'équipe de t'inviter !</br>
-                                Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute autre question.</strong>
+                                <strong>Vous ne pouvez plus créer d'équipe, le nombre maximal est atteint.</strong></br>
+                                <a href="{{ route('dashboard.ce.firsttime') }}" class="btn form-control btn-success">Rejoins ton équipe !</a>
+                            @else
+                                @if (Authorization::countdown('ce','create'))
+                                    <strong>Ouverture dans {{ @countdown(Authorization::countdown('ce','create')) }}</strong><br/>
+                                @else
+                                    <strong>Désolé, le nombre maximal d'équipes est atteint.</strong><br/>
+                                    Si tu souhaites rejoindre ton équipe, demandes à ton chef d'équipe de t'inviter !</br>
+                                @endif
+                                Contacte <a href="mailto:integration@utt.fr">integration@utt.fr</a> pour toute autre question.
                             @endif
                         </div>
                     </div>

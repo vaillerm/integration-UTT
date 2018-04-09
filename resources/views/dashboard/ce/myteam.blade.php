@@ -90,7 +90,6 @@ Gestion de mon équipe
                     <th>Mail</th>
                     <th>Téléphone</th>
                     <th>Labels</th>
-                    <th>Actions</th>
                 </tr>
                 @foreach ($team->ce as $student)
                     <tr>
@@ -99,7 +98,7 @@ Gestion de mon équipe
                         <td>{{{ $student->email }}}</td>
                         <td>{{{ $student->phone }}}</td>
                         <td>
-                            @if ($student->student_id == $team->respo_id)
+                            @if ($student->id == $team->respo_id)
                                 <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i> Respo</span>
                             @endif
                             @if ($student->team_accepted)
@@ -108,14 +107,11 @@ Gestion de mon équipe
                                 <span class="label label-warning" title="N'a pas encore validé sa participation à l'équipe"><i class="fa fa-question-circle" aria-hidden="true"></i> En attente</span>
                             @endif
                         </td>
-                        <td>
-                            <!-- <a class="btn btn-xs btn-danger" href="{{ route('dashboard.students.list')}}">Supprimer</a> -->
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        @if (EtuUTT::student()->student_id == $team->respo_id && $team->ce->count() < 5)
+        @if (Auth::user()->id == $team->respo_id && $team->ce->count() < 5)
             <div class="box-body">
                     <a href="{{{ route('dashboard.ce.add') }}}" class="btn btn-success form-control">Ajouter un membre à l'équipe</a>
             </div>
@@ -135,7 +131,7 @@ Gestion de mon équipe
     <div class="box-body">
         <div class="box-body">
             <form class="form-horizontal" action="{{ route('dashboard.ce.myteam') }}" method="post" enctype="multipart/form-data">
-                @if($team->respo_id != EtuUTT::student()->student_id)
+                @if($team->respo_id != Auth::user()->id)
                     <p class="text-center">
                         Seul le responsable de l'équipe peut modifier les informations de l'équipe.
                     </p>

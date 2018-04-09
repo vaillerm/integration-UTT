@@ -29,14 +29,26 @@ Liste des équipes
             </form>
         </div>
     </div>
+@elseif (!Authorization::can('ce','inTeam'))
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Inscriptions des CE terminée</h3>
+        </div>
+        <div class="box-body">
+            <p>
+                Les inscriptions pour chef d'équipe ne sont pas ouvertes.
+            </p>
+        </div>
+    </div>
 @endif
+
 
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Liste des équipes</h3>
     </div>
     <div class="box-body table-responsive no-padding">
-        <div class="box-body text-center">
+        <div class="box-body">
             <p>
                 Si vous souhaitez rejoindre l'une de ces équipes, contactez le <em><i class="fa fa-star" aria-hidden="true" title="Responsable de l'équipe"></i> responsable de l'équipe</em> pour qu'il vous ajoute.
             </p>

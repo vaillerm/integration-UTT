@@ -107,24 +107,28 @@ class Authorization
                         }
                         break;
                     case 'respo':
-                        if (!$student->team || $student->team->respo_id != $student->student_id) {
+                        if (!$student->team || $student->team->respo_id != $student->id) {
                             return false;
                         }
                         break;
                     case 'create':
-                        if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
+                        if ($this->now() > new \DateTime(Config::get('services.ce.deadline'))
+                            || $this->now() < new \DateTime(Config::get('services.ce.opening'))
+                            || $teamCount >= Config::get('services.ce.maxteam')
                             || $student->team) {
                             return false;
                         }
                         break;
                     case 'edit':
-                        if (!$student->team || $student->team->respo_id != $student->student_id
+                        if (!$student->team || $student->team->respo_id != $student->id
+                            || $this->now() < new \DateTime(Config::get('services.ce.opening'))
                             || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
                             return false;
                         }
-			break;
+                        break;
                     case 'join':
                         if (!$student->team
+                            || $this->now() < new \DateTime(Config::get('services.ce.opening'))
                             || $this->now() > new \DateTime(Config::get('services.ce.deadline'))) {
                             return false;
                         }
@@ -132,20 +136,23 @@ class Authorization
                 }
             } elseif ($group == 'student') {
                 switch ($action) {
-		    case 'inTeam':
-			if (!$student->team) {
-			    return false;
-			}
-			break;
+                    case 'inTeam':
+                        if (!$student->team) {
+                            return false;
+                        }
+                    break;
                     case 'referral':
                         if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
+                            || $this->now() < new \DateTime(Config::get('services.referral.opening'))
                             || $student->referral_validated
                             || $student->referral) {
                             return false;
                         }
                         break;
                     case 'ce':
-                        if ($this->now() > new \DateTime(Config::get('services.ce.deadline')) || $teamCount >= Config::get('services.ce.maxteam')
+                        if ($this->now() > new \DateTime(Config::get('services.ce.deadline'))
+                            || $teamCount >= Config::get('services.ce.maxteam')
+                            || $this->now() < new \DateTime(Config::get('services.ce.opening'))
                             || $student->ce) {
                             return false;
                         }
@@ -155,6 +162,7 @@ class Authorization
                 switch ($action) {
                     case 'edit':
                         if ($this->now() > new \DateTime(Config::get('services.referral.deadline'))
+                            || $this->now() < new \DateTime(Config::get('services.referral.opening'))
                             || $student->referral_validated) {
                             return false;
                         }
@@ -174,32 +182,52 @@ class Authorization
      */
     public function countdown($group, $action)
     {
-        $date =  new \DateTime();
+        $now = new \DateTime();
+        $date = null;
 
         // Action verification
         if ($group == 'ce') {
             switch ($action) {
                 case 'create':
-                    $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
-                    break;
                 case 'edit':
-                    $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
+                    $teamCount = Team::count();
+                    if ($teamCount < Config::get('services.ce.maxteam')) {
+                        if ($this->now() < new \DateTime(Config::get('services.ce.opening'))) {
+                            $date = new \DateTime(Config::get('services.ce.opening'));
+                        }
+                        elseif ($this->now() < new \DateTime(Config::get('services.ce.deadline'))) {
+                            $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
+                        }
+                    }
                     break;
             }
         } elseif ($group == 'student') {
             switch ($action) {
                 case 'referral':
-                    $date = new \DateTime(Config::get('services.referral.fakeDeadline'));
+                    if ($this->now() < new \DateTime(Config::get('services.referral.opening'))) {
+                        $date = new \DateTime(Config::get('services.referral.opening'));
+                    }
+                    elseif ($this->now() < new \DateTime(Config::get('services.referral.deadline'))) {
+                        $date = new \DateTime(Config::get('services.referral.fakeDeadline'));
+                    }
                     break;
             }
         } elseif ($group == 'referral') {
             switch ($action) {
                 case 'edit':
-                    $date = new \DateTime(Config::get('services.referral.fakeDeadline'));
+                    if ($this->now() < new \DateTime(Config::get('services.referral.opening'))) {
+                        $date = new \DateTime(Config::get('services.referral.opening'));
+                    }
+                    elseif ($this->now() < new \DateTime(Config::get('services.referral.deadline'))) {
+                        $date = new \DateTime(Config::get('services.referral.fakeDeadline'));
+                    }
                     break;
             }
         }
 
-        return (new \DateTime())->diff($date);
+        if($date) {
+            return (new \DateTime())->diff($date);
+        }
+        return null;
     }
 }

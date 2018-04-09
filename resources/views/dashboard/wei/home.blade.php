@@ -61,9 +61,9 @@
                             <p>Si tu as le moindre souci, n'hésite pas à nous contacter à <a href="mailto:integration@utt.fr">integration@utt.fr</a> en précisant en tant que quoi tu viens (bénévole, ce, orga...)</p>
                         @endif
                     @else
-                        <a href="" class="btn btn-primary">L'inscription au WEI n'est pas encore ouverte !</a>
+                        <strong>L'inscription au WEI n'est pas encore ouverte !</strong>
                     @endif
-                    
+
                 @else
 
                     @if($wei)

@@ -25,7 +25,16 @@
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
 
-
+                                @if (EtuUTT::student()->ce)
+                                    @if (!EtuUTT::student()->team()->count())
+                                        <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
+                                    @else
+                                        <li><a href="{{ route('dashboard.ce.myteam') }}">Mon équipe</a></li>
+                                        <li><a href="{{ route('dashboard.ce.teamlist') }}">Liste des équipes</a></li>
+                                    @endif
+                                @else
+                                    <li><a href="{{ route('dashboard.ce.firsttime') }}">Devenir chef d'équipe</a></li>
+                                @endif
                                 @if (EtuUTT::student()->isAdmin())
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parrainage <span class="caret"></span></a>
@@ -80,14 +89,6 @@
                                     </li>
                                 @else
                                     <li><a href="{{ route('dashboard.wei') }}">WEI</a></li>
-                                @endif
-                                @if (EtuUTT::student()->ce)
-                                    @if (!EtuUTT::student()->team()->count())
-                                        <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
-                                    @else
-                                        <li><a href="{{ route('dashboard.ce.myteam') }}">Mon équipe</a></li>
-                                        <li><a href="{{ route('dashboard.ce.teamlist') }}">Liste des équipes</a></li>
-                                    @endif
                                 @endif
                             </ul>
                             <ul class="nav navbar-nav navbar-right">

@@ -196,13 +196,12 @@ class StudentsController extends Controller
          */
         public function profilSubmit()
         {
-
             // Validation
             $rules = [
                 'surname' => 'max:50',
                 'sex' => 'required|boolean',
                 'email' => 'required|email',
-                'phone' => 'required|min:8|max:20'
+                'phone' => 'required|min:8|max:20',
             ];
 
             $student = EtuUTT::student();
@@ -212,14 +211,25 @@ class StudentsController extends Controller
 
             $this->validate(Request::instance(), $rules,
             [
-                'convention.accepted' => 'Vous devez accepter l\'esprit de l\'intégration'
+                'convention.accepted' => 'Vous devez accepter l\'esprit de l\'intégration',
             ]);
 
             $volunteer = $student->volunteer;
             $student->volunteer = !empty(Request::get('convention'));
-            $student->update(Request::only('surname', 'sex', 'email', 'phone'));
+            $student->update(Request::only(
+                'surname',
+                'sex',
+                'email',
+                'phone'
+            ));
+            $volunteer_preferences = [];
+            foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+                if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
+                    $volunteer_preferences[] = $key;
+                }
+            }
+            $student->volunteer_preferences = $volunteer_preferences;
             $student->save();
-
             // Add or remove from sympa
             if (!$volunteer && $student->volunteer) {
                 $sent = Mail::raw('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use ($student) {

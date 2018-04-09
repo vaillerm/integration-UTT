@@ -55,7 +55,7 @@ class CEController extends Controller
         // Create team
         $data = Request::only(['name']);
         $team = Team::create($data);
-        $team->respo_id = EtuUTT::student()->student_id;
+        $team->respo_id = EtuUTT::student()->id;
         if ($team->save()) {
             // Put user in the team
             $student = EtuUTT::student();
@@ -153,25 +153,9 @@ class CEController extends Controller
             $users = [];
 
             // Search every string as lastname and firstname
-            foreach ($explode as $string) {
-                if (!empty($string)) {
-                    $data = EtuUTT::call('/api/public/users', [
-                        'firstname' => $string
-                    ]);
-                    if (isset($data['data'])) {
-                        $users = array_merge($users, $data['data']);
-                    } elseif (isset($data['error'])) {
-                        return redirect(route('oauth.auth'))->withError('Une erreur s\'est produite, veuillez réessayer.');
-                    }
-
-                    $data = EtuUTT::call('/api/public/users', [
-                        'lastname' => $string
-                    ]);
-                    if (isset($data['data'])) {
-                        $users = array_merge($users, $data['data']);
-                    }
-                }
-            }
+            $users = EtuUTT::call('/api/public/users', [
+                'multifield' => $search
+            ])['data'];
 
             // Remove duplicata and put them at the beginning
             $usersAssoc = [];

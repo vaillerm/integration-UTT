@@ -15,13 +15,15 @@ Parce que l'intégration, c'est surtout vous !
         <h3 class="box-title">Modification de mon profil</h3>
     </div>
     <div class="box-body">
-        <br/>
-        <p class="text-center">
-            En devenant bénévole, vous serez ajouté à la liste de mails à contacter pour demander des coups de main pour l'intégration (stupre-liste).<br/>
-            Si tu veux donner plus qu'un coup de main pour l'intégration et que tu es dispo fin août, envoi un mail à <a href="mailto:integration@utt.fr">integration@utt.fr</a>. Promis, on est gentils. :)
-        </p>
-        <br/>
         <form class="form-horizontal" action="{{ route('dashboard.students.profil') }}" method="post">
+            <fieldset>
+                <div class="col-lg-12">
+                    <p class="text-justify">
+                        En devenant bénévole, vous serez ajouté à la liste de mails à contacter pour demander des coups de main pour l'intégration (stupre-liste).<br/>
+                        Si tu veux donner plus qu'un coup de main pour l'intégration et que tu es dispo fin août, envoi un mail à <a href="mailto:integration@utt.fr">integration@utt.fr</a>. Promis, on est gentils. :)
+                    </p>
+                </div>
+            </fieldset>
             <fieldset>
                 <legend>Tes informations</legend>
 
@@ -35,7 +37,7 @@ Parce que l'intégration, c'est surtout vous !
                 <div class="form-group">
                     <label for="surname" class="col-lg-2 control-label">Surnom</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" name="surname" id="surname" value="{{{ $student->surname }}}">
+                        <input class="form-control" type="text" name="surname" id="surname" value="{{{ old('surname') ?? Auth::user()->surname }}}">
                     </div>
                 </div>
 
@@ -43,8 +45,8 @@ Parce que l'intégration, c'est surtout vous !
                     <label for="sex" class="col-lg-2 control-label">Sexe</label>
                     <div class="col-lg-10">
                         <select id="sex" name="sex" class="form-control" class="">()
-                            <option value="0" @if ($student->sex == 0) selected="selected" @endif >Homme</option>
-                            <option value="1" @if ($student->sex == 1) selected="selected" @endif >Femme</option>
+                            <option value="0" @if (( old('sex') ?? Auth::user()->sex ) == 0) selected="selected" @endif >Homme</option>
+                            <option value="1" @if (( old('sex') ?? Auth::user()->sex ) == 1) selected="selected" @endif >Femme</option>
                         </select>
                     </div>
                 </div>
@@ -52,14 +54,14 @@ Parce que l'intégration, c'est surtout vous !
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Mail</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="email" id="email" placeholder="Adresse mail" type="text" value="{{{ $student->email }}}">
+                        <input class="form-control" name="email" id="email" placeholder="Adresse mail" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="phone" class="col-lg-2 control-label">Portable</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="phone" id="phone" placeholder="Portable" type="text" value="{{{ $student->phone }}}">
+                        <input class="form-control" name="phone" id="phone" placeholder="Portable" type="text" value="{{{ old('phone') ?? Auth::user()->phone }}}">
                     </div>
                 </div>
 
@@ -70,24 +72,43 @@ Parce que l'intégration, c'est surtout vous !
                         <input class="form-control" name="semester" id="semester" type="text" value="{{{ $student->branch . $student->level }}}" disabled>
                     </div>
                 </div>
+            </fieldset>
+            <fieldset>
+                <legend>Ce que tu aimerais faire</legend>
+                <div class="col-lg-12">
+                    <p class="text-justify">
+                        Afin qu'on puisse demander ton aide en fonction de ce que as envie de faire, nous avons besoin d'en savoir un peu plus sur tes préférences.<br/>
+                        Tu peux cocher plusieurs cases, ça n'engage à rien et tu n'auras pas moins de chance de faire chef d'équipe (ou autre) parce que tu coches d'autres cases, bien au contraire ;-)
+                    </p>
 
+                    <div class="form-group">
+                        @foreach ($student::VOLUNTEER_PREFERENCES as $key => $preference)
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key,$student->volunteer_preferences) )) checked="checked" @endif/>
+                                <strong>{{{ $preference['title'] }}}</strong><span class="hidden-xs"> : {{{ $preference['description'] }}}</span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>L'esprit de l'intégration</legend>
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <p>
+                        <p class="text-justify">
                             Le but de l'intégration est de faire découvrir aux nouveaux le monde étudiant, le fonctionnement et les locaux de l'école,
                             de faire former des groupes de potes chez les nouveaux, mais aussi et surtout d'<strong>envoyer du rêve</strong>.
                             Cette intégration, nous l'organisons <strong>pour les nouveaux, pas contre eux ni pour nous.</strong>.
                         </p>
-                        <p>
+                        <p class="text-justify">
                             En étant bénévole pour cette intégration, vous aurez automatiquement un rôle de modèle et d'exemple vis-à-vis des nouveaux.
                             C'est normal, vous avez déjà passé un peu de temps dans cette école et donc vous en savez plus. Cependant,
                             c'est dans cette situation que vous pouvez être amené à <strong>bizuter, sans parfois même vous en rendre compte ou sans la volonter de nuire</strong>.</p>
                         </p>
 
-                        <ul>
+                        <ul class="hidden-xs">
                             <li>Si un nouveau ne veut pas faire quelque chose, vous ne devez pas insister pour qu'il le fasse.</li>
                             <li>Ce n'est pas parce qu'on vous l'a fait à votre intégration que c'est acceptable.</li>
                             <li>Ce n'est pas parce que vous trouvez cela drôle que cela l'est aussi pour les nouveaux.</li>
@@ -95,12 +116,12 @@ Parce que l'intégration, c'est surtout vous !
 							<li>Notez ce numéro d'urgence, à ne <strong>jamais</strong> utiliser pour jouer (c'est comme le 15 ou le 112) : 07.68.74.02.59.</li>
                         </ul>
 
-                        <p>
+                        <p class="text-justify">
                             <strong>Le bizutage est un <em>délit</em>, puni par la <em>loi</em>. Ceux qui le pratiquent risquent des peines de prison ou de fortes amendes.
                             Ils seront immédiatement et définitivement exclus de l’école sans attendre les poursuites judiciaires éventuelles.</strong>
                         </p>
 
-                        <div class="well convention-well">
+                        <div class="well convention-well hidden-xs">
                             <p>
                                 Extrait de la loi n°98-468 du 17 juin 1998<br/>
                                 Section 3 bis – Du bizutage
@@ -129,10 +150,12 @@ Parce que l'intégration, c'est surtout vous !
                                 prévues par l'article 131-38, les peines prévues par les 4° et 9° de l'article 131-39.&nbsp;»
                             </p>
                         </div>
-                        <input type="checkbox" id="convention" name="convention" @if ($student->volunteer == 1) checked="checked" @endif/>
-                        <label for="convention" class="control-label">
-                            Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000 € d'amende.
-                        </label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="convention" name="convention" @if ($student->volunteer == 1) checked="checked" @endif/>
+                                <strong>Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000 € d'amende.</strong>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </fieldset>

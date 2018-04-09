@@ -54,3 +54,15 @@ a.btn {
 .btn-dark, .btn-dark:hover {
 	color: #fff;
 }
+
+@media screen and (max-height: 767px) {
+    .content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+	.col-lg-12 {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+}
