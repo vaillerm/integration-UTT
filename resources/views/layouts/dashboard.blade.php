@@ -32,8 +32,6 @@
                                         <li><a href="{{ route('dashboard.ce.myteam') }}">Mon équipe</a></li>
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Liste des équipes</a></li>
                                     @endif
-                                @else
-                                    <li><a href="{{ route('dashboard.ce.firsttime') }}">Devenir chef d'équipe</a></li>
                                 @endif
                                 @if (EtuUTT::student()->isAdmin())
                                     <li class="dropdown">
