@@ -32,11 +32,12 @@
                 @foreach ($configs as $key=>$value)
                     <tr>
                         <td>{{ $key }}</td>
-                        <td> @if(is_string($value))
-                            {{ $value }}
-                                 @else
+                        <td>
+                            @if(is_string(Config::get($key)))
+                                {{ Config::get($key) }}
+                             @else
                                  <i>null</i>
-                                 @endif
+                             @endif
                         </td>
                         <td><a href="{{ route('dashboard.configs.parameters.edit', ['settings_name' => $key]) }}" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil"></i></a></td>
                     </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Terbium\DbConfig\Facade as Config;
+use App\Models\Setting;
 
 class SettingsController extends Controller
 {
@@ -30,7 +31,15 @@ class SettingsController extends Controller
             return redirect()->route('dashboard.configs.parameters');
         }
 
-        Config::store($settings_name, $request->input('value'));
+        // Update setting manually because Config::store add doublequote to values
+        $setting = Setting::where('key',$settings_name)->first();
+        if(!$setting) {
+            $setting = new Setting();
+            $setting->key = $settings_name;
+        }
+        $setting->value = $request->input('value');
+        $setting->save();
+
         $request->session()->flash('success', "Parametre mis à jour.");
         return redirect()->route('dashboard.configs.parameters');
     }

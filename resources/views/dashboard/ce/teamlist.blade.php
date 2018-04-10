@@ -32,7 +32,7 @@ Liste des équipes
 @elseif (!Authorization::can('ce','inTeam'))
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">Inscriptions des CE terminée</h3>
+            <h3 class="box-title">Inscriptions des CE fermées</h3>
         </div>
         <div class="box-body">
             <p>
