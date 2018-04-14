@@ -24,8 +24,9 @@ Liste des équipes
                 Le reste des membres de l'équipe devrons ensuite se connecter pour accepter d'être dans l'équipe.
             </p>
             <form class="" action="{{ route('dashboard.ce.teamcreate') }}" method="post">
-                <input type="text" name="name" class="form-control text-center" placeholder="Nom de l'équipe" required>
-                <input type="submit" class="btn btn-success form-control" value="Ajouter">
+                <!--<input type="text" name="name" class="form-control text-center" placeholder="Nom de l'équipe" required>-->
+                <input type="hidden" value="Équipe sans nom" name="name" />
+                <input type="submit" class="btn btn-success form-control" value="Créer mon équipe">
             </form>
         </div>
     </div>

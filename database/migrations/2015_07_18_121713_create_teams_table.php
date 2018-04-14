@@ -15,7 +15,7 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description');
             $table->string('img_url')->nullable();
 

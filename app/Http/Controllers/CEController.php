@@ -46,10 +46,7 @@ class CEController extends Controller
     public function teamCreate()
     {
         $this->validate(Request::instance(), [
-            'name' => 'required|min:3|max:30|unique:teams'
-        ],
-        [
-            'name.unique' => 'Ce nom d\'équipe est déjà pris.'
+            'name' => 'required|min:3|max:30'
         ]);
 
         // Create team

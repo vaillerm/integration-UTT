@@ -19,6 +19,7 @@ class Authorization
      * @var \DateTime
      */
     protected $now;
+    protected $tmp;
 
     /**
      * The current DateTime
@@ -154,6 +155,10 @@ class Authorization
                             || $teamCount >= Config::get('services.ce.maxteam')
                             || $this->now() < new \DateTime(Config::get('services.ce.opening'))
                             || $student->ce) {
+                            info($this->now() > new \DateTime(Config::get('services.ce.deadline')));
+                            info($teamCount >= Config::get('services.ce.maxteam'));
+                            info($this->now() < new \DateTime(Config::get('services.ce.opening')));
+                            info($student->ce);
                             return false;
                         }
                         break;
