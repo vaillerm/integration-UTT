@@ -69,7 +69,11 @@
                                     </tr>
                                     @foreach($faction->teams as $team)
                                         <tr>
+                                            @if($team->name != null)
                                             <td style="width:50%">{{{ $team->name }}}</td>
+                                            @else
+                                            <td style="width:50%">Équipe sans nom {{{ $team->id }}}</td>
+                                            @endif
                                             <td style="width:50%">
                                                 <b>{{ $team->points }} points</b>
                                             </td>

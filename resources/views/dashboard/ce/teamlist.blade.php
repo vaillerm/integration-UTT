@@ -19,13 +19,13 @@ Liste des équipes
         </div>
         <div class="box-body text-center">
             <p>
-                Faites attention à prendre un nom d'équipe qui n'a pas déjà été pris en regardant la liste ci-dessous.<br/>
-                Un seul membre de votre équipe doit créer l'équipe puis ajouter les autres.
+                Vous ne choisissez pas le nom de l'équipe à l'inscription.<br/>
+                <b>Un seul membre de votre équipe doit créer l'équipe puis ajouter les autres.</b>
                 Le reste des membres de l'équipe devrons ensuite se connecter pour accepter d'être dans l'équipe.
             </p>
             <form class="" action="{{ route('dashboard.ce.teamcreate') }}" method="post">
                 <!--<input type="text" name="name" class="form-control text-center" placeholder="Nom de l'équipe" required>-->
-                <input type="hidden" value="Équipe sans nom" name="name" />
+                <!--<input type="hidden" value="" name="name" />-->
                 <input type="submit" class="btn btn-success form-control" value="Créer mon équipe">
             </form>
         </div>
@@ -62,7 +62,11 @@ Liste des équipes
                 </tr>
                 @foreach ($teams as $team)
                     <tr>
+                        @if($team->name != null)
                         <td>{{{ $team->name }}}</td>
+                        @else
+                        <td>Équipe sans nom {{{ $team->id }}}</td>
+                        @endif
                         <td>
                             @foreach ($team->ce as $ce)
                                 @if ($ce->student_id == $team->respo_id)

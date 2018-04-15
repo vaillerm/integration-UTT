@@ -325,7 +325,11 @@ Modification de profil
                     <label for="ce" class="col-lg-2 text-right">Équipe</label>
                     <div class="col-lg-10">
                         @if ($student->team)
-                            {{ $student->team->name }}<br/>
+                            @if($student->team->name != null)
+                                {{ $student->team->name }}<br/>
+                            @else
+                                Équipe sans nom {{ $student->team->id }}<br/>
+                            @endif
                             <a href="{{ route('dashboard.teams.list') . '#' . $student->team_id }}" class="btn btn-xs btn-success">Liste</a>
                             <a href="{{ route('dashboard.teams.edit', ['id' => $student->team_id ]) }}" class="btn btn-xs btn-warning">Modifier</a>
                         @else

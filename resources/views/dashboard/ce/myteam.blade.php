@@ -25,7 +25,12 @@ Gestion de mon équipe
                 <p>
                     <strong></strong> a proposé de vous ajouter à l'équipe. Souhaites-vous la rejoindre ?
                 </p>
-                <a href="{{{ route('dashboard.ce.join') }}}" class="btn btn-success form-control">Rejoindre l'équipe <strong>{{{ $team->name }}}</strong></a>
+                <a href="{{{ route('dashboard.ce.join') }}}" class="btn btn-success form-control">Rejoindre l'équipe 
+                    @if($team->name != null)
+                    <strong>{{{ $team->name }}}</strong></a>
+                    @else
+                    <strong>Équipe sans nom {{{ $team->id }}}</strong></a>
+                    @endif
                 <a href="{{{ route('dashboard.ce.unjoin') }}}" class="btn btn-danger form-control">Ne pas rejoindre l'équipe</a>
             </div>
         </div>

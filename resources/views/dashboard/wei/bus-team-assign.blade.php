@@ -27,7 +27,11 @@
                 @foreach ($teams as $team)
                     <tr>
                         <td>{{ $team->id }}</td>
+                        @if($team->name != null)
                         <td>{{ $team->name }}</td>
+                        @else
+                        <td>Équipe sans nom {{{ $team->id }}}</td>
+                        @endif
                         <td>{{ $team->newcomers->where('wei', true)->count() }} nouveaux - {{ $team->ce->where('wei', true)->count() }} ce</td>
                         <td><input type="number" class="form-control" name="{{ $team->id }}" value="{{ old($team->id) }}" size="2"></td>
                     </tr>

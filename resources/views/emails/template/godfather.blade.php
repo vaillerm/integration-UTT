@@ -1026,7 +1026,13 @@
                                                                 <table class="mcnImageCardLeftTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="264">
                                                                     <tbody><tr>
                                                                         <td valign="top" class="mcnTextContent" style="padding-left: 18px;padding-top: 18px;padding-bottom: 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                                                            <div style="text-align: justify;"><span style="color:#FFFFFF"><span style="font-size:18px">{{ $user->team->name }}</span><br>
+                                                                            <div style="text-align: justify;"><span style="color:#FFFFFF"><span style="font-size:18px">
+                                                                                @if($user->team->name != null)
+                                                                                {{ $user->team->name }}
+                                                                                @else
+                                                                                Équipe sans nom {{ $user->team->id }}
+                                                                                @endif
+                                                                            </span><br>
 <br>
 <span style="font-size:14px">Mais laissons-les se présenter !</span></span></div>
 

@@ -359,7 +359,11 @@
 					@if($newcomer->team)
 						<div class="equipe">
 							<div class="titre">
-								<span class="nom">{{ $newcomer->team->name }}</span>, ton équipe !
+								@if($team->name != null)
+		                        <span class="nom">{{ $newcomer->team->name }}</span>		                        @else
+		                        <span class="nom">Équipe sans nom {{ $newcomer->team->id }}</span>
+		                        @endif
+								, ton équipe !
 							</div>
 							<div class="desc">
 								<div class="image" id="equipe_image_{{ $newcomer->id }}"></div>

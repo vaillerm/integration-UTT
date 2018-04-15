@@ -116,7 +116,11 @@ Affichage des profils
                             <td>Aucun !</td>
                         @endif
                         @if ($newcomer->team)
-                            <td>{{{ $newcomer->team->name }}}</td>
+                            @if($newcomer->team->name != null)
+                                <td>{{{ $newcomer->team->name }}}</td>
+                            @else
+                                <td>Équipe sans nom {{{ $newcomer->team->id }}}</td>
+                            @endif
                         @else
                             <td>Aucune !</td>
                         @endif

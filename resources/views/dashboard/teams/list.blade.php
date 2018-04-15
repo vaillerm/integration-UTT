@@ -32,7 +32,11 @@ Gestion des équipes
                         <tr id="{{ $team->id }}">
                     @endif
                         <td>{{{ $team->newcomers()->count() }}}</td>
+                        @if($team->name != null)
                         <td><strong>{{{ $team->name }}}</strong></td>
+                        @else
+                        <td><strong>Équipe sans nom {{{ $team->id }}}</strong></td>
+                        @endif
                         <td>
                             @if ($team->description)
                                 <p>

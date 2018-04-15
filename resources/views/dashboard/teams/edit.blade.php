@@ -12,7 +12,13 @@ Gestion des équipes
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Modification de l'équipe <strong>{{{ $team->name }}}</strong></h3>
+        <h3 class="box-title">Modification de l'équipe 
+            @if($team->name != null)
+            <strong>{{{ $team->name }}}</strong></a>
+            @else
+            <strong>Équipe sans nom {{{ $team->id }}}</strong></a>
+            @endif
+        </h3>
     </div>
     <div class="box-body text-center">
         <form class="form-horizontal" action="{{ route('dashboard.teams.edit.submit', $team->id) }}" method="post" enctype="multipart/form-data">

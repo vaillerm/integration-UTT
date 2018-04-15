@@ -20,7 +20,11 @@ Ton équipe !
     @else
 
         <div class="box-header with-border">
+            @if(Auth::user()->team->name != null)
             <h3 class="box-title"><strong>{{ Auth::user()->team->name }}</strong>, ton équipe</h3>
+            @else
+            <h3 class="box-title"><strong>Équipe sans nom {{ Auth::user()->team->id }}</strong>, ton équipe</h3>
+            @endif
         </div>
             <div class="box-body">
                 <div class="thumbnail col-lg-2">

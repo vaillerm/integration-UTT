@@ -45,12 +45,8 @@ class CEController extends Controller
      */
     public function teamCreate()
     {
-        $this->validate(Request::instance(), [
-            'name' => 'required|min:3|max:30'
-        ]);
-
         // Create team
-        $data = Request::only(['name']);
+        $data = array('name'=>null);
         $team = Team::create($data);
         $team->respo_id = EtuUTT::student()->id;
         if ($team->save()) {
