@@ -97,7 +97,6 @@ class Authorization
                     && !$student->ce) {
                 return false;
             }
-
             $teamCount = Team::count();
             // Action verification
             if ($group == 'ce') {
@@ -113,11 +112,33 @@ class Authorization
                         }
                         break;
                     case 'create':
+                        $teams = Team::all();
+                        $countTC = 0;
+                        $countBranch = 0;
+                        foreach ($teams as $t) {
+                            if($t->respo->branch == "TC" && $t->respo->level < 4){
+                                $countTC ++;
+                            }
+                            else
+                                $countBranch++;
+                        }
                         if ($this->now() > new \DateTime(Config::get('services.ce.deadline'))
                             || $this->now() < new \DateTime(Config::get('services.ce.opening'))
-                            || $teamCount >= Config::get('services.ce.maxteam')
                             || $student->team) {
                             return false;
+                        }
+                        if($student->branch == "TC" && $student->level < 4){
+                            if($countTC >= Config::get('services.ce.maxteamtc')){
+                                info("counttc>max");
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if($countBranch >= Config::get('services.ce.maxteambranch')){
+                                info($countBranch . " countbranch>max");
+                                return false;
+                            }
                         }
                         break;
                     case 'edit':
@@ -151,15 +172,31 @@ class Authorization
                         }
                         break;
                     case 'ce':
+                        $teams = Team::all();
+                        $countTC = 0;
+                        $countBranch = 0;
+                        foreach ($teams as $t) {
+                            if($t->respo->branch == "TC" && $t->respo->level < 4){
+                                $countTC ++;
+                            }
+                            else
+                                $countBranch++;
+                        }
                         if ($this->now() > new \DateTime(Config::get('services.ce.deadline'))
-                            || $teamCount >= Config::get('services.ce.maxteam')
                             || $this->now() < new \DateTime(Config::get('services.ce.opening'))
                             || $student->ce) {
-                            info($this->now() > new \DateTime(Config::get('services.ce.deadline')));
-                            info($teamCount >= Config::get('services.ce.maxteam'));
-                            info($this->now() < new \DateTime(Config::get('services.ce.opening')));
-                            info($student->ce);
                             return false;
+                        }
+                        if($student->branch == "TC" && $student->level < 4){
+                            if($countTC >= Config::get('services.ce.maxteamtc')){
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if($countBranch >= Config::get('services.ce.maxteambranch')){
+                                return false;
+                            }
                         }
                         break;
                 }
@@ -195,14 +232,23 @@ class Authorization
             switch ($action) {
                 case 'create':
                 case 'edit':
-                    $teamCount = Team::count();
-                    if ($teamCount < Config::get('services.ce.maxteam')) {
-                        if ($this->now() < new \DateTime(Config::get('services.ce.opening'))) {
-                            $date = new \DateTime(Config::get('services.ce.opening'));
+                    $teams = Team::all();
+                    $countTC = 0;
+                    $countBranch = 0;
+                    foreach ($teams as $t) {
+                        if($t->respo->branch == "TC" && $t->respo->level < 4){
+                            $countTC ++;
                         }
-                        elseif ($this->now() < new \DateTime(Config::get('services.ce.deadline'))) {
-                            $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
+                        else{
+                            $countBranch++;
                         }
+                    }
+                    
+                    if ($this->now() < new \DateTime(Config::get('services.ce.opening'))) {
+                        $date = new \DateTime(Config::get('services.ce.opening'));
+                    }
+                    elseif ($this->now() < new \DateTime(Config::get('services.ce.deadline'))) {
+                        $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
                     }
                     break;
             }

@@ -40,10 +40,23 @@ class PagesController extends Controller
      */
     public function getMenu()
     {
+        $teams = Team::all();
+        $countTC = 0;
+        $countBranch = 0;
+        foreach ($teams as $t) {
+            if($t->respo->branch == "TC" && $t->respo->level < 4){
+                $countTC ++;
+            }
+            else
+                $countBranch++;
+        }
+        
+        //info("Nombre de team de TC : " . $countTC . " Nombre de team de Branche : " . $countBranch);
         return View::make('menu')
             ->with([
                 'student' => EtuUTT::student(),
-                'teamLeft' => Config::get('services.ce.maxteam') - Team::count(),
+                'teamLeftTC' => Config::get('services.ce.maxteamtc') - $countTC,
+                'teamLeftBranche' => Config::get('services.ce.maxteambranch') - $countBranch,
             ]);
     }
 

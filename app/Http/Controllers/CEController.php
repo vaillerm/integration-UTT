@@ -32,9 +32,22 @@ class CEController extends Controller
      */
     public function teamList()
     {
+        $teams = Team::all();
+        $countTC = 0;
+        $countBranch = 0;
+        foreach ($teams as $t) {
+            if($t->respo->branch == "TC" && $t->respo->level < 4){
+                $countTC ++;
+            }
+            else
+                $countBranch++;
+        }
+        //info("Nombre de team de TC : " . $countTC . " Nombre de team de Branche : " . $countBranch);
+
         return View::make('dashboard.ce.teamlist', [
             'teams' => Team::all(),
-            'teamLeft' => Config::get('services.ce.maxteam') - Team::count(),
+            'teamLeftTC' => Config::get('services.ce.maxteamtc') - $countTC,
+            'teamLeftBranch' => Config::get('services.ce.maxteambranch') - $countBranch,
         ]);
     }
 
@@ -71,7 +84,6 @@ class CEController extends Controller
     {
         $now =  new \DateTime();
         $ceFakeDeadline = (new \DateTime(Config::get('services.ce.fakeDeadline')))->diff($now);
-
         return View::make('dashboard.ce.myteam', [
             'team' => EtuUTT::student()->team,
             'student' => EtuUTT::student(),

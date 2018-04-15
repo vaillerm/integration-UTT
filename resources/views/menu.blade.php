@@ -59,11 +59,11 @@ Menu
                         </div>
                         <div class="panel-body">
                             Envie d'accompagner les nouveaux dans les épreuves de l'intégration ?<br/>
-                            Constitue ton équpe de 3 à 5 personnes en cliquant sur le bouton ci-desssous !
+                            Constitue ton équipe de 3 à 5 personnes en cliquant sur le bouton ci-desssous !
                             <br/><br/>
                             @if (Authorization::can('student','ce') || Authorization::can('ce','create'))
                                 <strong>Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }}</strong><br/>
-                                <strong>Plus que {{ $teamLeft }} créations d'équipe avant fermeture</strong>
+                                <strong>Plus que {{ $teamLeftTC }} équipes de TC et {{ $teamLeftBranch }} équipes de Branche avant fermeture</strong>
                                 <br/><br/>
                                 @if (Authorization::can('ce','create'))
                                     <a href="{{ route('dashboard.index') }}" class="btn form-control btn-success">Devenir chef d'équipe !</a>

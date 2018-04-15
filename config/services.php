@@ -67,7 +67,8 @@ return [
         'opening' => env('CE_OPENING'),
         'fakeDeadline' => env('CE_DEADLINE_FAKE'),
         'deadline' => env('CE_DEADLINE'),
-        'maxteam' => env('CE_MAXTEAM'),
+        'maxteamtc' => env('CE_MAXTEAM_TC'),
+        'maxteambranch' => env('CE_MAXTEAM_BRANCH'),
     ],
     'wei' => [
         'open' => env('WEI_OPEN'),

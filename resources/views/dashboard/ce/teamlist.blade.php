@@ -13,13 +13,12 @@ Liste des équipes
 @if (Authorization::can('ce','create'))
     <div class="box box-default">
         <div class="box-header with-border">
-            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }}
-                ou dans {{ $teamLeft }} créations d'équipes.</div>
+            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','create')) }},
+                il reste {{ $teamLeftTC }} équipes de TC et {{ $teamLeftBranch }} équipes de Branche.</div>
             <h3 class="box-title">Créer mon équipe</h3>
         </div>
         <div class="box-body text-center">
             <p>
-                Vous ne choisissez pas le nom de l'équipe à l'inscription.<br/>
                 <b>Un seul membre de votre équipe doit créer l'équipe puis ajouter les autres.</b>
                 Le reste des membres de l'équipe devrons ensuite se connecter pour accepter d'être dans l'équipe.
             </p>
