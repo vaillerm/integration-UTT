@@ -126,11 +126,14 @@ Gestion de mon équipe
 
 <div class="box box-default">
     <div class="box-header with-border">
-        @if(Authorization::can('ce','edit'))
+        @if(!Authorization::can('ce','editName'))
+            <div class="box-countdown">Vous pourrez modifier votre nom d'équipe dans {{ @countdown(Authorization::countdown('ce','editName')) }}</div>
+        @elseif(Authorization::can('ce','edit'))
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
         @else
             <div class="box-countdown">Les modifications d'équipe ne sont plus autorisées.</div>
         @endif
+
         <h3 class="box-title">Informations générales</h3>
     </div>
     <div class="box-body">
@@ -144,7 +147,10 @@ Gestion de mon équipe
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom de l'équipe</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" @if(!Authorization::can('ce','edit')) disabled @endif value="{{{ old('name') ?? $team->name }}}">
+                        <input class="form-control" type="text" id="name" name="name" @if(!Authorization::can('ce','editName')) disabled @endif value="{{{ old('name') ?? $team->name }}}" 
+                        @if(!Authorization::can('ce','editName'))
+                        placeholder="Vous pourrez changer le nom de votre équipe une fois que le thème de l'inté sera établit"
+                        @endif>
                     </div>
                 </div>
 

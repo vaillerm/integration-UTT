@@ -69,6 +69,7 @@ return [
         'deadline' => env('CE_DEADLINE'),
         'maxteamtc' => env('CE_MAXTEAM_TC'),
         'maxteambranch' => env('CE_MAXTEAM_BRANCH'),
+        'teamnamedeadline' => env('TEAM_NAME_DEADLINE'),
     ],
     'wei' => [
         'open' => env('WEI_OPEN'),

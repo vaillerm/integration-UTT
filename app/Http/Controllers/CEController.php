@@ -101,7 +101,7 @@ class CEController extends Controller
         $team = EtuUTT::student()->team;
         $data = Request::only(['name', 'description', 'img', 'facebook']);
         $this->validate(Request::instance(), [
-            'name' => 'required|min:3|max:30|unique:teams,name,'.EtuUTT::student()->team->id,
+            'name' => 'min:3|max:30|unique:teams,name,'.EtuUTT::student()->team->id,
             'description' => 'min:250',
             'img' => 'image',
             'facebook' => 'url'
@@ -124,7 +124,12 @@ class CEController extends Controller
         }
 
         // Update team informations
-        $team->name = $data['name'];
+        if(new \DateTime() < new \DateTime(Config::get('services.ce.teamnamedeadline'))){
+            $team->name = null;
+        }
+        else{
+            $team->name = $data['name'];
+        }
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->validated = false;

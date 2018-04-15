@@ -148,6 +148,14 @@ class Authorization
                             return false;
                         }
                         break;
+                    case 'editName':
+                        if (!$student->team || $student->team->respo_id != $student->id
+                            || $this->now() < new \DateTime(Config::get('services.ce.opening'))
+                            || $this->now() > new \DateTime(Config::get('services.ce.deadline'))
+                            || $this->now() < new \DateTime(Config::get('services.ce.teamnamedeadline'))) {
+                            return false;
+                        }
+                        break;
                     case 'join':
                         if (!$student->team
                             || $this->now() < new \DateTime(Config::get('services.ce.opening'))
@@ -250,6 +258,9 @@ class Authorization
                     elseif ($this->now() < new \DateTime(Config::get('services.ce.deadline'))) {
                         $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
                     }
+                    break;
+                case 'editName':                    
+                    $date = new \DateTime(Config::get('services.ce.teamnamedeadline'));
                     break;
             }
         } elseif ($group == 'student') {
