@@ -66,3 +66,9 @@ a.btn {
 		padding-right: 8px;
 	}
 }
+
+/* Fix label, make them unbreakable */
+.label {
+	white-space: nowrap;
+	display: inline-block;
+}

@@ -463,6 +463,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'StudentsController@list'
             ]);
+            Route::get('/list-preferences/{filter?}', [
+                'as'   => 'dashboard.students.list.preferences',
+                'middleware' => 'authorize:admin',
+                'uses' => 'StudentsController@listByPreferences'
+            ]);
             Route::get('/profil', [
                 'as'   => 'dashboard.students.profil',
                 'middleware' => 'authorize:student',

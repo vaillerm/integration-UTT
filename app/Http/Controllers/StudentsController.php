@@ -145,110 +145,168 @@ class StudentsController extends Controller
     }
 
     /**
-         * Display student list
-         *
-         * @param  string $filter
-         * @return Response
-         */
-        public function list($filter = '')
-        {
-            $students = Student::student()->orderBy('last_name', 'asc');
-            switch ($filter) {
-                case 'admin':
-                    $students = $students->where('admin', '=', Student::ADMIN_FULL);
-                    break;
-                case 'orga':
-                    $students = $students->where('orga', '=', true);
-                    break;
-                case 'referral':
-                    $students = $students->where('referral', '=', true);
-                    break;
-                case 'ce':
-                    $students = $students->where('ce', '=', true);
-                    break;
-                case 'volunteer':
-                    $students = $students->where('volunteer', '=', true);
-                    break;
-            }
-            $students = $students->get();
-            return View::make('dashboard.students.list', [
-                'students' => $students,
-                'filter' => $filter
-            ]);
+     * Display student list
+     *
+     * @param  string $filter
+     * @return Response
+     */
+    public function list($filter = '')
+    {
+        $students = Student::student()->orderBy('last_name', 'asc');
+        switch ($filter) {
+            case 'admin':
+                $students = $students->where('admin', '=', Student::ADMIN_FULL);
+                break;
+            case 'orga':
+                $students = $students->where('orga', '=', true);
+                break;
+            case 'referral':
+                $students = $students->where('referral', '=', true);
+                break;
+            case 'ce':
+                $students = $students->where('ce', '=', true);
+                break;
+            case 'volunteer':
+                $students = $students->where('volunteer', '=', true);
+                break;
         }
+        $students = $students->get();
+        return View::make('dashboard.students.list', [
+            'students' => $students,
+            'filter' => $filter
+        ]);
+    }
 
-        /**
-         * Display student profil form
-         *
-         * @return Response
-         */
-        public function profil()
-        {
-            return View::make('dashboard.students.profil', [
-                'student' => EtuUTT::student()
-            ]);
-        }
+    /**
+     * Display student list by volunteer_preferences
+     *
+     * @param  json $filter
+     * @return Response
+     */
+    public function listByPreferences($filter = '[]')
+    {
+        parse_str($filter, $filterArray);
 
-        /**
-         * Get submit profil form
-         *
-         * @return Response
-         */
-        public function profilSubmit()
-        {
-            // Validation
-            $rules = [
-                'surname' => 'max:50',
-                'sex' => 'required|boolean',
-                'email' => 'required|email',
-                'phone' => 'required|min:8|max:20',
-            ];
-
-            $student = EtuUTT::student();
-            if (!$student->volunteer) {
-                $rules['convention'] = 'accepted';
-            }
-
-            $this->validate(Request::instance(), $rules,
-            [
-                'convention.accepted' => 'Vous devez accepter l\'esprit de l\'intégration',
-            ]);
-
-            $volunteer = $student->volunteer;
-            $student->volunteer = !empty(Request::get('convention'));
-            $student->update(Request::only(
-                'surname',
-                'sex',
-                'email',
-                'phone'
-            ));
-            $volunteer_preferences = [];
-            foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
-                if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
-                    $volunteer_preferences[] = $key;
+        // Convert filter to query
+        // For performance reasons we will not decode the volunteer_preferences
+        // field for each user, but just search by 'like' inside
+        $students = Student::student()->orderBy('last_name', 'asc')->where('volunteer', true);
+        foreach ($filterArray as $key => $value) {
+            // Ignore if key is not in Student::VOLUNTEER_PREFERENCES
+            if(array_key_exists($key, Student::VOLUNTEER_PREFERENCES)) {
+                if ($value) {
+                    $students = $students->where('volunteer_preferences', 'LIKE', '%"' . $key . '"%');
+                }
+                else {
+                    $students = $students->where('volunteer_preferences', 'NOT LIKE', '%"' . $key . '"%');
                 }
             }
-            $student->volunteer_preferences = $volunteer_preferences;
-            $student->save();
-            // Add or remove from sympa
-            if (!$volunteer && $student->volunteer) {
-                $sent = Mail::raw('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use ($student) {
-                    $message->from('integrat@utt.fr', 'Intégration UTT');
-                    $message->to('sympa@utt.fr');
-                });
-            } elseif ($volunteer && !$student->volunteer) {
-                $sent = Mail::raw('QUIET DELETE stupre-liste '.$student->email, function ($message) use ($student) {
-                    $message->from('integrat@utt.fr', 'Intégration UTT');
-                    $message->to('sympa@utt.fr');
-                });
-            }
+        }
+        $students = $students->get();
 
-            if (!$volunteer && $student->volunteer) {
-                return redirect(route('dashboard.index'))->withSuccess('Votre profil a bien été mis à jour.');
-            } else {
-                return redirect(route('dashboard.students.profil'))->withSuccess('Votre profil a bien été mis à jour.');
+        // Prepare filter menu
+        $filterMenu = Student::VOLUNTEER_PREFERENCES;
+        foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+            if (isset($filterArray[$key])) {
+                if ($filterArray[$key]) {
+                    $newFilter = array_merge($filterArray, [ $key => 0 ]);
+                    $filterMenu[$key]['newfilter'] = http_build_query($newFilter);
+                    $filterMenu[$key]['class'] = 'btn-success active';
+                }
+                else {
+                    $newFilter = $filterArray;
+                    unset($newFilter[$key]);
+                    $filterMenu[$key]['newfilter'] = http_build_query($newFilter);
+                    $filterMenu[$key]['class'] = 'btn-danger';
+                }
+            }
+            else {
+                $newFilter = array_merge($filterArray, [ $key => 1 ]);
+                $filterMenu[$key]['newfilter'] = http_build_query($newFilter);
+                $filterMenu[$key]['class'] = 'btn-default';
             }
         }
+
+
+        return View::make('dashboard.students.list-preferences', [
+            'filterMenu' => $filterMenu,
+            'students' => $students,
+            'filter' => $filterArray
+        ]);
+    }
+
+    /**
+     * Display student profil form
+     *
+     * @return Response
+     */
+    public function profil()
+    {
+        return View::make('dashboard.students.profil', [
+            'student' => EtuUTT::student()
+        ]);
+    }
+
+    /**
+     * Get submit profil form
+     *
+     * @return Response
+     */
+    public function profilSubmit()
+    {
+        // Validation
+        $rules = [
+            'surname' => 'max:50',
+            'sex' => 'required|boolean',
+            'email' => 'required|email',
+            'phone' => 'required|min:8|max:20',
+        ];
+
+        $student = EtuUTT::student();
+        if (!$student->volunteer) {
+            $rules['convention'] = 'accepted';
+        }
+
+        $this->validate(Request::instance(), $rules,
+        [
+            'convention.accepted' => 'Vous devez accepter l\'esprit de l\'intégration',
+        ]);
+
+        $volunteer = $student->volunteer;
+        $student->volunteer = !empty(Request::get('convention'));
+        $student->update(Request::only(
+            'surname',
+            'sex',
+            'email',
+            'phone'
+        ));
+        $volunteer_preferences = [];
+        foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+            if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
+                $volunteer_preferences[] = $key;
+            }
+        }
+        $student->volunteer_preferences = $volunteer_preferences;
+        $student->save();
+        // Add or remove from sympa
+        if (!$volunteer && $student->volunteer) {
+            $sent = Mail::raw('QUIET ADD stupre-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use ($student) {
+                $message->from('integrat@utt.fr', 'Intégration UTT');
+                $message->to('sympa@utt.fr');
+            });
+        } elseif ($volunteer && !$student->volunteer) {
+            $sent = Mail::raw('QUIET DELETE stupre-liste '.$student->email, function ($message) use ($student) {
+                $message->from('integrat@utt.fr', 'Intégration UTT');
+                $message->to('sympa@utt.fr');
+            });
+        }
+
+        if (!$volunteer && $student->volunteer) {
+            return redirect(route('dashboard.index'))->withSuccess('Votre profil a bien été mis à jour.');
+        } else {
+            return redirect(route('dashboard.students.profil'))->withSuccess('Votre profil a bien été mis à jour.');
+        }
+    }
 
 
 
@@ -303,6 +361,7 @@ class StudentsController extends Controller
             'wei_validated',
             'parent_authorization',
             'bus_id',
+            'mission'
         ]);
         $this->validate(Request::instance(), [
             'surname' => 'max:50',
@@ -313,7 +372,6 @@ class StudentsController extends Controller
             'postal_code' => 'integer',
             'referral_max' => 'integer|max:5|min:1',
         ]);
-
 
         // Add or remove from sympa
         if (!$student->orga && $data['orga']) {
@@ -360,6 +418,15 @@ class StudentsController extends Controller
             $student->admin = (!empty($data['admin']))?100:0;
             $student->orga = !empty($data['orga']);
             $student->secu = !empty($data['secu']);
+            $student->mission = $data['mission'];
+
+            $volunteer_preferences = [];
+            foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+                if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
+                    $volunteer_preferences[] = $key;
+                }
+            }
+            $student->volunteer_preferences = $volunteer_preferences;
         }
 
         $student->save();

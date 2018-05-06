@@ -117,13 +117,6 @@ Modification de profil
                         <input class="form-control" name="level" id="level" type="text" value="{{{ old('level') ?? $student->level }}}">
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="volunteer" class="col-lg-2 text-right">A signé la charte</label>
-                    <div class="col-lg-10">
-                        <input type="checkbox" id="volunteer" name="volunteer" @if ($student->volunteer == 1) checked="checked" @endif disabled/>
-                    </div>
-                </div>
             @else
 
                 <div class="form-group">
@@ -183,9 +176,40 @@ Modification de profil
                 </div>
 
             @endif
-
-
         </fieldset>
+
+        @if (!$student->is_newcomer)
+        <fieldset>
+            <legend>Bénévole</legend>
+            <div class="form-group">
+                <label for="volunteer" class="col-lg-2 text-right">A signé la charte</label>
+                <div class="col-lg-10">
+                    <input type="checkbox" id="volunteer" name="volunteer" @if ($student->volunteer == 1) checked="checked" @endif disabled/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="mission" class="col-lg-2 control-label">Mission pour l'intégration</label>
+                <div class="col-lg-10">
+                    <input class="form-control" name="mission" id="mission" placeholder="Mission" type="text" value="{{ old('mission') ?? $student->mission }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Préférences</label>
+                <div class="col-lg-10">
+                    @foreach ($student::VOLUNTEER_PREFERENCES as $key => $preference)
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key, $student->volunteer_preferences ?? []) )) checked="checked" @endif/>
+                            <strong>{{{ $preference['title'] }}}</strong><span class="hidden-xs"> : {{{ $preference['description'] }}}</span>
+                        </label>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </fieldset>
+        @endif
 
         @if (!$student->is_newcomer)
             <fieldset>
@@ -420,7 +444,6 @@ Modification de profil
                     </div>
                 </div>
             </fieldset>
-
 
             <fieldset>
                 <legend>Position GPS</legend>
