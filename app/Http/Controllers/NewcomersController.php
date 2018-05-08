@@ -45,7 +45,7 @@ class NewcomersController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'sex' => 'required|boolean',
-            'birth' => 'date',
+            'birth' => 'date_format:d/m/Y',
             'registration_email' => 'email',
             'branch' => 'required',
             'postal_code' => 'required|integer|min:0|max:99999',
@@ -66,6 +66,7 @@ class NewcomersController extends Controller
             'ine',
         ]);
         $newcomer_data['is_newcomer'] = true;
+        $newcomer_data['birth'] = \DateTime::createFromFormat('d/m/Y', $newcomer_data['birth']);
 
         $newcomer = Student::create($newcomer_data);
 
