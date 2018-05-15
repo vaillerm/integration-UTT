@@ -50,13 +50,13 @@ class PagesController extends Controller
             else
                 $countBranch++;
         }
-        
+
         //info("Nombre de team de TC : " . $countTC . " Nombre de team de Branche : " . $countBranch);
         return View::make('menu')
             ->with([
                 'student' => EtuUTT::student(),
                 'teamLeftTC' => Config::get('services.ce.maxteamtc') - $countTC,
-                'teamLeftBranche' => Config::get('services.ce.maxteambranch') - $countBranch,
+                'teamLeftBranch' => Config::get('services.ce.maxteambranch') - $countBranch,
             ]);
     }
 

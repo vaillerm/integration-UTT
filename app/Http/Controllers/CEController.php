@@ -204,7 +204,7 @@ class CEController extends Controller
     {
         // If the user is new, import some values from the API response.
         $json = EtuUTT::call('/api/public/users/'.$login)['data'];
-        $student = Student::find($json['studentId']);
+        $student = Student::where([ 'student_id' => $json['studentId'] ])->first();
         if ($student === null) {
             $student = new Student([
                 'student_id'    => $json['studentId'],
@@ -223,7 +223,7 @@ class CEController extends Controller
             // Error here a ignored, we just keep user without a picture if we cannot download it
             $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $json['studentId'] . '.jpg');
             @file_put_contents(public_path() . '/uploads/students-trombi/' . $json['studentId'] . '.jpg', $picture);
-        } elseif ($student->team) {
+        } elseif ($student->team_id) {
             return $this->error('Cet étudiant fait déjà partie d\'une équipe. Il faut qu\'il la quitte avant de pouvoir être ajouté à une nouvelle équipe.');
         } else {
             $student->team_id = EtuUTT::student()->team_id;

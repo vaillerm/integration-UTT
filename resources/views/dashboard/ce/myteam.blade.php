@@ -25,7 +25,7 @@ Gestion de mon équipe
                 <p>
                     <strong></strong> a proposé de vous ajouter à l'équipe. Souhaites-vous la rejoindre ?
                 </p>
-                <a href="{{{ route('dashboard.ce.join') }}}" class="btn btn-success form-control">Rejoindre l'équipe 
+                <a href="{{{ route('dashboard.ce.join') }}}" class="btn btn-success form-control">Rejoindre l'équipe
                     @if($team->name != null)
                     <strong>{{{ $team->name }}}</strong></a>
                     @else
@@ -127,7 +127,7 @@ Gestion de mon équipe
 <div class="box box-default">
     <div class="box-header with-border">
         @if(!Authorization::can('ce','editName'))
-            <div class="box-countdown">Vous pourrez modifier votre nom d'équipe dans {{ @countdown(Authorization::countdown('ce','editName')) }}</div>
+            <div class="box-countdown">Vous pourrez modifier les informations d'équipe dans {{ @countdown(Authorization::countdown('ce','editName')) }}</div>
         @elseif(Authorization::can('ce','edit'))
             <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
         @else
@@ -147,7 +147,7 @@ Gestion de mon équipe
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom de l'équipe</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" @if(!Authorization::can('ce','editName')) disabled @endif value="{{{ old('name') ?? $team->name }}}" 
+                        <input class="form-control" type="text" id="name" name="name" @if(!Authorization::can('ce','editName')) disabled @endif value="{{{ old('name') ?? $team->name }}}"
                         @if(!Authorization::can('ce','editName'))
                         placeholder="Vous pourrez changer le nom de votre équipe une fois que le thème de l'inté sera établit"
                         @endif>
@@ -157,7 +157,7 @@ Gestion de mon équipe
                 <div class="form-group">
                     <label for="description" class="col-lg-2 control-label">Mot de votre équipe</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" name="description" id="description" placeholder="Bienvenue dans notre équipe..."  @if(!Authorization::can('ce','edit')) disabled @endif>{{{ old('description') ?? $team->description }}}</textarea>
+                        <textarea class="form-control" name="description" id="description" @if(!Authorization::can('ce','editName')) disabled @endif placeholder="Bienvenue dans notre équipe..."  @if(!Authorization::can('ce','edit')) disabled @endif>{{{ old('description') ?? $team->description }}}</textarea>
                         <small class="text-muted">Utilisez ce mot pour souhaiter la bienvenue aux nouveaux dans votre équipe et donner des idées de déguisements.
                             <br/>Ecrivez minimum 250 caractères.
                             Ce message est soumis à validation d'un modérateur.</small>
@@ -168,7 +168,7 @@ Gestion de mon équipe
                 <fieldset class="form-group">
                     <label for="img" class="col-lg-2 control-label">Logo de votre équipe</label>
                     <div class="col-lg-10">
-                        <input type="file" class="form-control-file" id="img" name="img"  @if(!Authorization::can('ce','edit')) disabled @endif>
+                        <input type="file" class="form-control-file" id="img" name="img" @if(!Authorization::can('ce','editName')) disabled @endif  @if(!Authorization::can('ce','edit')) disabled @endif>
                         <small class="text-muted">Image de 200x200 pixels représentant le thème de votre équipe.</small>
                         @if ($team->img)
                             <div class="text-center">
@@ -181,7 +181,7 @@ Gestion de mon équipe
                 <div class="form-group">
                     <label for="facebook" class="col-lg-2 control-label">Lien vers le groupe Facebook</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="facebook" name="facebook" placeholder="https://facebook.com/.." @if(!Authorization::can('ce','edit')) disabled @endif value="{{{ old('facebook') ?? $team->facebook }}}">
+                        <input class="form-control" type="text" id="facebook" name="facebook" @if(!Authorization::can('ce','editName')) disabled @endif placeholder="https://facebook.com/.." @if(!Authorization::can('ce','edit')) disabled @endif value="{{{ old('facebook') ?? $team->facebook }}}">
                     </div>
                 </div>
 
@@ -195,7 +195,7 @@ Gestion de mon équipe
                     </div>
                 </div>
                 @if(Authorization::can('ce','edit'))
-                    <input type="submit" class="btn btn-success form-control" value="Mettre à jour les informations" />
+                    <input type="submit" class="btn btn-success form-control" value="Mettre à jour les informations" @if(!Authorization::can('ce','editName')) disabled @endif />
                 @endif
             </form>
         </div>
