@@ -61,7 +61,7 @@ Gestion des équipes
                                                 {{{ $student->phone }}}
                                             </td>
                                             <td>
-                                                @if ($student->student_id == $team->respo_id)
+                                                @if ($student->id == $team->respo_id)
                                                     <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span>
                                                 @endif
                                                 @if ($student->team_accepted)
