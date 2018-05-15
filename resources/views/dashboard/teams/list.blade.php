@@ -58,7 +58,8 @@ Gestion des équipes
                                             <td></td>
                                             <td>
                                                 {{{ $student->email }}}<br/>
-                                                {{{ $student->phone }}}
+                                                {{{ $student->phone }}}<br/>
+                                                {{{ $student->branch }}}{{{ $student->level }}}
                                             </td>
                                             <td>
                                                 @if ($student->id == $team->respo_id)
