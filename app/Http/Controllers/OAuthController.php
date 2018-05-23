@@ -232,6 +232,7 @@ class OAuthController extends Controller
     public function logout()
     {
         Session::flush();
+        Auth::logout();
         // We have to redirect the user to a web page wich will be disconnecting
         // him from the etu.utt.fr website. Then he'll be redirected to the
         // application index. That's dirty but I don't see any alternative.
