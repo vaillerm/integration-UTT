@@ -55,8 +55,8 @@ class PagesController extends Controller
         return View::make('menu')
             ->with([
                 'student' => EtuUTT::student(),
-                'teamLeftTC' => Config::get('services.ce.maxteamtc') - $countTC,
-                'teamLeftBranch' => Config::get('services.ce.maxteambranch') - $countBranch,
+                'teamLeftTC' => Config::get('services.ce.maxTeamTc') - $countTC,
+                'teamLeftBranch' => Config::get('services.ce.maxTeamBranch') - $countBranch,
             ]);
     }
 

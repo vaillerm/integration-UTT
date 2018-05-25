@@ -128,14 +128,14 @@ class Authorization
                             return false;
                         }
                         if($student->branch == "TC" && $student->level < 4){
-                            if($countTC >= Config::get('services.ce.maxteamtc')){
+                            if($countTC >= Config::get('services.ce.maxTeamTc')){
                                 info("counttc>max");
                                 return false;
                             }
                         }
                         else
                         {
-                            if($countBranch >= Config::get('services.ce.maxteambranch')){
+                            if($countBranch >= Config::get('services.ce.maxTeamBranch')){
                                 info($countBranch . " countbranch>max");
                                 return false;
                             }
@@ -149,10 +149,10 @@ class Authorization
                         }
                         break;
                     case 'editName':
-                        if (!$student->team || $student->team->respo_id != $student->id
+                        if (!$student->team || $student->team->respo_id != $student->id || !$student->team->faction
                             || $this->now() < new \DateTime(Config::get('services.ce.opening'))
                             || $this->now() > new \DateTime(Config::get('services.ce.deadline'))
-                            || $this->now() < new \DateTime(Config::get('services.ce.teamnamedeadline'))) {
+                            || $this->now() < new \DateTime(Config::get('services.ce.teamNameOpening'))) {
                             return false;
                         }
                         break;
@@ -196,13 +196,13 @@ class Authorization
                             return false;
                         }
                         if($student->branch == "TC" && $student->level < 4){
-                            if($countTC >= Config::get('services.ce.maxteamtc')){
+                            if($countTC >= Config::get('services.ce.maxTeamTc')){
                                 return false;
                             }
                         }
                         else
                         {
-                            if($countBranch >= Config::get('services.ce.maxteambranch')){
+                            if($countBranch >= Config::get('services.ce.maxTeamBranch')){
                                 return false;
                             }
                         }
@@ -251,7 +251,7 @@ class Authorization
                             $countBranch++;
                         }
                     }
-                    
+
                     if ($this->now() < new \DateTime(Config::get('services.ce.opening'))) {
                         $date = new \DateTime(Config::get('services.ce.opening'));
                     }
@@ -259,8 +259,13 @@ class Authorization
                         $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
                     }
                     break;
-                case 'editName':                    
-                    $date = new \DateTime(Config::get('services.ce.teamnamedeadline'));
+                case 'editName':
+                    if ($this->now() < new \DateTime(Config::get('services.ce.teamNameOpening'))) {
+                        $date = new \DateTime(Config::get('services.ce.teamNameOpening'));
+                    }
+                    elseif ($this->now() < new \DateTime(Config::get('services.ce.deadline'))) {
+                        $date = new \DateTime(Config::get('services.ce.fakeDeadline'));
+                    }
                     break;
             }
         } elseif ($group == 'student') {

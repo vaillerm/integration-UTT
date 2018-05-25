@@ -49,7 +49,7 @@ Gestion de mon équipe
     </div>
 @endif
 
-@if(count($newcomers)>0)
+{{-- @if(count($newcomers)>0)
     <div class="box box-default">
         <div class="box-header with-border">
             <h3 class="box-title">Nouveaux assignés a l'équipe</h3>
@@ -72,6 +72,7 @@ Gestion de mon équipe
         </div>
     </div>
 @endif
+--}}
 
 <div class="box box-default">
     <div class="box-header with-border">
@@ -126,10 +127,10 @@ Gestion de mon équipe
 
 <div class="box box-default">
     <div class="box-header with-border">
-        @if(!Authorization::can('ce','editName'))
+        @if(Authorization::can('ce','editName'))
+            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','editName')) }}</div>
+        @elseif (Authorization::countdown('ce','editName'))
             <div class="box-countdown">Vous pourrez modifier les informations d'équipe dans {{ @countdown(Authorization::countdown('ce','editName')) }}</div>
-        @elseif(Authorization::can('ce','edit'))
-            <div class="box-countdown">Fermeture dans {{ @countdown(Authorization::countdown('ce','edit')) }}</div>
         @else
             <div class="box-countdown">Les modifications d'équipe ne sont plus autorisées.</div>
         @endif
@@ -142,6 +143,18 @@ Gestion de mon équipe
                 @if($team->respo_id != Auth::user()->id)
                     <p class="text-center">
                         Seul le responsable de l'équipe peut modifier les informations de l'équipe.
+                    </p>
+                @endif
+
+                @if (!empty(Config::get('services.theme')) || ($team->faction && !empty($team->faction->name)))
+                    <p class="text-center">
+                        @if (!empty(Config::get('services.theme')))
+                            Cette année le thème de l'Intégration c'est <strong>{{ Config::get('services.theme') }}</strong>.<br/>
+                        @endif
+                        @if ($team->faction && !empty($team->faction->name))
+                            Votre équipe est dans la faction <strong>{{ $team->faction->name }}</strong>.<br/>
+                        @endif
+                        Choisissez votre nom d'équipe en conséquence !
                     </p>
                 @endif
                 <div class="form-group">

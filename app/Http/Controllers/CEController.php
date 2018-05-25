@@ -46,8 +46,8 @@ class CEController extends Controller
 
         return View::make('dashboard.ce.teamlist', [
             'teams' => Team::all(),
-            'teamLeftTC' => Config::get('services.ce.maxteamtc') - $countTC,
-            'teamLeftBranch' => Config::get('services.ce.maxteambranch') - $countBranch,
+            'teamLeftTC' => Config::get('services.ce.maxTeamTc') - $countTC,
+            'teamLeftBranch' => Config::get('services.ce.maxTeamBranch') - $countBranch,
         ]);
     }
 
@@ -124,7 +124,7 @@ class CEController extends Controller
         }
 
         // Update team informations
-        if(new \DateTime() < new \DateTime(Config::get('services.ce.teamnamedeadline'))){
+        if(new \DateTime() < new \DateTime(Config::get('services.ce.teamNameOpening'))){
             $team->name = null;
         }
         else{

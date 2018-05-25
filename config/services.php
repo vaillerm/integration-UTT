@@ -23,6 +23,8 @@ return [
         'secret' => env('MANDRILL_SECRET'),
     ],
 
+    'theme' => env('THEME'),
+
     'ses' => [
         'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
@@ -67,9 +69,9 @@ return [
         'opening' => env('CE_OPENING'),
         'fakeDeadline' => env('CE_DEADLINE_FAKE'),
         'deadline' => env('CE_DEADLINE'),
-        'maxteamtc' => env('CE_MAXTEAM_TC'),
-        'maxteambranch' => env('CE_MAXTEAM_BRANCH'),
-        'teamnamedeadline' => env('TEAM_NAME_DEADLINE'),
+        'maxTeamTc' => env('CE_MAXTEAM_TC'),
+        'maxTeamBranch' => env('CE_MAXTEAM_BRANCH'),
+        'teamNameOpening' => env('CE_TEAM_NAME_OPENING'),
     ],
     'wei' => [
         'open' => env('WEI_OPEN'),
