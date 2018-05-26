@@ -14,7 +14,7 @@ class MakeTeamNameNullable extends Migration
     public function up()
     {
         Schema::table('teams', function (Blueprint $table) {
-            $table->boolean('name')->nullable()->change();
+            $table->text('name')->nullable()->change();
         });
     }
 
@@ -26,7 +26,7 @@ class MakeTeamNameNullable extends Migration
     public function down()
     {
         Schema::table('teams', function (Blueprint $table) {
-            $table->boolean('name')->nullable(false)->change();
+            $table->text('name')->nullable(false)->change();
         });
     }
 }
