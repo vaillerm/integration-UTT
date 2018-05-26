@@ -7,6 +7,7 @@ use App\Models\Team;
 use EtuUTT;
 use Request;
 use Config;
+use Authorization;
 use View;
 
 class CEController extends Controller
@@ -98,6 +99,10 @@ class CEController extends Controller
      */
     public function myTeamSubmit()
     {
+        if(!Authorization::can('ce', 'editName')) {
+            return redirect(route('dashboard.ce.myteam'))->withError('Vous ne pouvez pas modifier les informations de l\'equipe');
+        }
+
         $team = EtuUTT::student()->team;
         $data = Request::only(['name', 'description', 'img', 'facebook']);
         $this->validate(Request::instance(), [
@@ -124,12 +129,7 @@ class CEController extends Controller
         }
 
         // Update team informations
-        if(new \DateTime() < new \DateTime(Config::get('services.ce.teamNameOpening'))){
-            $team->name = null;
-        }
-        else{
-            $team->name = $data['name'];
-        }
+        $team->name = $data['name'];
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->validated = false;
