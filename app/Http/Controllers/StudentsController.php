@@ -201,12 +201,36 @@ class StudentsController extends Controller
                     $students = $students->where('volunteer_preferences', 'NOT LIKE', '%"' . $key . '"%');
                 }
             }
+            elseif ($key == '__ce') {
+                if ($value) {
+                    $students = $students->where('ce', '1')->where('team_accepted', '1')->whereNotNull('team_id');
+                }
+                else {
+                    $students = $students->where(function ($query) { $query->where('ce', '0')->orWhere('team_accepted', '0')->orWhereNull('team_id'); });
+                }
+            }
+            elseif ($key == '__mission') {
+                if ($value) {
+                    $students = $students->where('mission', '!=', '');
+                }
+                else {
+                    $students = $students->where('mission', '');
+                }
+            }
         }
         $students = $students->get();
 
         // Prepare filter menu
         $filterMenu = Student::VOLUNTEER_PREFERENCES;
-        foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+        $filterMenu['__ce'] = [
+            'title' => '*CE*',
+            'description' => 'Filter les CE.',
+        ];
+        $filterMenu['__mission'] = [
+            'title' => '*Mission*',
+            'description' => 'Filter bénévoles avec une mission.',
+        ];
+        foreach ($filterMenu as $key => $value) {
             if (isset($filterArray[$key])) {
                 if ($filterArray[$key]) {
                     $newFilter = array_merge($filterArray, [ $key => 0 ]);
@@ -226,7 +250,6 @@ class StudentsController extends Controller
                 $filterMenu[$key]['class'] = 'btn-default';
             }
         }
-
 
         return View::make('dashboard.students.list-preferences', [
             'filterMenu' => $filterMenu,

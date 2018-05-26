@@ -38,7 +38,12 @@ Liste de tous les bénévoles classés par préférences
                         <td><a href="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
                         <td>{{{ $student->first_name . ' ' . $student->last_name }}}</td>
                         <td>{{{ $student->phone }}}</td>
-                        <td>{{{ $student->mission }}}</td>
+                        <td>
+                            {{{ $student->mission }}}
+                            @if ($student->team_accepted && $student->ce && $student->team_id)
+                                <span class="label label-primary">CE</span>
+                            @endif
+                        </td>
                         <td>
                             @foreach ($student->volunteer_preferences as $preference)
                                 <span class="label {{{ empty($filter[$preference]) ? 'label-default' : 'label-success' }}}"
@@ -53,6 +58,20 @@ Liste de tous les bénévoles classés par préférences
                 @endforeach
             </tbody>
         </table>
+    </div>
+</div>
+
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Listes des contacts filtrés</h3>
+    </div>
+    <div class="box-body">
+        <h4>Emails</h4>
+        <textarea class="form-control" readonly>@foreach ($students as $student){{ $student->email . "\n" }}@endforeach</textarea>
+
+        <h4>Téléphones</h4>
+        <textarea class="form-control" readonly>@foreach ($students as $student){{ $student->phone . "\n" }}@endforeach</textarea>
     </div>
 </div>
 @endsection
