@@ -33,9 +33,19 @@ Gestion des équipes
                     @endif
                         <td>{{{ $team->newcomers()->count() }}}</td>
                         @if($team->name != null)
-                        <td><strong>{{{ $team->name }}}</strong></td>
+                            <td>
+                                <strong>{{{ $team->name }}}</strong>
+                                @if($team->faction_id)
+                                    <br/>({{{ $team->faction->name }}})
+                                @endif
+                            </td>
                         @else
-                        <td><strong>Équipe sans nom {{{ $team->id }}}</strong></td>
+                            <td>
+                                <strong>Équipe sans nom {{{ $team->id }}}</strong>
+                                @if($team->faction_id)
+                                    <br/>({{{ $team->faction->name }}})
+                                @endif
+                            </td>
                         @endif
                         <td>
                             @if ($team->description)
