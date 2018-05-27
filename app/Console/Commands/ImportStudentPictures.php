@@ -40,9 +40,18 @@ class ImportStudentPictures extends Command
      */
     public function fire()
     {
-        foreach (Student::student()->get() as $student) {
-            $picture = file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
-            file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
+        $i = 0;
+        $list = Student::student()->get();
+        foreach ($list as $student) {
+            $i++;
+            echo $i . "/" . $list->count() . " " . $student->fullName() . " " . "\n";
+            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
+            if (empty($picture)) {
+                echo "Error while trying to download student picture of ". $student->fullName() . " (" . $student->student_id . ")\n";
+            }
+            else {
+                file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
+            }
         }
         $this->info('Done!');
     }
