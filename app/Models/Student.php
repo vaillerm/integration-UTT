@@ -250,7 +250,7 @@ class Student extends Model implements Authenticatable
 
     public function getPostalCodeAttribute($value)
     {
-        return intval($value);
+        return $value;
     }
 
     /**
