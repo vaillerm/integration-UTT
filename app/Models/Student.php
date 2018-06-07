@@ -237,6 +237,15 @@ class Student extends Model implements Authenticatable
         return Crypt::decrypt($this->password) == $password;
     }
 
+    /**
+     * Encrypt the given password and associate it to the user
+     *
+     * @param String $password: the password to set
+     */
+    public function setPassword($password) {
+        $this->password = Crypt::encrypt($password);
+    }
+
     /*
      * Accessors mail
      */
@@ -584,7 +593,7 @@ class Student extends Model implements Authenticatable
 
         Student::creating(function ($newcomer) {
             if (empty($newcomer->password)) {
-                $newcomer->password = Crypt::encrypt(self::generatePassword());
+                $newcomer->setPassword(self::generatePassword());
             }
             if (empty($newcomer->login)) {
                 $login = strtolower(mb_substr(mb_substr(preg_replace("/[^A-Za-z0-9]/", '', $newcomer->first_name), 0, 1) . preg_replace("/[^A-Za-z0-9]/", '', $newcomer->last_name), 0, 8));

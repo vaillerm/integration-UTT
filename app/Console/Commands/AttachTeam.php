@@ -15,7 +15,7 @@ class AttachTeam extends Command
      *
      * @var string
      */
-    protected $name = 'newcomers:assignTeam';
+    protected $name = 'integration:newcomers:assignTeam';
 
     /**
      * The console command description.

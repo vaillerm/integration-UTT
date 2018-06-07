@@ -6,6 +6,7 @@ use Closure;
 use Session;
 use Redirect;
 use View;
+use Auth;
 use App\Models\Student;
 
 class OAuth
@@ -19,14 +20,10 @@ class OAuth
      */
     public function handle($request, Closure $next)
     {
-        if (Session::has('student_id') === false) {
+        if (!Auth::user() || Auth::user()->isNewcomer()) {
             return Redirect::route('oauth.auth');
         }
-
-        $student = Student::find(Session::get('student_id'));
-        if ($student) {
-            View::share('student', $student);
-        }
+        View::share('student', Auth::user());
 
         return $next($request);
     }

@@ -31,12 +31,17 @@ class AuthController extends Controller
      */
     public function loginSubmit()
     {
-        $newcomer = Student::newcomer()->where('login', Request::get('login'))->get()->first();
-        if ($newcomer) {
-            $password = Crypt::decrypt($newcomer->password);
+        $student = Student::where('login', Request::get('login'))->get()->first();
+        if ($student && !empty($student->password)) {
+            $password = Crypt::decrypt($student->password);
             if ($password == Request::get('password')) {
-                Auth::login($newcomer, true);
-                return Redirect::route('newcomer.home')->withSuccess('Vous êtes maintenant connecté.');
+                Auth::login($student, true);
+                if ($student->isNewcomer()) {
+                    return Redirect::route('newcomer.home')->withSuccess('Vous êtes maintenant connecté.');
+                }
+                else {
+                    return Redirect::route('menu')->withSuccess('Vous êtes maintenant connecté.');
+                }
             }
         }
         return $this->error('Identifiant ou mot de passe incorrect. Contactez integration@utt.fr si vous n\'arrivez pas à vous connecter.');

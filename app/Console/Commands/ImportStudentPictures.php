@@ -14,7 +14,7 @@ class ImportStudentPictures extends Command
      *
      * @var string
      */
-    protected $name = 'students:importPictures';
+    protected $name = 'integration:students:importPictures';
 
     /**
      * The console command description.

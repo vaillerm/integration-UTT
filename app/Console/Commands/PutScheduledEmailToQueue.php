@@ -23,7 +23,7 @@ class PutScheduledEmailToQueue extends Command
      *
      * @var string
      */
-    protected $signature = 'inte:emails-to-queue';
+    protected $signature = 'integration:emails-to-queue';
 
     /**
      * The console command description.

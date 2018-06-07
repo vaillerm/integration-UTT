@@ -13,7 +13,7 @@ class CreateFirstCron extends Command
      *
      * @var string
      */
-    protected $signature = 'cron:first';
+    protected $signature = 'integration:cron:first';
 
     /**
      * The console command description.

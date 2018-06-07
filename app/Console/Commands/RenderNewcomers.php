@@ -14,7 +14,7 @@ class RenderNewcomers extends Command
      *
      * @var string
      */
-    protected $name = 'newcomers:render';
+    protected $name = 'integration:newcomers:render';
 
     /**
      * The console command description.

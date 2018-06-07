@@ -128,36 +128,4 @@ class EtuUTT
 
         return $student;
     }
-
-    /**
-     * Search a student on EtuUTT by first_name, last_name, student_id
-     *
-     * @return array
-     */
-    public function searchStudent()
-    {
-        // If we've already retrieved the user for the current request we can just
-        // return it back immediately. We do not want to fetch the user data on
-        // every call to this method because that would be tremendously slow.
-        if (! is_null($this->student)) {
-            return $this->student;
-        }
-
-        $id = Session::get('student_id');
-
-        // First we will try to load the user using the identifier in the session if
-        // one exists. Otherwise we will check for a "remember me" cookie in this
-        // request, and if one exists, attempt to retrieve the user using that.
-        $student = null;
-        if (! is_null($id)) {
-            $student = Student::find(Session::get('student_id'));
-        }
-
-        if ($student === null && $id !== null) {
-            Session::forget('student_id');
-            abort(500);
-        }
-
-        return $student;
-    }
 }

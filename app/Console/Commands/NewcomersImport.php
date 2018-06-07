@@ -26,7 +26,7 @@ class NewcomersImport extends Command
      *
      * @var string
      */
-    protected $name = 'newcomers:import';
+    protected $name = 'integration:newcomers:import';
 
     /**
      * The console command description.
