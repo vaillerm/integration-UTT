@@ -45,6 +45,15 @@
                                             <li><a href="{{ route('dashboard.referrals.slides.branch') }}">Diapo Branche</a></li>
                                         </ul>
                                     </li>
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											@if (EtuUTT::student()->isAdmin())
+												<li><a href="{{ route('challenge.add') }}">Ajouter un défis</a></li>
+											@endif
+											<li><a href="">Accéder à la liste des défis</a></li>
+										</ul>
+									</li>
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs <span class="caret"></span></a>
