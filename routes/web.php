@@ -675,5 +675,10 @@ Route::post('/etupay/callback', [
 
 Route::get("/challenge/add", [
 	'as' => "challenge.add",
+	"uses" => "ChallengeController@displayForm"
+]);
+
+Route::post("/challenge/add", [
+	'as' => "challenge.add",
 	"uses" => "ChallengeController@addChallenge"
 ]);
