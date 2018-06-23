@@ -21,6 +21,9 @@ class ChallengeController extends Controller
 	}
 
 	public function addChallenge(Request $request) {
+		if(!EtuUTT::student()->isAdmin()) {
+			throw $this->error("Vous n'avez pas le droit d'accéder à cette page.");
+		}
 		$this->validate($request, [
 			"name" => "required|unique:challenges|max:30",
 			"description" => "required|max:140",
@@ -33,6 +36,9 @@ class ChallengeController extends Controller
 		$challenge->deadline = $request->deadline;
 
 		$challenge->save();
-		echo "Ok lol";
+	}
+
+	public function showChallengesList() {
+		return View::make('dashboard.challenges.list');
 	}
 }

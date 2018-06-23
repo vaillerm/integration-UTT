@@ -14,7 +14,7 @@
 <div class="box-header with-border">
 	<h3>Ajouter un défis</h3>
 </div>
-<form action={{ route("challenge.add") }} method="post">
+<form action={{ route("challenges.add") }} method="post">
 	<div class="form-group">
 		<label for="name">Nom du défis</label>
 		<input id="name" class="form-control" type="text" name="name" required> 

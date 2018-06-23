@@ -49,9 +49,9 @@
 										<a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
 										<ul class="dropdown-menu">
 											@if (EtuUTT::student()->isAdmin())
-												<li><a href="{{ route('challenge.add') }}">Ajouter un défis</a></li>
+												<li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
 											@endif
-											<li><a href="">Accéder à la liste des défis</a></li>
+											<li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
 										</ul>
 									</li>
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
