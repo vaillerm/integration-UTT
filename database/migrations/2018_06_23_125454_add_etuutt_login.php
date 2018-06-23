@@ -14,7 +14,7 @@ class AddEtuuttLogin extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->text('etuutt_login');
+            $table->string('etuutt_login');
         });
     }
 
