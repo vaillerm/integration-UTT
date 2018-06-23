@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 
-use App\Models\Student;
+use App\Models\User;
 use Auth;
 
 class Checkin extends Model
@@ -44,8 +44,8 @@ class Checkin extends Model
 	public static function webStoreRules() {
 		return [
 			'name' => 'required|string|unique:checkins,name',
-            'students' => 'required|array',
-            'students.*' => 'exists:students,id'
+            'users' => 'required|array',
+            'users.*' => 'exists:users,id'
 		];
 	}
 
@@ -63,8 +63,8 @@ class Checkin extends Model
                 'string',
                 Rule::unique('checkins')->ignore($checkinId)
             ],
-            'students' => 'required|array',
-            'students.*' => 'exists:students,id'
+            'users' => 'required|array',
+            'users.*' => 'exists:users,id'
 		];
 	}
 
@@ -73,18 +73,18 @@ class Checkin extends Model
 	 *
 	 * @return array
 	 */
-	public static function addStudentRules() {
+	public static function addUserRules() {
 		return [
-			'uid' => 'required|numeric|exists:students,id'
+			'uid' => 'required|numeric|exists:users,id'
 		];
 	}
 
     /**
-     * The students that belong to the Checkin.
+     * The users that belong to the Checkin.
      */
-    public function students()
+    public function users()
     {
-        return $this->belongsToMany(Student::class)->withPivot('checked');
+        return $this->belongsToMany(User::class)->withPivot('checked');
     }
 
 }

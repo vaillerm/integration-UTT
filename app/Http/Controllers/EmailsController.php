@@ -6,7 +6,7 @@ use App\Models\Email;
 use App\Models\MailCron;
 use App\Models\MailHistory;
 use App\Models\MailRevision;
-use App\Models\Student;
+use App\Models\User;
 use Carbon\Carbon;
 use View;
 use Excel;
@@ -53,16 +53,16 @@ class EmailsController extends Controller
     public function getRevisionPreview($id, $user_id=null)
     {
         $mail = MailRevision::findOrFail($id);
-        $student = Student::find($user_id);
+        $user = User::find($user_id);
 
-        return $mail->generateHtml($student);
+        return $mail->generateHtml($user);
     }
 
     public function getUnsubscribe($mail)
     {
-        $student = Student::where('email', $mail)->first();
-        $student->allow_publicity = false;
-        $student->save();
+        $user = User::where('email', $mail)->first();
+        $user->allow_publicity = false;
+        $user->save();
 
         return 'Mail unsubscribed';
     }

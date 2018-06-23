@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Request;
 use View;
@@ -29,8 +29,8 @@ class NewcomersController extends Controller
     public function list()
     {
         return View::make('dashboard.newcomers.list', [
-            'newcomers' => Student::newcomer()->with(['weiPayment', 'sandwichPayment', 'guaranteePayment', 'godFather', 'team'])->get(),
-            'branches' => Student::newcomer()->distinct()->select('branch')->groupBy('branch')->get(),
+            'newcomers' => User::newcomer()->with(['weiPayment', 'sandwichPayment', 'guaranteePayment', 'godFather', 'team'])->get(),
+            'branches' => User::newcomer()->distinct()->select('branch')->groupBy('branch')->get(),
         ]);
     }
 
@@ -68,7 +68,7 @@ class NewcomersController extends Controller
         $newcomer_data['is_newcomer'] = true;
         $newcomer_data['birth'] = \DateTime::createFromFormat('d/m/Y', $newcomer_data['birth']);
 
-        $newcomer = Student::create($newcomer_data);
+        $newcomer = User::create($newcomer_data);
 
         if ($newcomer->save()) {
             return $this->success('L\'utilisateur a été créé !');
@@ -144,7 +144,7 @@ class NewcomersController extends Controller
         // Save array to db
         foreach ($result as $value) {
             $value['is_newcomer'] = true;
-            if (!Student::create($value)) {
+            if (!User::create($value)) {
                 return $this->error('Impossible de créer tous les nouveaux !');
             };
         }
@@ -162,11 +162,11 @@ class NewcomersController extends Controller
     public function letter($id, $limit = null, $category = null)
     {
         if ($limit === null) {
-            $newcomers = [Student::newcomer()->findOrFail($id)];
+            $newcomers = [User::newcomer()->findOrFail($id)];
         } elseif ($category != null) {
-            $newcomers = Student::newcomer()->where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
+            $newcomers = User::newcomer()->where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
         } else {
-            $newcomers = Student::newcomer()->offset($id)->limit($limit)->get();
+            $newcomers = User::newcomer()->offset($id)->limit($limit)->get();
         }
 
         // Parse phone number and save it to db
@@ -181,7 +181,7 @@ class NewcomersController extends Controller
             }
         }
 
-        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => Student::newcomer()->count() ]);
+        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => User::newcomer()->count() ]);
     }
 
     /**
@@ -322,7 +322,7 @@ class NewcomersController extends Controller
 
     public function loginAndSendCoordonate($user_id, $hash)
     {
-        $user = Student::find($user_id);
+        $user = User::find($user_id);
         if(!$user || ($user && $user->getHashAuthentification() != $hash))
         {
             session()->flash('error', "Impossible de vous identifier !");

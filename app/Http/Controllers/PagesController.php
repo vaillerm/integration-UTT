@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use App\Models\Team;
 use App\Models\Faction;
 use App\Models\Newcomer;
 use App;
 use View;
+use Auth;
 use Excel;
 use Request;
 use Session;
@@ -54,7 +55,7 @@ class PagesController extends Controller
         //info("Nombre de team de TC : " . $countTC . " Nombre de team de Branche : " . $countBranch);
         return View::make('menu')
             ->with([
-                'student' => EtuUTT::student(),
+                'student' => Auth::user(),
                 'teamLeftTC' => Config::get('services.ce.maxTeamTc') - $countTC,
                 'teamLeftBranch' => Config::get('services.ce.maxTeamBranch') - $countBranch,
             ]);
@@ -97,7 +98,7 @@ class PagesController extends Controller
      */
     public function getExportReferrals()
     {
-        $referrals = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name')])
+        $referrals = User::select([\DB::raw('students.first_name'), \DB::raw('students.last_name')])
         ->orderBy('last_name')
         ->rightjoin('students as n', 'students.id', '=', 'n.referral_id')
         ->addSelect([\DB::raw('n.branch as branch'), \DB::raw('n.first_name as newcomer_first_name'), \DB::raw('n.last_name as newcomer_last_name'), \DB::raw('n.phone as newcomer_phone')])
@@ -116,7 +117,7 @@ class PagesController extends Controller
      */
     public function getExportNewcomers()
     {
-        $newcomers = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name'), \DB::raw('students.branch')])
+        $newcomers = User::select([\DB::raw('students.first_name'), \DB::raw('students.last_name'), \DB::raw('students.branch')])
         ->where('students.is_newcomer', true)
         ->orderBy('last_name')
         ->leftjoin('students as s', 's.id', '=', 'students.referral_id')
@@ -136,7 +137,7 @@ class PagesController extends Controller
      */
     public function getExportTeams()
     {
-        $students = Student::select(['first_name', 'last_name', 'phone', 'email', 'team_id'])
+        $students = User::select(['first_name', 'last_name', 'phone', 'email', 'team_id'])
         ->orderBy('last_name')
         ->where('ce', 1)
         ->whereNotNull('team_id')
@@ -158,7 +159,7 @@ class PagesController extends Controller
      */
     public function getExportStudents()
     {
-        $students = Student::select(['first_name', 'last_name', 'student_id', 'phone', 'email',
+        $students = User::select(['first_name', 'last_name', 'student_id', 'phone', 'email',
         \DB::raw('is_newcomer as nouveau'), \DB::raw('referral_validated as parrain'), \DB::raw('IF(team_id > 0,1,0) as ce'), \DB::raw('volunteer as benevole'), 'orga', 'secu'])
         ->orderBy('last_name')
         ->get();

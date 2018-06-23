@@ -7,7 +7,7 @@ use Session;
 use Redirect;
 use View;
 use Auth;
-use App\Models\Student;
+use App\Models\User;
 
 class OAuth
 {

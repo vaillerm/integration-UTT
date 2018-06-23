@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use View;
 use EtuUTT;
 use Mail;
@@ -56,7 +56,7 @@ class StudentsController extends Controller
         }
 
         $parts = explode(' ', Request::get('name'));
-        $query = DB::table('students');
+        $query = DB::table('users');
         for ($i = 0; $i < sizeof($parts); $i++) {
             $query = $query
                 ->whereRaw("lower(first_name) like '".strtolower($parts[$i])."%'")
@@ -81,7 +81,7 @@ class StudentsController extends Controller
             $id = $user->id;
         }
 
-        $requested_user = Student::where('id', $id)->with('team', 'godFather')->first();
+        $requested_user = User::where('id', $id)->with('team', 'godFather')->first();
 
         // check if authorized to see this user
         if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
@@ -106,7 +106,7 @@ class StudentsController extends Controller
             return Response::json(["message" => "You are not allowed to update this User."], 403);
         }
 
-        $student = Student::find($id);
+        $student = User::find($id);
         if (!$student) {
             return Response::json(["message" => "Cant't find this Student."], 404);
         }
@@ -152,10 +152,10 @@ class StudentsController extends Controller
      */
     public function list($filter = '')
     {
-        $students = Student::student()->orderBy('last_name', 'asc');
+        $students = User::student()->orderBy('last_name', 'asc');
         switch ($filter) {
             case 'admin':
-                $students = $students->where('admin', '=', Student::ADMIN_FULL);
+                $students = $students->where('admin', '=', User::ADMIN_FULL);
                 break;
             case 'orga':
                 $students = $students->where('orga', '=', true);
@@ -190,10 +190,10 @@ class StudentsController extends Controller
         // Convert filter to query
         // For performance reasons we will not decode the volunteer_preferences
         // field for each user, but just search by 'like' inside
-        $students = Student::student()->orderBy('last_name', 'asc')->where('volunteer', true);
+        $students = User::student()->orderBy('last_name', 'asc')->where('volunteer', true);
         foreach ($filterArray as $key => $value) {
-            // Ignore if key is not in Student::VOLUNTEER_PREFERENCES
-            if(array_key_exists($key, Student::VOLUNTEER_PREFERENCES)) {
+            // Ignore if key is not in User::VOLUNTEER_PREFERENCES
+            if(array_key_exists($key, User::VOLUNTEER_PREFERENCES)) {
                 if ($value) {
                     $students = $students->where('volunteer_preferences', 'LIKE', '%"' . $key . '"%');
                 }
@@ -221,7 +221,7 @@ class StudentsController extends Controller
         $students = $students->get();
 
         // Prepare filter menu
-        $filterMenu = Student::VOLUNTEER_PREFERENCES;
+        $filterMenu = User::VOLUNTEER_PREFERENCES;
         $filterMenu['__ce'] = [
             'title' => '*CE*',
             'description' => 'Filter les CE.',
@@ -266,7 +266,7 @@ class StudentsController extends Controller
     public function profil()
     {
         return View::make('dashboard.students.profil', [
-            'student' => EtuUTT::student()
+            'student' => Auth::user()
         ]);
     }
 
@@ -285,7 +285,7 @@ class StudentsController extends Controller
             'phone' => 'required|min:8|max:20',
         ];
 
-        $student = EtuUTT::student();
+        $student = Auth::user();
         if (!$student->volunteer) {
             $rules['convention'] = 'accepted';
         }
@@ -304,7 +304,7 @@ class StudentsController extends Controller
             'phone'
         ));
         $volunteer_preferences = [];
-        foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+        foreach (User::VOLUNTEER_PREFERENCES as $key => $value) {
             if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
                 $volunteer_preferences[] = $key;
             }
@@ -341,7 +341,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::where('id',$id)->firstOrFail();
+        $student = User::where('id',$id)->firstOrFail();
         return View::make('dashboard.students.edit', [
             'student' => $student
         ]);
@@ -355,7 +355,7 @@ class StudentsController extends Controller
      */
     public function editSubmit($id)
     {
-        $student = Student::where('id', $id)->firstOrFail();
+        $student = User::where('id', $id)->firstOrFail();
         $data = Request::only([
             'surname',
             'sex',
@@ -392,7 +392,6 @@ class StudentsController extends Controller
             'email' => 'email',
             'phone' => 'min:8|max:20',
             'facebook' => 'url',
-            'postal_code' => 'integer',
             'referral_max' => 'integer|max:5|min:1',
         ]);
 
@@ -444,7 +443,7 @@ class StudentsController extends Controller
             $student->mission = $data['mission'];
 
             $volunteer_preferences = [];
-            foreach (Student::VOLUNTEER_PREFERENCES as $key => $value) {
+            foreach (User::VOLUNTEER_PREFERENCES as $key => $value) {
                 if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
                     $volunteer_preferences[] = $key;
                 }

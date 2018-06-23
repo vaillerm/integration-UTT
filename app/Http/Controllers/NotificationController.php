@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
 use Request;
@@ -37,7 +37,7 @@ class NotificationController extends Controller
         }
 
         $requestTargets = Request::get('targets');
-        $notificationTargets = Student::whereNotNull('device_token');
+        $notificationTargets = User::whereNotNull('device_token');
         if (!in_array("all", $requestTargets)) {
             $notificationTargets = $notificationTargets->where($requestTargets[0], '>', 0);
             for ($i = 1; $i < sizeof($requestTargets); $i++) {

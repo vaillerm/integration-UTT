@@ -28,48 +28,6 @@ class Payment extends Model
         'informations' => 'array',
     ];
 
-
-    /**
-     * Define the One-to-One relation with Newcomer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function newcomerWei()
-    {
-        return $this->hasOne('App\Models\Student', 'wei_payment');
-    }
-
-    /**
-     * Define the One-to-One relation with Newcomer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function newcomerSandwich()
-    {
-        return $this->hasOne('App\Models\Student', 'sandwich_payment');
-    }
-
-    /**
-     * Define the One-to-One relation with Newcomer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function newcomerGuarantee()
-    {
-        return $this->hasOne('App\Models\Student', 'guarantee_payment');
-    }
-
-    public function newcomer()
-    {
-        if ($this->studentSandwich) {
-            return $this->studentSandwich();
-        }
-        if ($this->studentGuarantee) {
-            return $this->studentGuarantee();
-        }
-        return $this->studentWei();
-    }
-
     public function paymentByDay()
     {
         return static::select('id')
@@ -83,43 +41,43 @@ class Payment extends Model
 
 
     /**
-     * Define the One-to-One relation with Student
+     * Define the One-to-One relation with User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function studentWei()
+    public function userWei()
     {
-        return $this->hasOne('App\Models\Student', 'wei_payment');
+        return $this->hasOne('App\Models\User', 'wei_payment');
     }
 
     /**
-     * Define the One-to-One relation with Student
+     * Define the One-to-One relation with User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function studentSandwich()
+    public function userSandwich()
     {
-        return $this->hasOne('App\Models\Student', 'sandwich_payment');
+        return $this->hasOne('App\Models\User', 'sandwich_payment');
     }
 
     /**
-     * Define the One-to-One relation with Student
+     * Define the One-to-One relation with User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function studentGuarantee()
+    public function userGuarantee()
     {
-        return $this->hasOne('App\Models\Student', 'guarantee_payment');
+        return $this->hasOne('App\Models\User', 'guarantee_payment');
     }
 
-    public function student()
+    public function user()
     {
-        if ($this->studentSandwich) {
-            return $this->studentSandwich();
+        if ($this->userSandwich) {
+            return $this->userSandwich();
         }
-        if ($this->studentGuarantee) {
-            return $this->studentGuarantee();
+        if ($this->userGuarantee) {
+            return $this->userGuarantee();
         }
-        return $this->studentWei();
+        return $this->userWei();
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Mail;
 
 use App\Models\MailHistory;
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\InteractsWithQueue;

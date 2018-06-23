@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Checkin;
 use App\Models\Newcomer;
-use App\Models\Student;
+use App\Models\User;
 use App\Models\Team;
 use \Carbon\Carbon;
 use App\Models\WEIRegistration;
@@ -59,7 +59,7 @@ class WEIController extends Controller
 
     public function adminBusList(Request $request)
     {
-        $buses = Student::where('wei', 1)->get()->groupBy('bus_id')->sort();
+        $buses = User::where('wei', 1)->get()->groupBy('bus_id')->sort();
         $buses->put(0,$buses->get(0)->merge($buses->get("")));
         $buses->forget("");
         return view('dashboard.wei.bus-list', compact('buses'));
@@ -67,7 +67,7 @@ class WEIController extends Controller
 
     public function adminBusGenerateChecklist(Request $request)
     {
-        $buses = Student::where('wei', 1)->get()->groupBy('bus_id')->sort();
+        $buses = User::where('wei', 1)->get()->groupBy('bus_id')->sort();
         $buses->put(0,$buses->get(0)->merge($buses->get("")));
         $buses->forget("");
 
@@ -115,10 +115,10 @@ class WEIController extends Controller
                 'guarantee' => 0,
             ],
         ];
-        $newscomers = Student::newcomer()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
+        $newscomers = User::newcomer()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
             ->get();
 
-        $students = Student::student()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
+        $students = User::student()->with('weiPayment', 'sandwichPayment', 'guaranteePayment')
             ->get();
 
         foreach ($newscomers as $newcomer) {
@@ -208,7 +208,7 @@ class WEIController extends Controller
         $sandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
         $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded']))?1:0);
         $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
-        $count = Student::where('is_newcomer', 1)->where('wei', 1)->count();
+        $count = User::where('is_newcomer', 1)->where('wei', 1)->count();
 
         Auth::user()->updateWei();
 
@@ -394,10 +394,10 @@ class WEIController extends Controller
      */
     public function etuHome()
     {
-        $sandwich = ((EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
-        $wei = ((EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'refunded']))?1:0);
-        $guarantee = ((EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
-        $validated = (EtuUTT::student()->wei_validated?1:0);
+        $sandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
+        $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded']))?1:0);
+        $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
+        $validated = (Auth::user()->wei_validated?1:0);
 
         return View::make('dashboard.wei.home', [
             'sandwich' => $sandwich,
@@ -415,10 +415,10 @@ class WEIController extends Controller
     {
         $weiCount = 1;
         $sandwichCount = 1;
-        if (EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'refunded'])) {
+        if (Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'refunded'])) {
             $sandwichCount = 0;
         }
-        if (EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'refunded'])) {
+        if (Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded'])) {
             $weiCount = 0;
         }
         if ($weiCount == 0 && $sandwichCount == 0) {
@@ -428,10 +428,10 @@ class WEIController extends Controller
         //calculate price
         $price = Config::get('services.wei.price-other');
         $priceName = 'Ancien/Autre';
-        if (EtuUTT::student()->ce && EtuUTT::student()->team_accepted && EtuUTT::student()->team_id) {
+        if (Auth::user()->ce && Auth::user()->team_accepted && Auth::user()->team_id) {
             $price = Config::get('services.wei.price-ce');
             $priceName = 'Chef d\'équipe';
-        } elseif (EtuUTT::student()->orga) {
+        } elseif (Auth::user()->orga) {
             $price = Config::get('services.wei.price-orga');
             $priceName = 'Orga';
         }
@@ -448,8 +448,8 @@ class WEIController extends Controller
         $input = Request::only(['wei', 'sandwich', 'cgv']);
 
         // Check errors
-        $oldSandwich = ((EtuUTT::student()->sandwichPayment && in_array(EtuUTT::student()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
-        $oldWei = ((EtuUTT::student()->weiPayment && in_array(EtuUTT::student()->weiPayment->state, ['paid', 'refunded']))?1:0);
+        $oldSandwich = ((Auth::user()->sandwichPayment && in_array(Auth::user()->sandwichPayment->state, ['paid', 'refunded']))?1:0);
+        $oldWei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded']))?1:0);
         $sandwich = ($input['sandwich'])?1:0;
         $wei = ($input['wei'])?1:0;
 
@@ -468,9 +468,9 @@ class WEIController extends Controller
 
         //calculate price
         $price = Config::get('services.wei.price-other');
-        if (EtuUTT::student()->ce && EtuUTT::student()->team_accepted && EtuUTT::student()->team_id) {
+        if (Auth::user()->ce && Auth::user()->team_accepted && Auth::user()->team_id) {
             $price = Config::get('services.wei.price-ce');
-        } elseif (EtuUTT::student()->orga) {
+        } elseif (Auth::user()->orga) {
             $price = Config::get('services.wei.price-orga');
         }
 
@@ -487,7 +487,7 @@ class WEIController extends Controller
         $payment->save();
 
         // Save paiement in user object
-        $user = EtuUTT::student();
+        $user = Auth::user();
         if ($wei) {
             $user->wei_payment = $payment->id;
         }
@@ -520,7 +520,7 @@ class WEIController extends Controller
      */
     public function etuGuarantee()
     {
-        if (EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'refunded'])) {
+        if (Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded'])) {
             return Redirect(route('dashboard.wei.authorization'))->withSuccess('Vous avez déjà donné votre caution !');
         }
         return View::make('dashboard.wei.guarantee');
@@ -536,7 +536,7 @@ class WEIController extends Controller
         $input = Request::only(['guarantee', 'cgv']);
 
         // Check errors
-        $oldGuarantee = ((EtuUTT::student()->guaranteePayment && in_array(EtuUTT::student()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
+        $oldGuarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
         $guarantee = ($input['guarantee'])?1:0;
 
         if ($input['guarantee'] && $oldGuarantee) {
@@ -559,7 +559,7 @@ class WEIController extends Controller
         $payment->save();
 
         // Save paiement in user object
-        $user = EtuUTT::student();
+        $user = Auth::user();
         if ($guarantee) {
             $user->guarantee_payment = $payment->id;
         }
@@ -606,7 +606,7 @@ class WEIController extends Controller
         $words = explode(' ', $input['search']);
 
         // Find students
-        $students = Student::select(['id', 'student_id', 'first_name', 'last_name',
+        $students = User::select(['id', 'student_id', 'first_name', 'last_name',
             'surname', 'is_newcomer', 'ce', 'volunteer', 'orga',
             'wei', 'wei_payment', 'sandwich_payment', 'guarantee_payment', 'wei_validated']);
         if (count($words) <= 1 && is_numeric($input['search'])) {
@@ -633,10 +633,10 @@ class WEIController extends Controller
      */
     public function studentEdit($id)
     {
-        $student = Student::where('id',$id)->firstOrFail();
+        $student = User::where('id',$id)->firstOrFail();
         $student->updateWei();
 
-        $newcomerCount = Student::where('is_newcomer', 1)->where('wei', 1)->count();
+        $newcomerCount = User::where('is_newcomer', 1)->where('wei', 1)->count();
 
         //calculate price
         $price = Config::get('services.wei.price-other');
@@ -681,7 +681,7 @@ class WEIController extends Controller
      */
     public function studentEditSubmit($id)
     {
-        $student = Student::where('id', $id)->firstOrFail();
+        $student = User::where('id', $id)->firstOrFail();
         $student->updateWei();
 
         // Profil form
@@ -900,7 +900,7 @@ class WEIController extends Controller
 
     public function checkIn($id)
     {
-        $user = Student::findOrFail($id);
+        $user = User::findOrFail($id);
         $user->checkin = true;
         $user->save();
 
@@ -930,7 +930,7 @@ class WEIController extends Controller
     public function list()
     {
         // Find students
-        $students = Student::select(['student_id','is_newcomer', 'id', 'first_name', 'last_name', 'phone',
+        $students = User::select(['student_id','is_newcomer', 'id', 'first_name', 'last_name', 'phone',
         'wei_payment', 'sandwich_payment', 'guarantee_payment', 'parent_authorization',
         DB::raw('(ce AND team_accepted) AS ce'), 'volunteer', 'orga', 'wei_validated', 'checkin'])
         ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment')->get();

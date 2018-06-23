@@ -41,6 +41,6 @@ class Message extends Model
      */
     public function student()
     {
-        return $this->belongsTo('App\Models\Student');
+        return $this->belongsTo('App\Models\User');
     }
 }

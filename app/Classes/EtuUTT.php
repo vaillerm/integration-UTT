@@ -2,7 +2,7 @@
 
 namespace App\Classes;
 
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Config;
@@ -10,25 +10,6 @@ use App;
 
 class EtuUTT
 {
-
-    /**
-     * The currently authenticated student.
-     *
-     * @var \App\Models\Student
-     */
-    protected $student;
-
-
-    /**
-     * Determine if the current user is authenticated.
-     *
-     * @return bool
-     */
-    public function isAuth()
-    {
-        return ! is_null($this->student());
-    }
-
     /**
      * Call an endpoit on EtuUTT API and renew token if expired
      *
@@ -45,7 +26,7 @@ class EtuUTT
         ]);
 
         try {
-            $response = $client->get($path.'?access_token=' . $this->student()->etuutt_access_token.'&'.http_build_query($params));
+            $response = $client->get($path.'?access_token=' . Auth::user()->etuutt_access_token.'&'.http_build_query($params));
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             if ($e->hasResponse()) {
                 $json = json_decode($e->getResponse()->getBody()->getContents(), true);
@@ -56,7 +37,7 @@ class EtuUTT
                         // Refresh token
                         $params = [
                             'grant_type'         => 'refresh_token',
-                            'refresh_token' => $this->student()->etuutt_refresh_token
+                            'refresh_token' => Auth::user()->etuutt_refresh_token
                         ];
                         try {
                             $response = $client->post('/api/oauth/token', ['form_params' => $params]);
@@ -70,7 +51,7 @@ class EtuUTT
                         }
 
                         $json = json_decode($response->getBody()->getContents(), true);
-                        $student = $this->student();
+                        $student = Auth::user();
                         $student->etuutt_access_token = $json['access_token'];
                         $student->etuutt_refresh_token = $json['refresh_token'];
                         $student->save();
@@ -94,15 +75,5 @@ class EtuUTT
         $json = json_decode($response->getBody()->getContents(), true);
 
         return $json;
-    }
-
-    /**
-     * Get the currently authenticated student.
-     *
-     * @return \App\Models\Student|null
-     */
-    public function student()
-    {
-        return Auth::user();
     }
 }

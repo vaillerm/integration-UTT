@@ -39,7 +39,7 @@
                     @foreach ($checkins as $checkin)
                         <tr>
                             <td>{{ $checkin->name }}</td>
-                            <td>{{ $checkin->students->count() }}</td>
+                            <td>{{ $checkin->users->count() }}</td>
                             <td>
                                 <a class="btn btn-xs btn-warning" href="{{ url('dashboard/checkin/edit/'.$checkin->id) }}">Modifier</a>
                                 <form action="{{ url('dashboard/checkin/'.$checkin->id) }}" method="post">

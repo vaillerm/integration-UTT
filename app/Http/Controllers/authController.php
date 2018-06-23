@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use EtuUTT;
 use Request;
 use Config;
@@ -31,12 +31,12 @@ class AuthController extends Controller
      */
     public function loginSubmit()
     {
-        $student = Student::where('login', Request::get('login'))->get()->first();
-        if ($student && !empty($student->password)) {
-            $password = Crypt::decrypt($student->password);
+        $user = User::where('login', Request::get('login'))->get()->first();
+        if ($user && !empty($user->password)) {
+            $password = Crypt::decrypt($user->password);
             if ($password == Request::get('password')) {
-                Auth::login($student, true);
-                if ($student->isNewcomer()) {
+                Auth::login($user, true);
+                if ($user->isNewcomer()) {
                     return Redirect::route('newcomer.home')->withSuccess('Vous êtes maintenant connecté.');
                 }
                 else {

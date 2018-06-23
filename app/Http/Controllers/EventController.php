@@ -21,23 +21,23 @@ class EventController extends Controller
         $query = Event::orderBy('start_at');
         // if there is a student, get only the events of this student
         if (Request::has('student')) {
-            $student = Student::find(Request::get('student'));
+            $user = User::find(Request::get('student'));
 
             // get the categories of this student
             $categories = [];
-            if ($student->admin) {
+            if ($user->admin) {
                 array_push('admin', $categories);
             }
-            if ($student->ce) {
+            if ($user->ce) {
                 array_push('ce', $categories);
             }
-            if ($student->volunteer) {
+            if ($user->volunteer) {
                 array_push('volunteer', $categories);
             }
-            if ($student->is_newcomer) {
+            if ($user->is_newcomer) {
                 array_push('newcomer', $categories);
             }
-            if ($student->referral) {
+            if ($user->referral) {
                 array_push('referral', $categories);
             }
             // add where conditions for each categories

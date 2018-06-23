@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\mailCron;
 use Illuminate\Console\Command;
 use Illuminate\Queue\Queue;
-use App\Models\Student;
+use App\Models\User;
 
 /**
  * Let you set the password of any user
@@ -47,17 +47,17 @@ class SetPassword extends Command
 
         do {
             $login = $this->ask('What\'s his login?');
-            $student = Student::where('login', $login)->first();
-            if (!$student) {
+            $user = User::where('login', $login)->first();
+            if (!$user) {
                 $this->info('User not found, try again!');
             }
-        } while (!$student);
+        } while (!$user);
 
-        $this->info('Found: '. $student->fullName() . ' (' . $student->email . ')');
+        $this->info('Found: '. $user->fullName() . ' (' . $user->email . ')');
         $password = $this->secret('New password?');
 
-        $student->setPassword($password);
-        $student->save();
+        $user->setPassword($password);
+        $user->save();
 
         $this->info('Done.');
     }

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use App\Models\Team;
 use EtuUTT;
 use Request;
 use Config;
 use Authorization;
 use View;
+use Auth;
 
 class CEController extends Controller
 {
@@ -19,9 +20,9 @@ class CEController extends Controller
      */
     public function firstTime()
     {
-        $student = EtuUTT::student();
-        $student->ce = true;
-        $student->save();
+        $user = Auth::user();
+        $user->ce = true;
+        $user->save();
 
         return redirect(route('dashboard.index'));
     }
@@ -62,14 +63,14 @@ class CEController extends Controller
         // Create team
         $data = array('name'=>null);
         $team = Team::create($data);
-        $team->respo_id = EtuUTT::student()->id;
+        $team->respo_id = Auth::user()->id;
         if ($team->save()) {
             // Put user in the team
-            $student = EtuUTT::student();
-            $student->ce = true;
-            $student->team_id = $team->id;
-            $student->team_accepted = true;
-            if ($student->save()) {
+            $user = Auth::user();
+            $user->ce = true;
+            $user->team_id = $team->id;
+            $user->team_accepted = true;
+            if ($user->save()) {
                 return redirect(route('dashboard.ce.myteam'))->withSuccess('L\'équipe a été créé !');
             }
         }
@@ -86,9 +87,9 @@ class CEController extends Controller
         $now =  new \DateTime();
         $ceFakeDeadline = (new \DateTime(Config::get('services.ce.fakeDeadline')))->diff($now);
         return View::make('dashboard.ce.myteam', [
-            'team' => EtuUTT::student()->team,
-            'student' => EtuUTT::student(),
-            'newcomers' => EtuUTT::student()->team->newcomers,
+            'team' => Auth::user()->team,
+            'student' => Auth::user(),
+            'newcomers' => Auth::user()->team->newcomers,
         ]);
     }
 
@@ -103,10 +104,10 @@ class CEController extends Controller
             return redirect(route('dashboard.ce.myteam'))->withError('Vous ne pouvez pas modifier les informations de l\'equipe');
         }
 
-        $team = EtuUTT::student()->team;
+        $team = Auth::user()->team;
         $data = Request::only(['name', 'description', 'img', 'facebook']);
         $this->validate(Request::instance(), [
-            'name' => 'min:3|max:30|unique:teams,name,'.EtuUTT::student()->team->id,
+            'name' => 'min:3|max:30|unique:teams,name,'.Auth::user()->team->id,
             'description' => 'min:250',
             'img' => 'image',
             'facebook' => 'url'
@@ -204,9 +205,9 @@ class CEController extends Controller
     {
         // If the user is new, import some values from the API response.
         $json = EtuUTT::call('/api/public/users/'.$login)['data'];
-        $student = Student::where([ 'etuutt_login' => $json['login'] ])->first();
+        $student = User::where([ 'etuutt_login' => $json['login'] ])->first();
         if ($student === null) {
-            $student = new Student([
+            $student = new User([
                 'etuutt_login'    => $login,
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
@@ -217,7 +218,7 @@ class CEController extends Controller
                 'branch'        => $json['branch'],
                 'level'         => $json['level'],
                 'ce'            => 1,
-                'team_id'       => EtuUTT::student()->team_id,
+                'team_id'       => Auth::user()->team_id,
             ]);
             $student->save();
 
@@ -227,12 +228,12 @@ class CEController extends Controller
         } elseif ($student->team_id) {
             return $this->error('Cet étudiant fait déjà partie d\'une équipe. Il faut qu\'il la quitte avant de pouvoir être ajouté à une nouvelle équipe.');
         } else {
-            $student->team_id = EtuUTT::student()->team_id;
+            $student->team_id = Auth::user()->team_id;
             $student->ce = 1;
             $student->save();
         }
 
-        $team = EtuUTT::student()->team;
+        $team = Auth::user()->team;
         $team->validated = false;
         $team->save();
 
@@ -247,7 +248,7 @@ class CEController extends Controller
      */
     public function join()
     {
-        $student = EtuUTT::student();
+        $student = Auth::user();
 
         $team = $student->team;
         $team->validated = false;
@@ -267,7 +268,7 @@ class CEController extends Controller
      */
     public function unjoin()
     {
-        $student = EtuUTT::student();
+        $student = Auth::user();
         if ($student->team_accepted) {
             return redirect(route('dashboard.ce.myteam'))->withError('Vous ne pouvez pas quitter une équipe.');
         }

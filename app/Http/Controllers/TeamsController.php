@@ -61,7 +61,7 @@ class TeamsController extends Controller
      */
     public function list()
     {
-        if (!EtuUTT::student()->isAdmin()) {
+        if (!Auth::user()->isAdmin()) {
             return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
         }
 
@@ -159,7 +159,7 @@ class TeamsController extends Controller
     {
         $team = Team::findOrFail($id);
         $members = $team->newcomers()->orderBy('level', 'DESC')->get();
-        $withoutTeam = Student::newcomer()->where('team_id', null)->get();
+        $withoutTeam = User::newcomer()->where('team_id', null)->get();
         return View::make('dashboard.teams.members', [
             'team'      => $team,
             'newcomers' => $members,
@@ -171,7 +171,7 @@ class TeamsController extends Controller
     {
         $team = Team::find($id);
         if ($team) {
-            $newcomer = Student::newcomer()->findOrFail((int)Request::input('newcomer'));
+            $newcomer = User::newcomer()->findOrFail((int)Request::input('newcomer'));
             $newcomer->team_id = $id;
             $newcomer->save();
             return $this->success('Le nouveau a été ajouté à l\'équipe !');

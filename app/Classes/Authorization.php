@@ -3,7 +3,7 @@
 namespace App\Classes;
 
 use App\Models\Team;
-use App\Models\Student;
+use App\Models\User;
 use Config;
 use Auth;
 
@@ -50,7 +50,7 @@ class Authorization
             }
 
             // Action verification
-            $count = Student::where('is_newcomer', 1)->where('wei', 1)->count();
+            $count = User::where('is_newcomer', 1)->where('wei', 1)->count();
             switch ($action) {
                 case 'wei':
                     if (!Auth::user()->wei
@@ -64,14 +64,14 @@ class Authorization
         } else {
             // Login/student verification
             if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral', 'volunteer', 'moderator'])
-                    && !\EtuUTT::isAuth()) {
+                    && !Auth::check()) {
                 return false;
             }
-            $student = \EtuUTT::student();
+            $student = Auth::user();
 
             // Volunteer verification
             if (in_array($group, ['admin', 'orga', 'ce', 'volunteer', 'moderator'])
-                    && !\EtuUTT::student()->volunteer) {
+                    && !Auth::user()->volunteer) {
                 return false;
             }
 

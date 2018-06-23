@@ -10,7 +10,7 @@ Gestion de mon équipe
 
 @section('content')
 
-@if (!EtuUTT::student()->team_accepted)
+@if (!Auth::user()->team_accepted)
     <div class="box box-default">
         <div class="box-header with-border">
             @if(Authorization::can('ce','edit'))
@@ -37,7 +37,7 @@ Gestion de mon équipe
     </div>
 @endif
 
-@if (EtuUTT::student()->team->validated)
+@if (Auth::user()->team->validated)
     <div class="callout callout-success">
         <h4>Vous avez été approuvé</h4>
         <p>

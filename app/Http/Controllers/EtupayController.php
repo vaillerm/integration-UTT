@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+use Auth;
 use Response;
 use App\Classes\EtuPay;
 
@@ -19,41 +20,46 @@ class EtupayController extends Controller
     {
         $payment = EtuPay::readCallback(Request::get('payload'));
         $route = route('index');
-        if ($payment->newcomerWei) {
-            if ($payment->state == 'refused') {
-                $route = route('newcomer.wei.pay');
-            } else {
-                $route = route('newcomer.wei.guarantee');
+        if (Auth::user()->isNewcomer()) {
+            if ($payment->userWei) {
+                if ($payment->state == 'refused') {
+                    $route = route('newcomer.wei.pay');
+                } else {
+                    $route = route('newcomer.wei.guarantee');
+                }
+            } elseif ($payment->userSandwich) {
+                if ($payment->state == 'refused') {
+                    $route = route('newcomer.wei.pay');
+                } else {
+                    $route = route('newcomer.wei');
+                }
+            } elseif ($payment->userGuarantee) {
+                if ($payment->state == 'refused') {
+                    $route = route('newcomer.wei.guarantee');
+                } else {
+                    $route = route('newcomer.wei.authorization');
+                }
             }
-        } elseif ($payment->newcomerSandwich) {
-            if ($payment->state == 'refused') {
-                $route = route('newcomer.wei.pay');
-            } else {
-                $route = route('newcomer.wei');
-            }
-        } elseif ($payment->newcomerGuarantee) {
-            if ($payment->state == 'refused') {
-                $route = route('newcomer.wei.guarantee');
-            } else {
-                $route = route('newcomer.wei.authorization');
-            }
-        } elseif ($payment->studentWei) {
-            if ($payment->state == 'refused') {
-                $route = route('dashboard.wei.pay');
-            } else {
-                $route = route('dashboard.wei.guarantee');
-            }
-        } elseif ($payment->studentSandwich) {
-            if ($payment->state == 'refused') {
-                $route = route('dashboard.wei.pay');
-            } else {
-                $route = route('dashboard.wei');
-            }
-        } elseif ($payment->studentGuarantee) {
-            if ($payment->state == 'refused') {
-                $route = route('dashboard.wei.guarantee');
-            } else {
-                $route = route('dashboard.wei');
+        }
+        else {
+            if ($payment->userWei) {
+                if ($payment->state == 'refused') {
+                    $route = route('dashboard.wei.pay');
+                } else {
+                    $route = route('dashboard.wei.guarantee');
+                }
+            } elseif ($payment->userSandwich) {
+                if ($payment->state == 'refused') {
+                    $route = route('dashboard.wei.pay');
+                } else {
+                    $route = route('dashboard.wei');
+                }
+            } elseif ($payment->userGuarantee) {
+                if ($payment->state == 'refused') {
+                    $route = route('dashboard.wei.guarantee');
+                } else {
+                    $route = route('dashboard.wei');
+                }
             }
         }
 
@@ -83,12 +89,7 @@ class EtupayController extends Controller
     public function etupayCallback()
     {
         $payment = EtuPay::readCallback(Request::get('payload'));
-
-        if ($payment->newcomer) {
-            $payment->newcomer->updateWei();
-        } else {
-            $payment->student->updateWei();
-        }
+        $payment->user->updateWei();
 
         if ($payment) {
             return Response::make('OK', 200);

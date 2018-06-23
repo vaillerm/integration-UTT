@@ -11,7 +11,7 @@ class MailRevision extends Model
     {
         if(!$user)
         {
-            $user = Student::first();
+            $user = User::first();
         }
 
         $user = $user->load(['team', 'godFather']);

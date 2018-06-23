@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use Crypt;
 use Config;
 
-class Student extends Model implements Authenticatable
+class User extends Model implements Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-    public $table = 'students';
+    public $table = 'users';
     public $timestamps = true;
 
     const SEX_MALE = 0;
@@ -227,7 +227,7 @@ class Student extends Model implements Authenticatable
      * @return User
      */
     public static function findForPassport($identifier) {
-        return Student::where('login', $identifier)->first();
+        return User::where('login', $identifier)->first();
     }
 
     /**
@@ -281,7 +281,7 @@ class Student extends Model implements Authenticatable
     }
 
     /**
-     * Scope a query to only include students that are newcomers.
+     * Scope a query to only include users that are newcomers.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -292,7 +292,7 @@ class Student extends Model implements Authenticatable
     }
 
     /**
-     * Scope a query to only include students that are students.
+     * Scope a query to only include users that are students.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -307,7 +307,7 @@ class Student extends Model implements Authenticatable
      */
     public function newcomers()
     {
-        return $this->hasMany(Student::class, 'referral_id', 'id');
+        return $this->hasMany(User::class, 'referral_id', 'id');
     }
 
     /**
@@ -335,7 +335,7 @@ class Student extends Model implements Authenticatable
      */
     public function godFather()
     {
-        return $this->belongsTo(Student::class, 'referral_id', 'id');
+        return $this->belongsTo(User::class, 'referral_id', 'id');
     }
 
     public function mailHistories()
@@ -366,21 +366,21 @@ class Student extends Model implements Authenticatable
     }
 
     /**
-     * Test if the student can all of the dashboard
+     * Test if the user can all of the dashboard
      * @return bool
      */
     public function isAdmin()
     {
-        return ($this->admin == Student::ADMIN_FULL);
+        return ($this->admin == User::ADMIN_FULL);
     }
 
     /**
-     * Test if the student can all of the dashboard
+     * Test if the user can all of the dashboard
      * @return bool
      */
     public function isModerator()
     {
-        return ($this->admin == Student::ADMIN_MODERATOR);
+        return ($this->admin == User::ADMIN_MODERATOR);
     }
 
     /**
@@ -596,14 +596,14 @@ class Student extends Model implements Authenticatable
     {
         parent::boot();
 
-        Student::creating(function ($newcomer) {
+        User::creating(function ($newcomer) {
             if (empty($newcomer->password)) {
                 $newcomer->setPassword(self::generatePassword());
             }
             if (empty($newcomer->login)) {
                 $login = strtolower(mb_substr(mb_substr(preg_replace("/[^A-Za-z0-9]/", '', $newcomer->first_name), 0, 1) . preg_replace("/[^A-Za-z0-9]/", '', $newcomer->last_name), 0, 8));
                 $i = '';
-                while (Student::where(['login' => $login . $i])->count()) {
+                while (User::where(['login' => $login . $i])->count()) {
                     if (empty($i)) {
                         $i = 1;
                     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Checkin;
-use App\Models\Student;
+use App\Models\User;
 
 use Request;
 use Response;
@@ -47,7 +47,7 @@ class CheckinController extends Controller
             return Response::json(["message" => "You are not allowed."], 403);
         }
 
-        return Response::json(Checkin::with('students')->find($id));
+        return Response::json(Checkin::with('users')->find($id));
     }
 
     /**
@@ -92,17 +92,17 @@ class CheckinController extends Controller
         }
 
         $checkin = Checkin::create(array_merge(Request::all(), ['prefilled' => true]));
-        $checkin->students()->attach(Request::get('students'));
+        $checkin->users()->attach(Request::get('users'));
         return redirect('dashboard/checkin');
     }
 
     /**
-     * Attach a Student to a Checkin
+     * Attach a user to a Checkin
      *
      * @param string $id: the checkin id
      * @return Response
      */
-    public function addStudent($id)
+    public function addUser($id)
     {
         $user = $user = Auth::guard('api')->user();
 
@@ -111,7 +111,7 @@ class CheckinController extends Controller
         }
 
         // validate the request inputs
-        $validator = Validator::make(Request::all(), Checkin::addStudentRules());
+        $validator = Validator::make(Request::all(), Checkin::addUserRules());
         if ($validator->fails()) {
             return Response::json(["errors" => $validator->errors()], 400);
         }
@@ -121,30 +121,30 @@ class CheckinController extends Controller
             return Response::json(["message" => "Can't find this Checkin."], 404);
         }
 
-        // the email is already check by the validator, so this student exists
-        $student = Student::find(Request::get('uid'));
+        // the email is already check by the validator, so this user exists
+        $user = User::find(Request::get('uid'));
 
         if ($checkin->prefilled) {
             // if user is admin and there is a force attribute, add the user to the prefilled checkin
             if (Request::has('force') && Request::get('force') && $user->admin) {
-                $checkin->students()->attach($student->id);
+                $checkin->users()->attach($user->id);
             }
             // prefilled checkin, so we just have to set check to true in pivot table
-            if ($checkin->students->contains($student->id)) {
-                $checkin->students()->sync([$student->id => ['checked' => true] ], false);
+            if ($checkin->users->contains($user->id)) {
+                $checkin->users()->sync([$user->id => ['checked' => true] ], false);
             } else {
-                // try to check a student who is not in the prefilled students
+                // try to check a user who is not in the prefilled user
                 return Response::json(["message" => "Pas dans la liste."], 403);
             }
         } else {
-            // attach the student to the checkin
-            if (!$checkin->students->contains($student->id)) {
-                $checkin->students()->attach($student->id);
-                $checkin->students()->sync([$student->id => ['checked' => true] ], false);
+            // attach the user to the checkin
+            if (!$checkin->users->contains($user->id)) {
+                $checkin->users()->attach($user->id);
+                $checkin->users()->sync([$user->id => ['checked' => true] ], false);
             }
         }
 
-        return Response::json(Checkin::with('students')->find($id));
+        return Response::json(Checkin::with('users')->find($id));
     }
 
     /**
@@ -176,7 +176,7 @@ class CheckinController extends Controller
         $checkin = Checkin::find($id);
         $checkin->fill(Request::all());
         $checkin->save();
-        $checkin->students()->sync(Request::get('students'));
+        $checkin->users()->sync(Request::get('users'));
 
         return redirect('dashboard/checkin');
     }

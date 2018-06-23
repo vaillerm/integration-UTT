@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use App\Models\Newcomer;
 use App\Classes\NewcomerMatching;
 use Request;
@@ -10,6 +10,7 @@ use View;
 use Session;
 use Redirect;
 use EtuUTT;
+use Auth;
 
 /**
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
@@ -25,7 +26,7 @@ class ReferralsController extends Controller
      */
     public function firstTime()
     {
-        $student = EtuUTT::student();
+        $student = Auth::user();
         $student->referral = true;
         $student->save();
 
@@ -39,7 +40,7 @@ class ReferralsController extends Controller
      */
     public function edit()
     {
-        $student = EtuUTT::student();
+        $student = Auth::user();
         $student->referral = true;
         $student->save();
 
@@ -94,7 +95,7 @@ class ReferralsController extends Controller
     public function getValidation()
     {
         $date = new \Datetime();
-        $referral = Student::where('referral', true)->where('referral_validated', 0)->where('email', '!=', '')
+        $referral = User::where('referral', true)->where('referral_validated', 0)->where('email', '!=', '')
                             ->where('phone', '!=', '')->where('referral_text', '!=', '')
                             ->orderByRaw('RAND()')->first();
         return View::make('dashboard.referrals.validation')->with('referral', $referral);
@@ -108,7 +109,7 @@ class ReferralsController extends Controller
     public function postValidation()
     {
         $id = Request::input('user_id');
-        $referral = Student::where('id',$id)->first();
+        $referral = User::where('id',$id)->first();
         if(!$referral)
             abort(404);
 
@@ -129,7 +130,7 @@ class ReferralsController extends Controller
      */
     public function index()
     {
-        $referrals = Student::student()->where('referral', true)->orderBy('created_at', 'asc')->get();
+        $referrals = User::student()->where('referral', true)->orderBy('created_at', 'asc')->get();
         return View::make('dashboard.referrals.list', [
             'referrals' => $referrals,
         ]);
@@ -142,7 +143,7 @@ class ReferralsController extends Controller
      */
     public function destroy()
     {
-        $student = EtuUTT::student();
+        $student = Auth::user();
         $student->referral = false;
         $student->save();
 
@@ -160,10 +161,10 @@ class ReferralsController extends Controller
     public function prematch()
     {
         return View::make('dashboard.referrals.prematch', [
-            'referralCountries' => Student::select('country')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('country')->pluck('country'),
-            'newcomerCountries' => Student::newcomer()->select('country')->groupBy('country')->pluck('country'),
-            'referralBranches' => Student::select('branch')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('branch')->pluck('branch'),
-            'newcomerBranches' => Student::newcomer()->select('branch')->groupBy('branch')->pluck('branch'),
+            'referralCountries' => User::select('country')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('country')->pluck('country'),
+            'newcomerCountries' => User::newcomer()->select('country')->groupBy('country')->pluck('country'),
+            'referralBranches' => User::select('branch')->where(['referral' => 1, 'referral_validated' => 1])->groupBy('branch')->pluck('branch'),
+            'newcomerBranches' => User::newcomer()->select('branch')->groupBy('branch')->pluck('branch'),
         ]);
     }
 
@@ -175,28 +176,28 @@ class ReferralsController extends Controller
             if ($key === 0) {
                 $key = '';
             }
-            Student::where('country', $key)->update(['country' => $value]);
+            User::where('country', $key)->update(['country' => $value]);
         }
         // UpdateNewcomersTable Countries
         foreach ($input['newcomerCountries'] as $key => $value) {
             if ($key === 0) {
                 $key = '';
             }
-            Student::newcomer()->where('country', $key)->update(['country' => $value]);
+            User::newcomer()->where('country', $key)->update(['country' => $value]);
         }
         // Referral branches
         foreach ($input['referralBranches'] as $key => $value) {
             if ($key === 0) {
                 $key = '';
             }
-            Student::where('branch', $key)->update(['branch' => $value]);
+            User::where('branch', $key)->update(['branch' => $value]);
         }
         // UpdateNewcomersTable branches
         foreach ($input['newcomerBranches'] as $key => $value) {
             if ($key === 0) {
                 $key = '';
             }
-            Student::newcomer()->where('branch', $key)->update(['branch' => $value]);
+            User::newcomer()->where('branch', $key)->update(['branch' => $value]);
         }
 
         // Redirect to referral assignation
@@ -207,14 +208,14 @@ class ReferralsController extends Controller
     public function signsTC()
     {
         return View::make('dashboard.referrals.signs', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->with('newcomers')->where('branch', 'TC')->orderBy('last_name')->get(),
+            'referrals' => User::where('referral', 1)->where('referral_validated', 1)->with('newcomers')->where('branch', 'TC')->orderBy('last_name')->get(),
         ]);
     }
 
     public function slidesTC()
     {
         return View::make('dashboard.referrals.slides', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->with('newcomers')->orderBy('last_name')->with('newcomers')->get(),
+            'referrals' => User::where('referral', 1)->where('referral_validated', 1)->where('branch', 'TC')->with('newcomers')->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 
@@ -222,14 +223,14 @@ class ReferralsController extends Controller
     public function signsBranch()
     {
         return View::make('dashboard.referrals.signs', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
+            'referrals' => User::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 
     public function slidesBranch()
     {
         return View::make('dashboard.referrals.slides', [
-            'referrals' => Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
+            'referrals' => User::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 }

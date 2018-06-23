@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Team;
-use App\Models\Student;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,7 @@ use App\Models\Student;
 |
 */
 
-$factory->define(App\Models\Student::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     // If is newcomer
     if($faker->boolean) {
         return [
@@ -28,7 +28,7 @@ $factory->define(App\Models\Student::class, function (Faker\Generator $faker) {
             'postal_code' => 10000,
             'country' => $faker->randomElement(array('france', 'FRANCE', 'CAMEROUN')),
             'referral_id' => function () {
-                $student = Student::where('referral_validated', 1)->orderByRaw("RAND()")->take(1)->get()->first();
+                $student = User::where('referral_validated', 1)->orderByRaw("RAND()")->take(1)->get()->first();
                 if ($student) {
                     return $student->id;
                 } else {
@@ -95,7 +95,7 @@ $factory->define(App\Models\Team::class, function (Faker\Generator $faker) {
         'img' => $faker->randomElement(array('jpeg', 'png', 'bmp', 'jpg')),
         'facebook' => $faker->url,
         'respo_id' => function () {
-            return factory(App\Models\Student::class)->create(['ce' => 1, 'team_accepted' => 1])->id;
+            return factory(App\Models\User::class)->create(['ce' => 1, 'team_accepted' => 1])->id;
         },
         'branch' => $faker->randomElement(array('MM', null)),
         'validated' => $faker->boolean,
