@@ -47,9 +47,6 @@ Inscription et gestion des participants
                         </td>
                         <td>
                             <a href="{{ route('dashboard.wei.edit', [$registration->id])}}" class="btn btn-xs btn-success">Modifier</a>
-                            @if (Session::get('student_id') != 0)
-                            <a href="{{ route('dashboard.wei.destroy', [$registration->id]) }}" class="btn btn-xs btn-danger">Supprimer</a>
-                            @endif
                         </td>
                     </tr>
                 @endforeach

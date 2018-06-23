@@ -26,6 +26,10 @@ class Student extends Model implements Authenticatable
 
     public $primaryKey = 'id';
 
+    protected $attributes = [
+        'volunteer_preferences' => '[]',
+    ];
+
     public $fillable = [
         'student_id',
         'first_name',
@@ -275,6 +279,7 @@ class Student extends Model implements Authenticatable
             return ($this->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
         else return true;
     }
+
     /**
      * Scope a query to only include students that are newcomers.
      *
@@ -302,7 +307,7 @@ class Student extends Model implements Authenticatable
      */
     public function newcomers()
     {
-        return $this->hasMany(Student::class, 'referral_id', 'student_id');
+        return $this->hasMany(Student::class, 'referral_id', 'id');
     }
 
     /**
@@ -330,7 +335,7 @@ class Student extends Model implements Authenticatable
      */
     public function godFather()
     {
-        return $this->belongsTo(Student::class, 'referral_id', 'student_id');
+        return $this->belongsTo(Student::class, 'referral_id', 'id');
     }
 
     public function mailHistories()

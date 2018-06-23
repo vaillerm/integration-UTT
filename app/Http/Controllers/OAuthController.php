@@ -48,9 +48,10 @@ class OAuthController extends Controller
     private function updateUser($json, $access_token, $refresh_token)
     {
         // If the user is new, import some values from the API response.
-        $student = Student::where('student_id', $json['studentId'])->first();
+        $student = Student::where('etuutt_login', $json['login'])->first();
         if ($student === null) {
             $student = new Student([
+                'etuutt_login'  => $json['login'],
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
                 'last_name'     => $json['lastName'],
@@ -153,7 +154,8 @@ class OAuthController extends Controller
         $this->updateUser($json, $access_token, $refresh_token);
 
         // Remember the user accross the whole website.
-        Session::put('student_id', $json['studentId']);
+        $student = Student::where('etuutt_login', $json['login'])->where('is_newcomer', false)->first();
+        Auth::login($student, true);
 
         return Redirect::route('menu');
     }
@@ -204,7 +206,7 @@ class OAuthController extends Controller
         $this->updateUser($json, $access_token, $refresh_token);
 
         // generate auth token for this student
-        $student = Student::where("student_id", $json['studentId'])->first();
+        $student = Student::where('etuutt_login', $json['login'])->first();
         $createdToken = $student->createToken("etu utt");
         $passport_access_token = $createdToken->accessToken;
 

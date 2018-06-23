@@ -99,7 +99,7 @@ class PagesController extends Controller
     {
         $referrals = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name')])
         ->orderBy('last_name')
-        ->rightjoin('students as n', 'students.student_id', '=', 'n.referral_id')
+        ->rightjoin('students as n', 'students.id', '=', 'n.referral_id')
         ->addSelect([\DB::raw('n.branch as branch'), \DB::raw('n.first_name as newcomer_first_name'), \DB::raw('n.last_name as newcomer_last_name'), \DB::raw('n.phone as newcomer_phone')])
         ->get();
         return Excel::create('Parrains', function ($file) use ($referrals) {
@@ -119,7 +119,7 @@ class PagesController extends Controller
         $newcomers = Student::select([\DB::raw('students.first_name'), \DB::raw('students.last_name'), \DB::raw('students.branch')])
         ->where('students.is_newcomer', true)
         ->orderBy('last_name')
-        ->leftjoin('students as s', 's.student_id', '=', 'students.referral_id')
+        ->leftjoin('students as s', 's.id', '=', 'students.referral_id')
         ->addSelect([\DB::raw('s.first_name as referral_first_name'), \DB::raw('s.last_name as referral_last_name'), \DB::raw('s.email as referral_email'), \DB::raw('s.phone as referral_phone')])
         ->get();
         return Excel::create('Nouveaux', function ($file) use ($newcomers) {

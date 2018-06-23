@@ -22,11 +22,11 @@ Pour les yeux chastes des parents ou innocents des TC...
 @if ($referral)
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Message de {{ $referral->first_name . ' ' . $referral->last_name }} ({{ $referral->student_id }})</h3>
+        <h3 class="box-title">Message de {{ $referral->first_name . ' ' . $referral->last_name }} ({{ $referral->id }})</h3>
     </div>
     <div class="box-body">
         <form action="{{ route('dashboard.referrals.validation') }}" method="post">
-            <input type="hidden" name="student-id" value="{{ $referral->student_id }}">
+            <input type="hidden" name="user_id" value="{{ $referral->id }}">
             <textarea name="referral_text" class="form-control" cols="30" rows="10">{{{ $referral->referral_text }}}</textarea>
             <input type="submit" class="btn btn-success form-control" value="Valider !">
         </form>

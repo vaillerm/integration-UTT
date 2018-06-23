@@ -204,9 +204,10 @@ class CEController extends Controller
     {
         // If the user is new, import some values from the API response.
         $json = EtuUTT::call('/api/public/users/'.$login)['data'];
-        $student = Student::where([ 'student_id' => $json['studentId'] ])->first();
+        $student = Student::where([ 'etuutt_login' => $json['login'] ])->first();
         if ($student === null) {
             $student = new Student([
+                'etuutt_login'    => $login,
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
                 'last_name'     => $json['lastName'],
