@@ -54,9 +54,9 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="page-scroll" href="#about">C'est quoi ?</a>
-                    </li>
+                    </li> -->
                      <li>
                         <a class="page-scroll" href="#sponsor">Partenaires</a>
                     </li>
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h1 class="brand-heading">Intégration UTT</h1>
-                        <p class="intro-text">Contes, Mythes & Légendes</p>
+                        <p class="intro-text">{{ Config::get('services.theme') }}</p>
                         <br/><br/>
                             @if(Config::get('services.site.loginOpen') == 1)
                                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-top">Je suis nouveau !</a><br/>
@@ -96,19 +96,19 @@
     </header>
 
     <!-- About Section -->
-    <section id="about" class="container content-section text-center">
+    <!-- <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>C'est quoi l'Inté?</h1>
-                    <p>Pour sa 22<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
-                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga aguerri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous prêts ? Nous le verrons le <em>lundi 04 septembre 2017</em>...</p>
+                    <p>Pour sa 23<sup>ème</sup> édition, l'intégration verra s'affronter dans un combat épique, dieux tout puissants, héros légendaires et bêtes des temps anciens, au sein de la mythique Ellipse de l'UTT.</p>
+                    <p>Que vous soyez un valeureux nouveau, un chef d'équipe intrépide ou un orga aguerri, vous devrez choisir votre camp et entrer dans la bataille ! Serez-vous prêts ? Nous le verrons le <em>lundi 03 septembre 2018</em>...</p>
                     <br/><br/><br/>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Sponsor Section -->
-    <section id="wei" class="content-section text-center">
+    <!-- <section id="wei" class="content-section text-center">
         <div class="wei-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Contact Section -->
     <section id="sponsor" class="container content-section text-center">
@@ -176,7 +176,7 @@
     <footer>
         <div class="container text-center">
             <br/>
-                <p>Copyright &copy; Intégration UTT 2017</p>
+                <p>Copyright &copy; Intégration UTT 2018</p>
             <br/>
         </div>
     </footer>
