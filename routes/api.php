@@ -1,35 +1,35 @@
 <?php
 
-Route::get('/oauth/etuutt/link', ['uses' => 'OAuthController@getRedirectLink']);
-Route::post('/oauth/etuutt/callback', ['uses' => 'OAuthController@mobileCallback']);
+Route::get('/oauth/etuutt/link', ['uses' => 'Api\OAuthController@getRedirectLink']);
+Route::post('/oauth/etuutt/callback', ['uses' => 'Api\OAuthController@mobileCallback']);
 
 
-Route::get('/student/autocomplete', ['uses' => 'StudentsController@autocomplete']);
+Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocomplete']);
 
 
 Route::group(['middleware' => 'auth:api'], function () {
 
-    Route::post('/oauth/token/revoke', ['uses' => 'OAuthController@revokeApiToken']);
-    Route::post('/oauth/token/check', ['uses' => 'OAuthController@checkApiToken']);
+    // Route::post('/oauth/token/revoke', ['uses' => 'Api\OAuthController@revokeApiToken']);
+    Route::post('/oauth/token/check', ['uses' => 'Api\OAuthController@checkApiToken']);
 
-    Route::get('/student/{id}', ['uses' => 'StudentsController@show']);
-    Route::get('/student', ['uses' => 'StudentsController@index']);
-    Route::put('/student/{id}', ['uses' => 'StudentsController@update']);
+    Route::get('/student/{id}', ['uses' => 'Api\StudentsController@show']);
+    Route::get('/student', ['uses' => 'Api\StudentsController@index']);
+    // Route::put('/student/{id}', ['uses' => 'Api\StudentsController@update']);
 
-    Route::get('/team/{id}', ['uses' => 'TeamsController@show']);
-    Route::get('/team', ['uses' => 'TeamsController@index']);
+    Route::get('/team/{id}', ['uses' => 'Api\TeamsController@show']);
+    Route::get('/team', ['uses' => 'Api\TeamsController@index']);
 
-    Route::get('/checkin/{id}', ['uses' => 'CheckinController@show']);
-    Route::get('/checkin', ['uses' => 'CheckinController@index']);
-    Route::post('/checkin', ['uses' => 'CheckinController@store']);
-    Route::put('/checkin/{id}/student', ['uses' => 'CheckinController@addStudent']);
+    Route::get('/checkin/{id}', ['uses' => 'Api\CheckinController@show']);
+    Route::get('/checkin', ['uses' => 'Api\CheckinController@index']);
+    Route::post('/checkin', ['uses' => 'Api\CheckinController@store']);
+    Route::put('/checkin/{id}/student', ['uses' => 'Api\CheckinController@addStudent']);
 
-    Route::get('/message', ['uses' => 'MessageController@index']);
-    Route::post('/message', ['uses' => 'MessageController@store']);
+    Route::get('/message', ['uses' => 'Api\MessageController@index']);
+    Route::post('/message', ['uses' => 'Api\MessageController@store']);
 
-    Route::post('/notification', ['uses' => 'NotificationController@store']);
+    Route::post('/notification', ['uses' => 'Api\NotificationController@store']);
 
-    Route::get('/event', ['uses' => 'EventController@index']);
-    Route::get('/event/{id}', ['uses' => 'EventController@show']);
+    Route::get('/event', ['uses' => 'Admin\EventController@index']);
+    Route::get('/event/{id}', ['uses' => 'Api\EventController@show']);
 
 });

@@ -28,12 +28,12 @@
                 </div>
                 <div class="form-group">
                     <label>Début (date et heure)</label>
-                    <input type="date" max="2017-09-10" min="2017-09-03" class="form-control" value="{{ date('Y-m-d', $event->start_at)  }}" name="start_at_date">
+                    <input type="date" class="form-control" value="{{ date('Y-m-d', $event->start_at)  }}" name="start_at_date">
                     <input type="time" class="form-control" value="{{ date('H:i', $event->start_at) }}" name="start_at_hour">
                 </div>
                 <div class="form-group">
                     <label>Fin (date et heure)</label>
-                    <input type="date" max="2017-09-10" min="2017-09-03" class="form-control" value="{{ date('Y-m-d', $event->end_at) }}" name="end_at_date">
+                    <input type="date" class="form-control" value="{{ date('Y-m-d', $event->end_at) }}" name="end_at_date">
                     <input type="time" class="form-control" value="{{ date('H:i', $event->end_at) }}" name="end_at_hour">
                 </div>
 

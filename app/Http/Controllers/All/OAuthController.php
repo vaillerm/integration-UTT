@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\All;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App;
 use Request;
@@ -30,19 +31,6 @@ class OAuthController extends Controller
     {
         $id = Config::get('services.etuutt.client.id');
         return Redirect::to(Config::get('services.etuutt.baseuri.public').'/api/oauth/authorize?client_id=' . $id . '&scopes=private_user_account&response_type=code&state=xyz');
-    }
-
-    /**
-     * Return a JSON object with the link to auth with Etu UTT
-     *
-     * @return Response
-     */
-    public function getRedirectLink()
-    {
-        $id = Config::get('services.etuutt.mobile_client.id');
-        return Response::json([
-            'redirectUri' => Config::get('services.etuutt.baseuri.public').'/api/oauth/authorize?client_id=' . $id . '&scopes=private_user_account&response_type=code&state=xyz'
-        ]);
     }
 
     private function updateUser($json, $access_token, $refresh_token)
@@ -161,71 +149,6 @@ class OAuthController extends Controller
     }
 
     /**
-     * Handle the authorization_code.
-     *
-     * @return Response
-     */
-    public function mobileCallback()
-    {
-        // authorization code required to continue
-        if (! Request::has('authorization_code')) {
-            return Response::json(["message" => "misssing parameter : authorization_code"], 401);
-        }
-
-        $client = new \GuzzleHttp\Client([
-            'base_uri' => Config::get('services.etuutt.baseuri.api'),
-            'auth' => [
-                Config::get('services.etuutt.mobile_client.id'),
-                Config::get('services.etuutt.mobile_client.secret')
-            ]
-        ]);
-
-        $params = [
-            'grant_type'         => 'authorization_code',
-            'authorization_code' => Request::input('authorization_code')
-        ];
-
-        try {
-            $response = $client->post('/api/oauth/token', ['form_params' => $params]);
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            return Response::json(["message" => "authentication failed"], 500);
-        }
-
-        $json = json_decode($response->getBody()->getContents(), true);
-        $access_token = $json['access_token'];
-        $refresh_token = $json['refresh_token'];
-
-        try {
-            $response = $client->get('/api/private/user/account?access_token=' . $json['access_token']);
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            return Response::json(["message" => "failed to fetch your account data"], 500);
-        }
-
-        $json = json_decode($response->getBody()->getContents(), true)['data'];
-
-        $this->updateUser($json, $access_token, $refresh_token);
-
-        // generate auth token for this student
-        $student = User::where('etuutt_login', $json['login'])->first();
-        $createdToken = $student->createToken("etu utt");
-        $passport_access_token = $createdToken->accessToken;
-
-        return Response::json([
-            "access_token" => $passport_access_token
-        ]);
-    }
-
-    /**
-     * if the request passed the auth:api middleware, it means that the token is still valid.
-     * So return code 200.
-     *
-     * @return Response
-     */
-    public function checkApiToken() {
-        return Response::json(["message" => "valid token"]);
-    }
-
-    /**
      * Disconnect the user by resetting his session and redirecting him to etu.utt.fr.
      *
      * @return Response
@@ -238,19 +161,5 @@ class OAuthController extends Controller
         // him from the etu.utt.fr website. Then he'll be redirected to the
         // application index. That's dirty but I don't see any alternative.
         return View::make('redirection');
-    }
-
-    /**
-     * Revoke and delete the passport token of the authenticated student
-     *
-     * @return Response
-     */
-    public function revokeApiToken()
-    {
-        $token = Auth::guard('api')->user()->token();
-        $token->revoke();
-        $token->delete();
-
-        return Response::json(["success" => true]);
     }
 }

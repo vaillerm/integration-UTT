@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Checkin;
 use App\Models\User;
 
@@ -21,17 +22,12 @@ class CheckinController extends Controller
     public function index()
     {
         // api request
-        if (Request::wantsJson()) {
-            $user = $user = Auth::guard('api')->user();
+        $user = $user = Auth::guard('api')->user();
 
-            if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
-                return Response::json(["message" => "You are not allowed."], 403);
-            }
-            return Response::json(Checkin::all());
+        if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
         }
-
-        $checkins = Checkin::where('prefilled', true)->get();
-        return view('dashboard.checkins.index', compact('checkins'));
+        return Response::json(Checkin::all());
     }
 
     /**
@@ -51,16 +47,6 @@ class CheckinController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('dashboard.checkins.create');
-    }
-
-    /**
      * Store a new checkin
      *
      * @return Response
@@ -68,32 +54,20 @@ class CheckinController extends Controller
     public function store()
     {
         // api request
-        if (Request::wantsJson()) {
-            $user = $user = Auth::guard('api')->user();
+        $user = $user = Auth::guard('api')->user();
 
-            if (!$user->ce && !$user->orga) {
-                return Response::json(["message" => "You are not allowed."], 403);
-            }
-
-            // validate the request inputs
-            $validator = Validator::make(Request::all(), Checkin::apiStoreRules());
-            if ($validator->fails()) {
-                return Response::json(["errors" => $validator->errors()], 400);
-            }
-
-            $checkin = Checkin::create(Request::all());
-            return Response::json($checkin);
+        if (!$user->ce && !$user->orga) {
+            return Response::json(["message" => "You are not allowed."], 403);
         }
 
         // validate the request inputs
-        $validator = Validator::make(Request::all(), Checkin::webStoreRules());
+        $validator = Validator::make(Request::all(), Checkin::apiStoreRules());
         if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
+            return Response::json(["errors" => $validator->errors()], 400);
         }
 
-        $checkin = Checkin::create(array_merge(Request::all(), ['prefilled' => true]));
-        $checkin->users()->attach(Request::get('users'));
-        return redirect('dashboard/checkin');
+        $checkin = Checkin::create(Request::all());
+        return Response::json($checkin);
     }
 
     /**
@@ -146,51 +120,4 @@ class CheckinController extends Controller
 
         return Response::json(Checkin::with('users')->find($id));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $checkin = Checkin::find($id);
-        return view('dashboard.checkins.edit', compact('checkin'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update($id)
-    {
-        // validate the request inputs
-        $validator = Validator::make(Request::all(), Checkin::webUpdateRules($id));
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator);
-        }
-
-        $checkin = Checkin::find($id);
-        $checkin->fill(Request::all());
-        $checkin->save();
-        $checkin->users()->sync(Request::get('users'));
-
-        return redirect('dashboard/checkin');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Checkin::destroy($id);
-        return redirect('dashboard/checkin');
-    }
-
 }

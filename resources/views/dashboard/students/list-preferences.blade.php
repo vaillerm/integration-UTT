@@ -47,8 +47,8 @@ Liste de tous les bénévoles classés par préférences
                         <td>
                             @foreach ($student->volunteer_preferences as $preference)
                                 <span class="label {{{ empty($filter[$preference]) ? 'label-default' : 'label-success' }}}"
-                                    title="{{{ $User::VOLUNTEER_PREFERENCES[$preference]['description'] }}}">
-                                    {{{ $User::VOLUNTEER_PREFERENCES[$preference]['title'] }}}</span>
+                                    title="{{{ \Auth::User()::VOLUNTEER_PREFERENCES[$preference]['description'] }}}">
+                                    {{{ \Auth::User()::VOLUNTEER_PREFERENCES[$preference]['title'] }}}</span>
                             @endforeach
                         </td>
                         <td class="hidden-print">

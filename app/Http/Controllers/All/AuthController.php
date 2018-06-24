@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\All;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use EtuUTT;
 use Request;

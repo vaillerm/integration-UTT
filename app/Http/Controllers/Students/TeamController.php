@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Students;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Team;
 use EtuUTT;
@@ -11,7 +12,7 @@ use Authorization;
 use View;
 use Auth;
 
-class CEController extends Controller
+class TeamController extends Controller
 {
     /**
      * Set student as CE and redirect to dashboard index

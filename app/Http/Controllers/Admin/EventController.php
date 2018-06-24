@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Request;
 use Response;
 use Validator;
@@ -99,17 +100,6 @@ class EventController extends Controller
         return strtotime($date.' '.$hour);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $event = Event::find($id);
-        return Response::json($event);
-    }
 
     /**
      * Show the form for editing the specified resource.

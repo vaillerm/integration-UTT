@@ -59,7 +59,7 @@
 			</td>
 		</tr>
 	</table>
-	@if($mail_id)
+	@if(isset($mail_id))
 		<img src="{{ url()->route('emails.opening', ['mail_id' => $mail_id]) }}" height="1" width="1" class="">
 	@endif
 </body>

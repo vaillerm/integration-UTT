@@ -31,7 +31,7 @@ Gestion des équipes
                     @else
                         <tr id="{{ $team->id }}">
                     @endif
-                        <td>{{{ $team->newcomers()->count() }}}</td>
+                        <td><a href="{{ route('dashboard.teams.members', ['id' => $team->id ]) }}" class="btn btn-xs btn-default">{{{ $team->newcomers()->count() }}}</a></td>
                         @if($team->name != null)
                             <td>
                                 <strong>{{{ $team->name }}}</strong>
