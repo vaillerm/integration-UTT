@@ -62,8 +62,10 @@ class TeamController extends Controller
     public function teamCreate()
     {
         // Create team
-        $data = array('name'=>null);
-        $team = Team::create($data);
+        $team = new Team([
+            'name' => null,
+        ]);
+
         $team->respo_id = Auth::user()->id;
         if ($team->save()) {
             // Put user in the team
@@ -208,7 +210,6 @@ class TeamController extends Controller
         $student = User::where([ 'etuutt_login' => $json['login'] ])->first();
         if ($student === null) {
             $student = new User([
-                'etuutt_login'    => $login,
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
                 'last_name'     => $json['lastName'],
@@ -220,6 +221,7 @@ class TeamController extends Controller
                 'ce'            => 1,
                 'team_id'       => Auth::user()->team_id,
             ]);
+            $student->etuutt_login = $json['login'];
             $student->save();
 
             // Error here a ignored, we just keep user without a picture if we cannot download it

@@ -38,8 +38,7 @@ class OAuthController extends Controller
         // If the user is new, import some values from the API response.
         $student = User::where('etuutt_login', $json['login'])->first();
         if ($student === null) {
-            $student = new Student([
-                'etuutt_login'  => $json['login'],
+            $student = new User([
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
                 'last_name'     => $json['lastName'],
@@ -52,6 +51,7 @@ class OAuthController extends Controller
             ]);
             $student->etuutt_access_token = $access_token;
             $student->etuutt_refresh_token = $refresh_token;
+            $student->etuutt_login = $json['login'];
 
             // Error here a ignored, we just keep user without a picture if we cannot download it
             $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
