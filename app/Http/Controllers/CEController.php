@@ -89,7 +89,6 @@ class CEController extends Controller
         return View::make('dashboard.ce.myteam', [
             'team' => Auth::user()->team,
             'student' => Auth::user(),
-            'newcomers' => Auth::user()->team->newcomers,
         ]);
     }
 

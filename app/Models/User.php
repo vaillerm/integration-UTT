@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Crypt;
 use Config;
+use Ramsey\Uuid\Uuid;
 
 class User extends Model implements Authenticatable
 {
@@ -596,12 +597,16 @@ class User extends Model implements Authenticatable
     {
         parent::boot();
 
-        User::creating(function ($newcomer) {
-            if (empty($newcomer->password)) {
-                $newcomer->setPassword(self::generatePassword());
+        User::creating(function ($user) {
+
+            // Generate password
+            if (empty($user->password)) {
+                $user->setPassword(self::generatePassword());
             }
+
+            // Generate login
             if (empty($newcomer->login)) {
-                $login = strtolower(mb_substr(mb_substr(preg_replace("/[^A-Za-z0-9]/", '', $newcomer->first_name), 0, 1) . preg_replace("/[^A-Za-z0-9]/", '', $newcomer->last_name), 0, 8));
+                $login = strtolower(mb_substr(mb_substr(preg_replace("/[^A-Za-z0-9]/", '', $user->first_name), 0, 1) . preg_replace("/[^A-Za-z0-9]/", '', $user->last_name), 0, 8));
                 $i = '';
                 while (User::where(['login' => $login . $i])->count()) {
                     if (empty($i)) {
@@ -609,8 +614,11 @@ class User extends Model implements Authenticatable
                     }
                     $i++;
                 }
-                $newcomer->login = $login . $i;
+                $user->login = $login . $i;
             }
+
+            // generate uuid
+            $user->qrcode = Uuid::uuid4();
         });
     }
 

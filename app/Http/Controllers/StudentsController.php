@@ -31,7 +31,7 @@ class StudentsController extends Controller
             return Response::json(["message" => "You are not allowed."], 403);
         }
 
-        $query = DB::table('students');
+        $query = DB::table('users');
 
         // apply query filters
         if (Request::all()) {
@@ -81,14 +81,10 @@ class StudentsController extends Controller
             $id = $user->id;
         }
 
-        $requested_user = User::where('id', $id)->with('team', 'godFather')->first();
+        $requested_user = User::where('id', $id)->with('team', 'godFather', 'team.faction')->first();
 
         // check if authorized to see this user
-        if ($id == $user->id || $user->admin || $user->team_id == $requested_user->team_id) {
-            return Response::json($this->removeUnauthorizedFields($requested_user));
-        } else {
-            return Response::json(array(["message" => "the requested user does'nt exists."]), 404);
-        }
+        return Response::json($this->removeUnauthorizedFields($requested_user));
     }
 
     /**
@@ -117,31 +113,93 @@ class StudentsController extends Controller
     }
 
     /**
-     * Remove field that the requester can't see, depending of his roles
+     * List authorized fields for the API
      *
      * @param Student $student
-     * @return Object
+     * @return Array field list
      */
     private function removeUnauthorizedFields($student)
     {
         $user = Auth::guard('api')->user();
+        $output = $student->toArray();
 
-        unset($student->password);
-        unset($student->login);
-        unset($student->etuutt_access_token);
-        unset($student->etuutt_refresh_token);
 
-        // an admin can access all informations. If the user is not admin
-        // remove all the fields that can only be seen by an admin
-        if ($user->admin) {
-            return $student;
-        } else if ($user->id != $student->id) {
-            unset($student->medical_allergies);
-            unset($student->medical_treatment);
-            unset($student->medical_note);
+        $authorizedFields = [];
+        if($user->isAdmin()) {
+            return $output;
+        }
+        else if($user->id == $output['id']) {
+            $authorizedFields = array_merge($authorizedFields,
+            [
+                'qrcode',
+                'id',
+                'first_name',
+                'last_name',
+                'surname',
+                'student_id',
+                'is_newcomer',
+                'sex',
+                'email',
+                'phone',
+                'postal_code',
+                'team',
+                'country',
+                'postal_code',
+                'city',
+                'phone',
+                'email',
+                'student_id',
+                'branch',
+                'level',
+
+                // TODO add majority instead of birthdate
+            ]);
+
+            // filter godfather fields
+            if ($student->godFather) {
+                $output['god_father'] = $this->removeUnauthorizedFields($student->godFather);
+            }
+
+            // filter team fields
+            if ($student->team) {
+                $output['team'] = [
+                    'id' => $student->team->id,
+                    'name' => $student->team->name,
+                    'description' => $student->team->description,
+                    'img' => $student->team->img,
+                    'facebook' => $student->team->facebook,
+                    'faction' => null,
+                ];
+                if($student->team->faction) {
+                    $output['team']['faction'] = [
+                        'id' => $student->team->faction->id,
+                        'name' => $student->team->faction->name,
+                    ];
+                }
+            }
+        }
+        else {
+            $authorizedFields = [
+                'id',
+                'first_name',
+                'last_name',
+                'surname',
+                'student_id',
+                'is_newcomer'
+            ];
+
+            // For everyone else
+            unset($output['god_father']);
+            unset($output['team']);
         }
 
-        return $student;
+        // Remove unauthorzed fields
+        $unauthorizedFields = array_diff(array_keys($output), $authorizedFields);
+        foreach ($unauthorizedFields as $value) {
+            unset($output[$value]);
+        }
+
+        return $output;
     }
 
     /**

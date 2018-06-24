@@ -49,31 +49,6 @@ Gestion de mon équipe
     </div>
 @endif
 
-{{-- @if(count($newcomers)>0)
-    <div class="box box-default">
-        <div class="box-header with-border">
-            <h3 class="box-title">Nouveaux assignés a l'équipe</h3>
-        </div>
-        <div class="box-body table-responsive no-padding">
-            <table class="table table-hover trombi">
-                <tbody>
-                <tr>
-                    <th>Prénom</th>
-                    <th>Nom</th>
-                </tr>
-                @foreach ($newcomers as $newcomer)
-                    <tr>
-                        <td>{{{ $newcomer->first_name }}}</td>
-                        <td>{{{ $newcomer->last_name }}}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-@endif
---}}
-
 <div class="box box-default">
     <div class="box-header with-border">
         @if(Authorization::can('ce','edit'))
