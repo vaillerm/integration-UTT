@@ -14,7 +14,7 @@ use App\Models\Student;
 |
 */
 
-$factory->define(App\Models\Newcomer::class, function (Faker\Generator $faker) {
+/*$factory->define(App\Models\Newcomer::class, function (Faker\Generator $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
@@ -45,7 +45,7 @@ $factory->define(App\Models\Newcomer::class, function (Faker\Generator $faker) {
         },
         'remember_token' => str_random(10),
     ];
-});
+}); */
 
 $factory->define(App\Models\Student::class, function (Faker\Generator $faker) {
     return [
@@ -98,4 +98,13 @@ $factory->define(App\Models\Team::class, function (Faker\Generator $faker) {
         'validated' => $faker->boolean,
         'comment' => $faker->text
     ];
+});
+
+$factory->define(App\Models\Challenge::class, function(Faker\Generator $faker) {
+	return [
+		"name" => $faker->words(1, true),
+		"description" => $faker->words(10, true),
+		"points" => $faker->randomDigit,
+		"deadline" => $faker->date
+	];
 });

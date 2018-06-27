@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use EtuUTT;
 use View;
+use DB;
 use App\Models\Challenge;
 
 class ChallengeController extends Controller
@@ -39,6 +40,9 @@ class ChallengeController extends Controller
 	}
 
 	public function showChallengesList() {
-		return View::make('dashboard.challenges.list');
+		$challenges = DB::table("challenges")->get();
+		return View::make('dashboard.challenges.list', [
+			"challenges" => $challenges
+		]);
 	}
 }
