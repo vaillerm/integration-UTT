@@ -1,12 +1,12 @@
 html {
     margin:0;
     padding:0;
-    //background: url("/img/background.jpg") black no-repeat center top !important;
-    background-image: url("/img/background.jpg");
+    /* background: url("/img/home-background.png") black no-repeat center top !important; */
+    background-image: url("/img/home-background.png");
     background-position: top center;
     background-repeat: no-repeat;
-    background-color: black;
-    background-size:cover;
+    background-color: #d98090;
+    background-size:100%;
 }
 
 body {
@@ -14,20 +14,16 @@ body {
 }
 
 a.btn {
-    margin:2px;
-    padding:10px;
-    box-shadow: 6px 6px 6px black;
+    margin: 2px;
+    padding: 10px;
+    box-shadow: 4px 4px 4px black;
+    font-size: 2em;
 }
 
 .container {
     position: relative;
-    margin-top: 150px;
+    margin-top: 22%;
     padding-top: 50px;
-}
-
-.container h1 {
-    color: #252525;
-    text-shadow: 2px 2px 2px white;
 }
 
 .container p {
@@ -35,29 +31,70 @@ a.btn {
     font-size: medium;
 }
 
+.container .btn-primary {
+    background-color: #E5B502;
+    color: black;
+}
+
+.container .btn-primary:hover {
+    background-color: #C09402;
+}
+
 .sponsor {
-    margin-top:250px;
+    margin: 3% auto 0 auto;
     color: #fff;
+    width: 65%;
 }
 
 .sponsor img {
     margin:20px;
-    max-height:50px
+    max-height:70px
 }
 
-@media screen and (max-height: 700px) {
-    html {
-        background-position: center -190px !important;
-    }
-
+@media screen and (max-width: 1600px) {
     .container {
-        margin-top: 0px;
+        margin-top: 20%;
+    }
+    .sponsor {
+        margin-top: 0;
+    }
+    .sponsor img {
+        max-height:50px
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1200px) {
+    .sponsor {
+        margin-top: 18%;
+    }
+}
 
+@media screen and (max-width: 850px) {
     .container {
-        padding-top: 0px;
+        margin-top: 16%;
+    }
+    a.btn {
+        font-size: 1em;
+    }
+    .sponsor {
+        margin-top: 18%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container .btn-primary {
+        margin-bottom: 25%;
+    }
+    .sponsor {
+        margin-top: 0%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .container {
+        margin-top: 8%;
+    }
+    .container .btn-primary {
+        margin-bottom: 25%;
     }
 }
