@@ -28,7 +28,6 @@ Accueil
             <div class="text-center">
                 <a href="{{ route('newcomer.auth.login') }}" class="btn btn-primary">Je suis nouveau !</a><br/>
                 <a href="{{ route('menu') }}" class="btn btn-default">Je suis étudiant à l'UTT</a>
-
                     {{--@if(((new DateTime(Config::get('services.wei.registrationStart')))->diff(new DateTime()))->invert)
                         <p>Ouverture des inscriptions pour le weekend dans</p>
                         <div class="countdown hidden-xs" style="width:640px;margin:20px auto;"></div>
