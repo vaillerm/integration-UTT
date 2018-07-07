@@ -25,15 +25,15 @@
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
 
-                                @if (EtuUTT::student()->ce)
-                                    @if (!EtuUTT::student()->team()->count())
+                                @if (Auth::user()->ce)
+                                    @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
                                     @else
                                         <li><a href="{{ route('dashboard.ce.myteam') }}">Mon équipe</a></li>
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Liste des équipes</a></li>
                                     @endif
                                 @endif
-                                @if (EtuUTT::student()->isAdmin())
+                                @if (Auth::user()->isAdmin())
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parrainage <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
@@ -48,7 +48,7 @@
 									<li class="dropdown">
 										<a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
 										<ul class="dropdown-menu">
-											@if (EtuUTT::student()->isAdmin())
+											@if (Auth::user()->isAdmin())
 												<li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
 											@endif
 											<li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
@@ -92,7 +92,7 @@
                                             <li><a href="{{ route('dashboard.configs.parameters') }}">Paramétrages</a></li>
                                         </ul>
                                     </li>
-                                @elseif (EtuUTT::student()->isModerator())
+                                @elseif (Auth::user()->isModerator())
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
                                         <ul class="dropdown-menu">

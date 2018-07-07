@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\RenderNewcomers::class,
         Commands\PutScheduledEmailToQueue::class,
         Commands\SetPassword::class,
+        Commands\RegenerateUUID::class,
         CreateFirstCron::class,
     ];
 

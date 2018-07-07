@@ -3,7 +3,7 @@
 namespace App\Classes;
 
 use App\Models\Team;
-use App\Models\Student;
+use App\Models\User;
 use Config;
 
 /**
@@ -127,7 +127,7 @@ class NewcomerMatching
      */
     public static function matchTeams()
     {
-        $newcomers = Student::newcomer()->whereNull('team_id')->get();
+        $newcomers = User::newcomer()->whereNull('team_id')->get();
 
         // Create an array to branch_id with number of newcomers in the team
         $countPerTeam = [];
@@ -249,14 +249,14 @@ class NewcomerMatching
         ];*/
         $counts = [];
         $counts2 = [];
-        $referrals = Student::student()->where(['referral' => 1, 'referral_validated' => 1])->get();
+        $referrals = User::student()->where(['referral' => 1, 'referral_validated' => 1])->get();
         foreach ($referrals as $referral) {
             if (!isset($counts[$referral->branch])) {
                 $counts[$referral->branch] = [];
             }
 
             if ($referral->branch != 'MP') { // Remove masters
-                $counts[$referral->branch][$referral->student_id] = [
+                $counts[$referral->branch][$referral->id] = [
                     'current' => $referral->newcomers->count(),
                     'future' => $referral->newcomers->count(),
                     'max' => $referral->referral_max,
@@ -270,7 +270,7 @@ class NewcomerMatching
             if (($referral->branch != 'TC') // Remove TC2 because they are too young for branches
                     && $referral->branch != 'MM' // Remove PMOM because they doen't have godson from other branches
                     && $referral->branch != 'MP') { // Remove masters because they cannot have an engineer godson
-                $counts2[$referral->student_id] = &$counts[$referral->branch][$referral->student_id];
+                $counts2[$referral->id] = &$counts[$referral->branch][$referral->id];
             }
         }
 
@@ -280,7 +280,7 @@ class NewcomerMatching
 
         foreach ($counts as $branch => $data) {
             // Get number of newcomers for this branch
-            $newcomers = Student::newcomer()->where(['branch' => $branch, 'referral_id' => null])->count();
+            $newcomers = User::newcomer()->where(['branch' => $branch, 'referral_id' => null])->count();
             $currentGoal = 1;
             $overflow = 0; // Is true when we decide to add one to each maximum (but still < 5)
             while ($newcomers > 0 && $currentGoal <= 5) {
@@ -331,7 +331,7 @@ class NewcomerMatching
          **********************************************************************/
 
         $round = 0;
-        $allNewcomers = Student::newcomer()->whereNull('referral_id')->get();
+        $allNewcomers = User::newcomer()->whereNull('referral_id')->get();
         $newcomers = [];
         foreach ($allNewcomers as $value) {
             $newcomers[] = $value;

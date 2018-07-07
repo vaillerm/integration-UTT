@@ -6,7 +6,7 @@ use DB;
 use Blade;
 use Crypt;
 use App\Models\Email;
-use App\Models\Student;
+use App\Models\User;
 use App\Models\Newcomer;
 use App\Jobs\SendEmail;
 use Illuminate\Console\Command;
@@ -72,16 +72,16 @@ class PutScheduledEmailToQueue extends Command
                     $list['stupre-liste@utt.fr'] = [ 'name' => 'STUPRE-liste', 'user' => null ];
                     break;
                 case Email::VOLUNTEERS:
-                    $students = Student::where('volunteer', 1)->get();
+                    $students = User::where('volunteer', 1)->get();
                     break;
                 case Email::CE_VALIDATED:
-                    $students = Student::where('ce', 1)->whereNotNull('team_id')->where('team_accepted', 1)->get();
+                    $students = User::where('ce', 1)->whereNotNull('team_id')->where('team_accepted', 1)->get();
                     break;
                 case Email::REFERRALS_VALIDATED:
-                    $students = Student::where('referral', 1)->where('referral_validated', 1)->get();
+                    $students = User::where('referral', 1)->where('referral_validated', 1)->get();
                     break;
                 case Email::REFERRALS_INCOMPLETE:
-                    $students = Student::where('referral', 1)
+                    $students = User::where('referral', 1)
                     ->where('referral_validated', 0)
                     ->where(function ($query) {
                         $query->where('phone', '')
@@ -94,16 +94,16 @@ class PutScheduledEmailToQueue extends Command
                     ->get();
                     break;
                 case Email::REFERRALS_VALIDATED_BRANCH:
-                    $students = Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'tc')->get();
+                    $students = User::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'tc')->get();
                     break;
                 case Email::REFERRALS_VALIDATED_TC:
-                    $students = Student::where('referral', 1)->where('referral_validated', 1)->where('branch', '=', 'tc')->get();
+                    $students = User::where('referral', 1)->where('referral_validated', 1)->where('branch', '=', 'tc')->get();
                     break;
                 case Email::ORGA:
-                    $students = Student::where('orga', 1)->get();
+                    $students = User::where('orga', 1)->get();
                     break;
                 case Email::ADMIN:
-                    $students = Student::where('admin', 100)->get();
+                    $students = User::where('admin', 100)->get();
                     break;
                 case Email::NEWCOMERS_ALL:
                     $newcomers = Newcomer::all();

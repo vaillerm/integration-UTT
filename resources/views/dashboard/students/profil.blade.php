@@ -82,7 +82,7 @@ Parce que l'intégration, c'est surtout vous !
                     </p>
 
                     <div class="form-group">
-                        @foreach ($student::VOLUNTEER_PREFERENCES as $key => $preference)
+                        @foreach (\App\Models\User::VOLUNTEER_PREFERENCES as $key => $preference)
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key, $student->volunteer_preferences ?? []) )) checked="checked" @endif/>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Student;
+use App\Models\User;
 
 class FactorySeeder extends Seeder
 {
@@ -12,14 +12,11 @@ class FactorySeeder extends Seeder
      */
     public function run()
     {
-        //factory(App\Models\Student::class, 10)->create();
-        //factory(App\Models\Newcomer::class, 10)->create();
-        //factory(App\Models\Team::class, 10)->create();
+        factory(App\Models\User::class, 500)->create();
+        factory(App\Models\Team::class, 15)->create();
 
         // Round 2 (to use last created stuff as foreigner key)
-        //factory(App\Models\Student::class, 10)->create();
-        //factory(App\Models\Newcomer::class, 10)->create();
-        //factory(App\Models\Team::class, 10)->create();
-		factory(App\Models\Challenge::class, 10)->create();
+        factory(App\Models\User::class, 500)->create();
+        factory(App\Models\Team::class, 15)->create();
     }
 }

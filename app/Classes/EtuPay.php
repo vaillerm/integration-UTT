@@ -43,11 +43,7 @@ class EtuPay
             $payment->informations = ['transaction_id' => $payload->transaction_id];
             $payment->save();
 
-            if ($payment->newcomer) {
-                $payment->newcomer->updateWei();
-            } elseif ($payment->student) {
-                $payment->student->updateWei();
-            }
+            $payment->user->updateWei();
 
             return $payment;
         }

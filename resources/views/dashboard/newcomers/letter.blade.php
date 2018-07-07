@@ -48,7 +48,7 @@
 			div {
 				position: absolute;
 			}
-			
+
 			u {
 				color: #ababff;
 			}
@@ -359,7 +359,7 @@
 					@if($newcomer->team)
 						<div class="equipe">
 							<div class="titre">
-								@if($team->name != null)
+								@if($newcomer->team->name != null)
 		                        <span class="nom">{{ $newcomer->team->name }}</span>		                        @else
 		                        <span class="nom">Équipe sans nom {{ $newcomer->team->id }}</span>
 		                        @endif

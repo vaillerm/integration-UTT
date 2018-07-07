@@ -23,19 +23,19 @@ class Authorize
     {
         // Login/student verification
         if (in_array($group, ['student', 'admin', 'orga', 'ce', 'referral', 'volunteer'])
-                && !EtuUTT::isAuth()) {
+                && (!Auth::check() || Auth::user()->isNewcomer())) {
             return Redirect::route('index')->withError('Vous devez être connecté pour accéder à cette page');
         }
 
         // Login/newcomer verification
         if (in_array($group, ['newcomer'])
-                && !Auth::check()) {
+                && (!Auth::check() || !Auth::user()->isNewcomer())) {
             return Redirect::route('newcomer.auth.login')->withError('Vous devez être connecté pour accéder à cette page');
         }
 
         // Volunteer verification
         if (in_array($group, ['admin', 'orga', 'ce', 'volunteer'])
-                && !EtuUTT::student()->volunteer) {
+                && !Auth::user()->volunteer) {
             return Redirect::route('dashboard.students.profil')->withError('Veuillez remplir ce formulaire pour continuer :)');
         }
 

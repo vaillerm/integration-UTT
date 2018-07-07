@@ -24,19 +24,19 @@ Informations diverses pour toi !
             </a></p>
 
 
-            @if (EtuUTT::student()->isAdmin())
+            @if (Auth::user()->isAdmin())
                 <hr/>
                 <p>
                     Comme tu es administrateur, ce site te permettra de faire pleins d'autres truc, mais j'ai la flemme de tous les décrire.
                     Du coup je te laisse faire joujou avec. ;)<br/> <em>Enfin.. évite de tout casser, hein !</em>
                 </p>
             @endif
-            @if (EtuUTT::student()->ce)
+            @if (Auth::user()->ce)
                 <hr/>
                 <p>
                     En tant que <strong>chef d'équipe</strong>, ce site te permet de constituer et de mettre à jour les informations de ton équipe.</em>
                 </p>
-                @if (!EtuUTT::student()->team)
+                @if (!Auth::user()->team)
                     <a class="btn btn-primary" href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a>
                 @else
                     <a class="btn btn-primary" href="{{ route('dashboard.ce.myteam') }}">Voir mon équipe</a></li>

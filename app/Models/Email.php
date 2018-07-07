@@ -74,16 +74,16 @@ class Email extends Model
                     $mails['stupre-liste@utt.fr'] = [ 'name' => 'STUPRE-liste', 'user' => null ];
                     break;
                 case Email::VOLUNTEERS:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('volunteer', 1)->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('volunteer', 1)->get();
                     break;
                 case Email::CE_VALIDATED:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('ce', 1)->whereNotNull('team_id')->where('team_accepted', 1)->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('ce', 1)->whereNotNull('team_id')->where('team_accepted', 1)->get();
                     break;
                 case Email::REFERRALS_VALIDATED:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->get();
                     break;
                 case Email::REFERRALS_INCOMPLETE:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('referral', 1)
+                    $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)
                         ->where('referral_validated', 0)
                         ->where(function ($query) {
                             $query->where('phone', '')
@@ -96,46 +96,46 @@ class Email extends Model
                         ->get();
                     break;
                 case Email::REFERRALS_VALIDATED_BRANCH:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'tc')->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'tc')->get();
                     break;
                 case Email::REFERRALS_VALIDATED_TC:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->where('branch', '=', 'tc')->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->where('branch', '=', 'tc')->get();
                     break;
                 case Email::ORGA:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('orga', 1)->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('orga', 1)->get();
                     break;
                 case Email::ADMIN:
-                    $students = Student::student()->with(['mailHistories', 'team'])->where('admin', 100)->get();
+                    $students = User::student()->with(['mailHistories', 'team'])->where('admin', 100)->get();
                     break;
                 case Email::NEWCOMERS_ALL:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->get();
                     break;
                 case Email::NEWCOMERS_ALL_TC:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'TC')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'TC')->get();
                     break;
                 case Email::NEWCOMERS_ALL_BRANCH:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', '<>', 'TC')->where('branch', '<>', 'MP')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', '<>', 'TC')->where('branch', '<>', 'MP')->get();
                     break;
                 case Email::NEWCOMERS_ALL_MASTER:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'MP')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'MP')->get();
                     break;
                 case Email::NEWCOMERS_FILLED:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('email', '<>', '')->whereNotNull('email')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
                 case Email::NEWCOMERS_FILLED_TC:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'TC')->where('email', '<>', '')->whereNotNull('email')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'TC')->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
                 case Email::NEWCOMERS_FILLED_BRANCH:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', '<>', 'TC')->where('branch', '<>', 'MP')->where('email', '<>', '')->whereNotNull('email')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', '<>', 'TC')->where('branch', '<>', 'MP')->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
                 case Email::NEWCOMERS_FILLED_MASTER:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'MP')->where('email', '<>', '')->whereNotNull('email')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'MP')->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
                 case Email::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM:
-                    $students = Student::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->whereNotNull('referral_id')->get();
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->whereNotNull('referral_id')->get();
                     break;
                 case Email::WEI_SUSCBRIBED:
-                    $students = Student::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->where('bus_id','>', 0)->get();
+                    $students = User::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->where('bus_id','>', 0)->get();
                     break;
                 default:
                     echo 'Error : Unknown email list id';

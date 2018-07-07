@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use App\Models\Student;
+use App\Models\User;
 
 class ImportStudentPictures extends Command
 {
@@ -41,7 +41,7 @@ class ImportStudentPictures extends Command
     public function fire()
     {
         $i = 0;
-        $list = Student::student()->get();
+        $list = User::student()->get();
         foreach ($list as $student) {
             $i++;
             echo $i . "/" . $list->count() . " " . $student->fullName() . " " . "\n";

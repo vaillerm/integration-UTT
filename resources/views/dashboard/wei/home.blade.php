@@ -44,7 +44,7 @@
                     Mais pour les bénévoles, ce n'est pas le cas. Si vous ne pouvez pas, arrangez vous avec vos potes pour qu'ils payent à votre place et vous les rembourserez en McDo. ;-)
                 </p>
 
-                @if(!EtuUTT::student()->wei)
+                @if(!Auth::user()->wei)
                     @if(Config::get('services.wei.open') === '1')
                         @if((new DateTime(Config::get('services.wei.registrationStart'))) > (new DateTime()))
                             <div class="box box-default">
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        @if(EtuUTT::student()->wei)
+        @if(Auth::user()->wei)
             @if($validated == 1)
                 <div class="callout callout-success">
                     Ton inscription est validée, tu peux venir au WEI !

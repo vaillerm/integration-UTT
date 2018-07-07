@@ -31,9 +31,9 @@
                     <div id="student_autocomplete_matches"></div>
                 </div>
                 <ul class="list-group" id="student_autocomplete_selected_container">
-                    @foreach($checkin->students as $student)
-                        <li class="list-group-item" data-id="{{ $student->id }}">
-                            {{ $student->first_name }} {{ $student->last_name }}
+                    @foreach($checkin->users as $user)
+                        <li class="list-group-item" data-id="{{ $user->id }}">
+                            {{ $user->first_name }} {{ $user->last_name }}
                             <span class="autocomplete_remove">x</span>
                         </li>
                     @endforeach

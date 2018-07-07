@@ -68,7 +68,7 @@ Liste des équipes
                         @endif
                         <td>
                             @foreach ($team->ce as $ce)
-                                @if ($ce->student_id == $team->respo_id)
+                                @if ($ce->id == $team->respo_id)
                                     <i class="fa fa-star" aria-hidden="true" title="Responsable de l'équipe"></i>
                                 @endif
                                 @if ($ce->team_accepted)

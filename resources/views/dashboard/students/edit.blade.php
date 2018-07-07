@@ -198,7 +198,7 @@ Modification de profil
             <div class="form-group">
                 <label class="col-lg-2 control-label">Préférences</label>
                 <div class="col-lg-10">
-                    @foreach ($student::VOLUNTEER_PREFERENCES as $key => $preference)
+                    @foreach (\App\Models\User::VOLUNTEER_PREFERENCES as $key => $preference)
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key, $student->volunteer_preferences ?? []) )) checked="checked" @endif/>
