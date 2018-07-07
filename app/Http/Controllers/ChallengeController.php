@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use EtuUTT;
+use Auth;
 use View;
 use DB;
 use App\Models\Challenge;
@@ -15,14 +15,14 @@ class ChallengeController extends Controller
 	 * @Return null
 	 */
 	public function displayForm() {
-		if(!EtuUTT::student()->isAdmin()) {
+		if(!Auth::user()->isAdmin()) {
 			return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
 		}
 		return View::make('dashboard.challenges.add');
 	}
 
 	public function addChallenge(Request $request) {
-		if(!EtuUTT::student()->isAdmin()) {
+		if(!Auth::user()->isAdmin()) {
 			throw $this->error("Vous n'avez pas le droit d'accéder à cette page.");
 		}
 		$this->validate($request, [
@@ -35,8 +35,9 @@ class ChallengeController extends Controller
 		$challenge->description = $request->description;
 		$challenge->points = $request->points;
 		$challenge->deadline = $request->deadline;
-
 		$challenge->save();
+		$request->session()->flash('success', 'Défis ajouté.');
+		return view("dashboard.challenges.add");
 	}
 
 	public function showChallengesList() {
