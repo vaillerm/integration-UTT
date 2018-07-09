@@ -15,16 +15,10 @@ class ChallengeController extends Controller
 	 * @Return null
 	 */
 	public function displayForm() {
-		if(!Auth::user()->isAdmin()) {
-			return $this->error('Vous n\'avez pas le droit d\'accéder à cette page.');
-		}
 		return View::make('dashboard.challenges.add');
 	}
 
 	public function addChallenge(Request $request) {
-		if(!Auth::user()->isAdmin()) {
-			throw $this->error("Vous n'avez pas le droit d'accéder à cette page.");
-		}
 		$this->validate($request, [
 			"name" => "required|unique:challenges|max:30",
 			"description" => "required|max:140",
@@ -37,7 +31,12 @@ class ChallengeController extends Controller
 		$challenge->deadline = $request->deadline;
 		$challenge->save();
 		$request->session()->flash('success', 'Défis ajouté.');
-		return view("dashboard.challenges.add");
+		return redirect("challenges/");
+	}
+
+	public function deleteChallenge(int $idChallenge) {
+		DB::table("challenges")->where("id", "=", $idChallenge)->delete();
+		return redirect("challenges/");
 	}
 
 	public function showChallengesList() {

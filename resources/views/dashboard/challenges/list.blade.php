@@ -30,6 +30,12 @@
 				<td>{{ $challenge->description }}</td>
 				<td>{{ $challenge->points }}</td>
 				<td>{{ $challenge->deadline }}</td>
+				<td>
+					<form action={{ route("challenges.delete", ["id"=>$challenge->id]) }} method="POST">
+						{{ method_field('DELETE') }}
+						<input class="btn btn-danger" type="submit" value="Supprimer"></form>
+				</td>
+				
 			</tr>
 		@endforeach
 		</tbody>
