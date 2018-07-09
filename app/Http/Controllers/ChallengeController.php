@@ -34,6 +34,10 @@ class ChallengeController extends Controller
 		return redirect("challenges/");
 	}
 
+	public function submitChallenge(int $idChallenge) {
+		return View::make("dashboard.challenges.submit");
+	}
+
 	public function deleteChallenge(int $idChallenge) {
 		DB::table("challenges")->where("id", "=", $idChallenge)->delete();
 		return redirect("challenges/");

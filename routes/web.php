@@ -680,6 +680,13 @@ Route::group(["prefix" => "challenges"], function() {
 
 	});
 
+	Route::group(["middleware" => "authorize:ce"], function() {
+		Route::get("{id}/submit", [
+			"as" => "challenges.submit",
+			"uses" => "ChallengeController@submitChallenge"
+		]);
+	});
+
 	Route::get("/", [
 		'as' => "challenges.list",
 		'uses' => "ChallengeController@showChallengesList"

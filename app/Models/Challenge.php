@@ -8,6 +8,13 @@ class Challenge extends Model {
 
 	public $timestamps=false;
 
+	public $fillable = [
+		"name",
+		"description",
+		"points",
+		"deadline"
+	];
+
 	public function __construct() {
 
 	}

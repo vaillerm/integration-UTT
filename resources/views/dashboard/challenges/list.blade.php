@@ -34,6 +34,9 @@
 					<form action={{ route("challenges.delete", ["id"=>$challenge->id]) }} method="POST">
 						{{ method_field('DELETE') }}
 						<input class="btn btn-danger" type="submit" value="Supprimer"></form>
+					@if(Auth::user()->ce)
+						<a href={{ route("challenges.submit", ["id" => $challenge->id]) }}><button class="btn btn-primary">valider un défis</button></a>
+					@endif
 				</td>
 				
 			</tr>
