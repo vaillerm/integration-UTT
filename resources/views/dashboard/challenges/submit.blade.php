@@ -9,5 +9,17 @@
 @endsection
 
 @section("content")
-	salut
+	<div class="box box-default">
+		<div class="box-header with-border">
+			<h2>Demander une validation pour : {{$challenge->name}}</h2>
+			<h3>{{ $challenge->description }}</h3>
+		</div>
+		<form action="" method="post">
+			<div class="form-group">
+				<label for="file">Preuve de la réussite</label>
+				<input id="file" class="form-control-file" type="file" accept="image/*">
+			</div>
+			<input class="btn btn-primary form-control" type="submit" value="Envoyer">
+	</form>
+	</div>
 @endsection

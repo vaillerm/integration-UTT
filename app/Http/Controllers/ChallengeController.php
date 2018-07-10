@@ -35,7 +35,14 @@ class ChallengeController extends Controller
 	}
 
 	public function submitChallenge(int $idChallenge) {
-		return View::make("dashboard.challenges.submit");
+		$challenge = DB::table('challenges')->where("id", "=", $idChallenge)->first();
+		return View::make("dashboard.challenges.submit", [
+			"challenge" => $challenge
+		]);
+	}
+
+	public function uploadProof(Request $request) {
+
 	}
 
 	public function deleteChallenge(int $idChallenge) {
