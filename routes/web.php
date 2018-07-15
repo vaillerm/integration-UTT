@@ -112,22 +112,21 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\ReferralsController@index'
             ]);
-            // Not tested. TODO Test it against pre prod
-            // Route::get('/match', [
-            //     'as'   => 'dashboard.referrals.match',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\ReferralsController@matchToNewcomers'
-            // ]);
+            Route::get('/match', [
+                'as'   => 'dashboard.referrals.match',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\ReferralsController@matchToNewcomers'
+            ]);
             Route::get('/prematch', [
                 'as'   => 'dashboard.referrals.prematch',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\ReferralsController@prematch'
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\ReferralsController@prematch'
             ]);
-            // Route::post('/prematch', [
-            //     'as'   => 'dashboard.referrals.prematch.submit',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\ReferralsController@prematchSubmit'
-            // ]);
+            Route::post('/prematch', [
+                'as'   => 'dashboard.referrals.prematch.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\ReferralsController@prematchSubmit'
+            ]);
             Route::get('/slides/tc', [
                 'as'   => 'dashboard.referrals.slides.tc',
                 'middleware' => 'authorize:admin',
@@ -236,8 +235,8 @@ Route::group(['prefix' => 'dashboard'], function () {
             // Not tested : TODO Test it !
             Route::get('/match', [
                 'as'   => 'dashboard.teams.match',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\TeamsController@matchToNewcomers'
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@matchToNewcomers'
             ]);
             Route::get('/{id}/members', [
                 'as'   => 'dashboard.teams.members',

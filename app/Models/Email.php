@@ -46,7 +46,7 @@ class Email extends Model
         self::NEWCOMERS_FILLED => 'Nouveaux qui ont entré leur email',
         self::NEWCOMERS_FILLED_TC => 'Nouveaux TC qui ont entré leur email',
         self::NEWCOMERS_FILLED_BRANCH => 'Nouveaux Branche qui ont entré leur email',
-        self::NEWCOMERS_FILLED_MASTER => 'Nouveaux Master  qui ont entré leur email',
+        self::NEWCOMERS_FILLED_MASTER => 'Nouveaux Master qui ont entré leur email',
         self::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM => 'Tous les nouveaux ayant un parrain et une équipe',
         self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI et ayant un numéro de bus',
     ];

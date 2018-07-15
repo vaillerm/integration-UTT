@@ -28,10 +28,10 @@ class AddBusCheckingFlag extends Migration
     public function down()
     {
         Schema::table('newcomers', function (Blueprint $table) {
-            $table->removeColumn('checkin');
+            $table->dropColumn('checkin');
         });
         Schema::table('students', function (Blueprint $table) {
-            $table->removeColumn('checkin');
+            $table->dropColumn('checkin');
         });
     }
 }

@@ -18,7 +18,6 @@ Gestion des équipes
         <table class="table table-hover">
             <tbody>
                 <tr>
-                    <th>Nombre de nouveaux</th>
                     <th>Nom</th>
                     <th>Description</th>
                     <th>Commentaire</th>
@@ -31,22 +30,17 @@ Gestion des équipes
                     @else
                         <tr id="{{ $team->id }}">
                     @endif
-                        <td><a href="{{ route('dashboard.teams.members', ['id' => $team->id ]) }}" class="btn btn-xs btn-default">{{{ $team->newcomers()->count() }}}</a></td>
-                        @if($team->name != null)
-                            <td>
+                        <td>
+                            @if($team->name != null)
                                 <strong>{{{ $team->name }}}</strong>
-                                @if($team->faction_id)
-                                    <br/>({{{ $team->faction->name }}})
-                                @endif
-                            </td>
-                        @else
-                            <td>
+                            @else
                                 <strong>Équipe sans nom {{{ $team->id }}}</strong>
-                                @if($team->faction_id)
-                                    <br/>({{{ $team->faction->name }}})
-                                @endif
-                            </td>
-                        @endif
+                            @endif
+                            @if($team->faction_id)
+                                <br/>({{{ $team->faction->name }}})
+                            @endif
+                            <br/><a href="{{ route('dashboard.teams.members', ['id' => $team->id ]) }}" class="btn btn-sm btn-default">{{{ $team->newcomers()->count() }}} {{ $team->branch != null ? $team->branch : 'Branches' }}</a>
+                        </td>
                         <td>
                             @if ($team->description)
                                 <p>

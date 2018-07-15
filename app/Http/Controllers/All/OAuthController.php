@@ -38,6 +38,11 @@ class OAuthController extends Controller
         // If the user is new, import some values from the API response.
         $student = User::where('etuutt_login', $json['login'])->first();
         if ($student === null) {
+            // Fallback on student_id auth
+            $student = User::where('student_id', $json['studentId'])->first();
+        }
+
+        if ($student === null) {
             $student = new User([
                 'student_id'    => $json['studentId'],
                 'first_name'    => $json['firstName'],
@@ -84,8 +89,14 @@ class OAuthController extends Controller
             $student->last_login = new \DateTime();
             $student->etuutt_access_token = $access_token;
             $student->etuutt_refresh_token = $refresh_token;
+            $student->etuutt_login = $json['login'];
+            $student->student_id = $json['studentId'];
+            $student->first_name = $json['firstName'];
+            $student->last_name = $json['lastName'];
             $student->save();
         }
+
+        return $student;
     }
 
     /**
@@ -139,10 +150,9 @@ class OAuthController extends Controller
 
         $json = json_decode($response->getBody()->getContents(), true)['data'];
 
-        $this->updateUser($json, $access_token, $refresh_token);
+        $student = $this->updateUser($json, $access_token, $refresh_token);
 
         // Remember the user accross the whole website.
-        $student = User::where('etuutt_login', $json['login'])->where('is_newcomer', false)->first();
         Auth::login($student, true);
 
         return Redirect::route('menu');

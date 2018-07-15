@@ -45,111 +45,34 @@ class NewcomersController extends Controller
         $this->validate(Request::instance(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'sex' => 'required|boolean',
-            'birth' => 'date_format:d/m/Y',
+            'wei_majority' => 'required|boolean',
             'registration_email' => 'email',
             'branch' => 'required',
-            'postal_code' => 'required',
+            'postal_code' => ['required', 'regex:(0|[0-9]{5,6})'],
             'country' => 'required',
+            'password' => 'required|confirmed',
         ]);
 
         $newcomer_data = Request::only([
             'first_name',
             'last_name',
-            'sex',
-            'birth',
+            'wei_majority',
             'registration_email',
-            'registration_cellphone',
             'registration_phone',
             'postal_code',
             'country',
             'branch',
-            'ine',
+            'password',
         ]);
         $newcomer_data['is_newcomer'] = true;
-        $newcomer_data['birth'] = \DateTime::createFromFormat('d/m/Y', $newcomer_data['birth']);
 
         $newcomer = User::create($newcomer_data);
+        $newcomer->setPassword($newcomer_data['password']);
 
         if ($newcomer->save()) {
             return $this->success('L\'utilisateur a été créé !');
         }
         return $this->error('Impossible de créer l\'utilisateur !');
-    }
-
-    /**
-     * Create a newcomer.
-     *
-     * @return Response
-     */
-    public function createcsv()
-    {
-        // Parse CSV
-        $result = [];
-        $temp = tmpfile();
-        fwrite($temp, Request::get('csv'));
-        fseek($temp, 0);
-        $i = 0;
-        while (($data = fgetcsv($temp, 0, ";")) !== false) {
-            if ($data == false) {
-                return Redirect::back()
-                            ->withErrors('Erreur de lecture à la ligne '.($i+1))
-                            ->withInput();
-            } elseif (count($data) != 11) {
-                return Redirect::back()
-                            ->withErrors('La ligne '.($i+1).' comporte '.count($data).' champ au lieu de 11 séparés par des ;')
-                            ->withInput();
-            }
-            $line = [
-                'first_name' => $data[0],
-                'last_name' => $data[1],
-                'sex' => $data[2],
-                'birth' => $data[3],
-                'branch' => $data[4],
-                'registration_email' => $data[5],
-                'registration_cellphone' => $data[6],
-                'registration_phone' => $data[7],
-                'postal_code' => $data[8],
-                'country' => $data[9],
-                'ine' => $data[10],
-            ];
-            // Validate
-            $validator = Validator::make($line, [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'sex' => 'required|in:M,F,m,f',
-                'birth' => 'date_format:d/m/Y|required',
-                'registration_email' => 'email',
-                'branch' => 'required'
-            ],
-            [
-                'sex.in' => 'Le champ sex doit valoir seulement M ou F'
-            ]);
-            if ($validator->fails()) {
-                dd($validator->errors(), $line);
-                $errors = $validator->errors();
-                $errors->add('form', 'Les erreurs ont été trouvés à la ligne '.($i+1));
-                return Redirect::back()
-                            ->withErrors($errors)
-                            ->withInput();
-            }
-
-            // Transform fields and save it to the main array
-            $line['sex'] = (strtolower($line['sex']) == 'f')?1:0;
-            $line['birth'] = Carbon::createFromFormat('d/m/Y', $line['birth']);
-            $result[] = $line;
-            $i++;
-        }
-        fclose($temp);
-
-        // Save array to db
-        foreach ($result as $value) {
-            $value['is_newcomer'] = true;
-            if (!User::create($value)) {
-                return $this->error('Impossible de créer tous les nouveaux !');
-            };
-        }
-        return $this->success('Les nouveaux ont été créé !');
     }
 
     /**

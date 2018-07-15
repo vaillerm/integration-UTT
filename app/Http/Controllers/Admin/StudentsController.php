@@ -187,11 +187,11 @@ class StudentsController extends Controller
             'mission'
         ]);
         $this->validate(Request::instance(), [
+            'password' => 'confirmed',
             'surname' => 'max:50',
             'sex' => 'boolean',
             'email' => 'email',
             'phone' => 'min:8|max:20',
-            'facebook' => 'url',
             'referral_max' => 'integer|max:5|min:1',
         ]);
 
@@ -249,6 +249,10 @@ class StudentsController extends Controller
                 }
             }
             $student->volunteer_preferences = $volunteer_preferences;
+
+            if (!empty($data['password'])) {
+                $student->setPassword($data['password']);
+            }
         }
 
         $student->save();

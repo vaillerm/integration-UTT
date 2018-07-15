@@ -56,6 +56,11 @@ return [
          ]
     ],
 
+    'admitted_api' => [
+         'baseuri' => env('ADMITTEDAPI_BASEURI', 'https://allegorix.utt.fr'),
+         'basepath' => env('ADMITTEDAPI_BASEPATH', '/API_BDE/index.php'),
+    ],
+
     'site' => [
         'loginOpen' => env('LOGIN_OPEN'),
     ],

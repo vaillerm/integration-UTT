@@ -26,7 +26,7 @@ class CreateBusIdStudent extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->removeColumn('bus_id');
+            $table->dropColumn('bus_id');
         });
     }
 }

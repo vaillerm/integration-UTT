@@ -14,13 +14,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\AttachTeam::class,
         Commands\ImportStudentPictures::class,
-        Commands\NewcomersImport::class,
+        Commands\ImportNewcomers::class,
         Commands\RenderNewcomers::class,
         Commands\PutScheduledEmailToQueue::class,
         Commands\SetPassword::class,
-        Commands\RegenerateUUID::class,
         CreateFirstCron::class,
     ];
 

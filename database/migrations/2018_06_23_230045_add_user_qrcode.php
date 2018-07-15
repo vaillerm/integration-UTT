@@ -26,7 +26,7 @@ class AddUserQrcode extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->removeColumn('qrcode');
+            $table->dropColumn('qrcode');
         });
     }
 }

@@ -23,7 +23,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
             'birth' => $faker->date,
             'branch' => $faker->randomElement(array('AII', 'ISI', 'MP', 'MTE', 'SI', 'SM', 'SRT', 'TC')),
             'registration_email' => $faker->safeEmail,
-            'registration_cellphone' => '06.12.34.56.78',
             'registration_phone' => '03.12.34.56.78',
             'postal_code' => 10000,
             'country' => $faker->randomElement(array('france', 'FRANCE', 'CAMEROUN')),
