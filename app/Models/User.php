@@ -258,6 +258,7 @@ class User extends Model implements Authenticatable
     {
         if(!$value)
             return 0;
+        return $value;
     }
 
     /*
