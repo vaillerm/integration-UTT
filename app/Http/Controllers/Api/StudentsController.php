@@ -158,6 +158,7 @@ class StudentsController extends Controller
                 'secu',
                 'ce',
                 'wei_majority',
+                'team_id',
             ]);
 
             // filter godfather fields
