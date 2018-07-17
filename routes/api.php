@@ -9,7 +9,7 @@ Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocompl
 
 Route::group(['middleware' => 'auth:api'], function () {
 
-    // Route::post('/oauth/token/revoke', ['uses' => 'Api\OAuthController@revokeApiToken']);
+    Route::post('/oauth/token/revoke', ['uses' => 'Api\OAuthController@revokeApiToken']);
     Route::post('/oauth/token/check', ['uses' => 'Api\OAuthController@checkApiToken']);
 
     Route::get('/student/{id}', ['uses' => 'Api\StudentsController@show']);
