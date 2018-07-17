@@ -13,6 +13,7 @@ use Config;
 use Response;
 use Auth;
 use DB;
+use EtuUTT;
 
 /**
  * OAuth authentication with the etu.utt.fr website.
@@ -31,72 +32,6 @@ class OAuthController extends Controller
     {
         $id = Config::get('services.etuutt.client.id');
         return Redirect::to(Config::get('services.etuutt.baseuri.public').'/api/oauth/authorize?client_id=' . $id . '&scopes=private_user_account&response_type=code&state=xyz');
-    }
-
-    private function updateUser($json, $access_token, $refresh_token)
-    {
-        // If the user is new, import some values from the API response.
-        $student = User::where('etuutt_login', $json['login'])->first();
-        if ($student === null) {
-            // Fallback on student_id auth
-            $student = User::where('student_id', $json['studentId'])->first();
-        }
-
-        if ($student === null) {
-            $student = new User([
-                'student_id'    => $json['studentId'],
-                'first_name'    => $json['firstName'],
-                'last_name'     => $json['lastName'],
-                'surname'       => $json['surname'],
-                'email'         => $json['email'],
-                'facebook'      => $json['facebook'],
-                'phone'         => ($json['phonePrivacy'] == 'public') ? $json['phone'] : null,
-                'branch'        => $json['branch'],
-                'level'         => $json['level']
-            ]);
-            $student->etuutt_access_token = $access_token;
-            $student->etuutt_refresh_token = $refresh_token;
-            $student->etuutt_login = $json['login'];
-
-            // Error here a ignored, we just keep user without a picture if we cannot download it
-            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
-            @file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
-
-            if ($json['sex'] == 'male') {
-                $student->sex = User::SEX_MALE;
-            } elseif ($json['sex'] == 'female') {
-                $student->sex = User::SEX_FEMALE;
-            }
-
-            $student->last_login = new \DateTime();
-            $student->save();
-        }
-        // Account was created by another person, update it with personnal informations
-        elseif (empty($student->etuutt_refresh_token)) {
-            $student->last_login = new \DateTime();
-            $student->etuutt_access_token = $access_token;
-            $student->etuutt_refresh_token = $refresh_token;
-            $student->phone = ($json['phonePrivacy'] == 'public') ? $json['phone'] : null;
-            if ($json['sex'] == 'male') {
-                $student->sex = User::SEX_MALE;
-            } elseif ($json['sex'] == 'female') {
-                $student->sex = User::SEX_FEMALE;
-            }
-            $student->save();
-        }
-        // Else only update login datetime
-        else {
-            $student->last_login = new \DateTime();
-            $student->etuutt_access_token = $access_token;
-            $student->etuutt_refresh_token = $refresh_token;
-            $student->etuutt_login = $json['login'];
-            $student->student_id = $json['studentId'];
-            $student->first_name = $json['firstName'];
-            $student->last_name = $json['lastName'];
-            $student->save();
-        }
-
-        return $student;
     }
 
     /**
@@ -150,10 +85,10 @@ class OAuthController extends Controller
 
         $json = json_decode($response->getBody()->getContents(), true)['data'];
 
-        $student = $this->updateUser($json, $access_token, $refresh_token);
+        $user = EtuUTT::updateOrCreateUser($json, $access_token, $refresh_token);
 
         // Remember the user accross the whole website.
-        Auth::login($student, true);
+        Auth::login($user, true);
 
         return Redirect::route('menu');
     }
