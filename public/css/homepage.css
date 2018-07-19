@@ -1,8 +1,7 @@
 html {
     margin:0;
     padding:0;
-    /* background: url("/img/home-background.png") black no-repeat center top !important; */
-    background-image: url("/img/home-background.png");
+    background-image: url("/img/home-background.jpg");
     background-position: top center;
     background-repeat: no-repeat;
     background-color: #d98090;

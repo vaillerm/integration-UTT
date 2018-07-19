@@ -36,6 +36,18 @@ Modification de profil
                         {{ $student->student_id }}
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="password" class="col-lg-2 control-label">Mot de passe</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" type="password" name="password" id="password" value="{{{ old('password') }}}" placeholder="{{ $student->password ? 'Mot de passe caché' : 'Aucun mot de passe'}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation" class="col-lg-2 control-label">Confirmation</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" value="{{{ old('password_confirmation') }}}">
+                    </div>
+                </div>
             @else
                 <div class="form-group">
                     <label for="is_newcomer" class="col-lg-2 text-right">Status</label>
@@ -49,12 +61,6 @@ Modification de profil
                         {{ $student->login }}
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="password" class="col-lg-2 text-right">Mot de passe</label>
-                    <div class="col-lg-10">
-                        {{ Crypt::decrypt($student->password) }}
-                    </div>
-                </div>
             @endif
             <div class="form-group">
                 <label for="name" class="col-lg-2 control-label">Nom complet</label>
@@ -63,6 +69,15 @@ Modification de profil
                 </div>
             </div>
 
+            @if ($student->is_newcomer)
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">Majorité au wei</label>
+                    <div class="col-lg-10">
+                        {{ $student->wei_majority ? 'Majeur' : 'Mineur' }}
+                    </div>
+                </div>
+            @endif
+
             @if (!$student->is_newcomer)
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Photo</label>
@@ -70,24 +85,24 @@ Modification de profil
                         <img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="surname" class="col-lg-2 control-label">Surnom</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" name="surname" id="surname" value="{{{ old('surname') ?? $student->surname }}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sex" class="col-lg-2 control-label">Sexe</label>
+                    <div class="col-lg-10">
+                        <select id="sex" name="sex" class="form-control" class="">()
+                            <option value="0" @if ((old('sex') ?? $student->sex) == 0) selected="selected" @endif >Homme</option>
+                            <option value="1" @if ((old('sex') ?? $student->sex) == 1) selected="selected" @endif >Femme</option>
+                        </select>
+                    </div>
+                </div>
             @endif
-
-            <div class="form-group">
-                <label for="surname" class="col-lg-2 control-label">Surnom</label>
-                <div class="col-lg-10">
-                    <input class="form-control" type="text" name="surname" id="surname" value="{{{ old('surname') ?? $student->surname }}}">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="sex" class="col-lg-2 control-label">Sexe</label>
-                <div class="col-lg-10">
-                    <select id="sex" name="sex" class="form-control" class="">()
-                        <option value="0" @if ((old('sex') ?? $student->sex) == 0) selected="selected" @endif >Homme</option>
-                        <option value="1" @if ((old('sex') ?? $student->sex) == 1) selected="selected" @endif >Femme</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-group">
                 <label for="email" class="col-lg-2 control-label">Mail</label>
@@ -141,13 +156,6 @@ Modification de profil
                 </div>
 
                 <div class="form-group">
-                    <label for="birth" class="col-lg-2 text-right">Date de naissance</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" name="birth" id="birth" type="text" value="{{{ old('birth') ?? $student->birth }}}">
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="allow_publicity" class="col-lg-2 text-right">Accepte de recevoir la publicité</label>
                     <div class="col-lg-10">
                         <input type="checkbox" id="allow_publicity" name="allow_publicity" @if (old('allow_publicity') ?? ($student->allow_publicity == 1)) checked="checked" @endif/>
@@ -158,13 +166,6 @@ Modification de profil
                     <label for="registration_email" class="col-lg-2 text-right">Email Post-Bac/3uT</label>
                     <div class="col-lg-10">
                         <input class="form-control" name="registration_email" id="registration_email" type="text" value="{{{ old('registration_email') ?? $student->registration_email }}}" disabled>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="registration_cellphone" class="col-lg-2 text-right">Téléphone mobile Post-Bac/3UT</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" name="registration_cellphone" id="registration_cellphone" type="text" value="{{{ old('registration_cellphone') ?? $student->registration_cellphone }}}" disabled>
                     </div>
                 </div>
 

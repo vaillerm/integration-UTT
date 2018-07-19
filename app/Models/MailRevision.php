@@ -33,7 +33,7 @@ class MailRevision extends Model
             'user' => $user,
             'mail' => $this,
             'mail_id' => $mail_id,
-            'unsuscribe_link' => url()->route('emails.unsubscribe', ['email' => $user->email])
+            'unsuscribe_link' => url()->route('emails.unsubscribe', ['email' => $user->getBestEmail()])
         ])->render();
     }
 

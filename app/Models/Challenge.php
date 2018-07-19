@@ -15,8 +15,4 @@ class Challenge extends Model {
 		"deadline"
 	];
 
-	public function __construct() {
-
-	}
-
 }

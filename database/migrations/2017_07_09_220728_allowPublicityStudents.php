@@ -26,7 +26,7 @@ class AllowPublicityStudents extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->removeColumn('allow_publicity');
+            $table->dropColumn('allow_publicity');
         });
     }
 }

@@ -26,7 +26,7 @@ class AddVolunteerPreferencesToStudent extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->removeColumn('volunteer_preferences');
+            $table->dropColumn('volunteer_preferences');
         });
     }
 }

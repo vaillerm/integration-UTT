@@ -51,4 +51,23 @@ class Team extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * Check if this is a TC Team
+     * @return boolean true if it's a TC team
+     */
+    public function isTC() {
+        return $this->respo->branch == "TC" && $this->respo->level < 4;
+    }
+
+    /*
+     * If it's a tc team, automaticaly tell branch is for TC
+     */
+    public function getBranchAttribute($value)
+    {
+        if(!$value && $this->isTC()) {
+            return 'TC';
+        }
+        return $value;
+    }
 }

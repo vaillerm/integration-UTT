@@ -31,6 +31,7 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois.
                     <th>Nom complet</th>
                     <th>Adresse</th>
                     <th>Semestre</th>
+                    <th>Fillots</th>
                     <th>Labels</th>
                     <th>Actions</th>
                 </tr>
@@ -95,6 +96,19 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois.
                                 $maxV[$branch] += $referral->referral_max;
                             }
                         ?>
+                        <td>
+                            @if (!$referral->referral_validated)
+                                <span class="label label-default">
+                            @elseif ($referral->newcomers()->count() > 0 && $referral->newcomers()->count() <= $referral->referral_max)
+                                <span class="label label-success">
+                            @elseif ($referral->newcomers()->count() > 0 && $referral->newcomers()->count() <= 5)
+                                <span class="label label-warning">
+                            @else
+                                <span class="label label-danger">
+                            @endif
+                                {{ $referral->newcomers()->count() }} / {{ $referral->referral_max }}
+                            </span>
+                        </td>
                         <td>
                             @if ($referral->referral_validated)
                                 <span class="label label-success">Validé</span>

@@ -21,14 +21,14 @@ class MailRevision extends Mailable
      *
      * @return void
      */
-    public function __construct(Student $user, \App\Models\MailRevision $mail_revision)
+    public function __construct(User $user, \App\Models\MailRevision $mail_revision)
     {
         $this->user = $user;
         $this->mail_revision = $mail_revision;
         $this->trace = new MailHistory([
             'student_id' => $this->user->id,
             'mail_revision_id' => $this->mail_revision->id,
-            'mail' => $this->user->email,
+            'mail' => $this->user->getBestEmail(),
         ]);
         $this->trace->save();
 

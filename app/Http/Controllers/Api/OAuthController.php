@@ -13,6 +13,7 @@ use Config;
 use Response;
 use Auth;
 use DB;
+use EtuUTT;
 
 /**
  * OAuth authentication with the etu.utt.fr website.
@@ -79,11 +80,10 @@ class OAuthController extends Controller
 
         $json = json_decode($response->getBody()->getContents(), true)['data'];
 
-        $this->updateUser($json, $access_token, $refresh_token);
+        $user = EtuUTT::updateOrCreateUser($json, $access_token, $refresh_token);
 
         // generate auth token for this student
-        $student = User::where('etuutt_login', $json['login'])->first();
-        $createdToken = $student->createToken("etu utt");
+        $createdToken = $user->createToken("etu utt");
         $passport_access_token = $createdToken->accessToken;
 
         return Response::json([

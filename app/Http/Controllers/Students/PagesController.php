@@ -45,12 +45,13 @@ class PagesController extends Controller
         $teams = Team::all();
         $countTC = 0;
         $countBranch = 0;
-        foreach ($teams as $t) {
-            if($t->respo->branch == "TC" && $t->respo->level < 4){
-                $countTC ++;
+        foreach ($teams as $team) {
+            if($team->isTC()){
+                $countTC++;
             }
-            else
+            else {
                 $countBranch++;
+            }
         }
 
         //info("Nombre de team de TC : " . $countTC . " Nombre de team de Branche : " . $countBranch);

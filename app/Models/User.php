@@ -33,6 +33,7 @@ class User extends Model implements Authenticatable
 
     public $fillable = [
         'student_id',
+        'admitted_id',
         'first_name',
         'last_name',
         'sex',
@@ -52,9 +53,7 @@ class User extends Model implements Authenticatable
         'team_id',
         'ce',
         'registration_email',
-        'registration_cellphone',
         'registration_phone',
-        'ine',
         'referral_id',
         'parent_name',
         'parent_phone',
@@ -66,6 +65,7 @@ class User extends Model implements Authenticatable
         'latitude',
         'longitude',
         'bus_id',
+        'wei_majority',
     ];
 
     /**
@@ -239,7 +239,7 @@ class User extends Model implements Authenticatable
      */
     public function validateForPassportPasswordGrant($password) {
         // decrypt the password of the user to compare it
-        return Crypt::decrypt($this->password) == $password;
+        return password_verify($password, $this->password);
     }
 
     /**
@@ -248,37 +248,46 @@ class User extends Model implements Authenticatable
      * @param String $password: the password to set
      */
     public function setPassword($password) {
-        $this->password = Crypt::encrypt($password);
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    /*
+     * If code postal is null then it's 0
+     */
+    public function getPostalCodeAttribute($value)
+    {
+        if(!$value)
+            return 0;
+        return $value;
     }
 
     /*
      * Accessors mail
      */
-
-    public function getEmailAttribute($value)
+    public function getBestEmail()
     {
-        if(!$value)
-            return $this->registration_email;
-        else return $value;
-    }
-
-    public function getPostalCodeAttribute($value)
-    {
-        return $value;
+        if ($this->email) {
+            return $this->email;
+        }
+        return $this->registration_email;
     }
 
     /**
-     * Return if underage
+     * Check if user is underaged for the wei start
+     * @return boolean true if the user is underage for the wei
      */
-
     public function isUnderage()
     {
-        if($this->isStudent())
-            return false;
-
-        if($this->birth)
+        if($this->birth) {
             return ($this->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
-        else return true;
+        }
+        else if ($this->wei_majority !== null) {
+            return $this->wei_majority;
+        }
+        else if ($this->isStudent()) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -598,14 +607,8 @@ class User extends Model implements Authenticatable
         parent::boot();
 
         User::creating(function ($user) {
-
-            // Generate password
-            if (empty($user->password)) {
-                $user->setPassword(self::generatePassword());
-            }
-
             // Generate login
-            if (empty($newcomer->login)) {
+            if (empty($user->login)) {
                 $login = strtolower(mb_substr(mb_substr(preg_replace("/[^A-Za-z0-9]/", '', $user->first_name), 0, 1) . preg_replace("/[^A-Za-z0-9]/", '', $user->last_name), 0, 8));
                 $i = '';
                 while (User::where(['login' => $login . $i])->count()) {

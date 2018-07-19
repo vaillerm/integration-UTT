@@ -32,11 +32,11 @@ Membres d'équipe
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Liste des membres de 
+        <h3 class="box-title">Liste des membres de
             @if($team->name != null)
-            {{{ $team->name }}} 
+                {{{ $team->name }}}
             @else
-            Équipe sans nom {{{ $team->id }}} 
+                Équipe sans nom {{{ $team->id }}}
             @endif
             ({{ $newcomers->count() }} membres)</h3>
     </div>
@@ -45,8 +45,8 @@ Membres d'équipe
             <tbody>
                 <tr>
                     <th>Nom complet</th>
-                    <th>Mail</th>
-                    <th>Niveau</th>
+                    <th>Branche</th>
+                    <th>Actions</th>
                 </tr>
                 @foreach ($newcomers as $newcomer)
                     <tr>
@@ -54,10 +54,10 @@ Membres d'équipe
                             {{ $newcomer->fullName() }}
                         </td>
                         <td>
-                            {{ $newcomer->email }}
+                            {{ $newcomer->branch }}
                         </td>
                         <td>
-                            {{ $newcomer->level }}
+                            <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $newcomer->id ])}}">Modifier</a>
                         </td>
                     </tr>
                 @endforeach

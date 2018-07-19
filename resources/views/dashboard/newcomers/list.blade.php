@@ -10,61 +10,6 @@ Affichage des profils
 
 @section('content')
 
-
-
-<div class="callout callout-info">
-    <h4>Informations</h4>
-    <p>
-        Cliquez sur le <strong>+</strong> si vous voulez ajouter des nouveaux.
-    </p>
-    <p>
-        Pour avoir plus de précision sur un champ, restez dessus avec votre souris quelques secondes.
-    </p>
-</div>
-
-@if(Request::old())
-    <div class="box box-default">
-@else
-    <div class="box box-default collapsed-box">
-@endif
-    <div class="box-header with-border">
-        <h3 class="box-title">Création de compte nouveau</h3>
-        <button class="btn btn-box-tool" data-widget="collapse">
-            @if(Request::old())
-                <i class="fa fa-minus"></i>
-            @else
-                <i class="fa fa-plus"></i>
-            @endif
-        </button>
-    </div>
-    <div class="box-body">
-        <h4>Ajouter un nouveau</h4>
-        <form class="" action="{{ route('dashboard.newcomers.create') }}" method="post">
-            <input type="text" name="first_name" class="form-control" placeholder="Prénom" value="{{ old('first_name') }}">
-            <input type="text" name="last_name" class="form-control" placeholder="Nom" value="{{ old('last_name') }}">
-            <select id="sex" name="sex" class="form-control">
-                <option value="0" @if (old('sex') == 0) selected="selected" @endif >Homme</option>
-                <option value="1" @if (old('sex') == 1) selected="selected" @endif >Femme</option>
-            </select>
-            <input type="text" name="birth" class="form-control" placeholder="Date de naissance (JJ/MM/AAAA)" value="{{ old('birth') }}">
-            <input type="text" name="registration_email" class="form-control" placeholder="Adresse mail" value="{{ old('registration_email') }}">
-            <input type="text" name="registration_cellphone" class="form-control" placeholder="Téléphone portable" value="{{ old('registration_cellphone') }}">
-            <input type="text" name="registration_phone" class="form-control" placeholder="Téléphone fixe" value="{{ old('registration_phone') }}">
-            <input type="text" name="postal_code" class="form-control" placeholder="Code postal" value="{{ old('postal_code') }}">
-            <input type="text" name="country" class="form-control" placeholder="Pays" value="{{ old('country') }}">
-            <input type="text" name="branch" class="form-control" placeholder="Branche (TC, ISI, MM...)" value="{{ old('branch') }}">
-            <input type="text" name="ine" class="form-control" placeholder="INE" value="{{ old('ine') }}">
-            <input type="submit" class="btn btn-success form-control" value="Créer le nouveau">
-        </form>
-
-        <h4>Ajouter des nouveaux</h4>
-        <form class="" action="{{ route('dashboard.newcomers.createcsv') }}" method="post">
-            <textarea name="csv" class="form-control" placeholder="&quot;Prénom&quot;;&quot;Nom&quot;;&quot;Sexe(M/F)&quot;;&quot;Date de naissance (JJ/MM/AAAA)&quot;;&quot;Branche&quot;;&quot;Mail&quot;;&quot;Téléphone portable&quot;;&quot;Téléphone fixe&quot;;&quot;Code postal&quot;;&quot;Pays&quot;;&quot;INE&quot;">{{ old('csv') }}</textarea>
-            <input type="submit" class="btn btn-success form-control" value="Créer les nouveaux">
-        </form>
-    </div>
-</div>
-
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Liste des nouveaux ({{ $newcomers->count() }})</h3>
@@ -102,13 +47,9 @@ Affichage des profils
                             @if($newcomer->registration_phone)
                                 <del title="Téléphone fixe donné lors de l'inscription à l'UTT. A n'utiliser qu'en cas de necessité.">{{{ $newcomer->registration_phone }}}</del><br/>
                             @endif
-                            @if($newcomer->registration_cellphone)
-                                <del title="Téléphone portable donné lors de l'inscription à l'UTT. A n'utiliser qu'en cas de necessité.">{{{ $newcomer->registration_cellphone }}}</del><br/>
-                            @endif
                         </td>
                         <td>
                             <span title="Identifiant">{{ $newcomer->login }}</span><br/>
-                            <em title="Mot de passe">{{{ Crypt::decrypt($newcomer->password) }}}</em>
                         </td>
                         @if ($newcomer->godFather)
                             <td>{{{ $newcomer->godFather->first_name . ' ' . strtoupper($newcomer->godFather->last_name) }}}</td>
@@ -157,6 +98,49 @@ Affichage des profils
             </ul>
         </div>
         <p>Pour annuler des répartitions, ça se passe en base de données.</p>
+    </div>
+</div>
+
+@if(Request::old())
+    <div class="box box-default">
+@else
+    <div class="box box-default collapsed-box">
+@endif
+    <div class="box-header with-border">
+        <h3 class="box-title">Création de compte nouveau</h3>
+        <button class="btn btn-box-tool" data-widget="collapse">
+            @if(Request::old())
+                <i class="fa fa-minus"></i>
+            @else
+                <i class="fa fa-plus"></i>
+            @endif
+        </button>
+    </div>
+    <div class="box-body">
+        <div class="callout callout-danger">
+            <h4>DANGER !</h4>
+            <p>
+                Ce formulaire ne doit être utilisé que par des utilisateurs averti. Les nouveaux sont automatiquement importés, vous n'avez donc pas besoin d'utiliser ce formulaire.
+            </p>
+        </div>
+
+        <h4>Ajouter un nouveau</h4>
+        <form class="" action="{{ route('dashboard.newcomers.create') }}" method="post">
+            <input type="text" name="first_name" class="form-control" placeholder="Prénom" value="{{ old('first_name') }}">
+            <input type="text" name="last_name" class="form-control" placeholder="Nom" value="{{ old('last_name') }}">
+            <select id="sex" name="wei_majority" class="form-control">
+                <option value="0" @if (old('wei_majority') == 0) selected="selected" @endif >Mineur</option>
+                <option value="1" @if (old('wei_majority') == 1) selected="selected" @endif >Majeur</option>
+            </select>
+            <input type="text" name="registration_email" class="form-control" placeholder="Adresse mail" value="{{ old('registration_email') }}">
+            <input type="text" name="registration_phone" class="form-control" placeholder="Téléphone" value="{{ old('registration_phone') }}">
+            <input type="password" name="password" class="form-control" placeholder="Mot de passe" value="{{ old('password') }}">
+            <input type="password" name="password_confirmation" class="form-control" placeholder="Confirmation de mot de passe" value="{{ old('password_confirmation') }}">
+            <input type="text" name="postal_code" class="form-control" placeholder="Code postal" value="{{ old('postal_code') }}">
+            <input type="text" name="country" class="form-control" placeholder="Pays" value="{{ old('country') }}">
+            <input type="text" name="branch" class="form-control" placeholder="Branche (TC, ISI, MM...)" value="{{ old('branch') }}">
+            <input type="submit" class="btn btn-success form-control" value="Créer le nouveau">
+        </form>
     </div>
 </div>
 @endsection
