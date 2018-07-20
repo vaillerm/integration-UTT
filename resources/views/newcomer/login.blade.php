@@ -57,16 +57,11 @@ Connexion
                                 </div>
                                 <div class="box-body">
                                     <p>
-                                        <strong>Bonjour à toi, ami nouveau !</strong> Tu trouveras les identifiants du site d'intégration sur le courrier / mail que tu receveras courant juillet. <strong>Ces derniers sont différents de ceux utilisés pour ton inscription UTT.</strong>
+                                        <strong>Bonjour à toi, ami nouveau !</strong>
                                     </p>
                                     <p>
-                                        Si tu n'as toujours pas reçu tes identifiants fin juillet ou pour toute autre question, envoie nous un mail à <a href="mailto:integration@utt.fr">integration@utt.fr</a>.
+                                        Malheureusement, le site n'est pas encore prêt à t'accueillir, mais ne t'inquiète pas, ça ne tardera pas, repasse d'ici quelques jours !</strong>
                                     </p>
-                                    <form action="{{ route('newcomer.auth.login') }}" method="post">
-                                        <input type="text" name="login" class="form-control" placeholder="Identifiant"/>
-                                        <input type="password" name="password" class="form-control" placeholder="Mot de passe"/>
-                                        <input type="submit" class="btn form-control btn-primary" value="Se connecter" />
-                                    </form>
                                 </div>
                             </div>
                         </div>
