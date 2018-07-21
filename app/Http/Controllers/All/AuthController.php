@@ -35,6 +35,8 @@ class AuthController extends Controller
         $user = User::where('login', Request::get('login'))->get()->first();
         if ($user && !empty($user->password)) {
             if (password_verify(Request::get('password'), $user->password)) {
+                $user->last_login = new \DateTime();
+                $user->save();
                 Auth::login($user, true);
                 if ($user->isNewcomer()) {
                     return Redirect::route('newcomer.home')->withSuccess('Vous êtes maintenant connecté.');
