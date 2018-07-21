@@ -112,10 +112,10 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\ReferralsController@index'
             ]);
-            Route::get('/match', [
+            Route::get('/match/{force?}', [
                 'as'   => 'dashboard.referrals.match',
                 'middleware' => 'authorize:admin',
-                'uses' => 'Admin\ReferralsController@matchToNewcomers'
+                'uses' => 'Admin\ReferralsController@matchToNewcomers',
             ]);
             Route::get('/prematch', [
                 'as'   => 'dashboard.referrals.prematch',

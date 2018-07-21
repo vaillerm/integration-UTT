@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Newcomer;
 use App\Classes\NewcomerMatching;
-use Request;
-use View;
-use Session;
-use Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use EtuUTT;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
@@ -64,15 +65,29 @@ class ReferralsController extends Controller
     public function index()
     {
         $referrals = User::student()->where('referral', true)->orderBy('created_at', 'asc')->get();
+        $newcomersCounts = DB::table('users')
+            ->select(DB::raw('count(*) as `count`, branch'))
+            ->groupBy('branch')
+            ->where('is_newcomer', true)
+            ->get();
+        $newcomersWithoutRefCounts = DB::table('users')
+            ->select(DB::raw('count(*) as `count`, branch'))
+            ->groupBy('branch')
+            ->where('is_newcomer', true)
+            ->whereNull('referral_id')
+            ->get();
+
         return View::make('dashboard.referrals.list', [
             'referrals' => $referrals,
+            'newcomersCounts' => $newcomersCounts,
+            'newcomersWithoutRefCounts' => $newcomersWithoutRefCounts,
         ]);
     }
 
-    public function matchToNewcomers()
+    public function matchToNewcomers($force = false)
     {
-        if (NewcomerMatching::matchReferrals()) {
-            return redirect(route('dashboard.newcomers.list'))->withSuccess('Tous les nouveaux ont maintenant un parrain !');
+        if (NewcomerMatching::matchReferrals($force == 'force')) {
+            return redirect(route('dashboard.newcomers.list'))->withSuccess('Les nouveaux ont maintenant un parrain !');
         }
         return redirect(route('dashboard.newcomers.list'))->withError('Il n\'y a pas assez de parrains pour cette algorithme. Veuillez le changer.');
     }
@@ -89,7 +104,7 @@ class ReferralsController extends Controller
 
     public function prematchSubmit()
     {
-        $input = Request::only('referralCountries', 'newcomerCountries', 'referralBranches', 'newcomerBranches');
+        $input = Request::only('referralCountries', 'newcomerCountries', 'referralBranches', 'newcomerBranches', 'force');
         // Referral Countries
         foreach ($input['referralCountries'] as $key => $value) {
             if ($key === 0) {
@@ -120,7 +135,9 @@ class ReferralsController extends Controller
         }
 
         // Redirect to referral assignation
-        return redirect(route('dashboard.referrals.match'));
+        return redirect(route('dashboard.referrals.match', [
+            'force' => empty($input['force']) ? '' : 'force',
+        ]));
     }
 
 
