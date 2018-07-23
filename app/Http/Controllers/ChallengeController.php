@@ -98,4 +98,9 @@ class ChallengeController extends Controller
 			"challenges" => $challenges
 		]);
 	}
+
+	public function showSentChallenges() {
+		$challenges = Team::find(Auth::user()->team_id)->challenges()->get();
+		return view("dashboard.challenges.challenges_sent", compact("challenges"));
+	}
 }

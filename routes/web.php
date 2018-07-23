@@ -698,6 +698,8 @@ Route::group(["prefix" => "challenges"], function() {
 
 	});
 
+	Route::get("team/", "ChallengeController@showSentChallenges")->name("challenges.sent");
+
 
 	Route::get("/", [
 		'as' => "challenges.list",

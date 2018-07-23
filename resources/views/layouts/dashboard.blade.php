@@ -50,10 +50,11 @@
 										<ul class="dropdown-menu">
 											@if (Auth::user()->isAdmin())
 												<li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
+												<li><a href={{ route("challenges.validationsList") }}>Liste des validations</a></li>
 											@endif
 											<li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
-											@if(Auth::user()->ce == 1)
-											<li><a href={{ route("challenges.validationsList") }}>Liste des validations</a></li>
+											@if(Auth::user()->ce)
+												<li><a href={{ route("challenges.sent") }}>Défis envoyés pour validation</a></li>
 											@endif
 										</ul>
 									</li>
