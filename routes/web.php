@@ -680,17 +680,24 @@ Route::group(["prefix" => "challenges"], function() {
 			"uses" => "ChallengeController@deleteChallenge"
 		]);
 
+		Route::get("/validations","ChallengeController@validationList" )->name("challenges.validationsList");
+
 		Route::get("{challengeId}/modify", "ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
+
 		Route::post("{challengeId}/modify", "ChallengeController@modify")->name("challenges.modify");
 
 	});
 
 	Route::group(["middleware" => "authorize:ce"], function() {
 		Route::get("{id}/submit", [
-			"as" => "challenges.submit",
+			"as" => "challenges.submitForm",
 			"uses" => "ChallengeController@submitChallenge"
 		]);
+		
+		Route::post("team/{teamId}/challenge/{challengeId}/submit", "ChallengeController@submitToValidation")->name("challenge.submit");
+
 	});
+
 
 	Route::get("/", [
 		'as' => "challenges.list",

@@ -14,7 +14,10 @@
 			<h2>Demander une validation pour : {{$challenge->name}}</h2>
 			<h3>{{ $challenge->description }}</h3>
 		</div>
-		<form action="" method="post">
+		<form action={{ route("challenge.submit",[
+			"challengeId" => $challenge->id,
+			"teamId" => Auth::user()->team_id,
+		])  }} method="post">
 			<div class="form-group">
 				<label for="file">Preuve de la réussite</label>
 				<input id="file" class="form-control-file" type="file" accept="image/*">

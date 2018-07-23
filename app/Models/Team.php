@@ -18,6 +18,17 @@ class Team extends Model
         'img_url'
     ];
 
+	/**
+	 * All the challenges sent to validation by the team
+	 */
+	public function challenges() {
+		return $this->belongsToMany("App\Models\Challenge")->withPivot("submittedOn")->where("team_id", "=", $this->id);
+	}
+
+	public function hasPendingValidation() :bool {
+		return count($this->challenges()->get())>0?true:false;
+	}
+
     /**
      * Define the One-to-Many relation with Newcomer;
      *

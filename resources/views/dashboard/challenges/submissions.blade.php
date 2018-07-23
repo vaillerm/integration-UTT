@@ -1,0 +1,48 @@
+@extends("layouts.dashboard")
+
+@section("title")
+	Les défis soumis
+@endsection
+
+@section("smalltitle")
+	il faut valider ces défis envoyés par les équipes !	
+@endsection
+
+@section("content")
+	<div class="box bow-default">
+		<div class="box-header with-border">
+			<h3 class="box-title">Liste des validations</h3>
+		</div>
+		<div class="box-body table-responsive no-padding">
+			<table class="table table-stripped">
+				<thead>
+					<tr>
+						<th>Nom de l'équipe</th>
+						<th>Nom du défis</th>
+						<th>Preuve</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					@forelse($teams as $team)
+						@if($team->hasPendingValidation())
+							@foreach($team->challenges()->get() as $challenge)
+								<tr>
+									<td>{{ $team->name }}</td>
+									<td>{{ $challenge->name }}</td>
+									<td> RIEN POUR LE MOMENT </td>
+									<td>
+										<a href=""><button class="btn btn-primary">valider</button></a>
+										<form action=""><input class="btn btn-danger" type="submit" value="Refuser"> </form>
+									</td>
+								</tr>
+							@endforeach
+						@endif
+					@empty
+						<p>Aucune validation</p>
+					@endforelse
+				</tbody>
+			</table>
+		</div>
+	</div>
+@endsection

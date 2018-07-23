@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use View;
+use App\Models\Team;
 use DB;
 use App\Models\Challenge;
 use App\Http\Requests\ChallengeRequest;
@@ -21,6 +22,23 @@ class ChallengeController extends Controller
 	public function ModifyChallengeForm(int $challengeId) {
 		$challenge = Challenge::find($challengeId);
 		return view("dashboard.challenges.modify", compact("challenge"));
+	}
+
+	public function validationList() {
+		$teams = Team::all();
+		return view("dashboard.challenges.submissions", compact("teams"));
+	}
+
+	/**
+	 * used when the team leader send a validation proof
+	 * in order to validate a challenge
+	 */
+	public function submitToValidation(Request $request, int $challengeId, int $teamId) {
+		$team = Team::find($teamId);
+		$challenge = Challenge::find($challengeId);
+		$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now")]);
+		$request->flash("success", "La défis a bien été soumis à validation");
+		return redirect(route("challenges.list"));
 	}
 
 	/**
@@ -69,13 +87,9 @@ class ChallengeController extends Controller
 		]);
 	}
 
-	public function uploadProof(Request $request) {
-
-	}
-
 	public function deleteChallenge(int $idChallenge) {
 		DB::table("challenges")->where("id", "=", $idChallenge)->delete();
-		return redirect("challenges/");
+		return redirect(route("challenges.list"));
 	}
 
 	public function showChallengesList() {

@@ -38,7 +38,7 @@
 					<div class="btn-group" role="group"> 
 						<a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-primary">Modifier</button></a>
 					@if(Auth::user()->ce)
-						<a href={{ route("challenges.submit", ["id" => $challenge->id]) }}><button class="btn btn-primary">valider un défis</button></a>
+						<a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-primary">valider un défis</button></a>
 					@endif
 					</div>
 				</td>

@@ -15,4 +15,11 @@ class Challenge extends Model {
 		"deadline"
 	];
 
+	/**
+	 * All the teams that asked validation for this challenge
+	 */
+	public function teams() {
+		return $this->belongsToMany("App\Models\Team")->withPivot("submittedOn");
+	}
+
 }

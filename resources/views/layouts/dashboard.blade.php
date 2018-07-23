@@ -52,6 +52,9 @@
 												<li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
 											@endif
 											<li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
+											@if(Auth::user()->ce == 1)
+											<li><a href={{ route("challenges.validationsList") }}>Liste des validations</a></li>
+											@endif
 										</ul>
 									</li>
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
