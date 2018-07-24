@@ -17,10 +17,10 @@
 		<form action={{ route("challenge.submit",[
 			"challengeId" => $challenge->id,
 			"teamId" => Auth::user()->team_id,
-		])  }} method="post">
+		])  }} method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="file">Preuve de la réussite</label>
-				<input id="file" class="form-control-file" type="file" accept="image/*">
+				<input id="file" name="proof" class="form-control-file" type="file" accept="image/*">
 			</div>
 			<input class="btn btn-primary form-control" type="submit" value="Envoyer">
 	</form>

@@ -25,14 +25,14 @@
 				</thead>
 				<tbody>
 					@forelse($teams as $team)
-						@if($team->hasPendingValidation())
-							@foreach($team->challenges()->get() as $challenge)
+						@if($team->hasPendingValidations())
+							@foreach($team->getPendingValidations()->get() as $challenge)
 								<tr>
 									<td>{{ $team->name }}</td>
 									<td>{{ $challenge->name }}</td>
-									<td> RIEN POUR LE MOMENT </td>
+									<td> <img src="{{ $challenge->pivot->pic_url }}" class="img-fluid rounded" alt="Image de validation du défis"> </td>
 									<td>
-										<a href=""><button class="btn btn-primary">valider</button></a>
+										<form method="post" action={{ route("challenges.accept", ["challengeId" => $challenge->id, "teamId" => $team->id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
 										<form action=""><input class="btn btn-danger" type="submit" value="Refuser"> </form>
 									</td>
 								</tr>

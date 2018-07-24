@@ -663,6 +663,10 @@ Route::post('/etupay/callback', [
 	 * Routes for challenges
 	 */
 Route::group(["prefix" => "challenges"], function() {
+
+	/**
+	 * Admin authorization
+	 */
 	Route::group(["middleware" => "authorize:admin"], function() {
 
 		Route::get("add", [
@@ -686,12 +690,19 @@ Route::group(["prefix" => "challenges"], function() {
 
 		Route::post("{challengeId}/modify", "ChallengeController@modify")->name("challenges.modify");
 
+		Route::post("{challengeId}/team/{teamId}/validate", "ChallengeController@accept")->name("challenges.accept");
+		Route::resource("proof", "ValidationPic");
+
 	});
 
+	/**
+	 * Team leader authorization
+	 */
 	Route::group(["middleware" => "authorize:ce"], function() {
+
 		Route::get("{id}/submit", [
 			"as" => "challenges.submitForm",
-			"uses" => "ChallengeController@submitChallenge"
+			"uses" => "ChallengeController@submitChallengeForm"
 		]);
 		
 		Route::post("team/{teamId}/challenge/{challengeId}/submit", "ChallengeController@submitToValidation")->name("challenge.submit");

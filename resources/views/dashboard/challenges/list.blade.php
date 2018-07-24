@@ -37,7 +37,8 @@
 					</form>
 					<div class="btn-group" role="group"> 
 						<a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-primary">Modifier</button></a>
-					@if(Auth::user()->ce)
+						{{--I check wether the user is a team leader, and also if the team has already validated this challenge, in that case, the "valider un défis" button doesn't appear--}}
+						@if(Auth::user()->ce && !$team->hasAlreadyValidatedChallenge($challenge->id))
 						<a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-primary">valider un défis</button></a>
 					@endif
 					</div>

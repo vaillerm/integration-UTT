@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use View;
 use App\Models\Team;
-use DB;
+use DB; use Storage;
 use App\Models\Challenge;
 use App\Http\Requests\ChallengeRequest;
 
@@ -34,9 +34,22 @@ class ChallengeController extends Controller
 	 * in order to validate a challenge
 	 */
 	public function submitToValidation(Request $request, int $challengeId, int $teamId) {
+
+		$this->validate($request, [
+			"proof" => "required"
+		]);
+
+		$file = fopen($request->file('proof')->getRealPath(), "r+");
+		$filename = uniqid().".".$request->file("proof")->guessExtension();
+		Storage::disk('validation-proofs')->put($filename, $file);
+		fclose($file);
+
+		
 		$team = Team::find($teamId);
 		$challenge = Challenge::find($challengeId);
-		$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now")]);
+		$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now"), "pic_url" => "proof/".$filename]);
+		
+
 		$request->flash("success", "La défis a bien été soumis à validation");
 		return redirect(route("challenges.list"));
 	}
@@ -80,7 +93,7 @@ class ChallengeController extends Controller
 	/**
 	 * Used by team leader to submit a challenge to be validated
 	 */
-	public function submitChallenge(int $idChallenge) {
+	public function submitChallengeForm(int $idChallenge) {
 		$challenge = DB::table('challenges')->where("id", "=", $idChallenge)->first();
 		return View::make("dashboard.challenges.submit", [
 			"challenge" => $challenge
@@ -94,13 +107,19 @@ class ChallengeController extends Controller
 
 	public function showChallengesList() {
 		$challenges = DB::table("challenges")->get();
-		return View::make('dashboard.challenges.list', [
-			"challenges" => $challenges
-		]);
+		$team = Team::find(Auth()->user()->team_id);
+		return View::make('dashboard.challenges.list', compact("challenges", "team"));
 	}
 
 	public function showSentChallenges() {
 		$challenges = Team::find(Auth::user()->team_id)->challenges()->get();
 		return view("dashboard.challenges.challenges_sent", compact("challenges"));
+	}
+
+	public function accept(int $challengeId, int $teamId) {
+		$challenge = Team::find($teamId)->challenges()->where("id", "=", $challengeId)->first();
+		$challenge->teams()->updateExistingPivot($teamId, ["validated" => true]);
+		$challenge->save();
+		return redirect(route("challenges.validationsList"));
 	}
 }

@@ -22,10 +22,28 @@ class Team extends Model
 	 * All the challenges sent to validation by the team
 	 */
 	public function challenges() {
-		return $this->belongsToMany("App\Models\Challenge")->withPivot("submittedOn")->where("team_id", "=", $this->id);
+		return $this->belongsToMany("App\Models\Challenge", "challenge_validations")->withPivot(["submittedOn", "validated", "pic_url"])->where("team_id", "=", $this->id);
 	}
 
-	public function hasPendingValidation() :bool {
+	/**
+	 * Returns all the pending validation : all the challenges where
+	 * 'validated' attribute is null
+	 */
+	public function getPendingValidations()  {
+		return $this->challenges()->wherePivot("validated", null);
+	}
+
+	/**
+	 * Check if a challenge (given  by id) has already been validated
+	 */
+	public function hasAlreadyValidatedChallenge(int $challengeId) :bool{
+		return count($this->challenges()->where("id", "=", $challengeId)->wherePivot("validated", true)->get())>0?true:false;
+	}
+
+	/**
+	 * Returns true if there is pending validations, false otherwise
+	 */
+	public function hasPendingValidations() :bool {
 		return count($this->challenges()->get())>0?true:false;
 	}
 

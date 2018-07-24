@@ -19,7 +19,7 @@ class Challenge extends Model {
 	 * All the teams that asked validation for this challenge
 	 */
 	public function teams() {
-		return $this->belongsToMany("App\Models\Team")->withPivot("submittedOn");
+		return $this->belongsToMany("App\Models\Team", "challenge_validations")->withPivot(["submittedOn", "validated", "pic_url"]);
 	}
 
 }

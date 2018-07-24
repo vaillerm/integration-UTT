@@ -18,16 +18,16 @@
 		</thead>
 		<tbody>
 			@foreach($challenges as $challenge)
-			<tr scope="row">
-				<td>{{ $challenge->name }}</td>
-				@if($challenge->pivot->validated == null )
-				<td>Le défis n'a pas encore été traité</td>
-			@elseif(!$challenge->pivot->validated)
-				<p>Le défis a été refusé</p>
-				@else
-					<p>Le défis a été validé !</p>
-				@endif
-			</tr>
+				<tr scope="row">
+					<td>{{ $challenge->name }}</td>
+					@if($challenge->pivot->validated == null )
+						<td>Le défis n'a pas encore été traité</td>
+					@elseif(!$challenge->pivot->validated)
+						<td>le défis a été refusé</td>
+					@else
+						<td>le défis a été accepté</td>
+					@endif
+				</tr>
 			@endforeach
 		</tbody>
 	</table>
