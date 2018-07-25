@@ -34,6 +34,14 @@ class Team extends Model
 	}
 
 	/**
+	 * Return true if the team has already made a submission
+	 * for the given challenge, no matter whether it's validated or not
+	 */
+	public function hasAlreadyMadeSubmission(int $challengeId) {
+		return count($this->challenges->where("id", "=", $challengeId)->all())>0?true: false;
+	}
+
+	/**
 	 * Check if a challenge (given  by id) has already been validated
 	 */
 	public function hasAlreadyValidatedChallenge(int $challengeId) :bool{

@@ -44,11 +44,18 @@ class ChallengeController extends Controller
 		Storage::disk('validation-proofs')->put($filename, $file);
 		fclose($file);
 
-		
-		$team = Team::find($teamId);
-		$challenge = Challenge::find($challengeId);
-		$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now"), "pic_url" => $filename]);
-		
+
+
+			$team = Team::find($teamId);
+		if($team->hasAlreadyMadeSubmission($challengeId)){
+
+			Storage::disk("validation-proofs")->delete($team->challenges()->first()->pivot->pic_url);
+			$team->challenges()->updateExistingPivot($challengeId, ["pic_url" => $filename, "validated" => null]);
+		}else{
+			$challenge = Challenge::find($challengeId);
+			$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now"), "pic_url" => $filename]);
+		}
+
 
 		$request->flash("success", "La défis a bien été soumis à validation");
 		return redirect(route("challenges.list"));
