@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Storage;
+use Image;
 
 
 class ValidationPic extends Controller
@@ -41,19 +42,26 @@ class ValidationPic extends Controller
     {
     }
 
+	public function show($name)
+	{
+		$pic = Storage::disk("validation-proofs")->get($name);
+		return Image::make($pic)->response();
+	}
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($name)
+    public function showSmall($name)
     {
 		$pic = Storage::disk("validation-proofs")->get($name);
-		return (new Response($pic, 200))
-			->header("content-type", "image/*")
-			->header("content-disposition", "inline")
-		;
+		$pic = Image::make($pic);
+		$pic->resize(null, 200, function($constraint) {
+			$constraint->aspectRatio();
+		});
+		return $pic->response();
 				
     }
 

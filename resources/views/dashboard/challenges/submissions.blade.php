@@ -30,7 +30,11 @@
 								<tr>
 									<td>{{ $team->name }}</td>
 									<td>{{ $challenge->name }}</td>
-									<td> <img src="{{ $challenge->pivot->pic_url }}" class="img-fluid rounded" alt="Image de validation du défis"> </td>
+									<td> 
+										<a href={{ route("validation_proofs.normal", ["name" => $challenge->pivot->pic_url]) }}>
+											<img src="{{ route("validation_proofs.small", ["name" => $challenge->pivot->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis"> 
+										</a>
+									</td>
 									<td>
 										<form method="post" action={{ route("challenges.accept", ["challengeId" => $challenge->id, "teamId" => $team->id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
 										<form action=""><input class="btn btn-danger" type="submit" value="Refuser"> </form>

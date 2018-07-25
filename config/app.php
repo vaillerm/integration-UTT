@@ -181,6 +181,13 @@ return [
          Barryvdh\Cors\ServiceProvider::class,
          Laravel\Passport\PassportServiceProvider::class,
 
+		 /*
+		  * Additional libs
+		  */
+
+		 //Used to resize images for the challenges proofs
+		 Intervention\Image\ImageServiceProvider::class
+
 
     ],
 
@@ -233,6 +240,8 @@ return [
          * Vendor Aliases...
          */
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+		'Image' => Intervention\Image\Facades\Image::class,
 
         /*
          * Application Aliases...

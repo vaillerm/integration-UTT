@@ -691,7 +691,15 @@ Route::group(["prefix" => "challenges"], function() {
 		Route::post("{challengeId}/modify", "ChallengeController@modify")->name("challenges.modify");
 
 		Route::post("{challengeId}/team/{teamId}/validate", "ChallengeController@accept")->name("challenges.accept");
-		Route::resource("proof", "ValidationPic");
+
+		/**
+		 * Okay this part is to handle the images taken by
+		 * the teams to validate their challenges
+		 */
+		Route::group(["prefix" => "proof"], function(){
+			Route::get("{name}/smallpic", "ValidationPic@showSmall")->name("validation_proofs.small");
+			Route::get("{name}", "ValidationPic@show")->name("validation_proofs.normal");
+		});
 
 	});
 

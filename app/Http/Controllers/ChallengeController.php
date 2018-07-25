@@ -47,7 +47,7 @@ class ChallengeController extends Controller
 		
 		$team = Team::find($teamId);
 		$challenge = Challenge::find($challengeId);
-		$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now"), "pic_url" => "proof/".$filename]);
+		$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now"), "pic_url" => $filename]);
 		
 
 		$request->flash("success", "La défis a bien été soumis à validation");
