@@ -10,6 +10,7 @@ use DB; use Storage;
 use App\Models\Challenge;
 use App\Http\Requests\ChallengeRequest;
 use App\Http\Controllers\Controller;
+use App\Models\ChallengeValidation;
 
 class ChallengeController extends Controller
 {
@@ -26,8 +27,9 @@ class ChallengeController extends Controller
 	}
 
 	public function validationList() {
-		$teams = Team::all();
-		return view("dashboard.challenges.submissions", compact("teams"));
+		$validations_pending = ChallengeValidation::where("validated", "=", 0)->orderBy("submittedOn", 'last_update', "dsc")->get();
+		$validations_treated = ChallengeValidation::where("validated", "=", -1)->orWhere("validated", "=", 1)->orderBy("last_update", "dsc")->get();
+		return view("dashboard.challenges.submissions", compact("validations_pending", "validations_treated"));
 	}
 
 	/**
@@ -124,7 +126,7 @@ class ChallengeController extends Controller
 		return view("dashboard.challenges.challenges_sent", compact("challenges"));
 	}
 
-	private function validateChallenge(int $challengeId, int$teamId, int $validate=1)
+	private function setChallengeStatus(int $challengeId, int$teamId, int $validate=1)
 	{
 		$challenge = Team::find($teamId)->challenges()->where("id", "=", $challengeId)->first();
 		$challenge->teams()->updateExistingPivot($teamId, ["validated" => $validate, "last_update" => new \DateTime("now")]);
@@ -132,13 +134,18 @@ class ChallengeController extends Controller
 		return redirect(route("challenges.validationsList"));
 	}
 
+	public function resetStatus(int $challengeId, int $teamId) 
+	{
+		return $this->setChallengeStatus($challengeId, $teamId, 0);
+	}
+
 
 	public function accept(int $challengeId, int $teamId) {
-		return $this->validateChallenge($challengeId, $teamId);
+		return $this->setChallengeStatus($challengeId, $teamId);
 	}
 
 	public function refuse(int $challengeId, int $teamId)
 	{
-		return $this->validateChallenge($challengeId, $teamId, -1);
+		return $this->setChallengeStatus($challengeId, $teamId, -1);
 	}
 }

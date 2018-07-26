@@ -9,7 +9,7 @@
 @endsection
 
 @section("content")
-	<div class="box bow-default">
+	<div class="box box-default">
 		<div class="box-header with-border">
 			<h3 class="box-title">Liste des validations</h3>
 		</div>
@@ -24,27 +24,54 @@
 					</tr>
 				</thead>
 				<tbody>
-					@forelse($teams as $team)
-						@if($team->hasPendingValidations())
-							@foreach($team->getPendingValidations()->get() as $challenge)
-								<tr>
-									<td>{{ $team->name }}</td>
-									<td>{{ $challenge->name }}</td>
-									<td> 
-										<a href={{ route("validation_proofs.normal", ["name" => $challenge->pivot->pic_url]) }}>
-											<img src="{{ route("validation_proofs.small", ["name" => $challenge->pivot->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis"> 
-										</a>
-									</td>
-									<td>
-										<form method="post" action={{ route("challenges.accept", ["challengeId" => $challenge->id, "teamId" => $team->id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
-										<form method="post" action={{ route("challenges.refuse", ["challengeId" => $challenge->id, "teamId" => $team->id]) }}><input class="btn btn-danger" type="submit" value="Refuser"> </form>
-									</td>
-								</tr>
-							@endforeach
-						@endif
+					@forelse($validations_pending as $validation)
+						<tr>
+							<td>{{ $validation->teams()->first()->name }}</td>
+							<td>{{ $validation->challenges()->first()->name }}</td>
+							<td> 
+								<a href={{ route("validation_proofs.normal", ["name" => $validation->pic_url]) }}>
+											<img src="{{ route("validation_proofs.small", ["name" => $validation->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis"> 
+								</a>
+							</td>
+							<td>
+								<form method="post" action={{ route("challenges.accept", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
+								<form method="post" action={{ route("challenges.refuse", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-danger" type="submit" value="Refuser"> </form>
+							</td>
+						</tr>
 					@empty
 						<p>Aucune validation</p>
 					@endforelse
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="box box-default">
+		<div class="box-header with-border">Historique</div>
+		<div class="box-body table-responsive-no-padding">
+			<table class="table table-stripped">
+				<thead>
+					<tr>
+						<th>Nom de l'équipe</th>
+						<th>Nom du défis</th>
+						<th>Preuve</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						@foreach($validations_treated as $validation)
+							<td>{{ $validation->teams()->first()->name }}</td>
+							<td>{{ $validation->challenges()->first()->name }}</td>
+							<td>
+								<a href={{ route("validation_proofs.normal", ["name" => $validation->pic_url]) }}>
+											<img src="{{ route("validation_proofs.small", ["name" => $validation->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis"> 
+								</a>
+							</td>
+							<td>
+								<form method="post" action={{ route("challenges.reset", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-warning" type="submit" value="Annuler dernière action"></form>
+							</td>
+					</tr>
+				@endforeach
 				</tbody>
 			</table>
 		</div>

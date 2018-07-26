@@ -692,6 +692,7 @@ Route::group(["prefix" => "challenges"], function() {
 
 		Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeController@accept")->name("challenges.accept");
 		Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeController@refuse")->name("challenges.refuse");
+		Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeController@resetStatus")->name("challenges.reset");
 
 		/**
 		 * Okay this part is to handle the images taken by
