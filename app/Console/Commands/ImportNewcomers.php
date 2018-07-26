@@ -67,7 +67,7 @@ class ImportNewcomers extends Command
         foreach ($admittedList as $admitted) {
 
             // Filter unsuported formations
-            if ($admitted->DIPLOME_C != 'ING2') {
+            if (! in_array($admitted->DIPLOME_C, ['ING2', 'MST'])) {
                 $this->error($i.'/'.count($admittedList). ': ERROR : '
                 . $admitted->PRENOM . ' ' . $admitted->NOM . '('
                 . $admitted->ADM_ID . '): Cannot import unknown formation : '

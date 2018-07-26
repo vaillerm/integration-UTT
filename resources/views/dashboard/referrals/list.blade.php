@@ -173,6 +173,22 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois.
                     @endforeach
                 </td>
             </tr>
+            <tr>
+                <td colspan="6">
+                    Nouveaux :
+                    @foreach ($newcomersCounts as $item)
+                        {{ $item->count }} {{ $item->branch }} |
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    Nouveaux sans parrains :
+                    @foreach ($newcomersWithoutRefCounts as $item)
+                        {{ $item->count }} {{ $item->branch }} |
+                    @endforeach
+                </td>
+            </tr>
         </table>
     </div>
 </div>

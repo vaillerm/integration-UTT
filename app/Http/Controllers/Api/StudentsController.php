@@ -152,8 +152,13 @@ class StudentsController extends Controller
                 'student_id',
                 'branch',
                 'level',
-
-                // TODO add majority instead of birthdate
+                'admin',
+                'orga',
+                'volunteer',
+                'secu',
+                'ce',
+                'wei_majority',
+                'team_id',
             ]);
 
             // filter godfather fields

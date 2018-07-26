@@ -177,7 +177,7 @@ class NewcomerMatching
      *
      * * STEP 2 : Calculate the future number of godson for each referrals.
      * We get the number of newcomers and we add one to each referral until reaching their wanted maximum.
-     * If there is still newcomers when all maximums are reached, we increment the maximum
+     * If $force==true and if there is still newcomers when all maximums are reached, we increment the maximum
      * (with $counts[branch]['+1']) for everyone except thoses with a maximum at 5 (6 godsons is really too much)
      * and we do it again until reaching the $MAXIMUM_OVERFLOW.
      *
@@ -193,11 +193,12 @@ class NewcomerMatching
      *   * French departement code
      *   * French region
      *   * Country
+     *
      * If there is still no match, we try to match newcomers with everyone of his branch
      *
-     * * STEP 4 : Remove PMOM and Master from left newcomers
-     * We will now try to match newcomers with referral from other branches.
-     * So we remove PMOM and masters because we don't want to associate them
+     * * STEP 4 : Remove PMOM from left newcomers
+     * We will now try to match newcomers with referral from other branches  if $force==true.
+     * So we remove PMOM because we don't want to associate them
      * with other branch referrals.
      *
      * * STEP 5 : Calculate the future number of godson for each referrals.
@@ -211,7 +212,7 @@ class NewcomerMatching
      * Good luck if you want to edit this algo :)
      *
      */
-    public static function matchReferrals()
+    public static function matchReferrals($force)
     {
         // Settings you can tweak
         $MAXIMUM_OVERFLOW = 2; // Maximum of godson that can be added to a referral original max
@@ -255,21 +256,18 @@ class NewcomerMatching
                 $counts[$referral->branch] = [];
             }
 
-            if ($referral->branch != 'MP') { // Remove masters
-                $counts[$referral->branch][$referral->id] = [
-                    'current' => $referral->newcomers->count(),
-                    'future' => $referral->newcomers->count(),
-                    'max' => $referral->referral_max,
-                    '+1' => 0,
-                    '+1r2' => 0,
-                    'student' => $referral, // You can comment this line to debug the first foreach
-                ];
-            }
+            $counts[$referral->branch][$referral->id] = [
+                'current' => $referral->newcomers->count(),
+                'future' => $referral->newcomers->count(),
+                'max' => $referral->referral_max,
+                '+1' => 0,
+                '+1r2' => 0,
+                'student' => $referral, // You can comment this line to debug the first foreach
+            ];
 
             // This array is used when there is no place left in some branches and we put godson from a branch to a referral from another
             if (($referral->branch != 'TC') // Remove TC2 because they are too young for branches
-                    && $referral->branch != 'MM' // Remove PMOM because they doen't have godson from other branches
-                    && $referral->branch != 'MP') { // Remove masters because they cannot have an engineer godson
+                    && $referral->branch != 'MM') { // Remove PMOM because they doen't have godson from other branches
                 $counts2[$referral->id] = &$counts[$referral->branch][$referral->id];
             }
         }
@@ -298,6 +296,7 @@ class NewcomerMatching
                     }
                 }
                 $currentGoal++;
+
                 // Check if need to go over maximums and add +1
                 if ($currentGoal > 5 && $overflow < $MAXIMUM_OVERFLOW && $newcomers > 0) {
                     foreach ($data as $student_id => $tmp) {
@@ -305,8 +304,15 @@ class NewcomerMatching
                             $counts[$branch][$student_id]['+1']++;
                         }
                     }
-                    $overflow++;
-                    $currentGoal = 1;
+
+                    // Go overflow only in force mode
+                    if ($force) {
+                        $overflow++;
+                        $currentGoal = 1;
+                    }
+                    else {
+                        break;
+                    }
                 }
             }
 
@@ -346,6 +352,11 @@ class NewcomerMatching
                         if ($array['current'] >= $array['future']) {
                             unset($counts[$newcomer->branch][$student_id]);
                         } else {
+                            // Sanitize postal code (corse departements are 2A and 2B)
+                            $regexp = '/[0-9][0-9ABab][0-9]{3}/';
+                            $newcomer->postal_code = preg_match($regexp, $newcomer->postal_code) ? $newcomer->postal_code : 0;
+                            $array['student']->postal_code = preg_match($regexp, $array['student']->postal_code) ? $array['student']->postal_code : 0;
+
                             switch ($round) {
                                 case 0: // Match if newcomer and referral have same postal_code and country
                                     if ($newcomer->postal_code == $array['student']->postal_code
@@ -354,14 +365,14 @@ class NewcomerMatching
                                     }
                                     break;
                                 case 1: // Match if newcomer and referral have same french departement (postal_code/1000) and country
-                                    if (floor($newcomer->postal_code/1000) == floor($array['student']->postal_code/1000)
+                                    if (substr($newcomer->postal_code, 0, 2) == substr($array['student']->postal_code, 0, 2)
                                             && strtolower($newcomer->country) == strtolower($array['student']->country)) {
                                         $matchingArray[] = $student_id;
                                     }
                                     break;
                                 case 2: // Match if newcomer and referral have same french region (region[postal_code/1000]) and country
-                                    if (isset(self::REGION[floor($newcomer->postal_code/1000)]) && isset(self::REGION[floor($array['student']->postal_code/1000)])
-                                            && self::REGION[floor($newcomer->postal_code/1000)] == self::REGION[floor($array['student']->postal_code/1000)]
+                                    if (isset(self::REGION[substr($newcomer->postal_code, 0, 2)]) && isset(self::REGION[substr($array['student']->postal_code, 0, 2)])
+                                            && self::REGION[substr($newcomer->postal_code, 0, 2)] == self::REGION[substr($array['student']->postal_code, 0, 2)]
                                             && strtolower($newcomer->country) == strtolower($array['student']->country)) {
                                         $matchingArray[] = $student_id;
                                     }
@@ -384,11 +395,9 @@ class NewcomerMatching
                         $counts[$newcomer->branch][$student_id]['current']++;
 
                         // Debugging snippet
-                        /*
-                        $student = $counts[$newcomer->branch][$student_id]['student'];
-                        echo $round.' '. $newcomer->first_name . ' '.$newcomer->last_name.' ('.$newcomer->branch.'|'.$newcomer->postal_code.','.$newcomer->country.') => ' .$student->first_name . ' '.$student->last_name.' ('.$student->branch.'|'.$student->postal_code.','.$student->country.')'
-                            .' '.$counts[$newcomer->branch][$student_id]['current'].'/'.$counts[$newcomer->branch][$student_id]['future']."\n";
-                        */
+                        // $student = $counts[$newcomer->branch][$student_id]['student'];
+                        // echo $round.' '. $newcomer->first_name . ' '.$newcomer->last_name.' ('.$newcomer->branch.'|'.$newcomer->postal_code.','.$newcomer->country.') => ' .$student->first_name . ' '.$student->last_name.' ('.$student->branch.'|'.$student->postal_code.','.$student->country.')'
+                        //     .' '.$counts[$newcomer->branch][$student_id]['current'].'/'.$counts[$newcomer->branch][$student_id]['future']."\n";
 
                         unset($newcomers[$key]);
                     }
@@ -405,14 +414,12 @@ class NewcomerMatching
             $round++;
         }
 
-
-
         /***********************************************************************
-         * STEP 4 : Remove PMOM and Master from left newcomers
+         * STEP 4 : Remove PMOM from left newcomers
          **********************************************************************/
 
         foreach ($branchNotFound as $key => $value) {
-            if ($value->branch == 'MM' || $value->branch == 'MP') {
+            if ($value->branch == 'MM') {
                 unset($branchNotFound[$key]);
             }
         }
@@ -426,7 +433,7 @@ class NewcomerMatching
         $newcomers = count($branchNotFound);
         $currentGoal = 1;
         $overflow = 0; // Is true when we decide to add one to each maximum (but still <= 5)
-        while ($newcomers > 0 && $currentGoal <= 5) {
+        while ($newcomers > 0 && $currentGoal <= 5 && $force) {
             // Randomize
             $student_ids = array_keys($counts2);
             shuffle($student_ids);
@@ -464,7 +471,7 @@ class NewcomerMatching
 
         $round = 0;
         $newcomers = $branchNotFound;
-        while (count($newcomers) > 0) {
+        while (count($newcomers) > 0 && $force) {
             foreach ($newcomers as $key => $newcomer) {
                 // Create array of users that are matching with the newcomer
                 $matchingArray = [];
@@ -481,14 +488,14 @@ class NewcomerMatching
                                     }
                                     break;
                                 case 1: // Match if newcomer and referral have same french departement (postal_code/1000) and country
-                                    if (floor($newcomer->postal_code/1000) == floor($array['student']->postal_code/1000)
+                                    if (substr($newcomer->postal_code, 0, 2) == substr($array['student']->postal_code, 0, 2)
                                             && strtolower($newcomer->country) == strtolower($array['student']->country)) {
                                         $matchingArray[] = $student_id;
                                     }
                                     break;
                                 case 2: // Match if newcomer and referral have same french region (region[postal_code/1000]) and country
-                                    if (isset(self::REGION[floor($newcomer->postal_code/1000)]) && isset(self::REGION[floor($array['student']->postal_code/1000)])
-                                            && self::REGION[floor($newcomer->postal_code/1000)] == self::REGION[floor($array['student']->postal_code/1000)]
+                                    if (isset(self::REGION[substr($newcomer->postal_code, 0, 2)]) && isset(self::REGION[substr($array['student']->postal_code, 0, 2)])
+                                            && self::REGION[substr($newcomer->postal_code, 0, 2)] == self::REGION[substr($array['student']->postal_code, 0, 2)]
                                             && strtolower($newcomer->country) == strtolower($array['student']->country)) {
                                         $matchingArray[] = $student_id;
                                     }
@@ -580,7 +587,7 @@ class NewcomerMatching
          **********************************************************************/
 
         // If we cannot match everyone, we cancel everything
-        if (count($newcomers) > 0) {
+        if (count($newcomers) > 0 && $force) {
             return false;
         }
 
