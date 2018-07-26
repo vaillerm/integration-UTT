@@ -20,9 +20,10 @@
 			@foreach($challenges as $challenge)
 				<tr scope="row">
 					<td>{{ $challenge->name }}</td>
-					@if($challenge->pivot->validated == null )
+					@if($challenge->pivot->validated == 0 )
 						<td>Le défis n'a pas encore été traité</td>
-					@elseif(!$challenge->pivot->validated)
+						{{ $challenge->pivot->validated  }}
+					@elseif($challenge->pivot->validated == -1)
 						<td>le défis a été refusé</td>
 					@else
 						<td>le défis a été accepté</td>

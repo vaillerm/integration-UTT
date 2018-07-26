@@ -37,7 +37,7 @@
 									</td>
 									<td>
 										<form method="post" action={{ route("challenges.accept", ["challengeId" => $challenge->id, "teamId" => $team->id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
-										<form action=""><input class="btn btn-danger" type="submit" value="Refuser"> </form>
+										<form method="post" action={{ route("challenges.refuse", ["challengeId" => $challenge->id, "teamId" => $team->id]) }}><input class="btn btn-danger" type="submit" value="Refuser"> </form>
 									</td>
 								</tr>
 							@endforeach

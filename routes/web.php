@@ -671,34 +671,37 @@ Route::group(["prefix" => "challenges"], function() {
 
 		Route::get("add", [
 			'as' => "challenges.add",
-			"uses" => "ChallengeController@addChallengeForm"
+			"uses" => "Challenges\ChallengeController@addChallengeForm"
 		]);
 
 		Route::post("add", [
 			'as' => "challenges.add",
-			"uses" => "ChallengeController@add"
+			"uses" => "Challenges\ChallengeController@add"
 		]);
 
 		Route::delete("/{id}", [
 			"as" => "challenges.delete",
-			"uses" => "ChallengeController@deleteChallenge"
+			"uses" => "Challenges\ChallengeController@deleteChallenge"
 		]);
 
-		Route::get("/validations","ChallengeController@validationList" )->name("challenges.validationsList");
+		Route::get("/validations","Challenges\ChallengeController@validationList" )->name("challenges.validationsList");
 
-		Route::get("{challengeId}/modify", "ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
+		Route::get("{challengeId}/modify", "Challenges\ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
 
-		Route::post("{challengeId}/modify", "ChallengeController@modify")->name("challenges.modify");
+		Route::post("{challengeId}/modify", "Challenges\ChallengeController@modify")->name("challenges.modify");
 
-		Route::post("{challengeId}/team/{teamId}/validate", "ChallengeController@accept")->name("challenges.accept");
+		Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeController@accept")->name("challenges.accept");
+		Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeController@refuse")->name("challenges.refuse");
 
 		/**
 		 * Okay this part is to handle the images taken by
 		 * the teams to validate their challenges
+		 * It is not supposed to be public, that's why there's a controller
+		 * doing the job
 		 */
 		Route::group(["prefix" => "proof"], function(){
-			Route::get("{name}/smallpic", "ValidationPic@showSmall")->name("validation_proofs.small");
-			Route::get("{name}", "ValidationPic@show")->name("validation_proofs.normal");
+			Route::get("{name}/smallpic", "Challenges\ValidationPic@showSmall")->name("validation_proofs.small");
+			Route::get("{name}", "Challenges\ValidationPic@show")->name("validation_proofs.normal");
 		});
 
 	});
@@ -710,19 +713,19 @@ Route::group(["prefix" => "challenges"], function() {
 
 		Route::get("{id}/submit", [
 			"as" => "challenges.submitForm",
-			"uses" => "ChallengeController@submitChallengeForm"
+			"uses" => "Challenges\ChallengeController@submitChallengeForm"
 		]);
 		
-		Route::post("team/{teamId}/challenge/{challengeId}/submit", "ChallengeController@submitToValidation")->name("challenge.submit");
+		Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeController@submitToValidation")->name("challenge.submit");
 
 	});
 
-	Route::get("team/", "ChallengeController@showSentChallenges")->name("challenges.sent");
+	Route::get("team/", "Challenges\ChallengeController@showSentChallenges")->name("challenges.sent");
 
 
 	Route::get("/", [
 		'as' => "challenges.list",
-		'uses' => "ChallengeController@showChallengesList"
+		'uses' => "Challenges\ChallengeController@showChallengesList"
 	]);
 
 });

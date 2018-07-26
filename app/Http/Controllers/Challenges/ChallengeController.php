@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Challenges;
 
 use Illuminate\Http\Request;
 use Auth;
@@ -9,6 +9,7 @@ use App\Models\Team;
 use DB; use Storage;
 use App\Models\Challenge;
 use App\Http\Requests\ChallengeRequest;
+use App\Http\Controllers\Controller;
 
 class ChallengeController extends Controller
 {
@@ -50,7 +51,7 @@ class ChallengeController extends Controller
 		if($team->hasAlreadyMadeSubmission($challengeId)){
 
 			Storage::disk("validation-proofs")->delete($team->challenges()->first()->pivot->pic_url);
-			$team->challenges()->updateExistingPivot($challengeId, ["pic_url" => $filename, "validated" => null]);
+			$team->challenges()->updateExistingPivot($challengeId, ["pic_url" => $filename, "validated" => 0]);
 		}else{
 			$challenge = Challenge::find($challengeId);
 			$team->challenges()->save($challenge, ["submittedOn"=> new \DateTime("now"), "pic_url" => $filename]);
@@ -123,10 +124,21 @@ class ChallengeController extends Controller
 		return view("dashboard.challenges.challenges_sent", compact("challenges"));
 	}
 
-	public function accept(int $challengeId, int $teamId) {
+	private function validateChallenge(int $challengeId, int$teamId, int $validate=1)
+	{
 		$challenge = Team::find($teamId)->challenges()->where("id", "=", $challengeId)->first();
-		$challenge->teams()->updateExistingPivot($teamId, ["validated" => true]);
+		$challenge->teams()->updateExistingPivot($teamId, ["validated" => $validate, "last_update" => new \DateTime("now")]);
 		$challenge->save();
 		return redirect(route("challenges.validationsList"));
+	}
+
+
+	public function accept(int $challengeId, int $teamId) {
+		return $this->validateChallenge($challengeId, $teamId);
+	}
+
+	public function refuse(int $challengeId, int $teamId)
+	{
+		return $this->validateChallenge($challengeId, $teamId, -1);
 	}
 }
