@@ -54,7 +54,7 @@
 						<th>Nom de l'équipe</th>
 						<th>Nom du défis</th>
 						<th>Preuve</th>
-						<th>Status</th>
+						<th>Statut</th>
 						<th>Traité par</th>
 						<th>Action</th>
 					</tr>
