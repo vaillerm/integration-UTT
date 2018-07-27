@@ -122,14 +122,16 @@ class ChallengeController extends Controller
 	}
 
 	public function showSentChallenges() {
-		$challenges = Team::find(Auth::user()->team_id)->challenges()->get();
-		return view("dashboard.challenges.challenges_sent", compact("challenges"));
+		$team_id = Auth::user()->team_id;
+		$validations = ChallengeValidation::where("team_id", "=", $team_id)->get();
+		$score = Team::find($team_id)->challenges()->wherePivot("validated", 1)->sum("points");
+		return view("dashboard.challenges.challenges_sent", compact("validations", "score"));
 	}
 
 	private function setChallengeStatus(int $challengeId, int$teamId, int $validate=1)
 	{
 		$challenge = Team::find($teamId)->challenges()->where("id", "=", $challengeId)->first();
-		$challenge->teams()->updateExistingPivot($teamId, ["validated" => $validate, "last_update" => new \DateTime("now")]);
+		$challenge->teams()->updateExistingPivot($teamId, ["validated" => $validate, "last_update" => new \DateTime("now"), "update_author" => Auth::user()->id]);
 		$challenge->save();
 		return redirect(route("challenges.validationsList"));
 	}

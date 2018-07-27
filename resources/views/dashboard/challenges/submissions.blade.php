@@ -54,6 +54,8 @@
 						<th>Nom de l'équipe</th>
 						<th>Nom du défis</th>
 						<th>Preuve</th>
+						<th>Status</th>
+						<th>Traité par</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -67,6 +69,10 @@
 											<img src="{{ route("validation_proofs.small", ["name" => $validation->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis"> 
 								</a>
 							</td>
+							<td><span class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</span></td>
+							<td>{{ 
+								$validation->update_author()->first()->first_name." ".$validation->update_author()->first()->last_name
+							}}</td>
 							<td>
 								<form method="post" action={{ route("challenges.reset", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-warning" type="submit" value="Annuler dernière action"></form>
 							</td>

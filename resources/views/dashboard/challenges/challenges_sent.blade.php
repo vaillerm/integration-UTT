@@ -9,6 +9,7 @@
 @endsection
 
 @section("content")
+	<h1>Score : {{ $score }}</h1>
 	<table class="table">
 		<thead>
 			<tr >
@@ -17,17 +18,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($challenges as $challenge)
+			@foreach($validations as $validation)
 				<tr scope="row">
-					<td>{{ $challenge->name }}</td>
-					@if($challenge->pivot->validated == 0 )
-						<td>Le défis n'a pas encore été traité</td>
-						{{ $challenge->pivot->validated  }}
-					@elseif($challenge->pivot->validated == -1)
-						<td>le défis a été refusé</td>
-					@else
-						<td>le défis a été accepté</td>
-					@endif
+					<td>{{ $validation->challenges()->first()->name }}</td>
+					<td class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</td>
 				</tr>
 			@endforeach
 		</tbody>
