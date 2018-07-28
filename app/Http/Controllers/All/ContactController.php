@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Newcomers;
+namespace App\Http\Controllers\All;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
@@ -12,6 +12,7 @@ use Validator;
 use Mail;
 use Auth;
 use Redirect;
+use Authorization;
 use Carbon\Carbon;
 
 /**
@@ -29,7 +30,7 @@ class ContactController extends Controller
      */
     public function contact()
     {
-        return View::make('newcomer.contact');
+        return View::make('all.contact');
     }
 
 
@@ -42,22 +43,27 @@ class ContactController extends Controller
     {
         // Update newcomer's email and phone
         $this->validate(Request::instance(), [
+            'name' => Auth::user() ?  '' : 'required',
             'email' => 'required|email',
             'message' => 'required',
         ]);
 
-        $newcomer = Auth::user();
+        $user = Auth::user();
+        $name = $user ? $user->first_name.' '.$user->last_name : Request::get('name') ;
         $email = Request::get('email');
         $message = Request::get('message');
+        $userStatus = $user ? (
+            $user->isNewcomer() ? 'un nouveau' : 'un ancien'
+            ) : 'un utilisateur non connecté';
 
         // Send email
-        $sent = Mail::send('emails.contact', ['newcomer' => $newcomer, 'email' => $email, 'text' => $message], function ($m) use ($newcomer, $email, $message) {
+        $sent = Mail::send('emails.contact', ['user' => $user, 'userStatus' => $userStatus, 'email' => $email, 'text' => $message, 'name' => $name], function ($m) use ($userStatus, $email, $message, $name) {
             $m->from('integration@utt.fr', 'Site de l\'Inté');
             $m->to('integration@utt.fr', 'Intégration UTT');
-            $m->replyTo(Request::get('email'), $newcomer->first_name.' '.$newcomer->last_name);
-            $m->subject('[integration.utt.fr] Message d\'un nouveau');
+            $m->replyTo($email, $name);
+            $m->subject('[integration.utt.fr] Nouveau message d\''.$userStatus);
         });
 
-        return Redirect(route('newcomer.home'))->withSuccess('Ton message a bien été transmis !');
+        return Redirect(route(Authorization::getHomeRoute()))->withSuccess('Ton message a bien été transmis !');
     }
 }

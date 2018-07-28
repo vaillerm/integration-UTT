@@ -519,6 +519,17 @@ Route::group(['prefix' => 'oauth'], function () {
     ]);
 });
 
+// Contact page
+Route::get('/contact', [
+    'as'   => 'contact',
+    'uses' => 'All\ContactController@contact'
+]);
+
+Route::post('/contact', [
+    'as'   => 'contact.submit',
+    'uses' => 'All\ContactController@contactSubmit'
+]);
+
 // Newcomer website
 Route::get('/login', [
     'as'   => 'newcomer.auth.login',
@@ -617,18 +628,6 @@ Route::get('/wei/authorization', [
     'as'   => 'newcomer.wei.authorization',
     'middleware' => 'authorize:newcomer,wei',
     'uses' => 'Newcomers\WEIController@newcomersAuthorization'
-]);
-
-Route::get('/contact', [
-    'as'   => 'newcomer.contact',
-    'middleware' => 'authorize:newcomer',
-    'uses' => 'Newcomers\ContactController@contact'
-]);
-
-Route::post('/contact', [
-    'as'   => 'newcomer.contact.submit',
-    'middleware' => 'authorize:newcomer',
-    'uses' => 'Newcomers\ContactController@contactSubmit'
 ]);
 
 Route::get('/faq', [

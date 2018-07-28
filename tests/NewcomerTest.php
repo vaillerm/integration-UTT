@@ -149,8 +149,8 @@ class NewcomerTest extends TestCase
     {
         $newcomer = factory(App\Models\Newcomer::class)->create();
         $this->actingAs($newcomer)
-            ->visit(route('newcomer.contact'))
-            ->seePageIs(route('newcomer.contact'))
+            ->visit(route('contact'))
+            ->seePageIs(route('contact'))
             ->see('Contacter l\'équipe d\'Intégration');
     }
 }

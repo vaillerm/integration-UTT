@@ -1,4 +1,4 @@
-@extends('layouts.newcomer')
+@extends('layouts.auto')
 
 @section('title')
 Contacter l'équipe d'intégration
@@ -15,22 +15,22 @@ Une question, une remarque, un mot d'amour...
             <h3 class="box-title">Envoi d'un message</h3>
         </div>
         <div class="box-body">
-        <form class="form-horizontal" action="{{ route('newcomer.contact') }}" method="post">
+        <form class="form-horizontal" action="{{ route('contact') }}" method="post">
                 <p class="text-center">
-                    Si tu as la moindre question, remarque ou autre message, n'hésite pas !<br/>Envoie-nous un petit message, on mord pas. ;)
+                    Si tu as la moindre question, remarque ou autre message, n'hésite pas !<br/>Envoie-nous un petit message, on mord pas, on te répondra par email ;)
                 </p>
 
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">De la part de</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" disabled value="{{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}}">
+                        <input class="form-control" type="text" id="name" name="name" {{ Auth::user() ? 'disabled' : '' }} value="{{{ old('email') ?? (Auth::user() ? Auth::user()->first_name . ' ' . Auth::user()->last_name : '') }}}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Mail</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="email" id="email" placeholder="mail@domain.tld" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
+                        <input class="form-control" name="email" id="email" placeholder="mail@domain.tld" type="text" value="{{{ old('email') ?? Auth::user()->email ?? '' }}}">
                     </div>
                 </div>
 

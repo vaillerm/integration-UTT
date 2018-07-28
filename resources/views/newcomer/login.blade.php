@@ -57,11 +57,16 @@ Connexion
                                 </div>
                                 <div class="box-body">
                                     <p>
-                                        <strong>Bonjour à toi, ami nouveau !</strong>
+                                        <strong>Bonjour à toi, ami nouveau !</strong> Tu trouveras les identifiants du site d'intégration sur l'email que tu receveras courant juillet.
                                     </p>
                                     <p>
-                                        Malheureusement, le site n'est pas encore prêt à t'accueillir, mais ne t'inquiète pas, ça ne tardera pas, repasse d'ici quelques jours !</strong>
+                                        Si tu n'as toujours pas reçu tes identifiants début août ou pour toute autre question, <a href="{{ route('contact') }}">envoie nous un message</a>.
                                     </p>
+                                    <form action="{{ route('newcomer.auth.login') }}" method="post">
+                                        <input type="text" name="login" class="form-control" placeholder="Identifiant"/>
+                                        <input type="password" name="password" class="form-control" placeholder="Mot de passe"/>
+                                        <input type="submit" class="btn form-control btn-primary" value="Se connecter" />
+                                    </form>
                                 </div>
                             </div>
                         </div>
