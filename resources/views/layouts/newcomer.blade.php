@@ -27,6 +27,7 @@
                                 <li><a href="{{ route('newcomer.profil') }}">Profil{!! Auth::user()->isPageChecked('profil')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.referral') }}">Parrain{!! Auth::user()->isPageChecked('referral')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.team') }}">Équipe{!! Auth::user()->isPageChecked('team')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
+                                <li><a href="{{ route('newcomer.backtoschool') }}">Partenaires{!! Auth::user()->isPageChecked('backtoschool')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.wei') }}">Week-End{!! Auth::user()->isPageChecked('wei')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">

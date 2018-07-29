@@ -265,23 +265,6 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@createcsv'
             ]);
-
-            Route::get('/letter/{id}', [
-                'as'   => 'dashboard.newcomers.letter',
-                'middleware' => 'authorize:admin',
-                'uses' => 'Admin\NewcomersController@letter',
-            ]);
-            Route::get('/letter/{id}-{limit}', [
-                'as'   => 'dashboard.newcomers.letters',
-                'middleware' => 'authorize:admin',
-                'uses' => 'NewcomersController@letter',
-            ]);
-
-            Route::get('/letter/{id}-{limit}/{category}', [
-                'as'   => 'dashboard.newcomers.filtered_letters',
-                'middleware' => 'authorize:admin',
-                'uses' => 'Admin\NewcomersController@letter',
-            ]);
         });
 
         // Emails management.
@@ -558,12 +541,6 @@ Route::get('/home', [
     'uses' => 'Newcomers\PagesController@getNewcomersHomepage'
 ]);
 
-Route::get('/myletter', [
-    'as'   => 'newcomer.myletter',
-    'middleware' => 'authorize:newcomer',
-    'uses' => 'Newcomers\StepsController@myLetter'
-]);
-
 Route::get('/profil', [
     'as'   => 'newcomer.profil',
     'middleware' => 'authorize:newcomer',
@@ -592,6 +569,12 @@ Route::get('/team/{step?}', [
     'as'   => 'newcomer.team',
     'middleware' => 'authorize:newcomer',
     'uses' => 'Newcomers\StepsController@TeamForm'
+]);
+
+Route::get('/backtoschool/{step?}', [
+    'as'   => 'newcomer.backtoschool',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@BackToSchool'
 ]);
 
 Route::get('/wei', [

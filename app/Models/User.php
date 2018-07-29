@@ -115,6 +115,10 @@ class User extends Model implements Authenticatable
             'action' => 'Rejoindre le groupe facebook de ton équipe et faire ton déguisement ',
             'page' => 'team',
         ],
+        'back_to_school' => [
+            'action' => 'Pause partenaires !',
+            'page' => 'backtoschool',
+        ],
         'wei_pay' => [
             'action' => 'T\'inscrire pour le Week-End d\'Intégration',
             'page' => 'wei',

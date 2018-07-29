@@ -29,7 +29,7 @@ class StepsController extends Controller
      */
     public function profilForm()
     {
-        return View::make('newcomer.profil');
+        return View::make('Newcomers.Steps.profil');
     }
 
     /**
@@ -46,7 +46,7 @@ class StepsController extends Controller
             ],
         ],
         [
-            'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone français valide.'
+            'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone français valide. Si tu n\'en as pas, clique sur le bouton "Nous contacter", en haut à droite, et on l\'ajoutera pour toi !'
         ]);
 
         $newcomer = Auth::user();
@@ -95,7 +95,7 @@ class StepsController extends Controller
             $user->setCheck('referral', false);
             $user->save();
         }
-        return View::make('newcomer.referral', ['step' => $step]);
+        return View::make('Newcomers.Steps.referral', ['step' => $step]);
     }
 
     /**
@@ -207,17 +207,23 @@ class StepsController extends Controller
             Auth::user()->setCheck('team_disguise', false);
             Auth::user()->save();
         }
-        return View::make('newcomer.team', ['step' => $step]);
+        return View::make('Newcomers.Steps.team', ['step' => $step]);
     }
 
-
     /**
-     * Display the letter of the newcomer
+     * Display the back to school page
      *
      * @return Response
      */
-    public function myLetter()
+    public function backToSchool($step = '')
     {
-        return View::make('dashboard.newcomers.letter', [ 'newcomers' => [Auth::user()], 'i' => 0, 'count' => 1 ]);
+        if ($step == 'yes') {
+            Auth::user()->setCheck('back_to_school', true);
+            Auth::user()->save();
+        } elseif ($step == 'cancel') {
+            Auth::user()->setCheck('back_to_school', false);
+            Auth::user()->save();
+        }
+        return View::make('Newcomers.Steps.backtoschool', ['step' => $step]);
     }
 }
