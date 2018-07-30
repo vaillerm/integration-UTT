@@ -69,7 +69,6 @@ Affichage des profils
                         <td>{{ ((isset($newcomer->sandwichPayment) && $newcomer->sandwichPayment->state == 'paid')?'Oui':'Non') }}</td>
                         <td>{{ ((isset($newcomer->guaranteePayment) && $newcomer->guaranteePayment->state == 'paid')?'Oui':'Non') }}</td>
                         <td>
-                            <a href="{{ route('dashboard.newcomers.letter', ['id' => $newcomer->id ]) }}" class="btn btn-success btn-xs">Lettre</a>
                             <a class="btn btn-xs btn-warning" href="{{ route('dashboard.students.edit', [ 'id' => $newcomer->id ])}}">Modifier</a>
                         </td>
                     </tr>
@@ -87,16 +86,6 @@ Affichage des profils
         <p>Merci de n'appuyer sur ces boutons qu'une fois tous les nouveaux ajoutés à la liste.</p>
         <a href="{{{ route('dashboard.teams.match') }}}" class="btn btn-danger">Répartir les nouveaux qui n'ont pas d'équipes dans les équipes</a>
         <a href="{{{ route('dashboard.referrals.prematch') }}}" class="btn btn-danger">Donner des parrains aux nouveaux qui n'en n'ont pas</a>
-        <a href="{{{ route('dashboard.newcomers.letters', ['id' => 0, 'limit' => 10000]) }}}" class="btn btn-success">Imprimer toutes les lettres</a>
-        <div class="btn-group">
-            <a href="#" class="btn btn-primary">Impression par branche</a>
-            <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                @foreach($branches as $branch)
-                    <li><a href="{{{ route('dashboard.newcomers.filtered_letters', ['id' => 0, 'limit' => 10000, 'category' => strtoupper($branch->branch)]) }}}">{{ strtoupper($branch->branch) }}</a></li>
-                @endforeach
-            </ul>
-        </div>
         <p>Pour annuler des répartitions, ça se passe en base de données.</p>
     </div>
 </div>
