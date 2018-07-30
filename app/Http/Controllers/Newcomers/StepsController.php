@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Newcomers;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\User;
+use App\Models\Faction;
 use Illuminate\Support\Facades\DB;
 use Request;
 use View;
@@ -207,7 +208,10 @@ class StepsController extends Controller
             Auth::user()->setCheck('team_disguise', false);
             Auth::user()->save();
         }
-        return View::make('Newcomers.Steps.team', ['step' => $step]);
+        return View::make('Newcomers.Steps.team', [
+            'step' => $step,
+            'factions' => Faction::all(),
+        ]);
     }
 
     /**

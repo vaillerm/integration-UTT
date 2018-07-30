@@ -44,18 +44,30 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                         <i class="fa fa-at" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
                         <span style="margin-left:25px;text-align:justify;">{{ Auth::user()->godFather->email }}</span>
                     </div>
+                    <div style="position:relative;margin-bottom:5px;">
+                        <i class="fa fa-map-marker" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
+                        <span style="margin-left:25px;text-align:justify;">
+                            {{ (Auth::user()->godFather->sex)?'Elle':'Il' }}
+                            vient de {{ Auth::user()->godFather->city }}, {{ Auth::user()->godFather->postal_code }}, {{ Auth::user()->godFather->country }}</span>
+                    </div>
                     @if(substr(Auth::user()->godFather->facebook, 0, 4) == 'http')
                         <div style="position:relative;margin-bottom:5px;">
                             <i class="fa fa-facebook" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
                             <span style="margin-left:25px;text-align:justify;"><a href="{{ Auth::user()->godFather->facebook }}">Profil Facebook</a></span>
                         </div>
                     @endif
-                    <div style="position:relative;margin-bottom:5px;">
-                        <i class="fa fa-comment" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
-                        <p style="margin-left:25px;margin-right:5px;text-align:justify;">{!! nl2br(e(Auth::user()->godFather->referral_text)) !!}</p></div>
+                    @if(Auth::user()->godFather->surname)
+                        <div style="position:relative;margin-bottom:5px;">
+                            <i class="fa fa-user" aria-hidden="true" style="position:absolute;top:3px;vertical-align:bottom;"></i>
+                            <span style="margin-left:25px;text-align:justify;">On le surnomme <em>{{Auth::user()->godFather->surname}}</em></span>
+                        </div>
+                    @endif
                 </div>
-                <hr style="margin-top:0px;"/>
                 <div class="clearfix"></div>
+                <h4>{{ (Auth::user()->godFather->sex)?'Elle':'Il' }} a un message pour toi !</h4>
+                <p style="text-align:justify;font-size:1.1em"><em>{!! nl2br(e(Auth::user()->godFather->referral_text)) !!}</em></p>
+
+                <hr style="margin-top:0px;"/>
                 <h4>Mais pourquoi avoir un parrain ?</h4>
                 <p>
 					Ton parrain est un étudiant de l'UTT depuis un an ou plus, il a donc lui aussi vécu ce que tu vis actuellement.
