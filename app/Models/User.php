@@ -639,7 +639,7 @@ class User extends Model implements Authenticatable
             $this->setCheck('wei_pay', $weiPayment);
             $this->setCheck('wei_guarantee', $guaranteePayment);
 
-            if ($this->birth->add(new \DateInterval('P18Y')) < (new \DateTime(Config::get('services.wei.start')))) {
+            if (!$this->isUnderage()) {
                 $this->setCheck('wei_authorization', true);
                 $this->parent_authorization = true;
             } elseif ($this->parent_authorization) {
