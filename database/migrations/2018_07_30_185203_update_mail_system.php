@@ -31,7 +31,7 @@ class UpdateMailSystem extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
         Schema::table('mail_crons', function (Blueprint $table) {
-            $table->renameColumn('mail_template_id', 'mail_template_id');
+            $table->renameColumn('mail_revision_id', 'mail_template_id');
             $table->foreign('mail_template_id')->references('id')->on('mail_templates');
             $table->foreign('created_by')->references('id')->on('users');
             $table->renameColumn('send_data', 'send_date');
@@ -72,7 +72,7 @@ class UpdateMailSystem extends Migration
             $table->dropForeign(['created_by']);
         });
         Schema::table('mail_crons', function (Blueprint $table) {
-            $table->renameColumn('mail_template_id', 'mail_template_id');
+            $table->renameColumn('mail_template_id', 'mail_revision_id');
             $table->renameColumn('send_date', 'send_data');
         });
 
