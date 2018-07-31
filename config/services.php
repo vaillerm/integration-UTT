@@ -102,4 +102,8 @@ return [
     'version' => [
          'hash' => env('VERSION_HASH', 'none'),
     ],
+
+    'slack' => [
+        'exception_webhook' => env('SLACK_EXCEPTION_WEBHOOK', ''),
+    ],
 ];
