@@ -78,7 +78,7 @@ class TeamsController extends Controller
         $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch']);
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:70|unique:teams,name,'.$team->id,
-            'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.Auth::user()->team->id,
+            'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.$team->id,
             'img' => 'image',
             'facebook' => 'url'
         ],
