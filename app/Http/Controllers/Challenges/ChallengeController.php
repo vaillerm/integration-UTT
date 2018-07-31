@@ -26,6 +26,10 @@ class ChallengeController extends Controller
 		return view("dashboard.challenges.modify", compact("challenge"));
 	}
 
+	public function refuseForm(int $challengeId, int $teamId) {
+		return view("dashboard.challenges.refuse_form", compact("challengeId", "teamId"));
+	}
+
 	public function validationList() {
 		$validations_pending = ChallengeValidation::where("validated", "=", 0)->orderBy("submittedOn", 'last_update', "dsc")->get();
 		$validations_treated = ChallengeValidation::where("validated", "=", -1)->orWhere("validated", "=", 1)->orderBy("last_update", "dsc")->get();

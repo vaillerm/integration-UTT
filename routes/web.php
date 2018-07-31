@@ -691,6 +691,7 @@ Route::group(["prefix" => "challenges"], function() {
 		Route::post("{challengeId}/modify", "Challenges\ChallengeController@modify")->name("challenges.modify");
 
 		Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeController@accept")->name("challenges.accept");
+		Route::get("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeController@refuseForm")->name("challenges.refuseForm");
 		Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeController@refuse")->name("challenges.refuse");
 		Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeController@resetStatus")->name("challenges.reset");
 
@@ -704,6 +705,7 @@ Route::group(["prefix" => "challenges"], function() {
 			Route::get("{name}/smallpic", "Challenges\ValidationPic@showSmall")->name("validation_proofs.small");
 			Route::get("{name}", "Challenges\ValidationPic@show")->name("validation_proofs.normal");
 		});
+
 
 	});
 

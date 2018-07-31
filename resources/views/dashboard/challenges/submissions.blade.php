@@ -35,7 +35,7 @@
 							</td>
 							<td>
 								<form method="post" action={{ route("challenges.accept", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
-								<form method="post" action={{ route("challenges.refuse", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-danger" type="submit" value="Refuser"> </form>
+								<a href="{{ route("challenges.refuseForm", ["challengeId" => $validation->challenge_id, "teamId"=> $validation->team_id]) }}"><button class="btn btn-danger">Refuser (avec un motif)</button></a>
 							</td>
 						</tr>
 					@empty
