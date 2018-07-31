@@ -51,7 +51,7 @@
 						<td>
 							Généré et envoyé par le site de l'intégration de l'Université de Technologie de Troyes.<br />
 							@if(isset($mail) && isset($unsuscribe_link) && $mail->isPublicity)
-							Pour ne plus recevoir de mails de notre part, cliquez <a href="{{  $unsuscribe_link }}">ici</a>.
+								Pour ne plus recevoir de mails de notre part, cliquez <a href="{{ $unsuscribe_link }}">ici</a>.
 							@endif
 						</td>
 					</tr>

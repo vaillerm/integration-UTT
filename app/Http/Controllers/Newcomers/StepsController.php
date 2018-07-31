@@ -130,15 +130,15 @@ class StepsController extends Controller
         $newcomer->save();
 
         // Checks
-        if (!$newcomer->referral) {
-            return Redirect::back()->withError('Vous ne pouvez pas contacter votre parrain !');
+        if (!$newcomer->godFather) {
+            return Redirect::back()->withError('Erreur : Impossible de contacter votre parrain ! Tentez par email ou sms.');
         }
         if ($newcomer->referral_emailed) {
             return Redirect::back()->withError('Un email a déjà été envoyé à ton parrain !');
         }
 
         // Send email
-        $referral = $newcomer->referral;
+        $referral = $newcomer->godFather;
         $sent = Mail::send('emails.contactReferral', ['newcomer' => $newcomer, 'referral' => $referral], function ($m) use ($referral, $newcomer) {
             $m->from('integrat@utt.fr', 'Intégration UTT');
             $m->to($referral->email);
@@ -150,13 +150,12 @@ class StepsController extends Controller
 
         });
 
-
         // Note in db that referral has been mailed
         $newcomer->referral_emailed = true;
         $newcomer->save();
 
 
-        return Redirect::back()->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
+        return Redirect::route('newcomer.referral')->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
     }
 
     public function loginAndSendCoordonate($user_id, $hash)
@@ -175,12 +174,7 @@ class StepsController extends Controller
             $sent = Mail::send('emails.contactReferral', ['newcomer' => $user, 'referral' => $referral], function ($m) use ($referral, $user) {
                 $m->from('integrat@utt.fr', 'Intégration UTT');
                 $m->to($referral->email);
-                if ($user->sex) {
-                    $m->subject('[parrainage] Ta fillote souhaite que tu la contacte !');
-                } else {
-                    $m->subject('[parrainage] Ton fillot souhaite que tu le contacte !');
-                }
-
+                $m->subject('[parrainage] Ton fillot souhaite que tu le contacte !');
             });
 
 

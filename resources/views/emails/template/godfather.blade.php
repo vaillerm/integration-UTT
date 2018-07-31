@@ -1,3 +1,13 @@
+@extends('layouts.email')
+
+@section('title')
+Bienvenue à l'Université de Technologie de Troyes
+@endsection
+
+@section('content')
+
+@endsection
+
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>

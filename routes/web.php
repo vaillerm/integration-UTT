@@ -268,26 +268,52 @@ Route::group(['prefix' => 'dashboard'], function () {
         });
 
         // Emails management.
-        // Not tested because I don't know how to create a mail // TODO Test it
         Route::group(['prefix' => 'emails'], function () {
             Route::get('/', [
                 'as'   => 'dashboard.emails.index',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\EmailsController@getIndex'
-            ]);
-            /*
-            Route::get('/preview/{id}', [
-                'as'   => 'dashboard.emails.preview',
                 'middleware' => 'authorize:admin',
-                'uses' => 'Admin\EmailsController@getPreview'
+                'uses' => 'Admin\EmailsController@getIndex'
             ]);
-            */
+            Route::post('/create', [
+                'as'   => 'dashboard.email.create',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@createTemplate'
+            ]);
 
-            // Route::get('/preview/{id}/{user_id?}', [
-            //     'as'   => 'dashboard.emails.revisionpreview',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\EmailsController@getRevisionPreview'
-            // ]);
+            Route::get('/edit/{id}', [
+                'as'   => 'dashboard.email.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@editTemplate'
+            ]);
+
+            Route::post('/edit/{id}', [
+                'as'   => 'dashboard.email.edit.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@editTemplateSubmit'
+            ]);
+            Route::get('/preview/{id}/{user_id?}', [
+                'as'   => 'dashboard.emails.templatepreview',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@getTemplatePreview'
+            ]);
+
+            Route::get('/schedule/{id}', [
+                'as'   => 'dashboard.email.schedule',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@scheduleTemplate'
+            ]);
+
+            Route::get('/cancel/{id}', [
+                'as'   => 'dashboard.email.cancel',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@cancelCron'
+            ]);
+
+            Route::post('/schedule/{id}', [
+                'as'   => 'dashboard.email.schedule.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@scheduleTemplateSubmit'
+            ]);
 
         });
 

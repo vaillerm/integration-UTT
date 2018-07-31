@@ -107,7 +107,8 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                             </div>
                         </div>
                     @else
-                        <em>Un mail avec tes coordonnées a déjà été envoyé à {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }}.</em>
+                        <p><em>Un mail avec tes coordonnées a déjà été envoyé à {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }}.</em></p>
+                        <a href="{{ route('newcomer.referral') }}#question" class="btn btn-danger">Retour</a>
                     @endif
                 @elseif($step == 'notContacted')
                     <h4 id="question">Bah alors ?</h4>
@@ -124,13 +125,13 @@ La personne qui te guidera tout au long de ta vie à l'UTT
                             </div>
                         </div>
                     @else
-                        <em>Un mail avec tes coordonnées a déjà été envoyé à ton parrain.</em>
+                        <p><em>Un mail avec tes coordonnées a déjà été envoyé à {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }}.</em></p>
+                        <a href="{{ route('newcomer.referral') }}#question" class="btn btn-danger">Retour</a>
                     @endif
                 @else
                     <h4 id="question">As-tu déjà essayé de contacter {{ (Auth::user()->godFather->sex)?'ta marraine':'ton parrain' }} ?</h4>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'contacted']) }}#question" class="btn btn-primary">Oui</a>
                     <a href="{{ route('newcomer.referral', [ 'step' => 'notContacted']) }}#question" class="btn btn-danger">Non</a><br/>
-                    <a href="{{ route('newcomer.referral', [ 'step' => 'answered']) }}#question" class="btn btn-success">C'est lui qui m'a contacté</a>
                 @endif
                 </div>
         </div>

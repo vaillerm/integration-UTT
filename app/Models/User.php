@@ -343,6 +343,7 @@ class User extends Model implements Authenticatable
     {
         return $this->is_newcomer;
     }
+
     /**
      * Return newcomers referal
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
