@@ -52,8 +52,12 @@ Bienvenue à l'UTT
         <span style="margin-right: 5px; font-size:20px;vertical-align:bottom">📧</span> {{ $user->godFather->email }}<br/>
         <span style="margin-right: 5px; font-size:20px;vertical-align:bottom">🚀</span> {{ ($user->godFather->sex)?'Elle':'Il' }}
         vient de {{ $user->godFather->city }} en {{ $user->godFather->country }}<br/>
-        <span style="margin-right: 5px; font-size:20px;vertical-align:bottom">💬</span> <a style="color: #3c8dbc;" target="_blank" href="{{ $user->godFather->facebook }}">Profil Facebook</a><br/>
-        <span style="margin-right: 5px; font-size:20px;vertical-align:bottom">👋</span> On {{ ($user->godFather->sex)?'la':'le' }} surnomme <em>{{$user->godFather->surname}}</em>
+        @if ($user->godFather->facebook)
+            <span style="margin-right: 5px; font-size:20px;vertical-align:bottom">💬</span> <a style="color: #3c8dbc;" target="_blank" href="{{ $user->godFather->facebook }}">Profil Facebook</a><br/>
+        @endif
+        @if ($user->godFather->surname)
+            <span style="margin-right: 5px; font-size:20px;vertical-align:bottom">👋</span> On {{ ($user->godFather->sex)?'la':'le' }} surnomme <em>{{$user->godFather->surname}}</em>
+        @endif
     </div>
     <div style="clear:both"></div>
 
