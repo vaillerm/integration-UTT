@@ -21,7 +21,7 @@ class UpdateMailSystem extends Migration
             $table->foreign('created_by')->references('id')->on('users');
         });
         // //Note: Renaming columns in a table with a enum column is not currently supported
-        DB::statement('ALTER TABLE `mail_histories` CHANGE `mail_template_id` `mail_template_id` int unsigned not null');
+        DB::statement('ALTER TABLE `mail_histories` CHANGE `mail_revision_id` `mail_template_id` int unsigned not null');
         DB::statement('ALTER TABLE `mail_histories` CHANGE `student_id` `user_id` int unsigned not null');
         DB::statement('ALTER TABLE `mail_histories` CHANGE `sent_at` `sent_at` datetime default null');
         DB::statement('ALTER TABLE `mail_histories` CHANGE `state` `state` enum("PENDING","SENDING","SENT","ERROR") NOT NULL');
@@ -62,7 +62,7 @@ class UpdateMailSystem extends Migration
             $table->dropForeign(['mail_cron_id']);
         });
         //Note: Renaming columns in a table with a enum column is not currently supported
-        DB::statement('ALTER TABLE `mail_histories` CHANGE `mail_template_id` `mail_template_id` int unsigned not null');
+        DB::statement('ALTER TABLE `mail_histories` CHANGE `mail_template_id` `mail_revision_id` int unsigned not null');
         DB::statement('ALTER TABLE `mail_histories` CHANGE `user_id` `student_id` int unsigned not null');
         DB::statement('ALTER TABLE `mail_histories` CHANGE `state` `state` enum("PENDING","SENT","ERROR") NOT NULL');
 
