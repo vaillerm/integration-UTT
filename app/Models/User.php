@@ -313,7 +313,7 @@ class User extends Model implements Authenticatable
      */
     public function scopeStudent($query)
     {
-        return $query->where('is_newcomer', false)->whereNotNull('student_id');
+        return $query->where('is_newcomer', false)->whereNotNull('etuutt_login');
     }
 
     /**
@@ -336,7 +336,7 @@ class User extends Model implements Authenticatable
 
     public function isStudent()
     {
-        return !$this->isNewcomer();
+        return !$this->is_newcomer && $this->etuutt_login;
     }
 
     public function isNewcomer()

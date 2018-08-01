@@ -260,6 +260,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@create'
             ]);
+            Route::get('/unsync/{id}', [
+                'as'   => 'dashboard.newcomers.unsync',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\NewcomersController@Unsync'
+            ]);
             Route::post('/createcsv', [
                 'as'   => 'dashboard.newcomers.createcsv',
                 'middleware' => 'authorize:admin',

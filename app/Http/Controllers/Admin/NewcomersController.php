@@ -74,4 +74,36 @@ class NewcomersController extends Controller
         }
         return $this->error('Impossible de créer l\'utilisateur !');
     }
+
+    /**
+     * Delete infromations about user and flag to disallow sync.
+     * @param  int $id
+     * @return Response
+     */
+    public function Unsync($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+
+        if (!$user->admitted_id) {
+            return $this->error('Seul les comptes nouveau ajoutés automatiquement par l\'UTT peuvent être désactivés');
+        }
+
+        // Delete everything synced except admitted_id
+        $user->student_id = null;
+        $user->last_name = 'Supprimé';
+        $user->first_name = 'Nouveau';
+        $user->postal_code = null;
+        $user->country = null;
+        $user->is_newcomer = false;
+        $user->registration_email = null;
+        $user->registration_phone = null;
+        $user->branch = null;
+        $user->wei_majority = null;
+        $user->nosync = true;
+        $user->login = true;
+        $user->password = true;
+
+        $user->save();
+        return $this->success('Le compte nouveau a été désactivé définitivement !');
+    }
 }
