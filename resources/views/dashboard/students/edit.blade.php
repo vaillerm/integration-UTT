@@ -254,14 +254,7 @@ Modification de profil
                     <div class="form-group">
                         <label for="referral_max" class="col-lg-2 control-label">Nombre de fillots maximum</label>
                         <div class="col-lg-10">
-                            <select id="referral_max" name="referral_max" class="form-control" class="">
-                                @foreach (range(1, 5) as $i)
-                                    @if ($i == (old('referral_max') ?? $student->referral_max)) <option value="{{ $i }}" selected="selected">
-                                    @else <option value="{{ $i }}">
-                                    @endif
-                                    {{ $i }}</option>
-                                @endforeach
-                            </select>
+                            <input class="form-control" name="referral_max" id="referral_max" type="number" value="{{{ old('referral_max') ?? $student->referral_max }}}">
                         </div>
                     </div>
 

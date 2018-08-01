@@ -281,7 +281,7 @@ class NewcomerMatching
             $newcomers = User::newcomer()->where(['branch' => $branch, 'referral_id' => null])->count();
             $currentGoal = 1;
             $overflow = 0; // Is true when we decide to add one to each maximum (but still < 5)
-            while ($newcomers > 0 && $currentGoal <= 5) {
+            while ($newcomers > 0 && $currentGoal <= 100) {
                 // Randomize the foreach
                 $student_ids = array_keys($data);
                 shuffle($student_ids);
@@ -298,7 +298,7 @@ class NewcomerMatching
                 $currentGoal++;
 
                 // Check if need to go over maximums and add +1
-                if ($currentGoal > 5 && $overflow < $MAXIMUM_OVERFLOW && $newcomers > 0) {
+                if ($currentGoal > 100 && $overflow < $MAXIMUM_OVERFLOW && $newcomers > 0) {
                     foreach ($data as $student_id => $tmp) {
                         if ($counts[$branch][$student_id]['max'] < 5) {
                             $counts[$branch][$student_id]['+1']++;
