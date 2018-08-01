@@ -13,7 +13,7 @@
 	<form action="{{ route("challenges.refuse", ["challengeId" => $challengeId, "teamId" => $teamId]) }}" method="post">
 	<div class="form-group">
 		<label for="1">Explication du refus</label>
-		<input id="1" class="form-control" type="text" placeholder="Wallah la photo est nulle.">
+		<input name="message" id="1" class="form-control" type="text" placeholder="Wallah la photo est nulle.">
 	</div>
 	<input class="form-control btn btn-danger" type="submit" value="valider">
 </form>

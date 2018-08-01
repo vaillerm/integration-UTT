@@ -55,6 +55,7 @@
 						<th>Nom du défis</th>
 						<th>Preuve</th>
 						<th>Statut</th>
+						<th>Message</th>
 						<th>Traité par</th>
 						<th>Action</th>
 					</tr>
@@ -70,6 +71,7 @@
 								</a>
 							</td>
 							<td><span class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</span></td>
+							<td>{{ $validation->message }}</td>
 							<td>{{ 
 								$validation->update_author()->first()->first_name." ".$validation->update_author()->first()->last_name
 							}}</td>

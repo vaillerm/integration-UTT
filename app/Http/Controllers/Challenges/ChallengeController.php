@@ -132,10 +132,10 @@ class ChallengeController extends Controller
 		return view("dashboard.challenges.challenges_sent", compact("validations", "score"));
 	}
 
-	private function setChallengeStatus(int $challengeId, int$teamId, int $validate=1)
+	private function setChallengeStatus(int $challengeId, int$teamId, int $validate=1, string $message=null)
 	{
 		$challenge = Team::find($teamId)->challenges()->where("id", "=", $challengeId)->first();
-		$challenge->teams()->updateExistingPivot($teamId, ["validated" => $validate, "last_update" => new \DateTime("now"), "update_author" => Auth::user()->id]);
+		$challenge->teams()->updateExistingPivot($teamId, ["validated" => $validate, "last_update" => new \DateTime("now"), "update_author" => Auth::user()->id, "message" => $message]);
 		$challenge->save();
 		return redirect(route("challenges.validationsList"));
 	}
@@ -150,8 +150,12 @@ class ChallengeController extends Controller
 		return $this->setChallengeStatus($challengeId, $teamId);
 	}
 
-	public function refuse(int $challengeId, int $teamId)
+	public function refuse(Request $request, int $challengeId, int $teamId)
 	{
-		return $this->setChallengeStatus($challengeId, $teamId, -1);
+		$this->validate($request, [
+			'message' => 'required|max:140',
+		]);
+		$message = $request->message;
+		return $this->setChallengeStatus($challengeId, $teamId, -1, $message);
 	}
 }
