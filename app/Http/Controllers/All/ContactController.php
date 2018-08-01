@@ -30,7 +30,7 @@ class ContactController extends Controller
      */
     public function contact()
     {
-        return View::make('all.contact');
+        return View::make('All.contact');
     }
 
 
