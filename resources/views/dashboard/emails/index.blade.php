@@ -98,7 +98,7 @@ Envoi de mails en maaasse
                         <td>
                             <a class="btn btn-xs btn-info" href="{{ route('dashboard.emails.templatepreview', ['id'=>$email->id]) }}">Prévisualiser</a>
                             <a class="btn btn-xs btn-warning" href="{{ route('dashboard.email.edit', ['id' => $email->id]) }}">Modifier</a>
-                            <a class="btn btn-xs btn-success" href="{{ route('dashboard.email.schedule', $email->id) }}">Envoyer</a>
+                            <a class="btn btn-xs btn-success" href="{{ route('dashboard.email.schedule', $email->id) }}">Programmer l'envoi</a>
                         </td>
                     </tr>
                 @endforeach
@@ -125,7 +125,8 @@ Envoi de mails en maaasse
                 @foreach ($mail_crons as $cron)
                     <tr>
                         <td>
-                            {{$cron->mail_template->subject}} ({{$cron->mail_template->id}})
+                            {{$cron->name}}<br/>
+                            <strong>Modèle</strong> : <em>{{$cron->mail_template->subject}}</em> ({{ $cron->mail_template->id }})<br/>
                         </td>
                         <td>
                             @foreach (explode(',', $cron->lists) as $i => $list)
@@ -169,6 +170,8 @@ Envoi de mails en maaasse
                         <td>
                             @if(!$cron->is_sent)
                                 <a class="btn btn-xs btn-danger" href="{{ route('dashboard.email.cancel', $cron->id) }}">Annuler</a>
+                            @elseif(count($updatedRecipients[$cron->id] ?? []) > 0)
+                                <a class="btn btn-xs btn-success" href="{{ route('dashboard.email.schedule', [$cron->mail_template->id, $cron->id]) }}">Compléter l'envoi</a>
                             @endif
                         </td>
                     </tr>

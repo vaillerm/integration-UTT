@@ -302,7 +302,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'Admin\EmailsController@getTemplatePreview'
             ]);
 
-            Route::get('/schedule/{id}', [
+            Route::get('/schedule/{id}/{cronId?}', [
                 'as'   => 'dashboard.email.schedule',
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\EmailsController@scheduleTemplate'
