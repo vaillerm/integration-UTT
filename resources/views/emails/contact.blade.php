@@ -1,7 +1,7 @@
 @extends('layouts.email')
 
 @section('title')
-	Message d'un nouveau
+	Message d'{{ $userStatus }}
 @endsection
 
 @section('content')
