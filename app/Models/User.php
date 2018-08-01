@@ -29,6 +29,7 @@ class User extends Model implements Authenticatable
 
     protected $attributes = [
         'volunteer_preferences' => '[]',
+        'remember_token' => '',
     ];
 
     public $fillable = [
