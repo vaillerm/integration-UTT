@@ -27,8 +27,10 @@ class EmailSending
      */
     public function handle(MessageSending $event)
     {
-        $mailHistory = MailHistory::findOrFail($event->message->getHeaders()->get('X-history-id')->getValue());
-        $mailHistory->state = 'SENDING';
-        $mailHistory->save();
+        if ($event->message->getHeaders()->has('X-history-id')) {
+            $mailHistory = MailHistory::findOrFail($event->message->getHeaders()->get('X-history-id')->getValue());
+            $mailHistory->state = 'SENDING';
+            $mailHistory->save();
+        }
     }
 }

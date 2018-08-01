@@ -27,9 +27,11 @@ class EmailSent
      */
     public function handle(MessageSent $event)
     {
-        $mailHistory = MailHistory::findOrFail($event->message->getHeaders()->get('X-history-id')->getValue());
-        $mailHistory->state = 'SENT';
-        $mailHistory->sent_at = new \Datetime;
-        $mailHistory->save();
+        if ($event->message->getHeaders()->has('X-history-id')) {
+            $mailHistory = MailHistory::findOrFail($event->message->getHeaders()->get('X-history-id')->getValue());
+            $mailHistory->state = 'SENT';
+            $mailHistory->sent_at = new \Datetime;
+            $mailHistory->save();
+        }
     }
 }
