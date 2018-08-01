@@ -9,6 +9,7 @@
 @endsection
 
 @section("content")
+	<div class="box box-default">
 	<h1>Score : {{ $score }}</h1>
 	<table class="table">
 		<thead>
@@ -34,4 +35,5 @@
 			@endforeach
 		</tbody>
 	</table>
+	</div>
 @endsection
