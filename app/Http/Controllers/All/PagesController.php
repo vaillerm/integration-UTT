@@ -50,8 +50,5 @@ class PagesController extends Controller
         }
 
         return response()->file(storage_path() . '/qrcodes/' . $id . '.png');
-
-
-        // return View::make('newcomer.deals');
     }
 }

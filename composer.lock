@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2db7b9f61212a38b6664d1676cea89d0",
+    "content-hash": "3f5bb619748d0bee443445bc830e38e4",
     "packages": [
         {
             "name": "aferrandini/phpqrcode",
@@ -5277,7 +5277,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "ext-gd": "*"
     },
     "platform-dev": []
 }
