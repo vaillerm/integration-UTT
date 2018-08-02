@@ -108,6 +108,7 @@ class EmailsController extends Controller
         return View::make('dashboard.emails.edit', [
             'template' => $template,
             'file_templates'    => File::allFiles(resource_path('views/emails/template')),
+            'varlist' => MailTemplate::getVarArray(Auth::user()),
         ]);
     }
 
@@ -135,7 +136,7 @@ class EmailsController extends Controller
         $template->update($data);
         $template->save();
 
-        return Redirect::route('dashboard.emails.index')->withSuccess('Vos modifications ont été sauvegardées.');
+        return Redirect::back()->withSuccess('Vos modifications ont été sauvegardées.');
     }
 
     /**
