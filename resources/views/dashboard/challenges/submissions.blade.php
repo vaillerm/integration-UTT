@@ -34,8 +34,8 @@
 								</a>
 							</td>
 							<td>
-								<form method="post" action={{ route("challenges.accept", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
-								<a href="{{ route("challenges.refuseForm", ["challengeId" => $validation->challenge_id, "teamId"=> $validation->team_id]) }}"><button class="btn btn-danger">Refuser (avec un motif)</button></a>
+								<form method="post" action={{ route("validation.accept", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-primary" type="submit" value="Valider"></form>
+								<a href="{{ route("validation.refuseForm", ["challengeId" => $validation->challenge_id, "teamId"=> $validation->team_id]) }}"><button class="btn btn-danger">Refuser (avec un motif)</button></a>
 							</td>
 						</tr>
 					@empty
@@ -76,7 +76,7 @@
 								$validation->update_author()->first()->first_name." ".$validation->update_author()->first()->last_name
 							}}</td>
 							<td>
-								<form method="post" action={{ route("challenges.reset", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-warning" type="submit" value="Annuler dernière action"></form>
+								<form method="post" action={{ route("validation.reset", ["challengeId" => $validation->challenge_id, "teamId" => $validation->team_id]) }}><input class="btn btn-warning" type="submit" value="Annuler dernière action"></form>
 							</td>
 					</tr>
 				@endforeach

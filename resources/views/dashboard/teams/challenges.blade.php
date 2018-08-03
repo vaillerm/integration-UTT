@@ -17,7 +17,9 @@
 				<td scope="col">Nom</td>
 				<td scope="col">Statut</td>
 				<td scope="col">Message</td>
+				@if(Auth::user()->ce)
 				<td scope="col">Action</td>
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -27,7 +29,7 @@
 					<td class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</td>
 					<td>{{ $validation->message }}</td>
 					<td>
-					@if($validation->validated==-1)
+						@if($validation->validated==-1 && Auth::user()->ce)
 						<a href="{{ route("challenges.submitForm", ["id" => $validation->challenge_id]) }}"><button class="btn btn-primary">Réessayer !</button></a>
 					@endif
 					</td>

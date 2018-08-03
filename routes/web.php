@@ -671,7 +671,7 @@ Route::group(["prefix" => "challenges"], function() {
 
 		Route::get("add", [
 			'as' => "challenges.add",
-			"uses" => "Challenges\ChallengeController@addChallengeForm"
+			"uses" => "Challenges\ChallengeController@addForm"
 		]);
 
 		Route::post("add", [
@@ -681,19 +681,19 @@ Route::group(["prefix" => "challenges"], function() {
 
 		Route::delete("/{id}", [
 			"as" => "challenges.delete",
-			"uses" => "Challenges\ChallengeController@deleteChallenge"
+			"uses" => "Challenges\ChallengeController@delete"
 		]);
 
-		Route::get("/validations","Challenges\ChallengeController@validationList" )->name("challenges.validationsList");
+		Route::get("/validations","Challenges\ChallengeValidationController@list" )->name("validation.list");
 
 		Route::get("{challengeId}/modify", "Challenges\ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
 
 		Route::post("{challengeId}/modify", "Challenges\ChallengeController@modify")->name("challenges.modify");
 
-		Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeController@accept")->name("challenges.accept");
-		Route::get("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeController@refuseForm")->name("challenges.refuseForm");
-		Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeController@refuse")->name("challenges.refuse");
-		Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeController@resetStatus")->name("challenges.reset");
+		Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeValidationController@accept")->name("validation.accept");
+		Route::get("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuseForm")->name("validation.refuseForm");
+		Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuse")->name("validation.refuse");
+		Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeValidationController@resetStatus")->name("validation.reset");
 
 		/**
 		 * Okay this part is to handle the images taken by
@@ -719,16 +719,20 @@ Route::group(["prefix" => "challenges"], function() {
 			"uses" => "Challenges\ChallengeController@submitChallengeForm"
 		]);
 		
-		Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeController@submitToValidation")->name("challenge.submit");
+		Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
 
 	});
 
-	Route::get("team/", "Challenges\ChallengeController@showSentChallenges")->name("challenges.sent");
+	/**
+	 * No specific authorization required here
+	 */
+
+	Route::get("team/", "Students\TeamController@challenges")->name("challenges.sent");
 
 
 	Route::get("/", [
 		'as' => "challenges.list",
-		'uses' => "Challenges\ChallengeController@showChallengesList"
+		'uses' => "Challenges\ChallengeController@list"
 	]);
 
 });
