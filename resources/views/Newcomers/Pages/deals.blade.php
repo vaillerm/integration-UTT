@@ -58,7 +58,7 @@ Que l'intégration a trouvé pour toi !
 
         <p><a href="http://www.auto-ecole-popeye.fr"><img src="img/sponsors/deals/popeye_resultat.png" style="float:right" class="img-thumbnail" /></a></p>
         <p> <h4 id="popeye"> Auto-école Popeye</h4> </p>
-        <p>Tu veux passer ton permis de conduire ? Rejoins une des quatre agence de l’auto-école la mieux implantée sur Troyes. Tu pourras alors obtenir 50€ de réduction lors de ton inscription à l’auto-école Popeye sur présentation d’une attestation de cotisation (à demander au BDE).</p>
+        <p>Tu veux passer ton permis de conduire ? Rejoins une des quatre agence de l’auto-école la mieux implantée sur Troyes. Tu pourras alors obtenir 50€ de réduction lors de ton inscription à l’auto-école Popeye sur présentation de ta carte étudiante (si tu cotises au BDE).</p>
         <p>C’est le permis moto qui t’intéresse ? Popeye te le fait passer pour 650 euros, tous frais compris ! </p>
         <p>Pour t’inscrire à l’auto-école, il te suffit de te munir de :</p>
         <ul type="circle">
@@ -78,9 +78,8 @@ Que l'intégration a trouvé pour toi !
 
         <p><a href="http://www.mgel.fr"><img src="img/sponsors/deals/mgel_resultat.png" style="float:right" class="img-thumbnail" /></a></p>
         <p> <h4 id="mgel">MGEL (Mutuelle Générale de Etudiants de l’Est) </h4> </p>
-        <p>C’est la sécurité sociale étudiante qui te permettra de te faire rembourser tes frais médicaux. Elle t’offre une couverture nationale, un remboursement immédiat, un échange avec la mutuelle de tes parents, ainsi que le réseau national Emevia.</p>
-        <p>76 Rue du Général de Gaulle 10000 Troyes</p>
-        <p><a href="http://www.mgel.fr">http://www.mgel.fr</a></p>
+        <p>C’est l'assurance étudiante qui s'occupe d'assurer ton logement, de prendre en charge tes dépenses médicales à l'étranger (AssurWorld) et tes maladresses au quotidien (Assurance responsabilité civil obligatoire pour ton inscription à l'UTT).</p>
+        <p>Pour toutes ces assurances, une seule adresse : <a href="https://bde.utt.fr/assurances-integration">https://bde.utt.fr/assurances</a></p>
 
         <p><a href="http://www.portable-etudiant.com/?Id=T305UEAUTMITZ4ICZJNN"><img src="img/sponsors/deals/dell_resultat.jpg" style="float:right" class="img-thumbnail" /></a></p>
         <p> <h4 id="dell">Dell : Opération de rentrée</h4> </p>
@@ -88,12 +87,6 @@ Que l'intégration a trouvé pour toi !
             Notre partenaire Dell te propose en passant par le biais de l’intégration des réductions !</p>
         <p>Pour en bénéficier clique sur ce super lien : <a href="http://www.portable-etudiant.com/?Id=T305UEAUTMITZ4ICZJNN">“SUPER LIEN”</a>.</p>
 
-        <p><a href="http://www.carrefour.fr"><img src="img/sponsors/deals/carrouf_resultat.jpeg" style="float:right" class="img-thumbnail" /></a></p>
-        <p> <h4 id="carrefour">Carrefour</h4> </p>
-        <p>C’est LE supermarché qui te permettra de faire tes courses au meilleur prix dans l’agglomération troyenne ! Tu y trouveras tout le nécessaire: alimentation, produits ménagers, électroménager, vaisselle, ameublement, librairie...</p>
-        <p>Et le mardi, pour 30 euros d’achats, bénéficie d’un bon de 3 euros pour la semaine d’après sur présentation de ta carte étudiante à l’accueil du magasin !</p>
-        <p>17 Avenue Charles de Refuge 10120 Saint André les Vergers</p>
-        <a href="http://www.carrefour.fr">http://www.carrefour.fr</a>
         </div>
     </div>
 @endsection

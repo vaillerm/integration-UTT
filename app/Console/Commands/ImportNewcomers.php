@@ -98,17 +98,22 @@ class ImportNewcomers extends Command
             $user = $user->first();
 
             $action = '';
-            if($user) {
-                $user->fill($updatedData);
-                $action = 'Updated';
+            if (!$user || !$user->nosync) {
+                if($user) {
+                    $user->fill($updatedData);
+                    $action = 'Updated';
+                }
+                else {
+                    $user = new User($updatedData);
+                    $action = 'Inserted';
+                }
+                $user->login = $admitted->LOGIN;
+                $user->password = $admitted->PASSWD;
+                $user->save();
             }
             else {
-                $user = new User($updatedData);
-                $action = 'Inserted';
+                $action = 'Sync disabled';
             }
-            $user->login = $admitted->LOGIN;
-            $user->password = $admitted->PASSWD;
-            $user->save();
 
             // Debug
             if($this->getOutput()->isVerbose()) {

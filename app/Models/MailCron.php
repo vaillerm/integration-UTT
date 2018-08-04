@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MailCron extends Model
 {
-    public function mail_revision()
+    public function mail_template()
     {
-        return $this->belongsTo(MailRevision::class);
+        return $this->belongsTo(MailTemplate::class);
     }
 }

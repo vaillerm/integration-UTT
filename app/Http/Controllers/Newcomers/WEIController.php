@@ -37,7 +37,7 @@ class WEIController extends Controller
 
         Auth::user()->updateWei();
 
-        return View::make('newcomer.wei.home', [
+        return View::make('Newcomers.WEI.home', [
             'sandwich' => $sandwich,
             'wei' => $wei,
             'guarantee' => $guarantee,
@@ -62,7 +62,7 @@ class WEIController extends Controller
         if ($weiCount == 0 && $sandwichCount == 0) {
             return Redirect(route('newcomer.wei.guarantee'))->withSuccess('Vous avez déjà payé le week-end et le sandwich !');
         }
-        return View::make('newcomer.wei.pay', ['weiCount' => $weiCount, 'sandwichCount' => $sandwichCount]);
+        return View::make('Newcomers.WEI.pay', ['weiCount' => $weiCount, 'sandwichCount' => $sandwichCount]);
     }
 
     /**
@@ -141,7 +141,7 @@ class WEIController extends Controller
         if (Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded'])) {
             return Redirect(route('newcomer.wei.authorization'))->withSuccess('Vous avez déjà donné votre caution !');
         }
-        return View::make('newcomer.wei.guarantee');
+        return View::make('Newcomers.WEI.guarantee');
     }
 
 
@@ -208,7 +208,7 @@ class WEIController extends Controller
             return Redirect(route('newcomer.wei'));
         }
 
-        return View::make('newcomer.wei.authorization');
+        return View::make('Newcomers.WEI.authorization');
     }
 
 

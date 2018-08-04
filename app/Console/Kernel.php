@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\Commands\CreateFirstCron;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,10 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\ImportStudentPictures::class,
         Commands\ImportNewcomers::class,
-        Commands\RenderNewcomers::class,
-        Commands\PutScheduledEmailToQueue::class,
+        Commands\MailToQueue::class,
         Commands\SetPassword::class,
-        CreateFirstCron::class,
     ];
 
     /**
@@ -30,6 +27,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inte:emails-to-queue')->everyMinute();
+        $schedule->command('integration:mails:to-queue')->everyTenMinutes();
     }
 }

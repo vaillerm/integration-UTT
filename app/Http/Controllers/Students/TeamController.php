@@ -108,15 +108,17 @@ class TeamController extends Controller
         }
 
         $team = Auth::user()->team;
-        $data = Request::only(['name', 'description', 'img', 'facebook']);
+        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook']);
         $this->validate(Request::instance(), [
             'name' => 'min:3|max:30|unique:teams,name,'.Auth::user()->team->id,
+            'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.Auth::user()->team->id,
             'description' => 'min:250',
             'img' => 'image',
             'facebook' => 'url'
         ],
         [
-            'name.unique' => 'Ce nom d\'équipe est déjà pris.'
+            'name.unique' => 'Ce nom d\'équipe est déjà pris.',
+            'safe_name.unique' => 'Votre nom "gentil" d\'équipe est déjà pris.',
         ]);
 
         // Check image size
@@ -134,6 +136,7 @@ class TeamController extends Controller
 
         // Update team informations
         $team->name = $data['name'];
+        $team->safe_name = $data['safe_name'];
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->validated = false;

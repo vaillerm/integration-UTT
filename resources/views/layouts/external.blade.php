@@ -1,15 +1,11 @@
 @extends('layouts.master')
 
-@section('css')
+@section('sublayout-css')
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-<!-- <link href="{{ asset('css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" /> -->
-<link href="{{ asset('css/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
-
-@section('title')
-Connexion
+<link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('bodycontent')
@@ -23,14 +19,8 @@ Connexion
                                 <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
                             </button>
-                            <a href="{{ route('index') }}" class="navbar-brand"><b>Intégration</b> UTT</a>
+                            <a href="{{ route(Authorization::getHomeRoute()) }}" class="navbar-brand"><b>Intégration</b> UTT</a>
                         </div>
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="navbar-collapse">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ route('index') }}"><i class="fa fa-home" aria-hidden="true"></i> Retour</a></li>
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
                 </nav>
             </header>
@@ -48,26 +38,17 @@ Connexion
                                 </ul>
                             </div>
                         @endif
+                        <h1>
+                            @yield('title')
+                            <small>@yield('smalltitle')</small>
+                        </h1>
                     </section>
                     <section class="content">
-                        <div class="col-md-6 col-md-offset-3">
-                            <div class="box box-default">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Bienvenue à l'UTT !</h3>
-                                </div>
-                                <div class="box-body">
-                                    <p>
-                                        <strong>Bonjour à toi, ami nouveau !</strong>
-                                    </p>
-                                    <p>
-                                        Malheureusement, le site n'est pas encore prêt à t'accueillir, mais ne t'inquiète pas, ça ne tardera pas, repasse d'ici quelques jours !</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        @yield('content')
                     </section>
                 </div>
             </div>
+
 
         </div>
     </div>

@@ -260,51 +260,65 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@create'
             ]);
+            Route::get('/unsync/{id}', [
+                'as'   => 'dashboard.newcomers.unsync',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\NewcomersController@Unsync'
+            ]);
             Route::post('/createcsv', [
                 'as'   => 'dashboard.newcomers.createcsv',
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@createcsv'
             ]);
-
-            Route::get('/letter/{id}', [
-                'as'   => 'dashboard.newcomers.letter',
-                'middleware' => 'authorize:admin',
-                'uses' => 'Admin\NewcomersController@letter',
-            ]);
-            Route::get('/letter/{id}-{limit}', [
-                'as'   => 'dashboard.newcomers.letters',
-                'middleware' => 'authorize:admin',
-                'uses' => 'NewcomersController@letter',
-            ]);
-
-            Route::get('/letter/{id}-{limit}/{category}', [
-                'as'   => 'dashboard.newcomers.filtered_letters',
-                'middleware' => 'authorize:admin',
-                'uses' => 'Admin\NewcomersController@letter',
-            ]);
         });
 
         // Emails management.
-        // Not tested because I don't know how to create a mail // TODO Test it
         Route::group(['prefix' => 'emails'], function () {
             Route::get('/', [
                 'as'   => 'dashboard.emails.index',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\EmailsController@getIndex'
-            ]);
-            /*
-            Route::get('/preview/{id}', [
-                'as'   => 'dashboard.emails.preview',
                 'middleware' => 'authorize:admin',
-                'uses' => 'Admin\EmailsController@getPreview'
+                'uses' => 'Admin\EmailsController@getIndex'
             ]);
-            */
+            Route::post('/create', [
+                'as'   => 'dashboard.email.create',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@createTemplate'
+            ]);
 
-            // Route::get('/preview/{id}/{user_id?}', [
-            //     'as'   => 'dashboard.emails.revisionpreview',
-            //     'middleware' => 'authorize:admin',
-            //     'uses' => 'Admin\EmailsController@getRevisionPreview'
-            // ]);
+            Route::get('/edit/{id}', [
+                'as'   => 'dashboard.email.edit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@editTemplate'
+            ]);
+
+            Route::post('/edit/{id}', [
+                'as'   => 'dashboard.email.edit.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@editTemplateSubmit'
+            ]);
+            Route::get('/preview/{id}/{user_id?}', [
+                'as'   => 'dashboard.emails.templatepreview',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@getTemplatePreview'
+            ]);
+
+            Route::get('/schedule/{id}/{cronId?}', [
+                'as'   => 'dashboard.email.schedule',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@scheduleTemplate'
+            ]);
+
+            Route::get('/cancel/{id}', [
+                'as'   => 'dashboard.email.cancel',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@cancelCron'
+            ]);
+
+            Route::post('/schedule/{id}', [
+                'as'   => 'dashboard.email.schedule.submit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\EmailsController@scheduleTemplateSubmit'
+            ]);
 
         });
 
@@ -519,6 +533,17 @@ Route::group(['prefix' => 'oauth'], function () {
 	]);
 });
 
+// Contact page
+Route::get('/contact', [
+    'as'   => 'contact',
+    'uses' => 'All\ContactController@contact'
+]);
+
+Route::post('/contact', [
+    'as'   => 'contact.submit',
+    'uses' => 'All\ContactController@contactSubmit'
+]);
+
 // Newcomer website
 Route::get('/login', [
 	'as'   => 'newcomer.auth.login',
@@ -545,12 +570,6 @@ Route::get('/home', [
 	'as'   => 'newcomer.home',
 	'middleware' => 'authorize:newcomer',
 	'uses' => 'Newcomers\PagesController@getNewcomersHomepage'
-]);
-
-Route::get('/myletter', [
-	'as'   => 'newcomer.myletter',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\StepsController@myLetter'
 ]);
 
 Route::get('/profil', [
@@ -581,6 +600,12 @@ Route::get('/team/{step?}', [
 	'as'   => 'newcomer.team',
 	'middleware' => 'authorize:newcomer',
 	'uses' => 'Newcomers\StepsController@TeamForm'
+]);
+
+Route::get('/backtoschool/{step?}', [
+    'as'   => 'newcomer.backtoschool',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@BackToSchool'
 ]);
 
 Route::get('/wei', [
@@ -718,7 +743,7 @@ Route::group(["prefix" => "challenges"], function() {
 			"as" => "challenges.submitForm",
 			"uses" => "Challenges\ChallengeController@submitChallengeForm"
 		]);
-		
+
 		Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
 
 	});
@@ -736,4 +761,3 @@ Route::group(["prefix" => "challenges"], function() {
 	]);
 
 });
-

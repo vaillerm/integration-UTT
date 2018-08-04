@@ -29,6 +29,7 @@ class User extends Model implements Authenticatable
 
     protected $attributes = [
         'volunteer_preferences' => '[]',
+        'remember_token' => '',
     ];
 
     public $fillable = [
@@ -114,6 +115,10 @@ class User extends Model implements Authenticatable
         'team_disguise' => [
             'action' => 'Rejoindre le groupe facebook de ton équipe et faire ton déguisement ',
             'page' => 'team',
+        ],
+        'back_to_school' => [
+            'action' => 'Pause partenaires !',
+            'page' => 'backtoschool',
         ],
         'wei_pay' => [
             'action' => 'T\'inscrire pour le Week-End d\'Intégration',
@@ -309,7 +314,7 @@ class User extends Model implements Authenticatable
      */
     public function scopeStudent($query)
     {
-        return $query->where('is_newcomer', false)->whereNotNull('student_id');
+        return $query->where('is_newcomer', false)->whereNotNull('etuutt_login');
     }
 
     /**
@@ -332,13 +337,14 @@ class User extends Model implements Authenticatable
 
     public function isStudent()
     {
-        return !$this->isNewcomer();
+        return !$this->is_newcomer && $this->etuutt_login;
     }
 
     public function isNewcomer()
     {
         return $this->is_newcomer;
     }
+
     /**
      * Return newcomers referal
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -635,7 +641,7 @@ class User extends Model implements Authenticatable
             $this->setCheck('wei_pay', $weiPayment);
             $this->setCheck('wei_guarantee', $guaranteePayment);
 
-            if ($this->birth->add(new \DateInterval('P18Y')) < (new \DateTime(Config::get('services.wei.start')))) {
+            if (!$this->isUnderage()) {
                 $this->setCheck('wei_authorization', true);
                 $this->parent_authorization = true;
             } elseif ($this->parent_authorization) {

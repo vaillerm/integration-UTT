@@ -192,7 +192,7 @@ class StudentsController extends Controller
             'sex' => 'boolean',
             'email' => 'email',
             'phone' => 'min:8|max:20',
-            'referral_max' => 'integer|max:5|min:1',
+            'referral_max' => 'integer|max:100|min:1',
         ]);
 
         // Add or remove from sympa

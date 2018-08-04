@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Newcomers;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\User;
+use App\Models\Faction;
 use Illuminate\Support\Facades\DB;
 use Request;
 use View;
@@ -29,7 +30,7 @@ class StepsController extends Controller
      */
     public function profilForm()
     {
-        return View::make('newcomer.profil');
+        return View::make('Newcomers.Steps.profil');
     }
 
     /**
@@ -42,11 +43,11 @@ class StepsController extends Controller
         $this->validate(Request::instance(), [
             'email' => 'email',
             'phone' => [
-                'regex:/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/',
+                'regex:/^(?:(?:00|\+)(?!33)[0-9\.\- \(\)]+|(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?)$/',
             ],
         ],
         [
-            'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone français valide.'
+            'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone valide. Pour un numéro étranger, utilisez le préfix international.'
         ]);
 
         $newcomer = Auth::user();
@@ -61,7 +62,11 @@ class StepsController extends Controller
 
         if (preg_match('/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', Request::get('phone'), $m)) {
             $newcomer->phone = '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6];
-        } elseif (Request::get('phone') == '') {
+        }
+        else if(preg_match('/^(?:00|\+)(.+)$/', Request::get('phone'), $m)) {
+            $newcomer->phone = '+'.$m[1];
+        }
+        elseif (Request::get('phone') == '') {
             $newcomer->phone = '';
         }
 
@@ -95,7 +100,7 @@ class StepsController extends Controller
             $user->setCheck('referral', false);
             $user->save();
         }
-        return View::make('newcomer.referral', ['step' => $step]);
+        return View::make('Newcomers.Steps.referral', ['step' => $step]);
     }
 
     /**
@@ -129,15 +134,15 @@ class StepsController extends Controller
         $newcomer->save();
 
         // Checks
-        if (!$newcomer->referral) {
-            return Redirect::back()->withError('Vous ne pouvez pas contacter votre parrain !');
+        if (!$newcomer->godFather) {
+            return Redirect::back()->withError('Erreur : Impossible de contacter votre parrain ! Tentez par email ou sms.');
         }
         if ($newcomer->referral_emailed) {
             return Redirect::back()->withError('Un email a déjà été envoyé à ton parrain !');
         }
 
         // Send email
-        $referral = $newcomer->referral;
+        $referral = $newcomer->godFather;
         $sent = Mail::send('emails.contactReferral', ['newcomer' => $newcomer, 'referral' => $referral], function ($m) use ($referral, $newcomer) {
             $m->from('integrat@utt.fr', 'Intégration UTT');
             $m->to($referral->email);
@@ -149,13 +154,12 @@ class StepsController extends Controller
 
         });
 
-
         // Note in db that referral has been mailed
         $newcomer->referral_emailed = true;
         $newcomer->save();
 
 
-        return Redirect::back()->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
+        return Redirect::route('newcomer.referral')->withSuccess(($referral->sex?'Ta marraine':'Ton parrain').' a bien été contacté !');
     }
 
     public function loginAndSendCoordonate($user_id, $hash)
@@ -174,12 +178,7 @@ class StepsController extends Controller
             $sent = Mail::send('emails.contactReferral', ['newcomer' => $user, 'referral' => $referral], function ($m) use ($referral, $user) {
                 $m->from('integrat@utt.fr', 'Intégration UTT');
                 $m->to($referral->email);
-                if ($user->sex) {
-                    $m->subject('[parrainage] Ta fillote souhaite que tu la contacte !');
-                } else {
-                    $m->subject('[parrainage] Ton fillot souhaite que tu le contacte !');
-                }
-
+                $m->subject('[parrainage] Ton fillot souhaite que tu le contacte !');
             });
 
 
@@ -207,17 +206,26 @@ class StepsController extends Controller
             Auth::user()->setCheck('team_disguise', false);
             Auth::user()->save();
         }
-        return View::make('newcomer.team', ['step' => $step]);
+        return View::make('Newcomers.Steps.team', [
+            'step' => $step,
+            'factions' => Faction::all(),
+        ]);
     }
 
-
     /**
-     * Display the letter of the newcomer
+     * Display the back to school page
      *
      * @return Response
      */
-    public function myLetter()
+    public function backToSchool($step = '')
     {
-        return View::make('dashboard.newcomers.letter', [ 'newcomers' => [Auth::user()], 'i' => 0, 'count' => 1 ]);
+        if ($step == 'yes') {
+            Auth::user()->setCheck('back_to_school', true);
+            Auth::user()->save();
+        } elseif ($step == 'cancel') {
+            Auth::user()->setCheck('back_to_school', false);
+            Auth::user()->save();
+        }
+        return View::make('Newcomers.Steps.backtoschool', ['step' => $step]);
     }
 }

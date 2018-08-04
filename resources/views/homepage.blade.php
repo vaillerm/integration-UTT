@@ -22,6 +22,19 @@ Accueil
 @endsection
 
 @section('bodycontent')
+    @if (Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ Session::get('success') }}</p>
+        </div>
+    @elseif (Session::get('warning'))
+        <div class="alert alert-warning">
+            <p>{{ Session::get('warning') }}</p>
+        </div>
+    @elseif (Session::get('error'))
+        <div class="alert alert-danger">
+            <p>{{ Session::get('error') }}</p>
+        </div>
+    @endif
 
     <div class="container">
         <div class="row">

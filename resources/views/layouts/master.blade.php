@@ -39,32 +39,17 @@
 	    <script src="{{ asset('js/admin.min.js') }}" type="text/javascript"></script>
 	    @yield('js')
 	    @yield('sublayout-js')
-		<!-- Piwik -->
-		<script type="text/javascript">
-			var _paq = _paq || [];
-
-			@if(Authorization::can('newcomer', 'visit'))
-			_paq.push(["setCustomVariable", 1, "type", "newcomer", "visit"]);
-			@elseif(Authorization::can('ce', 'visit'))
-			_paq.push(["setCustomVariable", 1, "type", "ce", "visit"]);
-			@elseif(Authorization::can('orga', 'visit'))
-			_paq.push(["setCustomVariable", 1, "type", "orga", "visit"]);
-			@elseif(Authorization::can('admin', 'visit'))
-			_paq.push(["setCustomVariable", 1, "type", "admin", "visit"]);
-			@endif
-
-			_paq.push(["setDomains", ["*.integration.utt.fr"]]);
-			_paq.push(['trackPageView']);
-			_paq.push(['enableLinkTracking']);
-			(function() {
-				var u="//piwik.uttnetgroup.fr/";
-				_paq.push(['setTrackerUrl', u+'piwik.php']);
-				_paq.push(['setSiteId', 4]);
-				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-			})();
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123148583-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  @if (Auth::user())
+		  	gtag('set', {'user_id': '{{ Auth::user()->id }}'});
+		  @endif
+		  gtag('config', 'UA-123148583-1');
 		</script>
-		<noscript><p><img src="//piwik.uttnetgroup.fr/piwik.php?idsite=4" style="border:0;" alt="" /></p></noscript>
-		<!-- End Piwik Code -->
+		<!-- END Global site tag (gtag.js) - Google Analytics -->
 	</body>
 </html>

@@ -36,6 +36,9 @@ Gestion des équipes
                             @else
                                 <strong>Équipe sans nom {{{ $team->id }}}</strong>
                             @endif
+                            @if($team->safe_name != null)
+                                <br/><em>{{{ $team->safe_name }}}</em>
+                            @endif
                             @if($team->faction_id)
                                 <br/>({{{ $team->faction->name }}})
                             @endif

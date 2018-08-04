@@ -35,6 +35,23 @@ class Authorization
     }
 
     /**
+     * Get the home route name according to user
+     * @return home route name
+     */
+    public function getHomeRoute()
+    {
+        if (Auth::user()) {
+            if (Auth::user()->isNewcomer()) {
+                return 'newcomer.home';
+            }
+            else {
+                return 'dashboard.index';
+            }
+        }
+        return 'index';
+    }
+
+    /**
      * Check if current user is authorized against a group and a facultative action
      * @param  string  $group  Group of user : admin, ce, orga, referral, student
      * @param  string  $action  Specific action for this group of user
