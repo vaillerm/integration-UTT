@@ -76,35 +76,34 @@ class NewcomersController extends Controller
     }
 
     /**
-     * Display one or multiple newcomer's letter
-     *
+     * Delete infromations about user and flag to disallow sync.
      * @param  int $id
-     * @param  int $limit
-     * @param  string $category
      * @return Response
      */
-    public function letter($id, $limit = null, $category = null)
+    public function Unsync($id)
     {
-        if ($limit === null) {
-            $newcomers = [User::newcomer()->findOrFail($id)];
-        } elseif ($category != null) {
-            $newcomers = User::newcomer()->where('branch', '=', strtoupper($category))->offset($id)->limit($limit)->get();
-        } else {
-            $newcomers = User::newcomer()->offset($id)->limit($limit)->get();
+        $user = User::where('id', $id)->firstOrFail();
+
+        if (!$user->admitted_id) {
+            return $this->error('Seul les comptes nouveau ajoutés automatiquement par l\'UTT peuvent être désactivés');
         }
 
-        // Parse phone number and save it to db
-        foreach ($newcomers as $newcomer) {
-            if (isset($newcomer->referral->phone)) {
-                if (preg_match('/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', $newcomer->referral->phone, $m)
-                        && $newcomer->referral->phone != '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6]) {
-                    $referral = $newcomer->referral;
-                    $referral->phone = '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6];
-                    $referral->save();
-                }
-            }
-        }
+        // Delete everything synced except admitted_id
+        $user->student_id = null;
+        $user->last_name = 'Supprimé';
+        $user->first_name = 'Nouveau';
+        $user->postal_code = null;
+        $user->country = null;
+        $user->is_newcomer = false;
+        $user->registration_email = null;
+        $user->registration_phone = null;
+        $user->branch = null;
+        $user->wei_majority = null;
+        $user->nosync = true;
+        $user->login = true;
+        $user->password = true;
 
-        return View::make('dashboard.newcomers.letter', [ 'newcomers' => $newcomers, 'i' => $id, 'count' => User::newcomer()->count() ]);
+        $user->save();
+        return $this->success('Le compte nouveau a été désactivé définitivement !');
     }
 }

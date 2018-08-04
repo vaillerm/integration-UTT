@@ -25,17 +25,19 @@ Informations diverses pour toi !
                 Ta première semaine dans notre belle école sera plutôt chargée en activités,
                 mais ne t'inquiètes pas tu receveras un planning détaillé de ta semaine dès ton arrivée.
                 @if(Auth::user()->branch == 'TC')
-                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>lundi 04 septembre à 8h à l'UTT</strong>,
+                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>lundi 03 septembre à 8h à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
                 @elseif(Auth::user()->branch != 'MM')
-                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>mardi 05 septembre à 8h à l'UTT</strong>,
+                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>mardi 04 septembre à 8h à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
                 @endif
             </p><p>
-                Pour te tenir au courant des dernières infos sur ton intégration, tu <del>peux</del> <strong>dois</strong> suivre la page Facebook. :)
+                Pour te tenir au courant des dernières infos sur ton intégration, tu <del>peux</del> <strong>dois</strong> suivre la page Facebook, l'insta et/ou le snapchat :)
             </p>
                 <div class="text-center">
                     <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fintegration.utt&tabs&width=340&height=70&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=248954165119490" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    <a href="https://www.instagram.com/integration_utt/" /><img src="{{ asset('img/icons/instagram.png') }}" style="height: 70px; vertical-align:top;"/></a>
+                    <a href="https://www.snapchat.com/add/integrationutt" /><img src="{{ asset('img/icons/snapchat.svg') }}" style="height: 70px; vertical-align:top;"/></a>
                 </div>
             <p>
                 Ce site est là pour te permettre d'être prêt pour ton intégration,
@@ -45,16 +47,8 @@ Informations diverses pour toi !
                 <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
             </div>
             <p>
-                Si tu as la moindre question, tu peux nous contacter sur <a href="https://www.facebook.com/integration.utt/" target="_blank">Facebook</a> ou par mail à <a href="mailto:integation@utt.fr">integration@utt.fr</a> !
+                Si tu as la moindre question, tu peux nous contacter sur <a href="https://www.facebook.com/integration.utt/" target="_blank">Facebook</a> ou en <a href="{{ route('contact') }}">cliquant ici</a> !
             </p>
-            <br/><br/>
-            <p>
-                Si tu n'as pas reçu ton courrier ou si tu souhaites récupérer les versions numériques de ce que tu as reçu par courrier, tu peux les télécharger en cliquant sur les liens ci-dessous :
-            </p>
-            <div class="text-center">
-                <a class="btn btn-default" href="{{{ asset('docs/nutt.pdf') }}}">Ton NUTT d'intégration</a>
-                <a class="btn btn-default" href="{{{ route('newcomer.myletter') }}}">Ta fiche nouveau</a>
-            </div>
         </div>
 
     </div>

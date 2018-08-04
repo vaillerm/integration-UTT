@@ -10,24 +10,26 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MailRevision extends Mailable
+class DefaultMail extends Mailable
 {
     use Queueable, SerializesModels, InteractsWithQueue;
 
     public $trace;
-    protected $mail_revision, $user;
+    protected $mail_template, $mail_cron, $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user, \App\Models\MailRevision $mail_revision)
+    public function __construct(User $user, \App\Models\MailTemplate $mail_template, \App\Models\MailCron $mail_cron)
     {
         $this->user = $user;
-        $this->mail_revision = $mail_revision;
+        $this->mail_template = $mail_template;
+        $this->mail_cron = $mail_cron;
         $this->trace = new MailHistory([
-            'student_id' => $this->user->id,
-            'mail_revision_id' => $this->mail_revision->id,
+            'user_id' => $this->user->id,
+            'mail_template_id' => $this->mail_template->id,
+            'mail_cron_id' => $this->mail_cron->id,
             'mail' => $this->user->getBestEmail(),
         ]);
         $this->trace->save();
@@ -41,12 +43,17 @@ class MailRevision extends Mailable
      */
     public function build()
     {
-        $this->subject($this->mail_revision->subject);
-        //return $this->mail_revision->generateHtml($this->user, $this->trace->id);
+        // Add id to track the mail during events
+        $this->withSwiftMessage(function ($message) {
+            $message->getHeaders()
+                    ->addTextHeader('X-history-id', $this->trace->id);
+        });
+
+        $this->subject($this->mail_template->subject);
 
         return $this->view('layouts.blank')
             ->with([
-                'content' => $this->mail_revision->generateHtml($this->user, $this->trace->id),
+                'content' => $this->mail_template->generateHtml($this->user, $this->trace->id),
             ]);
     }
 

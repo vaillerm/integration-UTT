@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Email;
 use App\Models\MailCron;
 use App\Models\MailHistory;
-use App\Models\MailRevision;
+use App\Models\MailTemplate;
 use App\Models\User;
 use Carbon\Carbon;
 use View;

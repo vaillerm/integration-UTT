@@ -16,25 +16,25 @@ Frequently Asked Questions
         <div class="box-body">
 	            <h4><a href="#question100" data-toggle="collapse">Quand est-ce que je dois venir à l’UTT ?</a></h4>
 	            <p id="question100" class="collapse">
-	                Pour les post-bac : lundi 4 septembre à 8h.<br/>
-	                Pour les branches (bac +2) et les masters : mardi 5 septembre à 8h.
+	                Pour les post-bac : lundi 3 septembre à 8h.<br/>
+	                Pour les branches (bac +2) et les masters : mardi 4 septembre à 8h.
 	                <strong>On t’offre le petit-déjeuner !</strong>
 	            </p>
 
 				<h4><a href="#question200" data-toggle="collapse">Quel est l’emploi du temps de la semaine d’intégration ?</a></h4>
 	            <p id="question200" class="collapse">
-					Il t’a été envoyé par lettre et par mail avec tes identifiants pour le site d’intégration, le nom de ton parrain et le nom de ton équipe. Tu en auras une autre copie à ton arrivée à l’UTT.
+					Il t’a été envoyé par email. Tu en auras une recevera une copie à ton arrivée à l’UTT.
 	            </p>
 
 			    <h4><a href="#question300" data-toggle="collapse">Quand est-ce que je dois amener mon déguisement ?</a></h4>
 	            <p id="question300" class="collapse">
-	                Il te sera utile dès la rentrée, on te conseille de faire un déguisement qui déchire, pour rendre tes chefs d’équipes fiers !
+	                Il te sera utile dès le premier après-midi de la semaine, on te conseille de faire un déguisement qui déchire, pour rendre tes chefs d’équipes fiers !
 	            </p>
 
 			    <h4><a href="#question400" data-toggle="collapse">Les repas sont-ils compris ?</a></h4>
 	            <p id="question400" class="collapse">
 					Le jour de ton arrivée (le lundi ou mardi), le petit déjeuner est offert par le BDE.
-					Pour les repas du lundi soir (pour les TC), mardi soir (pour tout le monde), et vendredi midi, il faudra prévoir un peu de monnaie mais pas de panique, cela reste à des prix très étudiants (entre 2 et 4€).
+					Pour les repas du lundi soir (pour les TC), mardi soir (pour tout le monde), jeudi midi et vendredi midi, il faudra prévoir un peu de monnaie mais pas de panique, cela reste à des prix très étudiants (entre 2 et 4€).
 				</p>
 
 			    <h4><a href="#question500" data-toggle="collapse">Est-ce qu'il y a des cours la première semaine ?</a></h4>

@@ -143,6 +143,14 @@ Gestion de mon équipe
                 </div>
 
                 <div class="form-group">
+                    <label for="safe_name" class="col-lg-2 control-label">Nom "gentil"</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" id="safe_name" name="safe_name" @if(!Authorization::can('ce','editName')) disabled @endif value="{{{ old('safe_name') ?? $team->safe_name }}}">
+                        <small class="text-muted">On ne peut pas envoyer un nom d'équipe trop sale aux parents, on envoie donc une version moins choquante, mais ça ne vous empêchera pas d'utiliser votre vrai nom pendant la semaine ;)</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="description" class="col-lg-2 control-label">Mot de votre équipe</label>
                     <div class="col-lg-10">
                         <textarea class="form-control" name="description" id="description" @if(!Authorization::can('ce','editName')) disabled @endif placeholder="Bienvenue dans notre équipe..."  @if(!Authorization::can('ce','edit')) disabled @endif>{{{ old('description') ?? $team->description }}}</textarea>

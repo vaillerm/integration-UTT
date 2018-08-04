@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class MailHistory extends Model
 {
     protected $fillable = [
-        'student_id',
-        'mail_revision_id',
+        'user_id',
+        'mail_template_id',
         'mail',
         'mail_cron_id'
     ];

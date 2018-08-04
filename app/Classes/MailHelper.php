@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Classes;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\MailTemplate;
+use App\Models\User;
 
-class Email extends Model
+class MailHelper
 {
     public $timestamps = true;
 
@@ -39,6 +40,7 @@ class Email extends Model
         self::REFERRALS_VALIDATED_BRANCH => 'Parrains validés de branche',
         self::REFERRALS_VALIDATED_TC => 'Parrains validés de TC',
         self::ORGA => 'Orgas',
+        self::ADMIN => 'Admins du site',
         self::NEWCOMERS_ALL => 'Tous les nouveaux (même ceux qui n\'ont pas entré leur email)',
         self::NEWCOMERS_ALL_TC => 'Nouveaux TC (même ceux qui n\'ont pas entré leur email)',
         self::NEWCOMERS_ALL_BRANCH => 'Nouveaux Branche (même ceux qui n\'ont pas entré leur email)',
@@ -54,11 +56,11 @@ class Email extends Model
     /**
      * @param $lists Tableau ou numéro de listes à utiliser
      * @param bool $publicity Permet de filtrer les gens pour ou contre la publicité
-     * @param MailRevision|null $mail_rev Instance du mail a envoyé
+     * @param MailTemplate|null $mailTemplate Instance du mail a envoyé
      * @param bool $unique S'assure qu'une personne ne recevra pas deux fois le même mail
      * @return array
      */
-    public static function mailFromLists($lists, $publicity = true, MailRevision $mail_rev =null, $unique = false)
+    public static function mailFromLists($lists, $publicity = true, MailTemplate $mailTemplate = null, $unique = false)
     {
         if(!is_array($lists))
             $lists = [$lists];
@@ -70,19 +72,19 @@ class Email extends Model
             $students = null;
 
             switch ($list) {
-                case Email::STUPRELISTE:
+                case MailHelper::STUPRELISTE:
                     $mails['stupre-liste@utt.fr'] = [ 'name' => 'STUPRE-liste', 'user' => null ];
                     break;
-                case Email::VOLUNTEERS:
+                case MailHelper::VOLUNTEERS:
                     $students = User::student()->with(['mailHistories', 'team'])->where('volunteer', 1)->get();
                     break;
-                case Email::CE_VALIDATED:
+                case MailHelper::CE_VALIDATED:
                     $students = User::student()->with(['mailHistories', 'team'])->where('ce', 1)->whereNotNull('team_id')->where('team_accepted', 1)->get();
                     break;
-                case Email::REFERRALS_VALIDATED:
+                case MailHelper::REFERRALS_VALIDATED:
                     $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->get();
                     break;
-                case Email::REFERRALS_INCOMPLETE:
+                case MailHelper::REFERRALS_INCOMPLETE:
                     $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)
                         ->where('referral_validated', 0)
                         ->where(function ($query) {
@@ -95,46 +97,46 @@ class Email extends Model
                         })
                         ->get();
                     break;
-                case Email::REFERRALS_VALIDATED_BRANCH:
+                case MailHelper::REFERRALS_VALIDATED_BRANCH:
                     $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'tc')->get();
                     break;
-                case Email::REFERRALS_VALIDATED_TC:
+                case MailHelper::REFERRALS_VALIDATED_TC:
                     $students = User::student()->with(['mailHistories', 'team'])->where('referral', 1)->where('referral_validated', 1)->where('branch', '=', 'tc')->get();
                     break;
-                case Email::ORGA:
+                case MailHelper::ORGA:
                     $students = User::student()->with(['mailHistories', 'team'])->where('orga', 1)->get();
                     break;
-                case Email::ADMIN:
+                case MailHelper::ADMIN:
                     $students = User::student()->with(['mailHistories', 'team'])->where('admin', 100)->get();
                     break;
-                case Email::NEWCOMERS_ALL:
+                case MailHelper::NEWCOMERS_ALL:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->get();
                     break;
-                case Email::NEWCOMERS_ALL_TC:
+                case MailHelper::NEWCOMERS_ALL_TC:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'TC')->get();
                     break;
-                case Email::NEWCOMERS_ALL_BRANCH:
+                case MailHelper::NEWCOMERS_ALL_BRANCH:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', '<>', 'TC')->where('branch', '<>', 'MP')->get();
                     break;
-                case Email::NEWCOMERS_ALL_MASTER:
+                case MailHelper::NEWCOMERS_ALL_MASTER:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'MP')->get();
                     break;
-                case Email::NEWCOMERS_FILLED:
+                case MailHelper::NEWCOMERS_FILLED:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
-                case Email::NEWCOMERS_FILLED_TC:
+                case MailHelper::NEWCOMERS_FILLED_TC:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'TC')->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
-                case Email::NEWCOMERS_FILLED_BRANCH:
+                case MailHelper::NEWCOMERS_FILLED_BRANCH:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', '<>', 'TC')->where('branch', '<>', 'MP')->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
-                case Email::NEWCOMERS_FILLED_MASTER:
+                case MailHelper::NEWCOMERS_FILLED_MASTER:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->where('branch', 'MP')->where('email', '<>', '')->whereNotNull('email')->get();
                     break;
-                case Email::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM:
+                case MailHelper::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->whereNotNull('referral_id')->get();
                     break;
-                case Email::WEI_SUSCBRIBED:
+                case MailHelper::WEI_SUSCBRIBED:
                     $students = User::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->where('bus_id','>', 0)->get();
                     break;
                 default:
@@ -145,9 +147,8 @@ class Email extends Model
             if($students) {
                 foreach ($students as $student) {
                     if (($publicity && $student->allow_publicity) || !$publicity) {
-                        if(!(($unique && $mail_rev) && $student->mailHistories->where('mail_revision_id', $mail_rev->id)->count()>0)) {
-                            $student_mail = ($student->registration_email ? $student->registration_email : $student->email);
-                            $mails[$student_mail] = ['name' => $student->first_name . ' ' . $student->last_name, 'user' => $student];
+                        if(!(($unique && $mailTemplate) && $student->mailHistories->where('mail_template_id', $mailTemplate->id)->count()>0)) {
+                            $mails[$student->getBestEmail()] = ['name' => $student->first_name . ' ' . $student->last_name, 'user' => $student];
                         }
                     }
                 }

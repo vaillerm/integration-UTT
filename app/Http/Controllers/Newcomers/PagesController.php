@@ -31,7 +31,7 @@ class PagesController extends Controller
      */
     public function getNewcomersHomepage()
     {
-        return View::make('newcomer.home');
+        return view('Newcomers.Pages.home');
     }
 
     /**
@@ -41,7 +41,7 @@ class PagesController extends Controller
      */
     public function getNewcomersDone()
     {
-        return View::make('newcomer.done');
+        return View::make('Newcomers.Pages.done');
     }
 
     /**
@@ -49,7 +49,7 @@ class PagesController extends Controller
      */
     public function getFAQ()
     {
-        return View::make('newcomer.faq');
+        return View::make('Newcomers.Pages.faq');
     }
 
     /**
@@ -57,6 +57,6 @@ class PagesController extends Controller
      */
     public function getDeals()
     {
-        return View::make('newcomer.deals');
+        return View::make('Newcomers.Pages.deals');
     }
 }

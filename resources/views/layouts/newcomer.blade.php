@@ -27,12 +27,13 @@
                                 <li><a href="{{ route('newcomer.profil') }}">Profil{!! Auth::user()->isPageChecked('profil')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.referral') }}">Parrain{!! Auth::user()->isPageChecked('referral')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.team') }}">Équipe{!! Auth::user()->isPageChecked('team')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
+                                <li><a href="{{ route('newcomer.backtoschool') }}">Partenaires{!! Auth::user()->isPageChecked('backtoschool')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.wei') }}">Week-End{!! Auth::user()->isPageChecked('wei')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ route('newcomer.deals') }}" title="Bons plans"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="hidden-sm"> Bons plans</span></a></li>
                                 <li><a href="{{ route('newcomer.faq') }}" title="FAQ"><i class="fa fa-question-circle" aria-hidden="true"></i><span class="hidden-sm"> FAQ</span></a></li>
-                                <li><a href="{{ route('newcomer.contact') }}" title="Nous contacter"><i class="fa fa-envelope" aria-hidden="true"></i><span class="hidden-sm"> Nous contacter</span></a></li>
+                                <li><a href="{{ route('contact') }}" title="Nous contacter"><i class="fa fa-envelope" aria-hidden="true"></i><span class="hidden-sm"> Nous contacter</span></a></li>
                                 <li><a href="{{ route('newcomer.auth.logout') }}" title="Se déconnecter"><i class="fa fa-power-off" aria-hidden="true"></i><span class="hidden-sm"> Déconnexion</span></a></li>
                             </ul>
                         </div><!-- /.navbar-collapse -->

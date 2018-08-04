@@ -115,6 +115,19 @@ le but de pouvoir faire la distinction entre chèque de caution et de paiement.
 Les informations liées à chaque chèque (numéro, banque, émetteur) sont enregistrées
 dans la table `checks`.
 
+### Production
+Pour le fonctionnement du site, vous devez lancez le processus de queue en tache de fond :
+```
+php artisan queue:work --queue=high,low --sleep=3 --tries=3 --daemon
+```
+ainsi différentes cron
+```
+# Import régulier des nouveaux utilisateurs depuis l'utt
+*/5 * * * * php artisan integration:newcomers:import
+# Divers taches dont l'envoi d'email
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
 ### Configuration
 
 #### EtuUTT

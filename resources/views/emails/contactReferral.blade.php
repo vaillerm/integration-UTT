@@ -11,8 +11,8 @@
 @section('content')
 	<p>
 		Bonjour {{$referral->first_name}},<br/>
-		{{($newcomer->sex?'Ta fillotte':'Ton fillot')}} a demandé à ce que tu {{($newcomer->sex?'la':'le')}} contactes. {{($newcomer->sex?'Elle':'Il')}}
-		te transmet donc ses informations de contact :
+		{{($newcomer->sex?'Ta fillotte':'Ton fillot')}} a demandé à ce que tu le contactes.
+		Il te transmet donc ses informations de contact :
 	</p>
 	<p style="text-align:center;">
 		<strong>{{$newcomer->first_name}} {{$newcomer->last_name}}</strong><br/>

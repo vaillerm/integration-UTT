@@ -75,14 +75,16 @@ class TeamsController extends Controller
     public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $data = Request::only(['name', 'description', 'img', 'facebook', 'comment', 'branch']);
+        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch']);
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:70|unique:teams,name,'.$team->id,
+            'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.$team->id,
             'img' => 'image',
             'facebook' => 'url'
         ],
         [
-            'name.unique' => 'Ce nom d\'équipe est déjà pris.'
+            'name.unique' => 'Ce nom d\'équipe est déjà pris.',
+            'safe_name.unique' => 'Votre nom "gentil" d\'équipe est déjà pris.',
         ]);
 
         // Check image size
@@ -100,6 +102,7 @@ class TeamsController extends Controller
 
         // Update team informations
         $team->name = $data['name'];
+        $team->safe_name = $data['safe_name'];
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->comment = $data['comment'];

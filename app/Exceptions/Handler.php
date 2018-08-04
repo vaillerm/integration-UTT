@@ -3,11 +3,13 @@
 namespace App\Exceptions;
 
 use Exception;
+use Config;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use League\OAuth2\Server\Exception\OAuthServerException;
 
 class Handler extends ExceptionHandler
 {
@@ -21,6 +23,7 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
+        OAuthServerException::class,
     ];
 
     /**
@@ -33,6 +36,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+        if ($this->shouldReport($e)) {
+            $this->sendErrorToSlack($e);
+        }
         parent::report($e);
     }
 
@@ -46,5 +52,38 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         return parent::render($request, $e);
+    }
+
+    public function sendErrorToSlack(Exception $e) {
+        $url = Config::get('services.slack.exception_webhook');
+        if ($url)
+        {
+            $parsedUrl = parse_url($url);
+
+            $this->client = new \GuzzleHttp\Client([
+                'base_uri' => $parsedUrl['scheme'].'://'.$parsedUrl['host'],
+            ]);
+
+            $payload = json_encode(
+            [
+                'text'       => get_class($e).': '.$e->getMessage() . ' (' . $e->getCode() . ')',
+                'username'   => 'Exception site d\'inté',
+                'icon_emoji'   => ':rotating_light:',
+                'attachments' => [
+                    [
+                        'title' => 'File',
+                        'text' => $e->getFile().':'.$e->getLine(),
+                        'color' => '#d80012',
+                    ],
+                    [
+                        'title' => 'Trace',
+                        'text' => $e->getTraceAsString(),
+                        'color' => '#d80012',
+                    ],
+                ],
+            ]);
+            $response = $this->client->post($parsedUrl['path'], ['body' => $payload]);
+            return $response;
+        }
     }
 }

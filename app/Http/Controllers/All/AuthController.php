@@ -22,7 +22,7 @@ class AuthController extends Controller
      */
     public function login()
     {
-        return View::make('newcomer.login');
+        return View::make('All.login');
     }
 
     /**
