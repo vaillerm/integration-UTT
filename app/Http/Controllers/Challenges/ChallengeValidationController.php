@@ -20,6 +20,12 @@ class ChallengeValidationController extends Controller
 	 */
 	public function createOrUpdate(Request $request, int $teamId, int $challengeId) {
 
+		$challenge = Challenge::find($challengeId);
+
+		if($challenge->deadlineHasPassed()) {
+			return redirect(route("challenges.list"))->with("error", "La deadline est dépassée.");
+		}
+
 		$this->validate($request, [
 			"proof" => "required"
 		]);

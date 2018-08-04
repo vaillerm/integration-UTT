@@ -83,7 +83,7 @@ class ChallengeController extends Controller
 	}
 
 	public function list() {
-		$challenges = DB::table("challenges")->get();
+		$challenges = Challenge::all();
 		$team = Team::find(Auth()->user()->team_id);
 		return View::make('dashboard.challenges.list', compact("challenges", "team"));
 	}

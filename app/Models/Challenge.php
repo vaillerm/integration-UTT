@@ -16,6 +16,15 @@ class Challenge extends Model {
 	];
 
 	/**
+	 * @return true whether the challenges deadline has passed or not
+	 */
+	public function deadlineHasPassed() : bool {
+		$challenge_date = new \DateTime($this->deadline);
+		$now = new \DateTime("now");
+		return !($challenge_date > $now);
+	}
+
+	/**
 	 * All the teams that asked validation for this challenge
 	 * whether it is accepted or not
 	 */
