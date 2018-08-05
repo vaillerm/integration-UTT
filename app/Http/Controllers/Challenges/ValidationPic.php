@@ -13,7 +13,7 @@ class ValidationPic extends Controller
 {
     public function show($name)
     {
-        $pic = Storage::disk("validation-proofs")->get($name);
+        $pic = Storage::disk('validation-proofs')->get($name);
         return Image::make($pic)->response();
     }
 
@@ -25,7 +25,7 @@ class ValidationPic extends Controller
      */
     public function showSmall($name)
     {
-        $pic = Storage::disk("validation-proofs")->get($name);
+        $pic = Storage::disk('validation-proofs')->get($name);
         $pic = Image::make($pic);
         $pic->resize(null, 200, function($constraint) {
             $constraint->aspectRatio();

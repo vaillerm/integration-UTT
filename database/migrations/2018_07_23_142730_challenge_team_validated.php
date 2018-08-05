@@ -14,7 +14,7 @@ class ChallengeTeamValidated extends Migration
     public function up()
     {
         Schema::table('challenge_team', function (Blueprint $table) {
-			$table->boolean("validated")->nullable(true);
+			$table->boolean('validated')->nullable(true);
         });
     }
 
@@ -26,7 +26,7 @@ class ChallengeTeamValidated extends Migration
     public function down()
     {
         Schema::table('challenge_team', function (Blueprint $table) {
-			$table->dropColumn("validated");
+			$table->dropColumn('validated');
         });
     }
 }

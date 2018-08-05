@@ -14,7 +14,7 @@ class ChallengeValidationMessage extends Migration
     public function up()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->text("message")->nullable(true);
+			$table->text('message')->nullable(true);
         });
     }
 
@@ -26,7 +26,7 @@ class ChallengeValidationMessage extends Migration
     public function down()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->dropColumn("message");
+			$table->dropColumn('message');
         });
     }
 }

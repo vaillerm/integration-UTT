@@ -14,7 +14,7 @@ class ChallengeValidationsLastUpdate extends Migration
     public function up()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->datetime("last_update")->nullable(false);
+			$table->datetime('last_update')->nullable(false);
         });
     }
 
@@ -26,7 +26,7 @@ class ChallengeValidationsLastUpdate extends Migration
     public function down()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->dropColumn("last_update");
+			$table->dropColumn('last_update');
         });
     }
 }

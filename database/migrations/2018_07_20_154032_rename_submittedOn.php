@@ -14,7 +14,7 @@ class RenameSubmittedOn extends Migration
     public function up()
     {
         Schema::table('challenge_team', function (Blueprint $table) {
-			$table->renameColumn("submitedOn", "submittedOn");
+			$table->renameColumn('submitedOn', 'submittedOn');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameSubmittedOn extends Migration
     public function down()
     {
         Schema::table('challenge_team', function (Blueprint $table) {
-			$table->renameColumn("submittedOn", "submitedOn");
+			$table->renameColumn('submittedOn', 'submitedOn');
         });
     }
 }

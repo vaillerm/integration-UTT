@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('sublayout-css')
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-<link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('bodycontent')
@@ -24,7 +24,19 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
-
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        @if (Auth::user()->isAdmin())
+                                            <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
+                                            <li><a href={{ route("validation.list") }}>Liste des validations</a></li>
+                                        @endif
+                                        <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
+                                        @if(Auth::user()->team_id != null)
+                                            <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
+                                        @endif
+                                    </ul>
+                                </li>
                                 @if (Auth::user()->ce)
                                     @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
@@ -45,19 +57,7 @@
                                             <li><a href="{{ route('dashboard.referrals.slides.branch') }}">Diapo Branche</a></li>
                                         </ul>
                                     </li>
-									<li class="dropdown">
-										<a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											@if (Auth::user()->isAdmin())
-												<li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
-												<li><a href={{ route("validation.list") }}>Liste des validations</a></li>
-											@endif
-											<li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
-											@if(Auth::user()->team_id != null)
-												<li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
-											@endif
-										</ul>
-									</li>
+
                                     <li><a href="{{ route('dashboard.teams.list') }}">Équipes</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs <span class="caret"></span></a>
@@ -133,7 +133,7 @@
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                        <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             </div>

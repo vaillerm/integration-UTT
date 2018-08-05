@@ -14,12 +14,12 @@ class CreateTableChallengeTeam extends Migration
     public function up()
     {
         Schema::create('challenge_team', function (Blueprint $table) {
-			$table->unsignedInteger("team_id");
-			$table->unsignedInteger("challenge_id");
-			$table->datetime("submitedOn");
+			$table->unsignedInteger('team_id');
+			$table->unsignedInteger('challenge_id');
+			$table->datetime('submitedOn');
 
-			$table->foreign("team_id")->references("id")->on("teams")->onDelete("cascade");
-			$table->foreign("challenge_id")->references("id")->on("challenges")->onDelete("cascade");
+			$table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+			$table->foreign('challenge_id')->references('id')->on('challenges')->onDelete('cascade');
 
         });
     }
@@ -31,9 +31,9 @@ class CreateTableChallengeTeam extends Migration
      */
     public function down()
     {
-		Schema::table("challenge_team", function(Blueprint $table) {
-			$table->dropForeign("challenge_team_team_id_foreign");
-			$table->dropForeign("challenge_team_challenge_id_foreign");
+		Schema::table('challenge_team', function(Blueprint $table) {
+			$table->dropForeign('challenge_team_team_id_foreign');
+			$table->dropForeign('challenge_team_challenge_id_foreign');
 		});
         Schema::dropIfExists('challenge_team');
     }

@@ -13,9 +13,9 @@ class RenameChallengeTeamAddColumn extends Migration
      */
     public function up()
     {
-		Schema::rename("challenge_team", "challenge_validations");
+		Schema::rename('challenge_team', 'challenge_validations');
 		Schema::table('challenge_validations', function(Blueprint $table) {
-			$table->string("pic_url", 100);
+			$table->string('pic_url', 100);
 		});
 
     }
@@ -28,9 +28,9 @@ class RenameChallengeTeamAddColumn extends Migration
     public function down()
     {
         //
-		Schema::rename("challenge_validations", "challenge_team");
+		Schema::rename('challenge_validations', 'challenge_team');
 		Schema::table('challenge_team', function(Blueprint $table) {
-			$table->dropColumn("pic_url");
+			$table->dropColumn('pic_url');
 		});
 
     }

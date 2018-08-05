@@ -14,7 +14,7 @@ class PrimaryKeyChallengeTeam extends Migration
     public function up()
     {
         Schema::table('challenge_team', function (Blueprint $table) {
-			$table->primary(["team_id", "challenge_id"]);
+			$table->primary(['team_id', 'challenge_id']);
         });
     }
 
@@ -26,7 +26,7 @@ class PrimaryKeyChallengeTeam extends Migration
     public function down()
     {
         Schema::table('challenge_team', function (Blueprint $table) {
-			$table->dropPrimary(["team_id", "challenge_id"]);
+			$table->dropPrimary(['team_id', 'challenge_id']);
         });
     }
 }
