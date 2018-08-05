@@ -26,32 +26,12 @@ class ChallengeController extends Controller
         return view("dashboard.challenges.modify", compact("challenge"));
     }
 
-
-
-
-
-
-    /**
-     * Convert the ChallengeRequest object to an array
-     * which contains all the info to create or update a challenge.
-     * it is usefull in laravel 5.2, since you can't retrieve an array
-     * from the request directly, or I did not find a way :|
-     */
-    private function challengeRequest2Array(ChallengeRequest $request):array {
-        return [
-            "name" => $request->name,
-            "description" => $request->description,
-            "points" => $request->points,
-            "deadline" => $request->deadline
-        ];
-    }
-
     /**
      * Modify a challenge
      */
     public function modify(ChallengeRequest $request, int $challengeId) {
         $challenge_to_update = Challenge::find($challengeId);
-        $challenge_to_update->update($this->challengeRequest2Array($request));
+        $challenge_to_update->update($request->toArray());
         return redirect(route("challenges.list"));
     }
 
@@ -61,7 +41,7 @@ class ChallengeController extends Controller
      * Add a challenge
      */
     public function add(ChallengeRequest $request) {
-        $challenge = $this->challengeRequest2Array($request);
+        $challenge = $request->toArray();
         Challenge::create($challenge);
         $request->session()->flash('success', 'Défis ajouté');
         return redirect("challenges/");
