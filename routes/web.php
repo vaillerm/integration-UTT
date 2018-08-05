@@ -14,58 +14,58 @@
 Route::pattern('id', '[0-9]+');
 
 Route::get('/', [
-	'as'   => 'index',
-	'uses' => 'All\PagesController@getHomepage'
+    'as'   => 'index',
+    'uses' => 'All\PagesController@getHomepage'
 ]);
 
 Route::get('/emails/unsubscribe/{email}', [
-	'as'   => 'emails.unsubscribe',
-	'uses' => 'All\EmailsController@getUnsubscribe'
+    'as'   => 'emails.unsubscribe',
+    'uses' => 'All\EmailsController@getUnsubscribe'
 ]);
 
 Route::get('/emails/opening/{mail_id}.png', [
-	'as'   => 'emails.opening',
-	'uses' => 'All\EmailsController@trackOpening'
+    'as'   => 'emails.opening',
+    'uses' => 'All\EmailsController@trackOpening'
 ]);
 
 Route::group(['middleware' => 'oauth'], function () {
-	Route::get('/menu', [
-		'as'   => 'menu',
-		'middleware' => 'authorize:student',
-		'uses' => 'Students\PagesController@getMenu'
-	]);
+    Route::get('/menu', [
+        'as'   => 'menu',
+        'middleware' => 'authorize:student',
+        'uses' => 'Students\PagesController@getMenu'
+    ]);
 });
 
 Route::get('/qrcode/{id}.png', [
-	'as'   => 'pages.qrcode',
-	'uses' => 'All\PagesController@getQrCode'
+    'as'   => 'pages.qrcode',
+    'uses' => 'All\PagesController@getQrCode'
 ]);
 
 Route::group(['prefix' => 'referrals'], function () {
-	Route::group(['middleware' => 'oauth'], function () {
-		Route::get('/firsttime', [
-			'as'   => 'referrals.firsttime',
-			'middleware' => 'authorize:student',
-			'uses' => 'Students\ReferralsController@firstTime'
-		]);
+    Route::group(['middleware' => 'oauth'], function () {
+        Route::get('/firsttime', [
+            'as'   => 'referrals.firsttime',
+            'middleware' => 'authorize:student',
+            'uses' => 'Students\ReferralsController@firstTime'
+        ]);
 
-		Route::get('/', [
-			'as'   => 'referrals.edit',
-			'middleware' => 'authorize:referral,edit',
-			'uses' => 'Students\ReferralsController@edit'
-		]);
+        Route::get('/', [
+            'as'   => 'referrals.edit',
+            'middleware' => 'authorize:referral,edit',
+            'uses' => 'Students\ReferralsController@edit'
+        ]);
 
-		Route::post('/', [
-			'as'   => 'referrals.update',
-			'middleware' => 'authorize:referral,edit',
-			'uses' => 'Students\ReferralsController@update'
-		]);
-		Route::get('/destroy', [
-			'as'   => 'referrals.destroy',
-			'middleware' => 'authorize:referral,edit',
-			'uses' => 'Students\ReferralsController@destroy'
-		]);
-	});
+        Route::post('/', [
+            'as'   => 'referrals.update',
+            'middleware' => 'authorize:referral,edit',
+            'uses' => 'Students\ReferralsController@update'
+        ]);
+        Route::get('/destroy', [
+            'as'   => 'referrals.destroy',
+            'middleware' => 'authorize:referral,edit',
+            'uses' => 'Students\ReferralsController@destroy'
+        ]);
+    });
 });
 
 Route::group(['prefix' => 'dashboard'], function () {
@@ -445,14 +445,14 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         Route::group(['prefix' => 'championship'], function()
         {
-        	Route::get('/', [
-        		'as'   => 'dashboard.championship',
-        		'uses' => 'Admin\ScoreController@getChampionship'
-        	]);
-        	Route::post('/', [
-        		'as'   => 'dashboard.championship.edit',
-        		'uses' => 'Admin\ScoreController@postChampionship'
-        	]);
+            Route::get('/', [
+                'as'   => 'dashboard.championship',
+                'uses' => 'Admin\ScoreController@getChampionship'
+            ]);
+            Route::post('/', [
+                'as'   => 'dashboard.championship.edit',
+                'uses' => 'Admin\ScoreController@postChampionship'
+            ]);
         });
 
         Route::group(['prefix' => 'students'], function () {
@@ -511,26 +511,26 @@ Route::group(['prefix' => 'dashboard'], function () {
 });
 
 Route::get('/scores', [
-	'as'   => 'championship.display',
-	'uses' => 'All\ScoreController@getScores'
+    'as'   => 'championship.display',
+    'uses' => 'All\ScoreController@getScores'
 ]);
 
 Route::group(['prefix' => 'oauth'], function () {
-	Route::get('authorize', [
-		'as'   => 'oauth.auth',
-		'uses' => 'All\OAuthController@auth'
-	]);
+    Route::get('authorize', [
+        'as'   => 'oauth.auth',
+        'uses' => 'All\OAuthController@auth'
+    ]);
 
-	Route::get('callback', [
-		'as'   => 'oauth.callback',
-		'uses' => 'All\OAuthController@callback'
-	]);
+    Route::get('callback', [
+        'as'   => 'oauth.callback',
+        'uses' => 'All\OAuthController@callback'
+    ]);
 
-	Route::get('logout', [
-		'as'     => 'oauth.logout',
-		'middleware' => 'oauth',
-		'uses'   => 'All\OAuthController@logout'
-	]);
+    Route::get('logout', [
+        'as'     => 'oauth.logout',
+        'middleware' => 'oauth',
+        'uses'   => 'All\OAuthController@logout'
+    ]);
 });
 
 // Contact page
@@ -546,18 +546,18 @@ Route::post('/contact', [
 
 // Newcomer website
 Route::get('/login', [
-	'as'   => 'newcomer.auth.login',
-	'uses' => 'All\AuthController@login'
+    'as'   => 'newcomer.auth.login',
+    'uses' => 'All\AuthController@login'
 ]);
 Route::post('/login', [
-	'as'   => 'newcomer.auth.login.submit',
-	'uses' => 'All\AuthController@loginSubmit'
+    'as'   => 'newcomer.auth.login.submit',
+    'uses' => 'All\AuthController@loginSubmit'
 ]);
 
 Route::get('/logout', [
-	'as'   => 'newcomer.auth.logout',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'All\AuthController@logout'
+    'as'   => 'newcomer.auth.logout',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'All\AuthController@logout'
 ]);
 
 // Not test because we needs to generate the hash ; TODO test it
@@ -567,39 +567,39 @@ Route::get('/logout', [
 // ]);
 
 Route::get('/home', [
-	'as'   => 'newcomer.home',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\PagesController@getNewcomersHomepage'
+    'as'   => 'newcomer.home',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\PagesController@getNewcomersHomepage'
 ]);
 
 Route::get('/profil', [
-	'as'   => 'newcomer.profil',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\StepsController@profilForm'
+    'as'   => 'newcomer.profil',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@profilForm'
 ]);
 
 Route::post('/profil', [
-	'as'   => 'newcomer.profil.submit',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\StepsController@profilFormSubmit'
+    'as'   => 'newcomer.profil.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@profilFormSubmit'
 ]);
 
 Route::get('/referral/{step?}', [
-	'as'   => 'newcomer.referral',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\StepsController@referralForm'
+    'as'   => 'newcomer.referral',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@referralForm'
 ]);
 
 Route::post('/referral', [
-	'as'   => 'newcomer.referral.submit',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\StepsController@referralFormSubmit'
+    'as'   => 'newcomer.referral.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@referralFormSubmit'
 ]);
 
 Route::get('/team/{step?}', [
-	'as'   => 'newcomer.team',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\StepsController@TeamForm'
+    'as'   => 'newcomer.team',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\StepsController@TeamForm'
 ]);
 
 Route::get('/backtoschool/{step?}', [
@@ -609,155 +609,155 @@ Route::get('/backtoschool/{step?}', [
 ]);
 
 Route::get('/wei', [
-	'as'   => 'newcomer.wei',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\WEIController@newcomersHome'
+    'as'   => 'newcomer.wei',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\WEIController@newcomersHome'
 ]);
 
 Route::get('/wei/pay', [
-	'as'   => 'newcomer.wei.pay',
-	'middleware' => 'authorize:newcomer,wei',
-	'uses' => 'Newcomers\WEIController@newcomersPay'
+    'as'   => 'newcomer.wei.pay',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'Newcomers\WEIController@newcomersPay'
 ]);
 
 Route::post('/wei/pay', [
-	'as'   => 'newcomer.wei.pay.submit',
-	'middleware' => 'authorize:newcomer,wei',
-	'uses' => 'Newcomers\WEIController@newcomersPaySubmit'
+    'as'   => 'newcomer.wei.pay.submit',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'Newcomers\WEIController@newcomersPaySubmit'
 ]);
 
 Route::get('/wei/guarantee', [
-	'as'   => 'newcomer.wei.guarantee',
-	'middleware' => 'authorize:newcomer,wei',
-	'uses' => 'Newcomers\WEIController@newcomersGuarantee'
+    'as'   => 'newcomer.wei.guarantee',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'Newcomers\WEIController@newcomersGuarantee'
 ]);
 
 Route::post('/wei/guarantee', [
-	'as'   => 'newcomer.wei.guarantee.submit',
-	'middleware' => 'authorize:newcomer,wei',
-	'uses' => 'Newcomers\WEIController@newcomersGuaranteeSubmit'
+    'as'   => 'newcomer.wei.guarantee.submit',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'Newcomers\WEIController@newcomersGuaranteeSubmit'
 ]);
 
 Route::get('/wei/authorization', [
-	'as'   => 'newcomer.wei.authorization',
-	'middleware' => 'authorize:newcomer,wei',
-	'uses' => 'Newcomers\WEIController@newcomersAuthorization'
+    'as'   => 'newcomer.wei.authorization',
+    'middleware' => 'authorize:newcomer,wei',
+    'uses' => 'Newcomers\WEIController@newcomersAuthorization'
 ]);
 
 Route::get('/contact', [
-	'as'   => 'newcomer.contact',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\ContactController@contact'
+    'as'   => 'newcomer.contact',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\ContactController@contact'
 ]);
 
 Route::post('/contact', [
-	'as'   => 'newcomer.contact.submit',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\ContactController@contactSubmit'
+    'as'   => 'newcomer.contact.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\ContactController@contactSubmit'
 ]);
 
 Route::get('/faq', [
-	'as'   => 'newcomer.faq',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\PagesController@getFAQ'
+    'as'   => 'newcomer.faq',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\PagesController@getFAQ'
 ]);
 
 Route::get('/deals', [
-	'as'   => 'newcomer.deals',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\PagesController@getDeals'
+    'as'   => 'newcomer.deals',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\PagesController@getDeals'
 ]);
 
 Route::get('/done', [
-	'as'   => 'newcomer.done',
-	'middleware' => 'authorize:newcomer',
-	'uses' => 'Newcomers\PagesController@getNewcomersDone'
+    'as'   => 'newcomer.done',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\PagesController@getNewcomersDone'
 ]);
 
 Route::get('/etupay', [
-	'as'   => 'etupay',
-	'uses' => 'All\EtupayController@etupayReturn'
+    'as'   => 'etupay',
+    'uses' => 'All\EtupayController@etupayReturn'
 ]);
 
 Route::post('/etupay/callback', [
-	'as'   => 'etupay.callback',
-	'uses' => 'All\EtupayController@etupayCallback'
+    'as'   => 'etupay.callback',
+    'uses' => 'All\EtupayController@etupayCallback'
 ]);
 
-	/**
-	 * Routes for challenges
-	 */
+/**
+ * Routes for challenges
+ */
 Route::group(["prefix" => "challenges"], function() {
 
-	/**
-	 * Admin authorization
-	 */
-	Route::group(["middleware" => "authorize:admin"], function() {
+    /**
+     * Admin authorization
+     */
+    Route::group(["middleware" => "authorize:admin"], function() {
 
-		Route::get("add", [
-			'as' => "challenges.add",
-			"uses" => "Challenges\ChallengeController@addForm"
-		]);
+        Route::get("add", [
+            'as' => "challenges.add",
+            "uses" => "Challenges\ChallengeController@addForm"
+        ]);
 
-		Route::post("add", [
-			'as' => "challenges.add",
-			"uses" => "Challenges\ChallengeController@add"
-		]);
+        Route::post("add", [
+            'as' => "challenges.add",
+            "uses" => "Challenges\ChallengeController@add"
+        ]);
 
-		Route::delete("/{id}", [
-			"as" => "challenges.delete",
-			"uses" => "Challenges\ChallengeController@delete"
-		]);
+        Route::delete("/{id}", [
+            "as" => "challenges.delete",
+            "uses" => "Challenges\ChallengeController@delete"
+        ]);
 
-		Route::get("/validations","Challenges\ChallengeValidationController@list" )->name("validation.list");
+        Route::get("/validations","Challenges\ChallengeValidationController@list" )->name("validation.list");
 
-		Route::get("{challengeId}/modify", "Challenges\ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
+        Route::get("{challengeId}/modify", "Challenges\ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
 
-		Route::post("{challengeId}/modify", "Challenges\ChallengeController@modify")->name("challenges.modify");
+        Route::post("{challengeId}/modify", "Challenges\ChallengeController@modify")->name("challenges.modify");
 
-		Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeValidationController@accept")->name("validation.accept");
-		Route::get("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuseForm")->name("validation.refuseForm");
-		Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuse")->name("validation.refuse");
-		Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeValidationController@resetStatus")->name("validation.reset");
+        Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeValidationController@accept")->name("validation.accept");
+        Route::get("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuseForm")->name("validation.refuseForm");
+        Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuse")->name("validation.refuse");
+        Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeValidationController@resetStatus")->name("validation.reset");
 
-		/**
-		 * Okay this part is to handle the images taken by
-		 * the teams to validate their challenges
-		 * It is not supposed to be public, that's why there's a controller
-		 * doing the job
-		 */
-		Route::group(["prefix" => "proof"], function(){
-			Route::get("{name}/smallpic", "Challenges\ValidationPic@showSmall")->name("validation_proofs.small");
-			Route::get("{name}", "Challenges\ValidationPic@show")->name("validation_proofs.normal");
-		});
-
-
-	});
-
-	/**
-	 * Team leader authorization
-	 */
-	Route::group(["middleware" => "authorize:ce"], function() {
-
-		Route::get("{id}/submit", [
-			"as" => "challenges.submitForm",
-			"uses" => "Challenges\ChallengeController@submitChallengeForm"
-		]);
-
-		Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
-
-	});
-
-	/**
-	 * No specific authorization required here
-	 */
-
-	Route::get("team/", "Students\TeamController@challenges")->name("challenges.sent");
+        /**
+         * Okay this part is to handle the images taken by
+         * the teams to validate their challenges
+         * It is not supposed to be public, that's why there's a controller
+         * doing the job
+         */
+        Route::group(["prefix" => "proof"], function(){
+            Route::get("{name}/smallpic", "Challenges\ValidationPic@showSmall")->name("validation_proofs.small");
+            Route::get("{name}", "Challenges\ValidationPic@show")->name("validation_proofs.normal");
+        });
 
 
-	Route::get("/", [
-		'as' => "challenges.list",
-		'uses' => "Challenges\ChallengeController@list"
-	]);
+    });
+
+    /**
+     * Team leader authorization
+     */
+    Route::group(["middleware" => "authorize:ce"], function() {
+
+        Route::get("{id}/submit", [
+            "as" => "challenges.submitForm",
+            "uses" => "Challenges\ChallengeController@submitChallengeForm"
+        ]);
+
+        Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
+
+    });
+
+    /**
+     * No specific authorization required here
+     */
+
+    Route::get("team/", "Students\TeamController@challenges")->name("challenges.sent");
+
+
+    Route::get("/", [
+        'as' => "challenges.list",
+        'uses' => "Challenges\ChallengeController@list"
+    ]);
 
 });
