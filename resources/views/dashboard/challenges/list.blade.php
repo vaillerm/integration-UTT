@@ -31,19 +31,21 @@
                             <td>{{ $challenge->points }}</td>
                             <td>{{ $challenge->deadline }}</td>
                             <td>
-                                <form action={{ route("challenges.delete", ["id"=>$challenge->id]) }} method="POST">
-                                    {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit" value="Supprimer">
-                                </form>
-                                <div class="btn-group" role="group"> 
-                                    <a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-primary">Modifier</button></a>
+                                @if(Auth::user()->admin)
+                                    <form action={{ route("challenges.delete", ["id"=>$challenge->id]) }} method="POST">
+                                        {{ method_field('DELETE') }}
+                                        <input class="btn btn-danger btn-xs" type="submit" value="Supprimer">
+                                    </form>
+                                    <div class="btn-group" role="group"> 
+                                        <a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-xs btn-primary">Modifier</button></a>
+                                    @endif
                                     {{--I check wether the user is a team leader, and also if the team has already validated this challenge, in that case, the "valider un défis" button doesn't appear--}}
                                     @if(Auth::user()->ce && 
                                         !$team->hasAlreadyValidatedChallenge($challenge->id)
                                         && !$challenge->deadlineHasPassed())
-                                        <a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-primary">valider un défis</button></a>
+                                        <a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-xs btn-primary">valider un défis</button></a>
                                     @endif
-                                </div>
+                                    </div>
                             </td>
 
                         </tr>
