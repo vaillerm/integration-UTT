@@ -14,8 +14,8 @@ class ChallengeValidationUpdateAuthor extends Migration
     public function up()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->unsignedInteger("update_author")->nullable(true);
-			$table->foreign("update_author")->references("id")->on("users")->onDelete("set null");
+			$table->unsignedInteger('update_author')->nullable(true);
+			$table->foreign('update_author')->references('id')->on('users')->onDelete('set null');
         });
     }
 
@@ -27,8 +27,8 @@ class ChallengeValidationUpdateAuthor extends Migration
     public function down()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->dropForeign(["update_author"]);
-			$table->dropColumn("update_author");
+			$table->dropForeign(['update_author']);
+			$table->dropColumn('update_author');
         });
     }
 }

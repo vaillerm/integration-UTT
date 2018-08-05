@@ -34,8 +34,8 @@ class Team extends Model
          *  null: pending
          *  and laravel (at least in 5.2) doesn't seem to differenciate null and false
          */
-        $pivots = ["submittedOn", "validated", "pic_url", "last_update", "update_author", "message"];
-        return $this->belongsToMany("App\Models\Challenge", "challenge_validations")->withPivot($pivots)->where("team_id", "=", $this->id);
+        $pivots = ['submittedOn', 'validated', 'pic_url', 'last_update', 'update_author', 'message'];
+        return $this->belongsToMany('App\Models\Challenge', 'challenge_validations')->withPivot($pivots)->where('team_id', '=', $this->id);
     }
 
     /**
@@ -43,7 +43,7 @@ class Team extends Model
      * 'validated' attribute is null
      */
     public function getPendingValidations()  {
-        return $this->challenges()->wherePivot("validated", 0);
+        return $this->challenges()->wherePivot('validated', 0);
     }
 
     /**
@@ -51,14 +51,14 @@ class Team extends Model
      * for the given challenge, no matter whether it's validated or not
      */
     public function hasAlreadyMadeSubmission(int $challengeId) {
-        return count($this->challenges->where("id", "=", $challengeId)->all())>0?true: false;
+        return count($this->challenges->where('id', '=', $challengeId)->all())>0?true: false;
     }
 
     /**
      * Check if a challenge (given  by id) has already been validated
      */
     public function hasAlreadyValidatedChallenge(int $challengeId) :bool{
-        return count($this->challenges()->where("id", "=", $challengeId)->wherePivot("validated", true)->get())>0?true:false;
+        return count($this->challenges()->where('id', '=', $challengeId)->wherePivot('validated', true)->get())>0?true:false;
     }
 
     /**
@@ -107,7 +107,7 @@ class Team extends Model
      * @return boolean true if it's a TC team
      */
     public function isTC() {
-        return $this->respo->branch == "TC" && $this->respo->level < 4;
+        return $this->respo->branch == 'TC' && $this->respo->level < 4;
     }
 
     /*

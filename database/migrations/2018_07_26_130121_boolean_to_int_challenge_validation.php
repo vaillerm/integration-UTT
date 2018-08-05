@@ -14,7 +14,7 @@ class BooleanToIntChallengeValidation extends Migration
     public function up()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->smallInteger("validated")->change()->nullable(false);
+			$table->smallInteger('validated')->change()->nullable(false);
         });
     }
 
@@ -26,7 +26,7 @@ class BooleanToIntChallengeValidation extends Migration
     public function down()
     {
         Schema::table('challenge_validations', function (Blueprint $table) {
-			$table->boolean("validated")->change()->nullable(true);
+			$table->boolean('validated')->change()->nullable(true);
         });
     }
 }

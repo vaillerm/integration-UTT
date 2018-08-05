@@ -23,7 +23,7 @@ class ChallengeController extends Controller
 
     public function ModifyChallengeForm(int $challengeId) {
         $challenge = Challenge::find($challengeId);
-        return view("dashboard.challenges.modify", compact("challenge"));
+        return view('dashboard.challenges.modify', compact('challenge'));
     }
 
     /**
@@ -32,7 +32,7 @@ class ChallengeController extends Controller
     public function modify(ChallengeRequest $request, int $challengeId) {
         $challenge_to_update = Challenge::find($challengeId);
         $challenge_to_update->update($request->toArray());
-        return redirect(route("challenges.list"));
+        return redirect(route('challenges.list'));
     }
 
 
@@ -43,29 +43,28 @@ class ChallengeController extends Controller
     public function add(ChallengeRequest $request) {
         $challenge = $request->toArray();
         Challenge::create($challenge);
-        $request->session()->flash('success', 'Défis ajouté');
-        return redirect("challenges/");
+        return redirect(route('challenges.list'))->withSuccess('Défis ajouté');
     }
 
     /**
      * Used by team leader to submit a challenge to be validated
      */
     public function submitChallengeForm(int $idChallenge) {
-        $challenge = DB::table('challenges')->where("id", "=", $idChallenge)->first();
-        return View::make("dashboard.challenges.submit", [
-            "challenge" => $challenge
+        $challenge = DB::table('challenges')->where('id', '=', $idChallenge)->first();
+        return View::make('dashboard.challenges.submit', [
+            'challenge' => $challenge
         ]);
     }
 
     public function delete(int $idChallenge) {
-        DB::table("challenges")->where("id", "=", $idChallenge)->delete();
-        return redirect(route("challenges.list"));
+        DB::table('challenges')->where('id', '=', $idChallenge)->delete();
+        return redirect(route('challenges.list'));
     }
 
     public function list() {
         $challenges = Challenge::all();
         $team = Team::find(Auth()->user()->team_id);
-        return View::make('dashboard.challenges.list', compact("challenges", "team"));
+        return View::make('dashboard.challenges.list', compact('challenges', 'team'));
     }
 
 }

@@ -24,14 +24,14 @@ class ChallengeRequest extends FormRequest
     public function rules()
     {
 		$validation = [
-			"description" => "required|max:140|string",
-			"points" => "required|numeric",
-			"deadline"=> "required"
+			'description' => 'required|max:140|string',
+			'points' => 'required|numeric',
+			'deadline'=> 'required'
 		];
-		if($this->has("challengeId")) {
-			$validation["name"] = "required|unique:challenges,".$this->challengeId;
+		if($this->has('challengeId')) {
+			$validation['name'] = 'required|unique:challenges,'.$this->challengeId;
 		} else {
-			$validation["name"] = "required|unique:challenges";
+			$validation['name'] = 'required|unique:challenges';
 		}
         return $validation;
     }
@@ -44,10 +44,10 @@ class ChallengeRequest extends FormRequest
      */
     public function toArray():array {
         return [
-            "name" => $this->name,
-            "description" => $this->description,
-            "points" => $this->points,
-            "deadline" => $this->deadline
+            'name' => $this->name,
+            'description' => $this->description,
+            'points' => $this->points,
+            'deadline' => $this->deadline
         ];
     }
 }

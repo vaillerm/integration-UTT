@@ -9,10 +9,10 @@ class Challenge extends Model {
     public $timestamps=false;
 
     public $fillable = [
-        "name",
-        "description",
-        "points",
-        "deadline"
+        'name',
+        'description',
+        'points',
+        'deadline'
     ];
 
     /**
@@ -20,7 +20,7 @@ class Challenge extends Model {
      */
     public function deadlineHasPassed() : bool {
         $challenge_date = new \DateTime($this->deadline);
-        $now = new \DateTime("now");
+        $now = new \DateTime('now');
         return !($challenge_date > $now);
     }
 
@@ -40,8 +40,8 @@ class Challenge extends Model {
          *  null: pending
          *  and laravel (at least in 5.2) doesn't seem to differenciate null and false
          */
-        $pivots = ["submittedOn", "validated", "pic_url", "last_update", 'update_author', "message"];
-        return $this->belongsToMany("App\Models\Team", "challenge_validations")->withPivot($pivots);
+        $pivots = ['submittedOn', 'validated', 'pic_url', 'last_update', 'update_author', 'message'];
+        return $this->belongsToMany('App\Models\Team', 'challenge_validations')->withPivot($pivots);
     }
 
 }
