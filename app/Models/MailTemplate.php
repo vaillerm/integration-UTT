@@ -15,6 +15,22 @@ class MailTemplate extends Model
         'isPublicity',
     ];
 
+    /**
+     * Convert user data to dotarray to allow replacement in the content of the mail
+     */
+    public static function getVarArray(User $user)
+    {
+        // Convert user data to a dot array
+        $user = $user->load(['team', 'godFather']);
+        $user_array = $user->toArray();
+        $user_dot = array_dot($user_array);
+
+        // Add custom fields
+        $user_dot['referral_count'] = $user->newcomers->count();
+
+        return $user_dot;
+    }
+
     public function generateHtml(User $user=null, $mail_id = null)
     {
         if(!$user)
@@ -22,22 +38,19 @@ class MailTemplate extends Model
             $user = User::first();
         }
 
-        $user = $user->load(['team', 'godFather']);
-
-        $user_array = $user->toArray();
-        $user_dot = array_dot($user_array);
+        $user_dot = MailTemplate::getVarArray($user);
 
         $content = '';
-
         if($this->content) {
             $content = $this->content;
             foreach ($user_dot as $key => $value)
             {
                 if (!is_array($value)) {
-                    $content = str_replace('%'.$key.'%', $value, $content);
+                    $content = str_replace('%'.$key.'%', nl2br(e($value)), $content);
                 }
             }
         }
+
         return view('emails.template.'.$this->template, [
             'subject' => $this->subject,
             'content'=> $content,

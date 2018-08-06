@@ -148,8 +148,7 @@ class MailHelper
                 foreach ($students as $student) {
                     if (($publicity && $student->allow_publicity) || !$publicity) {
                         if(!(($unique && $mailTemplate) && $student->mailHistories->where('mail_template_id', $mailTemplate->id)->count()>0)) {
-                            $student_mail = ($student->registration_email ? $student->registration_email : $student->email);
-                            $mails[$student_mail] = ['name' => $student->first_name . ' ' . $student->last_name, 'user' => $student];
+                            $mails[$student->getBestEmail()] = ['name' => $student->first_name . ' ' . $student->last_name, 'user' => $student];
                         }
                     }
                 }

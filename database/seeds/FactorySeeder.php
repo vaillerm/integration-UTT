@@ -12,11 +12,12 @@ class FactorySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\User::class, 500)->create();
-        factory(App\Models\Team::class, 15)->create();
+        factory(App\Models\User::class, 100)->create();
+        factory(App\Models\Team::class, 5)->create();
+		factory(App\Models\Challenge::class, 20)->create();
 
         // Round 2 (to use last created stuff as foreigner key)
-        factory(App\Models\User::class, 500)->create();
-        factory(App\Models\Team::class, 15)->create();
+        factory(App\Models\User::class, 100)->create();
+        factory(App\Models\Team::class, 5)->create();
     }
 }

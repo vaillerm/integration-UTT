@@ -11,6 +11,7 @@ use Config;
 use Authorization;
 use View;
 use Auth;
+use App\Models\ChallengeValidation;
 
 class TeamController extends Controller
 {
@@ -264,6 +265,16 @@ class TeamController extends Controller
 
         return redirect(route('dashboard.ce.myteam'))->withSuccess('Vous avez rejoint l\'équipe !');
     }
+
+	/**
+	 * The challenges handled by a team, no matter its status
+	 */
+	public function challenges() {
+		$team_id = Auth::user()->team_id;
+		$validations = ChallengeValidation::where("team_id", "=", $team_id)->orderBy("last_update", "dsc")->get();
+		$score = Team::find($team_id)->challenges()->wherePivot("validated", 1)->sum("points");
+		return view("dashboard.teams.challenges", compact("validations", "score"));
+	}
 
 
     /**

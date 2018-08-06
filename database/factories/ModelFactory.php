@@ -101,3 +101,12 @@ $factory->define(App\Models\Team::class, function (Faker\Generator $faker) {
         'comment' => $faker->text
     ];
 });
+
+$factory->define(App\Models\Challenge::class, function(Faker\Generator $faker) {
+	return [
+		"name" => $faker->words(5, true),
+		"description" => $faker->words(10, true),
+		"points" => $faker->numberBetween(1, 50),
+		"deadline" => $faker->datetime
+	];
+});

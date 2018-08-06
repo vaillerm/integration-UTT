@@ -16,6 +16,12 @@ Modification de profil
         @else
             <h3 class="box-title">Modification de l'étudiant <strong>{{{ $student->first_name . ' ' . $student->last_name }}}</strong></h3>
         @endif
+        @if ($student->admitted_id)
+            <a href="{{ route('dashboard.newcomers.unsync', ['id' => $student->id ]) }}" class="btn btn-xs btn-danger pull-right"
+                title="Si le nouveau ne vient finalement pas à l'utt, vous pouver désactiver le compte afin qu'il ne soit plus récupéré automatiquement depuis l'UTT">
+                Désactiver définitivement
+            </a>
+        @endif
     </div>
     <div class="box-body">
         <form class="form-horizontal" action="{{ route('dashboard.students.edit.submit', $student->id) }}" method="post" enctype="multipart/form-data">
@@ -254,14 +260,7 @@ Modification de profil
                     <div class="form-group">
                         <label for="referral_max" class="col-lg-2 control-label">Nombre de fillots maximum</label>
                         <div class="col-lg-10">
-                            <select id="referral_max" name="referral_max" class="form-control" class="">
-                                @foreach (range(1, 5) as $i)
-                                    @if ($i == (old('referral_max') ?? $student->referral_max)) <option value="{{ $i }}" selected="selected">
-                                    @else <option value="{{ $i }}">
-                                    @endif
-                                    {{ $i }}</option>
-                                @endforeach
-                            </select>
+                            <input class="form-control" name="referral_max" id="referral_max" type="number" value="{{{ old('referral_max') ?? $student->referral_max }}}">
                         </div>
                     </div>
 

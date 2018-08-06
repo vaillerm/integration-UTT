@@ -42,6 +42,7 @@ class EmailsController extends Controller
             DB::raw('sum(mail_histories.open_at IS NOT NULL) as `count_opened`')
         )->leftJoin('mail_histories', 'mail_crons.id' , '=', 'mail_histories.mail_cron_id')
         ->groupBy('mail_crons.id')
+        ->orderBy('send_date', 'desc')
         ->get();
 
         // Cached list of destination email count foreach cron
@@ -107,6 +108,7 @@ class EmailsController extends Controller
         return View::make('dashboard.emails.edit', [
             'template' => $template,
             'file_templates'    => File::allFiles(resource_path('views/emails/template')),
+            'varlist' => MailTemplate::getVarArray(Auth::user()),
         ]);
     }
 
@@ -134,7 +136,7 @@ class EmailsController extends Controller
         $template->update($data);
         $template->save();
 
-        return Redirect::route('dashboard.emails.index')->withSuccess('Vos modifications ont été sauvegardées.');
+        return Redirect::back()->withSuccess('Vos modifications ont été sauvegardées.');
     }
 
     /**
@@ -143,10 +145,26 @@ class EmailsController extends Controller
      * @param  int $id
      * @return RedirectResponse|array
      */
-    public function scheduleTemplate($id)
+    public function scheduleTemplate($id, $cronId = null)
     {
         $template = MailTemplate::where('id', $id)->firstOrFail();
+        $name = $template->subject;
+
+        $cron = null;
+        if ($cronId) {
+            $cron = MailCron::where('id', $cronId)->firstOrFail();
+            if(preg_match('/^(.+) \(Réédition ([0-9]+)\)$/', $cron->name, $matches)) {
+                $name = $matches[1]. ' (Réédition '. ($matches[2]+1) .')';
+            }
+            else {
+                $name = $cron->name . ' (Réédition 1)';
+            }
+
+        }
+
         return View::make('dashboard.emails.schedule', [
+            'name' => $name,
+            'cron' => $cron,
             'template' => $template,
             'lists' => MailHelper::$listToFrench,
         ]);
@@ -155,6 +173,7 @@ class EmailsController extends Controller
     public function scheduleTemplateSubmit($id)
     {
         $this->validate(Request::instance(), [
+            'name' => 'required',
             'lists' => 'required|array|min:1',
             'unique_send' => 'required|boolean',
             'send_date_date' => 'required|regex:/^([0-9]{4}-[0-9]{2}-[0-9]{2})$/',
@@ -162,6 +181,7 @@ class EmailsController extends Controller
         ]);
 
         $data = Request::only([
+            'name',
             'lists',
             'unique_send',
             'send_date_date',
@@ -169,6 +189,7 @@ class EmailsController extends Controller
         ]);
 
         $cron = new MailCron;
+        $cron->name = $data['name'];
         $cron->lists = implode(',', $data['lists']);
         $cron->send_date = new \Datetime($data['send_date_date'] . ' ' . $data['send_date_time']);
         $cron->mail_template_id = $id;

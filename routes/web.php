@@ -9,7 +9,7 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
-*/
+ */
 
 Route::pattern('id', '[0-9]+');
 
@@ -260,6 +260,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@create'
             ]);
+            Route::get('/unsync/{id}', [
+                'as'   => 'dashboard.newcomers.unsync',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\NewcomersController@Unsync'
+            ]);
             Route::post('/createcsv', [
                 'as'   => 'dashboard.newcomers.createcsv',
                 'middleware' => 'authorize:admin',
@@ -297,7 +302,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'Admin\EmailsController@getTemplatePreview'
             ]);
 
-            Route::get('/schedule/{id}', [
+            Route::get('/schedule/{id}/{cronId?}', [
                 'as'   => 'dashboard.email.schedule',
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\EmailsController@scheduleTemplate'
@@ -440,14 +445,14 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         Route::group(['prefix' => 'championship'], function()
         {
-        	Route::get('/', [
-        		'as'   => 'dashboard.championship',
-        		'uses' => 'Admin\ScoreController@getChampionship'
-        	]);
-        	Route::post('/', [
-        		'as'   => 'dashboard.championship.edit',
-        		'uses' => 'Admin\ScoreController@postChampionship'
-        	]);
+            Route::get('/', [
+                'as'   => 'dashboard.championship',
+                'uses' => 'Admin\ScoreController@getChampionship'
+            ]);
+            Route::post('/', [
+                'as'   => 'dashboard.championship.edit',
+                'uses' => 'Admin\ScoreController@postChampionship'
+            ]);
         });
 
         Route::group(['prefix' => 'students'], function () {
@@ -639,6 +644,18 @@ Route::get('/wei/authorization', [
     'uses' => 'Newcomers\WEIController@newcomersAuthorization'
 ]);
 
+Route::get('/contact', [
+    'as'   => 'newcomer.contact',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\ContactController@contact'
+]);
+
+Route::post('/contact', [
+    'as'   => 'newcomer.contact.submit',
+    'middleware' => 'authorize:newcomer',
+    'uses' => 'Newcomers\ContactController@contactSubmit'
+]);
+
 Route::get('/faq', [
     'as'   => 'newcomer.faq',
     'middleware' => 'authorize:newcomer',
@@ -666,3 +683,81 @@ Route::post('/etupay/callback', [
     'as'   => 'etupay.callback',
     'uses' => 'All\EtupayController@etupayCallback'
 ]);
+
+/**
+ * Routes for challenges
+ */
+Route::group(["prefix" => "challenges"], function() {
+
+    /**
+     * Admin authorization
+     */
+    Route::group(["middleware" => "authorize:admin"], function() {
+
+        Route::get("add", [
+            'as' => "challenges.add",
+            "uses" => "Challenges\ChallengeController@addForm"
+        ]);
+
+        Route::post("add", [
+            'as' => "challenges.add",
+            "uses" => "Challenges\ChallengeController@add"
+        ]);
+
+        Route::delete("/{id}", [
+            "as" => "challenges.delete",
+            "uses" => "Challenges\ChallengeController@delete"
+        ]);
+
+        Route::get("/validations","Challenges\ChallengeValidationController@list" )->name("validation.list");
+
+        Route::get("{challengeId}/modify", "Challenges\ChallengeController@modifyChallengeForm")->name("challenges.modifyForm");
+
+        Route::post("{challengeId}/modify", "Challenges\ChallengeController@modify")->name("challenges.modify");
+
+        Route::post("{challengeId}/team/{teamId}/validate", "Challenges\ChallengeValidationController@accept")->name("validation.accept");
+        Route::get("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuseForm")->name("validation.refuseForm");
+        Route::post("{challengeId}/team/{teamId}/refuse", "Challenges\ChallengeValidationController@refuse")->name("validation.refuse");
+        Route::post("{challengeId}/team/{teamId}/reset", "Challenges\ChallengeValidationController@resetStatus")->name("validation.reset");
+
+        /**
+         * Okay this part is to handle the images taken by
+         * the teams to validate their challenges
+         * It is not supposed to be public, that's why there's a controller
+         * doing the job
+         */
+        Route::group(["prefix" => "proof"], function(){
+            Route::get("{name}/smallpic", "Challenges\ValidationPic@showSmall")->name("validation_proofs.small");
+            Route::get("{name}", "Challenges\ValidationPic@show")->name("validation_proofs.normal");
+        });
+
+
+    });
+
+    /**
+     * Team leader authorization
+     */
+    Route::group(["middleware" => "authorize:ce"], function() {
+
+        Route::get("{id}/submit", [
+            "as" => "challenges.submitForm",
+            "uses" => "Challenges\ChallengeController@submitChallengeForm"
+        ]);
+
+        Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
+
+    });
+
+    /**
+     * No specific authorization required here
+     */
+
+    Route::get("team/", "Students\TeamController@challenges")->name("challenges.sent");
+
+
+    Route::get("/", [
+        'as' => "challenges.list",
+        'uses' => "Challenges\ChallengeController@list"
+    ]);
+
+});

@@ -20,6 +20,55 @@ class Team extends Model
     ];
 
     /**
+     * All the challenges sent to validation by the team
+     */
+    public function challenges() {
+        /**
+         * validated can have 3 values :
+         *  -1: refused
+         *  0: pending
+         *  1: accepted
+         *  Yep, a boolean should have been used, but my first solution was to use
+         *  false: refused
+         *  true: accepted
+         *  null: pending
+         *  and laravel (at least in 5.2) doesn't seem to differenciate null and false
+         */
+        $pivots = ['submittedOn', 'validated', 'pic_url', 'last_update', 'update_author', 'message'];
+        return $this->belongsToMany('App\Models\Challenge', 'challenge_validations')->withPivot($pivots)->where('team_id', '=', $this->id);
+    }
+
+    /**
+     * Returns all the pending validation : all the challenges where
+     * 'validated' attribute is null
+     */
+    public function getPendingValidations()  {
+        return $this->challenges()->wherePivot('validated', 0);
+    }
+
+    /**
+     * Return true if the team has already made a submission
+     * for the given challenge, no matter whether it's validated or not
+     */
+    public function hasAlreadyMadeSubmission(int $challengeId) {
+        return count($this->challenges->where('id', '=', $challengeId)->all())>0?true: false;
+    }
+
+    /**
+     * Check if a challenge (given  by id) has already been validated
+     */
+    public function hasAlreadyValidatedChallenge(int $challengeId) :bool{
+        return count($this->challenges()->where('id', '=', $challengeId)->wherePivot('validated', true)->get())>0?true:false;
+    }
+
+    /**
+     * Returns true if there is pending validations, false otherwise
+     */
+    public function hasPendingValidations() :bool {
+        return count($this->challenges()->get())>0?true:false;
+    }
+
+    /**
      * Define the One-to-Many relation with Newcomer;
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -58,7 +107,7 @@ class Team extends Model
      * @return boolean true if it's a TC team
      */
     public function isTC() {
-        return $this->respo->branch == "TC" && $this->respo->level < 4;
+        return $this->respo->branch == 'TC' && $this->respo->level < 4;
     }
 
     /*

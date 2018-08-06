@@ -43,11 +43,11 @@ class StepsController extends Controller
         $this->validate(Request::instance(), [
             'email' => 'email',
             'phone' => [
-                'regex:/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/',
+                'regex:/^(?:(?:00|\+)(?!33)[0-9\.\- \(\)]+|(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?)$/',
             ],
         ],
         [
-            'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone français valide. Si tu n\'en as pas, clique sur le bouton "Nous contacter", en haut à droite, et on l\'ajoutera pour toi !'
+            'phone.regex' => 'Le champ téléphone doit contenir un numéro de téléphone valide. Pour un numéro étranger, utilisez le préfix international.'
         ]);
 
         $newcomer = Auth::user();
@@ -62,7 +62,11 @@ class StepsController extends Controller
 
         if (preg_match('/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', Request::get('phone'), $m)) {
             $newcomer->phone = '0'.$m[1].$m[2].'.'.$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6];
-        } elseif (Request::get('phone') == '') {
+        }
+        else if(preg_match('/^(?:00|\+)(.+)$/', Request::get('phone'), $m)) {
+            $newcomer->phone = '+'.$m[1];
+        }
+        elseif (Request::get('phone') == '') {
             $newcomer->phone = '';
         }
 

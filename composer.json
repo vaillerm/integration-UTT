@@ -16,7 +16,9 @@
         "barryvdh/laravel-cors": "^0.9.2",
         "laravel/passport": "^3.0",
         "aferrandini/phpqrcode": "^1.0",
-        "ramsey/uuid": "^3.7"
+        "ramsey/uuid": "^3.7",
+        "intervention/image": "^2.4",
+        "ext-gd": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
