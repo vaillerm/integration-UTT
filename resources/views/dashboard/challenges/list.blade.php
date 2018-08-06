@@ -40,8 +40,7 @@
                                         <a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-xs btn-primary">Modifier</button></a>
                                     @endif
                                     {{--I check wether the user is a team leader, and also if the team has already validated this challenge, in that case, the "valider un défis" button doesn't appear--}}
-                                    @if(Auth::user()->ce && 
-                                        !$team->hasAlreadyValidatedChallenge($challenge->id)
+                                        @if(!$team->hasAlreadyValidatedChallenge($challenge->id)
                                         && !$challenge->deadlineHasPassed())
                                         <a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-xs btn-primary">valider un défis</button></a>
                                     @endif
