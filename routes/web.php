@@ -733,21 +733,12 @@ Route::group(["prefix" => "challenges"], function() {
 
 
     });
+    Route::get("{id}/submit", [
+        "as" => "challenges.submitForm",
+        "uses" => "Challenges\ChallengeController@submitChallengeForm"
+    ]);
 
-    /**
-     * Team leader authorization
-     */
-    Route::group(["middleware" => "authorize:ce"], function() {
-
-        Route::get("{id}/submit", [
-            "as" => "challenges.submitForm",
-            "uses" => "Challenges\ChallengeController@submitChallengeForm"
-        ]);
-
-        Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
-
-    });
-
+    Route::post("team/{teamId}/challenge/{challengeId}/submit", "Challenges\ChallengeValidationController@createOrUpdate")->name("validation.create_update");
     /**
      * No specific authorization required here
      */
