@@ -13,7 +13,7 @@ use Auth;
 class ChallengeValidationController extends Controller
 {
     /**
-     * used when the team leader send a validation proof
+     * used when a member of the team sends a validation proof
      * in order to validate a challenge
      * same function is used to update: allow a team to
      * change the pic for the validation
@@ -22,6 +22,7 @@ class ChallengeValidationController extends Controller
 
         $challenge = Challenge::find($challengeId);
 
+        //If the deadline has passed, redirect with error
         if($challenge->deadlineHasPassed()) {
             return redirect(route('challenges.list'))->with('error', 'La deadline est dépassée.');
         }
@@ -34,8 +35,6 @@ class ChallengeValidationController extends Controller
         $filename = uniqid().'.'.$request->file('proof')->guessExtension();
         Storage::disk('validation-proofs')->put($filename, $file);
         fclose($file);
-
-
 
         $team = Team::find($teamId);
         if($team->hasAlreadyMadeSubmission($challengeId)){
