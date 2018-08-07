@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/checkin/{id}', ['uses' => 'Api\CheckinController@show']);
     Route::get('/checkin', ['uses' => 'Api\CheckinController@index']);
     Route::post('/checkin', ['uses' => 'Api\CheckinController@store']);
-    Route::put('/checkin/{id}/student', ['uses' => 'Api\CheckinController@addStudent']);
+    Route::put('/checkin/{id}/student', ['uses' => 'Api\CheckinController@addUser']);
 
     Route::get('/message', ['uses' => 'Api\MessageController@index']);
     Route::post('/message', ['uses' => 'Api\MessageController@store']);
