@@ -49,7 +49,7 @@ class ChallengeRequest extends FormRequest
             'description' => $this->description,
             'points' => $this->points,
             'deadline' => $this->deadline,
-            'for_newcomer' => $this->for_newcomer === "1"?true:false
+            'for_newcomer' => $this->for_newcomer === "1" ?true:false
         ];
     }
 }
