@@ -20,6 +20,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Description</th>
+                        <th>Solo ?</th>
                         <th>nombre de points</th>
                         <th>deadline</th>
                     </tr>
@@ -28,6 +29,13 @@
                         <tr>
                             <td>{{ $challenge->name }}</td>
                             <td>{{ $challenge->description }}</td>
+                            <td>
+                                @if($challenge->for_newcomer)
+                                    <span class="label label-success">oui</span>
+                                @else
+                                    <span class="label label-warning">non</span>
+                                @endif
+                            </td>
                             <td>{{ $challenge->points }}</td>
                             <td>{{ $challenge->deadline }}</td>
                             <td>
