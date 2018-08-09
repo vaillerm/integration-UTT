@@ -2,6 +2,7 @@
 
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Challenge;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,11 +103,11 @@ $factory->define(App\Models\Team::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Challenge::class, function(Faker\Generator $faker) {
+$factory->define(Challenge::class, function(Faker\Generator $faker) {
 	return [
 		"name" => $faker->words(5, true),
 		"description" => $faker->words(10, true),
 		"points" => $faker->numberBetween(1, 50),
-		"deadline" => $faker->datetime
+		"deadline" => $faker->dateTimeBetween("+1 years", "+2 years", "Europe/Paris")
 	];
 });

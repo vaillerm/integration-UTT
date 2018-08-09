@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportNewcomers::class,
         Commands\MailToQueue::class,
         Commands\SetPassword::class,
+        Commands\ChallengesRandom::class
     ];
 
     /**
