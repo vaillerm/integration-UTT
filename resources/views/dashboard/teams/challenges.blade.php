@@ -29,7 +29,7 @@
                         <td class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</td>
                         <td>{{ $validation->message }}</td>
                         <td>
-                            @if($validation->validated==-1 && Auth::user()->ce && !$validation->challenges()->first()->deadlineHasPassed())
+                            @if($validation->validated==-1 && $validation->retryPossible())
                                 <a href="{{ route("challenges.submitForm", ["id" => $validation->challenge_id]) }}"><button class="btn btn-primary">Réessayer !</button></a>
                             @endif
                         </td>

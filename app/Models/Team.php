@@ -51,14 +51,14 @@ class Team extends Model
      * for the given challenge, no matter whether it's validated or not
      */
     public function hasAlreadyMadeSubmission(int $challengeId) {
-        return count($this->challenges->where('id', '=', $challengeId)->all())>0?true: false;
+        return count($this->challenges->where('challenges.id', '=', $challengeId)->all())>0?true: false;
     }
 
     /**
      * Check if a challenge (given  by id) has already been validated
      */
     public function hasAlreadyValidatedChallenge(int $challengeId) :bool{
-        return count($this->challenges()->where('id', '=', $challengeId)->wherePivot('validated', true)->get())>0?true:false;
+        return count($this->challenges()->where('challenges.id', '=', $challengeId)->wherePivot('validated', true)->get())>0?true:false;
     }
 
     /**
