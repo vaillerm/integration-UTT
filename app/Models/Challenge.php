@@ -12,7 +12,8 @@ class Challenge extends Model {
         'name',
         'description',
         'points',
-        'deadline'
+        'deadline',
+        'for_newcomer'
     ];
 
     /**
