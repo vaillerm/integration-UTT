@@ -59,34 +59,35 @@ class ChallengeValidationController extends Controller
      * Display the form for the admin to refuse
      * a challenge
      */
-    public function refuseForm(int $challengeId, int $teamId) {
-        return view('dashboard.challenges.refuse_form', compact('challengeId', 'teamId'));
+    public function refuseForm(int $validationId) {
+        return view('dashboard.challenges.refuse_form', compact('validationId'));
     }
 
-    private function setChallengeStatus(int $challengeId, int$teamId, int $validate=1, string $message=null)
+    private function setChallengeStatus(int $validationId, int $validate=1, string $message=null)
     {
-        $challenge = Team::find($teamId)->challenges()->where('id', '=', $challengeId)->first();
-        $challenge->teams()->updateExistingPivot($teamId, ['validated' => $validate, 'last_update' => new \DateTime('now'), 'update_author' => Auth::user()->id, 'message' => $message]);
-        $challenge->save();
+        $validation = ChallengeValidation::find($validationId);
+        //$challenge->teams()->updateExistingPivot($teamId, );
+        $validation->fill(['validated' => $validate, 'last_update' => new \DateTime('now'), 'update_author' => Auth::user()->id, 'message' => $message]);
+        $validation->save();
         return redirect(route('validation.list'));
     }
 
-    public function resetStatus(int $challengeId, int $teamId) 
+    public function resetStatus(int $validationId) 
     {
-        return $this->setChallengeStatus($challengeId, $teamId, 0);
+        return $this->setChallengeStatus($validationId, 0);
     }
 
 
-    public function accept(int $challengeId, int $teamId) {
-        return $this->setChallengeStatus($challengeId, $teamId);
+    public function accept(int $validationId) {
+        return $this->setChallengeStatus($validationId);
     }
 
-    public function refuse(Request $request, int $challengeId, int $teamId)
+    public function refuse(Request $request, int $validationId)
     {
         $this->validate($request, [
             'message' => 'required|max:140',
         ]);
         $message = $request->message;
-        return $this->setChallengeStatus($challengeId, $teamId, -1, $message);
+        return $this->setChallengeStatus($validationId, -1, $message);
     }
 }
