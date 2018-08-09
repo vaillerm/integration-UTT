@@ -91,7 +91,7 @@ class Team extends Model
      */
     public function ce()
     {
-        return $this->hasMany('App\Models\User')->where('is_newcomer', '0');
+        return $this->hasMany('App\Models\User')->where('is_newcomer', '0')->where('ce', '1');
     }
 
     /**
