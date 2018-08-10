@@ -18,7 +18,7 @@ class ChallengeValidationController extends Controller
      * same function is used to update: allow a team to
      * change the pic for the validation
      */
-    public function createOrUpdate(Request $request, int $teamId, int $challengeId) {
+    public function create(Request $request, int $teamId, int $challengeId) {
 
         $challenge = Challenge::find($challengeId);
 
@@ -37,14 +37,8 @@ class ChallengeValidationController extends Controller
         fclose($file);
 
         $team = Team::find($teamId);
-        if($team->hasAlreadyMadeSubmission($challengeId)){
-
-            Storage::disk('validation-proofs')->delete($team->challenges()->first()->pivot->pic_url);
-            $team->challenges()->updateExistingPivot($challengeId, ['pic_url' => $filename, 'validated' => 0, 'message' => null]);
-        }else{
-            $challenge = Challenge::find($challengeId);
-            $team->challenges()->save($challenge, ['submittedOn'=> new \DateTime('now'), 'pic_url' => $filename]);
-        }
+        $challenge = Challenge::find($challengeId);
+        $team->challenges()->save($challenge, ['submittedOn'=> new \DateTime('now'), 'pic_url' => $filename]);
         $request->flash('success', 'La défis a bien été soumis à validation');
         return redirect(route('challenges.list'));
     }

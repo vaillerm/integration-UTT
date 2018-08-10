@@ -14,7 +14,7 @@
             <h2>Demander une validation pour : {{$challenge->name}}</h2>
             <h3>{{ $challenge->description }}</h3>
         </div>
-        <form action="{{ route("validation.create_update",[
+        <form action="{{ route("validation.create",[
             "teamId" => Auth::user()->team_id,
             "challengeId" => $challenge->id,
         ])  }}" method="post" enctype="multipart/form-data">
