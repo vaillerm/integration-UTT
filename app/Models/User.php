@@ -225,6 +225,14 @@ class User extends Model implements Authenticatable
         ],
     ];
 
+    public function hasAlreadyValidatedChallenge(int $id) {
+        return count($this->challenges()->where('challenges.id', '=', $id)->wherePivot('validated', true)->get())>0?true:false;
+    }
+
+    public function challenges() {
+        $pivots = ['submittedOn', 'validated', 'pic_url', 'last_update', 'update_author', 'message', 'team_id'];
+        return $this->belongsToMany('App\Models\Challenge', 'challenge_validations')->withPivot($pivots)->where('user_id', '=', $this->id);
+    }
 
     /**
      * Change the identifier for passport ('email' field by default, we want 'login')
