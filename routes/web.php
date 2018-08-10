@@ -736,7 +736,7 @@ Route::group(['prefix' => 'challenges'], function() {
         'uses' => 'Challenges\ChallengeController@submitChallengeForm'
     ]);
 
-    Route::post('team/{teamId}/challenge/{challengeId}/submit', 'Challenges\ChallengeValidationController@createOrUpdate')->name('validation.create_update');
+    Route::post('team/{teamId}/challenge/{challengeId}/submit', 'Challenges\ChallengeValidationController@create')->name('validation.create');
     /**
      * No specific authorization required here
      */
