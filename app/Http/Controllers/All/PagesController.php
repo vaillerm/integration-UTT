@@ -51,4 +51,64 @@ class PagesController extends Controller
 
         return response()->file(storage_path() . '/qrcodes/' . $id . '.png');
     }
+
+    /**
+     * @return Response
+     */
+    public function getTrombi()
+    {
+        $users = User::where('mission', '!=', '')
+            ->orderBy('mission_order', 'desc')
+            ->orderBy('mission', 'asc')
+            ->orderBy('mission_respo', 'desc')
+            ->orderBy('last_name', 'asc')->get();
+
+        return View::make('All.trombi', [
+            'users' => $users,
+        ]);
+    }
+
+    /**
+     * Show an image containg the phone to avoid bot crawling on trombi
+     * @return Response
+     */
+    public function getTrombiPhome($id)
+    {
+        $user = User::where('mission', '!=', '')->findOrFail($id);
+
+        // Try to uniformize phone format
+        $phone = $user->phone;
+        if (preg_match('/^(?:0([0-9])|(?:00|\+)33[\. -]?([0-9])|([0-9]))[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?([0-9]{2})[\. -]?$/', $phone, $m)) {
+            $phone = '0'.$m[1].$m[2].$m[3].'.'.$m[4].'.'.$m[5].'.'.$m[6].'.'.$m[7];
+        }
+        else if(preg_match('/^(?:00|\+)(.+)$/', $phone, $m)) {
+            $phone = '+'.$m[1];
+        }
+
+
+        $path = storage_path() . '/trombi-phones/' . $phone . '.png';
+
+        if (!file_exists(storage_path() . '/trombi-phones/' . $phone . '.png')) {
+            $string = $phone;
+
+            $font  = 2;
+            $width  = imagefontwidth($font) * strlen($string);
+            $height = imagefontheight($font);
+
+            $image = imagecreatetruecolor($width, $height);
+            $white = imagecolorallocate($image, 255, 255, 255);
+            $black = imagecolorallocate($image, 0, 0, 0);
+            imagefill($image, 0, 0, $white);
+            imagestring($image, $font, 0, 0, $string, $black);
+
+            if (!file_exists(storage_path() . '/trombi-phones/')) {
+                mkdir(storage_path() . '/trombi-phones/', 0755, true);
+            }
+            imagepng($image, storage_path() . '/trombi-phones/' . $phone . '.png');
+            imagedestroy($image);
+
+        }
+
+        return response()->file(storage_path() . '/trombi-phones/' . $phone . '.png');
+    }
 }

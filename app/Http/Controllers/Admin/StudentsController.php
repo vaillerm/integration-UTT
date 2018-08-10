@@ -184,7 +184,9 @@ class StudentsController extends Controller
             'wei_validated',
             'parent_authorization',
             'bus_id',
-            'mission'
+            'mission',
+            'mission_order',
+            'mission_respo',
         ]);
         $this->validate(Request::instance(), [
             'password' => 'confirmed',
@@ -193,6 +195,7 @@ class StudentsController extends Controller
             'email' => 'email',
             'phone' => 'min:8|max:20',
             'referral_max' => 'integer|max:100|min:1',
+            'mission_order' => 'integer',
         ]);
 
         // Add or remove from sympa
@@ -241,6 +244,8 @@ class StudentsController extends Controller
             $student->orga = !empty($data['orga']);
             $student->secu = !empty($data['secu']);
             $student->mission = $data['mission'];
+            $student->mission_order = $data['mission_order'];
+            $student->mission_respo = !empty($data['mission_respo']);
 
             $volunteer_preferences = [];
             foreach (User::VOLUNTEER_PREFERENCES as $key => $value) {

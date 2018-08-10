@@ -36,6 +36,16 @@ Route::group(['middleware' => 'oauth'], function () {
     ]);
 });
 
+Route::get('/trombi', [
+    'as'   => 'trombi',
+    'uses' => 'All\PagesController@getTrombi'
+]);
+
+Route::get('/trombi/phone/{id}.png', [
+    'as'   => 'trombi.phone',
+    'uses' => 'All\PagesController@getTrombiPhome'
+]);
+
 Route::get('/qrcode/{id}.png', [
     'as'   => 'pages.qrcode',
     'uses' => 'All\PagesController@getQrCode'

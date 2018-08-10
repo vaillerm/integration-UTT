@@ -196,9 +196,21 @@ Modification de profil
             </div>
 
             <div class="form-group">
-                <label for="mission" class="col-lg-2 control-label">Mission pour l'intégration</label>
+                <label for="mission" class="col-lg-2 control-label">Commission</label>
                 <div class="col-lg-10">
                     <input class="form-control" name="mission" id="mission" placeholder="Mission" type="text" value="{{ old('mission') ?? $student->mission }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mission_respo" class="col-lg-2 text-right">Responsable de commission</label>
+                <div class="col-lg-10">
+                    <input type="checkbox" id="mission_respo" name="mission_respo" @if (old('mission_respo') ?? ($student->mission_respo == 1)) checked="checked" @endif/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mission_order" class="col-lg-2 control-label">Priorité de la commission</label>
+                <div class="col-lg-10">
+                    <input class="form-control" name="mission_order" id="mission_order" placeholder="Priorité dans le trombi" type="number" value="{{ old('mission_order') ?? $student->mission_order }}">
                 </div>
             </div>
 
