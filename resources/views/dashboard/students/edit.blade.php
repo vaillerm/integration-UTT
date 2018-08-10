@@ -45,13 +45,13 @@ Modification de profil
                 <div class="form-group">
                     <label for="password" class="col-lg-2 control-label">Mot de passe</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="password" name="password" id="password" value="{{{ old('password') }}}" placeholder="{{ $student->password ? 'Mot de passe caché' : 'Aucun mot de passe'}}">
+                        <input class="form-control" type="password" name="password" id="password" value="{{{ old('password') }}}" placeholder="{{ $student->password ? 'Mot de passe caché' : 'Aucun mot de passe'}}" autocomplete="none">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation" class="col-lg-2 control-label">Confirmation</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" value="{{{ old('password_confirmation') }}}">
+                        <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" value="{{{ old('password_confirmation') }}}" autocomplete="none">
                     </div>
                 </div>
             @else
