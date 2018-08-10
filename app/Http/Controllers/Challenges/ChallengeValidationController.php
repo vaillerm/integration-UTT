@@ -38,7 +38,12 @@ class ChallengeValidationController extends Controller
 
         $team = Team::find($teamId);
         $challenge = Challenge::find($challengeId);
-        $team->challenges()->save($challenge, ['submittedOn'=> new \DateTime('now'), 'pic_url' => $filename]);
+        if($challenge->for_newcomer) {
+            $user = Auth::user();
+            $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'pic_url' => $filename, 'team_id' => $user->team_id]);
+        }else {
+            $team->challenges()->save($challenge, ['submittedOn' => new \DateTime('now'), 'pic_url' => $filename]);
+        }
         $request->flash('success', 'La défis a bien été soumis à validation');
         return redirect(route('challenges.list'));
     }

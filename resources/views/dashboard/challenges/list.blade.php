@@ -47,8 +47,7 @@
                                     <div class="btn-group" role="group"> 
                                         <a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-xs btn-primary">Modifier</button></a>
                                     @endif
-                                    @if(!$team->hasAlreadyValidatedChallenge($challenge->id)
-                                        && !$challenge->deadlineHasPassed())
+                                    @if($challenge->teamValidable($team) || $challenge->newComerValidable(Auth::user()))
                                         <a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-xs btn-primary">valider un défis</button></a>
                                     @endif
                                     </div>
