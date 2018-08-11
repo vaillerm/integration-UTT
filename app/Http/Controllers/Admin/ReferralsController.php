@@ -64,7 +64,7 @@ class ReferralsController extends Controller
      */
     public function index()
     {
-        $referrals = User::student()->where('referral', true)->orderBy('created_at', 'asc')->get();
+        $referrals = User::student()->with(['newcomers'])->where('referral', true)->orderBy('created_at', 'asc')->get();
         $newcomersCounts = DB::table('users')
             ->select(DB::raw('count(*) as `count`, branch'))
             ->groupBy('branch')

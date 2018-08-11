@@ -65,6 +65,7 @@
                                             <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
                                             <li><a href="{{ route('dashboard.students.list.preferences') }}">Bénévoles</a></li>
                                             <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
+                                            <li><a href="{{ route('dashboard.newcomers.list-progress') }}">Nouveaux avec progression</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>

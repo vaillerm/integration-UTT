@@ -265,6 +265,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@list'
             ]);
+            Route::get('/progress', [
+                'as'   => 'dashboard.newcomers.list-progress',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\NewcomersController@listProgress'
+            ]);
             Route::post('/create', [
                 'as'   => 'dashboard.newcomers.create',
                 'middleware' => 'authorize:admin',
