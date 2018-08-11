@@ -28,11 +28,15 @@ class Challenge extends Model {
     }
 
     public function teamValidable(Team $team) : bool {
-        return !($team->hasAlreadyValidatedChallenge($this->id) && !$this->deadlineHasPassed());
+        return !($team->hasAlreadyValidatedChallenge($this->id) || $this->deadlineHasPassed() || $team->hasPendingValidationForChallenge($this));
     }
 
     public function newComerValidable(User $user) : bool {
-        return !($user->hasAlreadyValidatedChallenge($this->id) && !$this->deadlineHasPassed());
+        if($this->for_newcomer) {
+            return !($user->hasAlreadyValidatedChallenge($this->id) && !$this->deadlineHasPassed());
+        }
+        else
+            return false;
     }
 
 
