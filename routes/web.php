@@ -644,18 +644,6 @@ Route::get('/wei/authorization', [
     'uses' => 'Newcomers\WEIController@newcomersAuthorization'
 ]);
 
-Route::get('/contact', [
-    'as'   => 'newcomer.contact',
-    'middleware' => 'authorize:newcomer',
-    'uses' => 'Newcomers\ContactController@contact'
-]);
-
-Route::post('/contact', [
-    'as'   => 'newcomer.contact.submit',
-    'middleware' => 'authorize:newcomer',
-    'uses' => 'Newcomers\ContactController@contactSubmit'
-]);
-
 Route::get('/faq', [
     'as'   => 'newcomer.faq',
     'middleware' => 'authorize:newcomer',

@@ -75,7 +75,7 @@ class Checkin extends Model
 	 */
 	public static function addUserRules() {
 		return [
-			'uid' => 'required|numeric|exists:users,id'
+			'uid' => 'required|min:36|max:36|exists:users,qrcode'
 		];
 	}
 
