@@ -23,7 +23,7 @@ Une question, une remarque, un mot d'amour...
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">De la part de</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" {{ Auth::user() ? 'disabled' : '' }} value="{{{ old('email') ?? (Auth::user() ? Auth::user()->first_name . ' ' . Auth::user()->last_name : '') }}}">
+                        <input class="form-control" type="text" id="name" placeholder="Prénom NOM" name="name" {{ Auth::user() ? 'disabled' : '' }} value="{{{ old('email') ?? (Auth::user() ? Auth::user()->first_name . ' ' . Auth::user()->last_name : '') }}}">
                     </div>
                 </div>
 

@@ -58,14 +58,13 @@ Ton équipe d'intégration
 
 <table style="max-width: 600px; width:100%; margin: 15px auto 0 auto; border-collapse: collapse; background-color: #fff; box-shadow: 0 1px 1px rgba(0,0,0,0,1);border-radius: 3px;border-bottom: 3px solid #d2d6de;">
 <tr><td style="color: #fff;background-color: #00c0ef;padding: 16px 16px 10px 16px;font-size:20px;font-weight:bold;text-align:center;">
-    Le N'UTT : Le journal de l'UTT
+    Site d'Inté
 </td></tr><tr><td style="padding: 10px;">
-    <p>Le N'UTT, c'est le club étudiant de l'UTT qui édite le journal de l'école, tu pourras le retrouver de temps en temps au foyer. Une version spécial intégration a été concocté pour toi !</p>
-
+    <p>Retrouve toutes les autres infos sur l'intégration sur notre site !</p>
     <div style="text-align:center; margin: 15px;">
-        <a href="{{ asset('docs/nutt.pdf') }}" target="_blank" style="background-color: #00c0ef;border-color: #00acd6;border-radius: 3px;color: #fff;padding: 10px 16px;text-decoration: none;font-size: 18px;line-height: 1.3333333;">Lire le N'UTT</a><br/>
+        <a href="https://integration.utt.fr" target="_blank" style="background-color: #00c0ef;border-color: #00acd6;border-radius: 3px;color: #fff;padding: 10px 16px;text-decoration: none;font-size: 18px;line-height: 1.3333333;">integration.utt.fr</a><br/>
     </div>
-    <p><em>Pour retrouver ton N'UTT et toutes les info sur l'intégration : <a href="https://integration.utt.fr" style="color: #3c8dbc;" target="_blank">integration.utt.fr</a></em></p>
+    <p><em>Et si tu n'arrives pas à te connecter ou pour toute autre question, <a href="{{ route('contact') }}" style="color: #3c8dbc;" target="_blank">envoie nous un message</a>.</em></p>
 
 </td></tr></table>
 
