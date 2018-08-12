@@ -15,7 +15,12 @@ class ChallengeValidation extends Model
         'update_author',
         'message',
         'submittedOn',
+        'user_id',
     ];
+
+    public function user() {
+        return $this->belongsTo("App\Models\User");
+    }
 
     /**
      * Return an array with the css class and the content of what to display

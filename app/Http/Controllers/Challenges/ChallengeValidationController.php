@@ -38,19 +38,15 @@ class ChallengeValidationController extends Controller
 
         $team = Team::find($teamId);
         $challenge = Challenge::find($challengeId);
-        if($challenge->for_newcomer) {
-            $user = Auth::user();
-            $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'pic_url' => $filename, 'team_id' => $user->team_id]);
-        }else {
-            $team->challenges()->save($challenge, ['submittedOn' => new \DateTime('now'), 'pic_url' => $filename]);
-        }
+        $user = Auth::user();
+        $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'pic_url' => $filename, 'team_id' => $user->team_id]);
         $request->flash('success', 'La défis a bien été soumis à validation');
         return redirect(route('challenges.list'));
     }
 
     public function list() {
-        $validations_pending = ChallengeValidation::where('validated', '=', 0)->orderBy('submittedOn', 'last_update', 'dsc')->get();
-        $validations_treated = ChallengeValidation::where('validated', '=', -1)->orWhere('validated', '=', 1)->orderBy('last_update', 'dsc')->get();
+        $validations_pending = ChallengeValidation::where('validated', '=', 0)->orderBy('submittedOn', 'last_update', 'desc')->get();
+        $validations_treated = ChallengeValidation::where('validated', '=', -1)->orWhere('validated', '=', 1)->orderBy('last_update', 'desc')->get();
         return view('dashboard.challenges.submissions', compact('validations_pending', 'validations_treated'));
     }
 
