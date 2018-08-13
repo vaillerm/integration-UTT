@@ -31,8 +31,8 @@
                         <td>{{$validation->user()->first()->first_name}}</td>
                         <td>{{ $validation->message }}</td>
                         <td>
-                            @if($validation->challenges()->first()->teamValidable(Auth::user()->team()->first()) || 
-                                $validation->challenges()->first()->newcomerValidable(Auth::user()))
+                            @if($validation->validated == -1 && ($validation->challenges()->first()->teamValidable(Auth::user()->team()->first()) || 
+                                $validation->challenges()->first()->newcomerValidable(Auth::user())))
                                 <a href="{{ route("challenges.submitForm", ["id" => $validation->challenge_id]) }}"><button class="btn btn-primary">Réessayer !</button></a>
                             @endif
                         </td>
