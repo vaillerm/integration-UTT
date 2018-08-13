@@ -110,9 +110,11 @@ class NewcomersController extends Controller
         $user->registration_phone = null;
         $user->branch = null;
         $user->wei_majority = null;
+        $user->team_id = null;
+        $user->referral_id = null;
         $user->nosync = true;
-        $user->login = true;
-        $user->password = true;
+        $user->login = null;
+        $user->password = null;
 
         $user->save();
         return $this->success('Le compte nouveau a été désactivé définitivement !');
