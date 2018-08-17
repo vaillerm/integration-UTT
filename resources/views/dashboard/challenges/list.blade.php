@@ -20,6 +20,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Description</th>
+                        <th>Solo ?</th>
                         <th>nombre de points</th>
                         <th>deadline</th>
                     </tr>
@@ -28,6 +29,13 @@
                         <tr>
                             <td>{{ $challenge->name }}</td>
                             <td>{{ $challenge->description }}</td>
+                            <td>
+                                @if($challenge->for_newcomer)
+                                    <span class="label label-success">oui</span>
+                                @else
+                                    <span class="label label-warning">non</span>
+                                @endif
+                            </td>
                             <td>{{ $challenge->points }}</td>
                             <td>{{ $challenge->deadline }}</td>
                             <td>
@@ -39,10 +47,7 @@
                                     <div class="btn-group" role="group"> 
                                         <a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-xs btn-primary">Modifier</button></a>
                                     @endif
-                                    {{--I check wether the user is a team leader, and also if the team has already validated this challenge, in that case, the "valider un défis" button doesn't appear--}}
-                                    @if(Auth::user()->ce && 
-                                        !$team->hasAlreadyValidatedChallenge($challenge->id)
-                                        && !$challenge->deadlineHasPassed())
+                                    @if($challenge->teamValidable($team) || $challenge->newComerValidable(Auth::user()))
                                         <a href={{ route("challenges.submitForm", ["id" => $challenge->id]) }}><button class="btn btn-xs btn-primary">valider un défis</button></a>
                                     @endif
                                     </div>

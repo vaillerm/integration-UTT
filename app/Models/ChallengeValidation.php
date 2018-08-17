@@ -8,7 +8,19 @@ class ChallengeValidation extends Model
 {
     protected $table='challenge_validations';
     public $timestamps=false;
-    protected $primary = ['team_id', 'challenge_id'];
+    protected $primary = 'id';
+    protected $fillable = [
+        'validated',
+        'last_update',
+        'update_author',
+        'message',
+        'submittedOn',
+        'user_id',
+    ];
+
+    public function user() {
+        return $this->belongsTo("App\Models\User");
+    }
 
     /**
      * Return an array with the css class and the content of what to display
@@ -37,6 +49,13 @@ class ChallengeValidation extends Model
             ];
             break;
         }
+
+    }
+
+    public function retryPossible() :bool {
+        $should_be_empty = $this->teams()->first()->challenges()->wherePivot("validated", "=", 1)->get();
+        $deadlinePassed = $this->challenges()->first()->deadlineHasPassed();
+        return count($should_be_empty) < 1 && !$deadlinePassed;
 
     }
 

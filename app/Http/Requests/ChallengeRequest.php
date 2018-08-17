@@ -26,10 +26,11 @@ class ChallengeRequest extends FormRequest
 		$validation = [
 			'description' => 'required|max:140|string',
 			'points' => 'required|numeric',
-			'deadline'=> 'required'
+			'deadline'=> 'required',
+            'for_newcomer' => 'boolean'
 		];
-		if($this->has('challengeId')) {
-			$validation['name'] = 'required|unique:challenges,'.$this->challengeId;
+		if(isset($this->challengeId)) {
+			$validation['name'] = 'required|unique:challenges,id,'.$this->challengeId;
 		} else {
 			$validation['name'] = 'required|unique:challenges';
 		}
@@ -47,7 +48,8 @@ class ChallengeRequest extends FormRequest
             'name' => $this->name,
             'description' => $this->description,
             'points' => $this->points,
-            'deadline' => $this->deadline
+            'deadline' => $this->deadline,
+            'for_newcomer' => $this->for_newcomer === "1" ?true:false
         ];
     }
 }

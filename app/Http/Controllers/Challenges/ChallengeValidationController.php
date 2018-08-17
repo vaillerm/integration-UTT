@@ -13,15 +13,16 @@ use Auth;
 class ChallengeValidationController extends Controller
 {
     /**
-     * used when the team leader send a validation proof
+     * used when a member of the team sends a validation proof
      * in order to validate a challenge
      * same function is used to update: allow a team to
      * change the pic for the validation
      */
-    public function createOrUpdate(Request $request, int $teamId, int $challengeId) {
+    public function create(Request $request, int $teamId, int $challengeId) {
 
         $challenge = Challenge::find($challengeId);
 
+        //If the deadline has passed, redirect with error
         if($challenge->deadlineHasPassed()) {
             return redirect(route('challenges.list'))->with('error', 'La deadline est dépassée.');
         }
@@ -35,24 +36,17 @@ class ChallengeValidationController extends Controller
         Storage::disk('validation-proofs')->put($filename, $file);
         fclose($file);
 
-
-
         $team = Team::find($teamId);
-        if($team->hasAlreadyMadeSubmission($challengeId)){
-
-            Storage::disk('validation-proofs')->delete($team->challenges()->first()->pivot->pic_url);
-            $team->challenges()->updateExistingPivot($challengeId, ['pic_url' => $filename, 'validated' => 0, 'message' => null]);
-        }else{
-            $challenge = Challenge::find($challengeId);
-            $team->challenges()->save($challenge, ['submittedOn'=> new \DateTime('now'), 'pic_url' => $filename]);
-        }
+        $challenge = Challenge::find($challengeId);
+        $user = Auth::user();
+        $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'pic_url' => $filename, 'team_id' => $user->team_id]);
         $request->flash('success', 'La défis a bien été soumis à validation');
         return redirect(route('challenges.list'));
     }
 
     public function list() {
-        $validations_pending = ChallengeValidation::where('validated', '=', 0)->orderBy('submittedOn', 'last_update', 'dsc')->get();
-        $validations_treated = ChallengeValidation::where('validated', '=', -1)->orWhere('validated', '=', 1)->orderBy('last_update', 'dsc')->get();
+        $validations_pending = ChallengeValidation::where('validated', '=', 0)->orderBy('submittedOn', 'last_update', 'desc')->get();
+        $validations_treated = ChallengeValidation::where('validated', '=', -1)->orWhere('validated', '=', 1)->orderBy('last_update', 'desc')->get();
         return view('dashboard.challenges.submissions', compact('validations_pending', 'validations_treated'));
     }
 
@@ -60,34 +54,35 @@ class ChallengeValidationController extends Controller
      * Display the form for the admin to refuse
      * a challenge
      */
-    public function refuseForm(int $challengeId, int $teamId) {
-        return view('dashboard.challenges.refuse_form', compact('challengeId', 'teamId'));
+    public function refuseForm(int $validationId) {
+        return view('dashboard.challenges.refuse_form', compact('validationId'));
     }
 
-    private function setChallengeStatus(int $challengeId, int$teamId, int $validate=1, string $message=null)
+    private function setChallengeStatus(int $validationId, int $validate=1, string $message=null)
     {
-        $challenge = Team::find($teamId)->challenges()->where('id', '=', $challengeId)->first();
-        $challenge->teams()->updateExistingPivot($teamId, ['validated' => $validate, 'last_update' => new \DateTime('now'), 'update_author' => Auth::user()->id, 'message' => $message]);
-        $challenge->save();
+        $validation = ChallengeValidation::find($validationId);
+        //$challenge->teams()->updateExistingPivot($teamId, );
+        $validation->fill(['validated' => $validate, 'last_update' => new \DateTime('now'), 'update_author' => Auth::user()->id, 'message' => $message]);
+        $validation->save();
         return redirect(route('validation.list'));
     }
 
-    public function resetStatus(int $challengeId, int $teamId) 
+    public function resetStatus(int $validationId) 
     {
-        return $this->setChallengeStatus($challengeId, $teamId, 0);
+        return $this->setChallengeStatus($validationId, 0);
     }
 
 
-    public function accept(int $challengeId, int $teamId) {
-        return $this->setChallengeStatus($challengeId, $teamId);
+    public function accept(int $validationId) {
+        return $this->setChallengeStatus($validationId);
     }
 
-    public function refuse(Request $request, int $challengeId, int $teamId)
+    public function refuse(Request $request, int $validationId)
     {
         $this->validate($request, [
             'message' => 'required|max:140',
         ]);
         $message = $request->message;
-        return $this->setChallengeStatus($challengeId, $teamId, -1, $message);
+        return $this->setChallengeStatus($validationId, -1, $message);
     }
 }

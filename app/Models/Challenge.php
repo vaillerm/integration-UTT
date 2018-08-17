@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Challenge extends Model {
@@ -12,7 +14,8 @@ class Challenge extends Model {
         'name',
         'description',
         'points',
-        'deadline'
+        'deadline',
+        'for_newcomer'
     ];
 
     /**
@@ -23,6 +26,19 @@ class Challenge extends Model {
         $now = new \DateTime('now');
         return !($challenge_date > $now);
     }
+
+    public function teamValidable(Team $team) : bool {
+        return !($team->hasAlreadyValidatedChallenge($this->id) || $this->deadlineHasPassed() || $team->hasPendingValidationForChallenge($this));
+    }
+
+    public function newComerValidable(User $user) : bool {
+        if($this->for_newcomer) {
+            return !($user->hasAlreadyValidatedChallenge($this->id) && !$this->deadlineHasPassed());
+        }
+        else
+            return false;
+    }
+
 
     /**
      * All the teams that asked validation for this challenge
