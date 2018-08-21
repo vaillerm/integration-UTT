@@ -201,8 +201,7 @@ class WEIController extends Controller
      */
     public function newcomersAuthorization()
     {
-        $underage = (Auth::user()->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
-        if (!$underage) {
+        if (!Auth::user()->isUnderage()) {
             Auth::user()->setCheck('wei_authorization', true);
             Auth::user()->save();
             return Redirect(route('newcomer.wei'));
