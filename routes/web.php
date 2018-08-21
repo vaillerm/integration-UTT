@@ -442,11 +442,11 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::group(['prefix' => 'exports'], function () {
             Route::get('/referrals', [
                 'as'   => 'dashboard.exports.referrals',
-                'uses' => 'Admin\ExportController@getExportReferrals'
+                'uses' => 'Admin\ExportController@getExportReferralsToNewcomers'
             ]);
             Route::get('/newcomers', [
                 'as'   => 'dashboard.exports.newcomers',
-                'uses' => 'Admin\ExportController@getExportNewcomers'
+                'uses' => 'Admin\ExportController@getExportNewcomersToReferrals'
             ]);
             Route::get('/teams', [
                 'as'   => 'dashboard.exports.teams',

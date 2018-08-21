@@ -297,7 +297,7 @@ class User extends Model implements Authenticatable
             return ($this->birth->add(new \DateInterval('P18Y')) >= (new \DateTime(Config::get('services.wei.start'))));
         }
         else if ($this->wei_majority !== null) {
-            return $this->wei_majority;
+            return !$this->wei_majority;
         }
         else if ($this->isStudent()) {
             return false;
