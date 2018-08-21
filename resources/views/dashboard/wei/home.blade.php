@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         @else
-                            <a href="{{route('dashboard.wei.pay')}}" class="btn btn-primary">S'inscrire au Week-End</a><br/>
+                            <a href="{{route('dashboard.wei.health')}}" class="btn btn-primary">S'inscrire au Week-End</a><br/>
                             <p>Si tu as le moindre souci, n'hésite pas à nous contacter à <a href="mailto:integration@utt.fr">integration@utt.fr</a> en précisant en tant que quoi tu viens (bénévole, ce, orga...)</p>
                         @endif
                     @else
@@ -65,6 +65,18 @@
                     @endif
 
                 @else
+
+                    @if($health)
+                        <big><a href="{{ route('dashboard.wei.health') }}">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            Modifier son profil santé
+                        </a></big><br/>
+                    @else
+                        <big><a href="{{ route('dashboard.wei.health') }}">
+                            <i class="fa fa-square-o" aria-hidden="true"></i>
+                            Remplir son profil santé
+                        </a></big><br/>
+                    @endif
 
                     @if($wei)
                         <big>

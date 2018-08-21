@@ -347,6 +347,18 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'Students\WEIController@etuHome'
             ]);
 
+            Route::get('/health', [
+                'as'   => 'dashboard.wei.health',
+                'middleware' => 'authorize:volunteer,wei',
+                'uses' => 'Students\WEIController@healthForm'
+            ]);
+
+            Route::post('/health', [
+                'as'   => 'dashboard.wei.health.submit',
+                'middleware' => 'authorize:volunteer,wei',
+                'uses' => 'Students\WEIController@healthFormSubmit'
+            ]);
+
             Route::get('/pay', [
                 'as'   => 'dashboard.wei.pay',
                 'middleware' => 'authorize:volunteer,wei',
