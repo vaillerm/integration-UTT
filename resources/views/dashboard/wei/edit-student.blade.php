@@ -350,7 +350,6 @@ Modification d'un étudiant
                                             <td>
                                                 <strong>Caution du week-end</strong>
                                                 <p>
-                                                    La somme sera prélevée sur le compte puis remboursé automatiquement sur la carte bancaire émettrice une semaine après le WEI.<br/>
                                                     Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                                 </p>
                                             </td>
