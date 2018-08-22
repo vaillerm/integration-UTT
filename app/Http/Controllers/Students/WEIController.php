@@ -245,7 +245,7 @@ class WEIController extends Controller
         // Calculate EtuPay Payload
         $crypt = new Encrypter(base64_decode(Config::get('services.etupay.key')), 'AES-256-CBC');
         $payload = $crypt->encrypt(json_encode([
-            'type' => 'authorisation',
+            'type' => 'checkout',
             'amount' => $amount,
             'client_mail' => $user->email,
             'firstname' => $user->first_name,

@@ -350,8 +350,7 @@ Modification d'un étudiant
                                             <td>
                                                 <strong>Caution du week-end</strong>
                                                 <p>
-                                                    Autorisation de prélèvement en ligne qui ne sera pas prélevée (sauf en cas de soucis).<br/>
-                                                    Équivalent d'un chèque, mais en ligne, et qui expire en 29 jours.<br/>
+                                                    La somme sera prélevée sur le compte puis remboursé automatiquement sur la carte bancaire émettrice une semaine après le WEI.<br/>
                                                     Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                                 </p>
                                             </td>
