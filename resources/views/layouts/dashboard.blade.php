@@ -24,19 +24,19 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        @if (Auth::user()->isAdmin())
-                                            <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
-                                            <li><a href={{ route("validation.list") }}>Liste des validations</a></li>
-                                        @endif
-                                        <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
-                                        @if(Auth::user()->team_id != null)
+                                @if(Auth::user()->team_id != null)
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            @if (Auth::user()->isAdmin())
+                                                <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
+                                                <li><a href={{ route("validation.list") }}>Liste des validations</a></li>
+                                            @endif
+                                            <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
                                             <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
-                                        @endif
-                                    </ul>
-                                </li>
+                                        </ul>
+                                    </li>
+                                @endif
                                 @if (Auth::user()->ce)
                                     @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
@@ -65,6 +65,7 @@
                                             <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
                                             <li><a href="{{ route('dashboard.students.list.preferences') }}">Bénévoles</a></li>
                                             <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
+                                            <li><a href="{{ route('dashboard.newcomers.list-progress') }}">Nouveaux avec progression</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>

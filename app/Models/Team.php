@@ -41,32 +41,28 @@ class Team extends Model
     /**
      * Returns all the pending validation : all the challenges where
      * 'validated' attribute is null
-     */
+     *
     public function getPendingValidations()  {
         return $this->challenges()->wherePivot('validated', 0);
-    }
+    }*/
 
     /**
      * Return true if the team has already made a submission
      * for the given challenge, no matter whether it's validated or not
      */
-    public function hasAlreadyMadeSubmission(int $challengeId) {
-        return count($this->challenges->where('id', '=', $challengeId)->all())>0?true: false;
+    public function hasPendingValidationForChallenge(Challenge $challenge) {
+        return count($this->challenges()->where(
+            'challenges.id', '=', $challenge->id
+        )->wherePivot("validated", 0)->get())>0?true: false;
     }
 
     /**
      * Check if a challenge (given  by id) has already been validated
      */
     public function hasAlreadyValidatedChallenge(int $challengeId) :bool{
-        return count($this->challenges()->where('id', '=', $challengeId)->wherePivot('validated', true)->get())>0?true:false;
+        return count($this->challenges()->where('challenges.id', '=', $challengeId)->wherePivot('validated', true)->get())>0?true:false;
     }
 
-    /**
-     * Returns true if there is pending validations, false otherwise
-     */
-    public function hasPendingValidations() :bool {
-        return count($this->challenges()->get())>0?true:false;
-    }
 
     /**
      * Define the One-to-Many relation with Newcomer;
