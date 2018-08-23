@@ -56,7 +56,7 @@ class CheckinController extends Controller
         // api request
         $user = $user = Auth::guard('api')->user();
 
-        if (!$user->ce && !$user->orga) {
+        if (!$user->ce && !$user->orga && !$user->admin) {
             return Response::json(["message" => "You are not allowed."], 403);
         }
 
@@ -80,10 +80,9 @@ class CheckinController extends Controller
     {
         $user = $user = Auth::guard('api')->user();
 
-        if (!$user->ce && !$user->orga) {
+        if (!$user->ce && !$user->orga && !$user->admin) {
             return Response::json(["message" => "You are not allowed."], 403);
         }
-
         // validate the request inputs
         $validator = Validator::make(Request::all(), Checkin::addUserRules());
         if ($validator->fails()) {
@@ -96,7 +95,8 @@ class CheckinController extends Controller
         }
 
         // the email is already check by the validator, so this user exists
-        $user = User::find(Request::get('uid'));
+        
+        $user = User::where('qrcode', Request::get('uid'))->firstOrFail();
 
         if ($checkin->prefilled) {
             // if user is admin and there is a force attribute, add the user to the prefilled checkin
