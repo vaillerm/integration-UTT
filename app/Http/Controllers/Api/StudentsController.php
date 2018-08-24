@@ -60,8 +60,8 @@ class StudentsController extends Controller
         $query = DB::table('users');
         for ($i = 0; $i < sizeof($parts); $i++) {
             $query = $query
-                ->whereRaw("lower(first_name) like '".strtolower($parts[$i])."%'")
-                ->orWhereRaw("lower(last_name) like '".strtolower($parts[$i])."%'");
+                ->where('first_name', 'like',  $parts[$i].'%')
+                ->orWhere('last_name', 'like',  $parts[$i].'%');
         }
 
         return Response::json($query->get());
