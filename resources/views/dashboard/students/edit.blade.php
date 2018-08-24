@@ -22,6 +22,9 @@ Modification de profil
                 Désactiver définitivement
             </a>
         @endif
+        <a href="{{ route('dashboard.students.generatePassword', ['id' => $student->id ]) }}" class="btn btn-xs btn-info pull-right">
+            Générer et envoyer un mot de passe
+        </a>
     </div>
     <div class="box-body">
         <form class="form-horizontal" action="{{ route('dashboard.students.edit.submit', $student->id) }}" method="post" enctype="multipart/form-data">

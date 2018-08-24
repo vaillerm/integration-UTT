@@ -513,6 +513,31 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\StudentsController@editSubmit'
             ]);
+            Route::get('/add', [
+                'as'   => 'dashboard.students.add',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@add'
+            ]);
+            Route::post('/add', [
+                'as'   => 'dashboard.students.add',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@add'
+            ]);
+            Route::get('/add/{login}', [
+                'as'   => 'dashboard.students.addsubmit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@addSubmit'
+            ]);
+            Route::get('/add/{login}', [
+                'as'   => 'dashboard.students.addsubmit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@addSubmit'
+            ]);
+            Route::get('/{id}/generate-password', [
+                'as'   => 'dashboard.students.generatePassword',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@generatePassword'
+            ]);
         });
 
         Route::group(['prefix' => 'configs'], function () {

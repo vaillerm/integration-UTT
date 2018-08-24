@@ -202,6 +202,7 @@ class TeamController extends Controller
         ]);
     }
 
+
     /**
      * When search form from add is submited
      *
@@ -209,41 +210,21 @@ class TeamController extends Controller
      */
     public function addSubmit($login)
     {
-        // If the user is new, import some values from the API response.
-        $json = EtuUTT::call('/api/public/users/'.$login)['data'];
-        $student = User::where([ 'etuutt_login' => $json['login'] ])->first();
-        if ($student === null) {
-            $student = new User([
-                'student_id'    => $json['studentId'],
-                'first_name'    => $json['firstName'],
-                'last_name'     => $json['lastName'],
-                'surname'       => $json['surname'],
-                'email'         => $json['email'],
-                'facebook'      => $json['facebook'],
-                'branch'        => $json['branch'],
-                'level'         => $json['level'],
-                'ce'            => 1,
-                'team_id'       => Auth::user()->team_id,
-            ]);
-            $student->etuutt_login = $json['login'];
-            $student->save();
+        $user = $student = EtuUTT::importUser($login);
 
-            // Error here a ignored, we just keep user without a picture if we cannot download it
-            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $json['studentId'] . '.jpg');
-            @file_put_contents(public_path() . '/uploads/students-trombi/' . $json['studentId'] . '.jpg', $picture);
-        } elseif ($student->team_id) {
+        if ($user->team_id) {
             return $this->error('Cet étudiant fait déjà partie d\'une équipe. Il faut qu\'il la quitte avant de pouvoir être ajouté à une nouvelle équipe.');
         } else {
-            $student->team_id = Auth::user()->team_id;
-            $student->ce = 1;
-            $student->save();
+            $user->team_id = Auth::user()->team_id;
+            $user->ce = 1;
+            $user->save();
         }
 
         $team = Auth::user()->team;
         $team->validated = false;
         $team->save();
 
-        return redirect(route('dashboard.ce.myteam'))->withSuccess($json['fullName'].' a bien été ajouté à votre équipe. Il faut maintenant qu\'il se connecte au site d\'intégration pour valider sa participation.');
+        return redirect(route('dashboard.ce.myteam'))->withSuccess($user->fullName().' a bien été ajouté à votre équipe. Il faut maintenant qu\'il se connecte au site d\'intégration pour valider sa participation.');
     }
 
 

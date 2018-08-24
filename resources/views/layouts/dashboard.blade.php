@@ -63,6 +63,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
+                                            <li><a href="{{ route('dashboard.students.add') }}">Ajouter un étu</a></li>
                                             <li><a href="{{ route('dashboard.students.list.preferences') }}">Bénévoles</a></li>
                                             <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
                                             <li><a href="{{ route('dashboard.newcomers.list-progress') }}">Nouveaux avec progression</a></li>
