@@ -166,7 +166,12 @@ class ReferralsController extends Controller
     public function slidesBranch()
     {
         return View::make('dashboard.referrals.slides', [
-            'referrals' => User::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')->orderBy('last_name')->with('newcomers')->get(),
+            'referrals' => User::where('referral', 1)->where('referral_validated', 1)->where('branch', '<>', 'TC')
+            ->where('branch', '<>', 'A2I')
+            ->where('branch', '<>', 'PAIP')
+            ->where('branch', '<>', 'RE')
+            ->where('branch', '<>', 'ISC')
+            ->orderBy('last_name')->with('newcomers')->get(),
         ]);
     }
 }
