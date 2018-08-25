@@ -140,6 +140,11 @@ class NewcomerMatching
         }
 
         foreach ($newcomers as $newcomer) {
+            // Remove exchange students from auto team assignement
+            if ($newcomer->branch == 'CV ING') {
+                continue;
+            }
+
             // Select teams associated with newcomer's branch if exist
             $branch = null;
             if (isset($countPerTeam[$newcomer->branch])) {
