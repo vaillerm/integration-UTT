@@ -24,7 +24,6 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
-                                @if(Auth::user()->team_id != null)
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
@@ -36,7 +35,6 @@
                                             <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
                                         </ul>
                                     </li>
-                                @endif
                                 @if (Auth::user()->ce)
                                     @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
