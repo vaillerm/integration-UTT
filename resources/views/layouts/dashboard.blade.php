@@ -26,6 +26,8 @@
                             <ul class="nav navbar-nav">
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             @if (Auth::user()->isAdmin())
                                                 <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
@@ -35,6 +37,10 @@
                                             <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
                                         </ul>
                                     </li>
+<<<<<<< HEAD
+=======
+                                @endif
+>>>>>>> master
                                 @if (Auth::user()->ce)
                                     @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
@@ -61,8 +67,10 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ route('dashboard.students.list') }}">Étudiants</a></li>
+                                            <li><a href="{{ route('dashboard.students.add') }}">Ajouter un étu</a></li>
                                             <li><a href="{{ route('dashboard.students.list.preferences') }}">Bénévoles</a></li>
                                             <li><a href="{{ route('dashboard.newcomers.list') }}">Nouveaux</a></li>
+                                            <li><a href="{{ route('dashboard.newcomers.list-progress') }}">Nouveaux avec progression</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>

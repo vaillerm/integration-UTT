@@ -99,14 +99,14 @@ Liste de toutes les personnes qui ont visionné le formulaire au moins une fois.
                         <td>
                             @if (!$referral->referral_validated)
                                 <span class="label label-default">
-                            @elseif ($referral->newcomers()->count() > 0 && $referral->newcomers()->count() <= $referral->referral_max)
+                            @elseif ($referral->newcomers->count() > 0 && $referral->newcomers->count() <= $referral->referral_max)
                                 <span class="label label-success">
-                            @elseif ($referral->newcomers()->count() > 0 && $referral->newcomers()->count() <= 5)
+                            @elseif ($referral->newcomers->count() > 0 && $referral->newcomers->count() <= 5)
                                 <span class="label label-warning">
                             @else
                                 <span class="label label-danger">
                             @endif
-                                {{ $referral->newcomers()->count() }} / {{ $referral->referral_max }}
+                                {{ $referral->newcomers->count() }} / {{ $referral->referral_max }}
                             </span>
                         </td>
                         <td>

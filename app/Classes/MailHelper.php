@@ -29,6 +29,8 @@ class MailHelper
     const NEWCOMERS_FILLED_BRANCH      = 15;
     const NEWCOMERS_FILLED_MASTER      = 16;
     const NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM  = 17;
+    const NEWCOMERS_ALL_WITH_TEAM  = 19;
+    const NEWCOMERS_ALL_WITH_GODFATHER  = 20;
     const WEI_SUSCBRIBED  = 18;
 
     public static $listToFrench = [
@@ -50,6 +52,8 @@ class MailHelper
         self::NEWCOMERS_FILLED_BRANCH => 'Nouveaux Branche qui ont entré leur email',
         self::NEWCOMERS_FILLED_MASTER => 'Nouveaux Master qui ont entré leur email',
         self::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM => 'Tous les nouveaux ayant un parrain et une équipe',
+        self::NEWCOMERS_ALL_WITH_TEAM => 'Tous les nouveaux ayant une équipe',
+        self::NEWCOMERS_ALL_WITH_GODFATHER => 'Tous les nouveaux ayant un parrain',
         self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI et ayant un numéro de bus',
     ];
 
@@ -135,6 +139,12 @@ class MailHelper
                     break;
                 case MailHelper::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM:
                     $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->whereNotNull('referral_id')->get();
+                    break;
+                case MailHelper::NEWCOMERS_ALL_WITH_TEAM:
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('team_id')->get();
+                    break;
+                case MailHelper::NEWCOMERS_ALL_WITH_GODFATHER:
+                    $students = User::newcomer()->with(['mailHistories', 'team', 'godFather'])->whereNotNull('referral_id')->get();
                     break;
                 case MailHelper::WEI_SUSCBRIBED:
                     $students = User::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->where('bus_id','>', 0)->get();

@@ -36,6 +36,16 @@ Route::group(['middleware' => 'oauth'], function () {
     ]);
 });
 
+Route::get('/trombi', [
+    'as'   => 'trombi',
+    'uses' => 'All\PagesController@getTrombi'
+]);
+
+Route::get('/trombi/phone/{id}.png', [
+    'as'   => 'trombi.phone',
+    'uses' => 'All\PagesController@getTrombiPhome'
+]);
+
 Route::get('/qrcode/{id}.png', [
     'as'   => 'pages.qrcode',
     'uses' => 'All\PagesController@getQrCode'
@@ -255,6 +265,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@list'
             ]);
+            Route::get('/progress', [
+                'as'   => 'dashboard.newcomers.list-progress',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\NewcomersController@listProgress'
+            ]);
             Route::post('/create', [
                 'as'   => 'dashboard.newcomers.create',
                 'middleware' => 'authorize:admin',
@@ -330,6 +345,18 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'as'   => 'dashboard.wei',
                 'middleware' => 'authorize:volunteer,wei',
                 'uses' => 'Students\WEIController@etuHome'
+            ]);
+
+            Route::get('/health', [
+                'as'   => 'dashboard.wei.health',
+                'middleware' => 'authorize:volunteer,wei',
+                'uses' => 'Students\WEIController@healthForm'
+            ]);
+
+            Route::post('/health', [
+                'as'   => 'dashboard.wei.health.submit',
+                'middleware' => 'authorize:volunteer,wei',
+                'uses' => 'Students\WEIController@healthFormSubmit'
             ]);
 
             Route::get('/pay', [
@@ -427,11 +454,11 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::group(['prefix' => 'exports'], function () {
             Route::get('/referrals', [
                 'as'   => 'dashboard.exports.referrals',
-                'uses' => 'Admin\ExportController@getExportReferrals'
+                'uses' => 'Admin\ExportController@getExportReferralsToNewcomers'
             ]);
             Route::get('/newcomers', [
                 'as'   => 'dashboard.exports.newcomers',
-                'uses' => 'Admin\ExportController@getExportNewcomers'
+                'uses' => 'Admin\ExportController@getExportNewcomersToReferrals'
             ]);
             Route::get('/teams', [
                 'as'   => 'dashboard.exports.teams',
@@ -485,6 +512,31 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'as'   => 'dashboard.students.edit.submit',
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\StudentsController@editSubmit'
+            ]);
+            Route::get('/add', [
+                'as'   => 'dashboard.students.add',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@add'
+            ]);
+            Route::post('/add', [
+                'as'   => 'dashboard.students.add',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@add'
+            ]);
+            Route::get('/add/{login}', [
+                'as'   => 'dashboard.students.addsubmit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@addSubmit'
+            ]);
+            Route::get('/add/{login}', [
+                'as'   => 'dashboard.students.addsubmit',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@addSubmit'
+            ]);
+            Route::get('/{id}/generate-password', [
+                'as'   => 'dashboard.students.generatePassword',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\StudentsController@generatePassword'
             ]);
         });
 

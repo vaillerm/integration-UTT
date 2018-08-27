@@ -55,7 +55,7 @@ Le Week-End d'Intégration
     							<td>
     								<strong>Week-End d'Intégration</strong>
     								<ul>
-    									<li>Départ le vendredi 8 septembre 2016 à 11h30</li>
+    									<li>Départ le vendredi {{ (new Datetime(Config::get('services.wei.start')))->format('j') }} septembre 2016 à 11h30</li>
     									<li>Retour à Troyes le dimanche vers 18h</li>
     									<li>Hébergement compris (sauf sac de couchage)</li>
     									<li>Repas compris</li>

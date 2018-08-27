@@ -184,7 +184,9 @@ class StudentsController extends Controller
             'wei_validated',
             'parent_authorization',
             'bus_id',
-            'mission'
+            'mission',
+            'mission_order',
+            'mission_respo',
         ]);
         $this->validate(Request::instance(), [
             'password' => 'confirmed',
@@ -193,6 +195,7 @@ class StudentsController extends Controller
             'email' => 'email',
             'phone' => 'min:8|max:20',
             'referral_max' => 'integer|max:100|min:1',
+            'mission_order' => 'integer',
         ]);
 
         // Add or remove from sympa
@@ -241,6 +244,8 @@ class StudentsController extends Controller
             $student->orga = !empty($data['orga']);
             $student->secu = !empty($data['secu']);
             $student->mission = $data['mission'];
+            $student->mission_order = $data['mission_order'];
+            $student->mission_respo = !empty($data['mission_respo']);
 
             $volunteer_preferences = [];
             foreach (User::VOLUNTEER_PREFERENCES as $key => $value) {
@@ -258,5 +263,96 @@ class StudentsController extends Controller
         $student->save();
 
         return Redirect::back()->withSuccess('Vos modifications ont été sauvegardées.');
+    }
+
+
+
+    /**
+     * Search for a student on EtuUTT
+     *
+     * @return Response
+     */
+    public function add()
+    {
+        // Search student on EtuUTT
+        $data = Request::only(['search']);
+        $usersAssoc = [];
+        $search = '';
+        if ($data && !empty($data['search'])) {
+            $search = $data['search'];
+            $explode = explode(' ', $search, 5);
+            $users = [];
+
+            // Search every string as lastname and firstname
+            $users = EtuUTT::call('/api/public/users', [
+                'multifield' => $search
+            ])['data'];
+
+            // Remove duplicata and put them at the beginning
+            $usersAssoc = [];
+            foreach ($users as $key => $value) {
+                // put rel as key in the _link array
+                $value['links'] = [];
+                foreach ($value['_links'] as $link) {
+                    $value['links'][$link['rel']] = $link['uri'];
+                }
+                // If duplication
+                if (isset($usersAssoc[$value['login']])) {
+                    // Remove every values
+                    unset($usersAssoc[$value['login']]);
+                    // Put it at the beginning
+                    $usersAssoc = array_merge([$value['login'] => $value], $usersAssoc);
+                }
+                // add it if student student remove it
+                elseif ($value['isStudent'] == 1) {
+                    $usersAssoc[$value['login']] = $value;
+                }
+            }
+        }
+
+        return View::make('dashboard.students.add', [
+            'search' => $search,
+            'students' => $usersAssoc
+        ]);
+    }
+
+
+    /**
+     * When search form from add is submited
+     *
+     * @return Response
+     */
+    public function addSubmit($login)
+    {
+        $user = $student = EtuUTT::importUser($login);
+
+        if (!$user) {
+            return $this->error('Une erreur s\'est produite pendant la création de l\'utilisateur.');
+        }
+
+        return redirect(route('dashboard.students.add'))->withSuccess($user->fullName().' a bien été ajouté au site.');
+    }
+
+    /**
+     * When search form from add is submited
+     *
+     * @return Response
+     */
+    public function generatePassword($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+        $pwd = User::generatePassword();
+        $user->setPassword($pwd);
+        $user->save();
+
+        // Send email
+        $sent = Mail::send('emails.newpassword', ['user' => $user, 'password' => $pwd], function ($m) use ($user, $pwd) {
+            $m->from('integration@utt.fr', 'Intégration UTT');
+            $m->to($user->getBestEmail(), $user->fullName());
+            $m->replyTo('integration@utt.fr', 'Intégration UTT');
+            $m->subject('[Intégration UTT] Vos identifiants de connexion');
+        });
+
+        return redirect(route('dashboard.students.list'))->withSuccess('Le mot de passe de '. $user->fullName() . ' a été généré et lui a été envoyé');
     }
 }

@@ -90,7 +90,9 @@ class EtupayController extends Controller
     public function etupayCallback()
     {
         $payment = EtuPay::readCallback(Request::get('payload'));
-        $payment->user->updateWei();
+        if ($payment->user) {
+            $payment->user->updateWei();
+        }
 
         if ($payment) {
             return Response::make('OK', 200);

@@ -24,9 +24,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/checkin', ['uses' => 'Api\CheckinController@store']);
     Route::put('/checkin/{id}/student', ['uses' => 'Api\CheckinController@addUser']);
 
-    Route::get('/message', ['uses' => 'Api\MessageController@index']);
-    Route::post('/message', ['uses' => 'Api\MessageController@store']);
-
     Route::post('/notification', ['uses' => 'Api\NotificationController@store']);
 
     Route::get('/event', ['uses' => 'Admin\EventController@index']);

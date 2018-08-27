@@ -7,5 +7,6 @@ Homestead.json
 .idea
 storage/debugbar
 storage/qrcodes/
+storage/trombi-phones/
 
 /storage/oauth-*

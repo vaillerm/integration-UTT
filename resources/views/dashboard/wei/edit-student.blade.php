@@ -202,7 +202,7 @@ Modification d'un étudiant
                                                 <strong>Week-End d'Intégration</strong><br/>
                                                 @if($user->is_newcomer)
                     								<ul>
-                    									<li>Départ le vendredi 8 septembre 2016 à 11h30</li>
+                    									<li>Départ le vendredi {{ (new Datetime(Config::get('services.wei.start')))->format('j') }} septembre 2016 à 11h30</li>
                     									<li>Retour à Troyes le dimanche vers 18h</li>
                     									<li>Hébergement compris (sauf sac de couchage)</li>
                     									<li>Repas compris</li>
@@ -350,8 +350,6 @@ Modification d'un étudiant
                                             <td>
                                                 <strong>Caution du week-end</strong>
                                                 <p>
-                                                    Autorisation de prélèvement en ligne qui ne sera pas prélevée (sauf en cas de soucis).<br/>
-                                                    Équivalent d'un chèque, mais en ligne, et qui expire en 29 jours.<br/>
                                                     Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                                 </p>
                                             </td>

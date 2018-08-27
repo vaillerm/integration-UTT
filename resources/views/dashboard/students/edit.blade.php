@@ -22,6 +22,9 @@ Modification de profil
                 Désactiver définitivement
             </a>
         @endif
+        <a href="{{ route('dashboard.students.generatePassword', ['id' => $student->id ]) }}" class="btn btn-xs btn-info pull-right">
+            Générer et envoyer un mot de passe
+        </a>
     </div>
     <div class="box-body">
         <form class="form-horizontal" action="{{ route('dashboard.students.edit.submit', $student->id) }}" method="post" enctype="multipart/form-data">
@@ -45,13 +48,13 @@ Modification de profil
                 <div class="form-group">
                     <label for="password" class="col-lg-2 control-label">Mot de passe</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="password" name="password" id="password" value="{{{ old('password') }}}" placeholder="{{ $student->password ? 'Mot de passe caché' : 'Aucun mot de passe'}}">
+                        <input class="form-control" type="password" name="password" id="password" value="{{{ old('password') }}}" placeholder="{{ $student->password ? 'Mot de passe caché' : 'Aucun mot de passe'}}" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation" class="col-lg-2 control-label">Confirmation</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" value="{{{ old('password_confirmation') }}}">
+                        <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" value="{{{ old('password_confirmation') }}}" autocomplete="off">
                     </div>
                 </div>
             @else
@@ -196,9 +199,21 @@ Modification de profil
             </div>
 
             <div class="form-group">
-                <label for="mission" class="col-lg-2 control-label">Mission pour l'intégration</label>
+                <label for="mission" class="col-lg-2 control-label">Commission</label>
                 <div class="col-lg-10">
                     <input class="form-control" name="mission" id="mission" placeholder="Mission" type="text" value="{{ old('mission') ?? $student->mission }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mission_respo" class="col-lg-2 text-right">Responsable de commission</label>
+                <div class="col-lg-10">
+                    <input type="checkbox" id="mission_respo" name="mission_respo" @if (old('mission_respo') ?? ($student->mission_respo == 1)) checked="checked" @endif/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mission_order" class="col-lg-2 control-label">Priorité de la commission</label>
+                <div class="col-lg-10">
+                    <input class="form-control" name="mission_order" id="mission_order" placeholder="Priorité dans le trombi" type="number" value="{{ old('mission_order') ?? $student->mission_order }}">
                 </div>
             </div>
 

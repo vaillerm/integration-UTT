@@ -34,14 +34,55 @@ class WEIController extends Controller
         $wei = ((Auth::user()->weiPayment && in_array(Auth::user()->weiPayment->state, ['paid', 'refunded']))?1:0);
         $guarantee = ((Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded']))?1:0);
         $validated = (Auth::user()->wei_validated?1:0);
+        $health = Auth::user()->parent_name && Auth::user()->parent_phone;
 
         return View::make('dashboard.wei.home', [
+            'health' => $health,
             'sandwich' => $sandwich,
             'wei' => $wei,
             'guarantee' => $guarantee,
             'validated' => $validated,
         ]);
     }
+
+
+
+    /**
+     * Display the health profil edition form
+     *
+     * @return Response
+     */
+    public function healthForm()
+    {
+        return View::make('dashboard.wei.health');
+    }
+
+    /**
+     * Submit the health profil form
+     *
+     * @return Response
+     */
+    public function healthFormSubmit()
+    {
+        $this->validate(Request::instance(), [
+            'parent_name' => 'required',
+            'parent_phone' => 'required',
+        ]);
+
+        $user = Auth::user();
+        $user->update(Request::only([
+            'parent_name',
+            'parent_phone',
+            'medical_allergies',
+            'medical_treatment',
+            'medical_note',
+        ]));
+
+        $user->save();
+
+        return Redirect(route('dashboard.wei.pay'))->withSuccess('Vos modifications ont été enregistrées.');
+    }
+
 
     /**
      *
@@ -157,7 +198,7 @@ class WEIController extends Controller
     public function etuGuarantee()
     {
         if (Auth::user()->guaranteePayment && in_array(Auth::user()->guaranteePayment->state, ['paid', 'refunded'])) {
-            return Redirect(route('dashboard.wei.authorization'))->withSuccess('Vous avez déjà donné votre caution !');
+            return Redirect(route('dashboard.wei'))->withSuccess('Vous avez déjà donné votre caution !');
         }
         return View::make('dashboard.wei.guarantee');
     }
@@ -204,7 +245,7 @@ class WEIController extends Controller
         // Calculate EtuPay Payload
         $crypt = new Encrypter(base64_decode(Config::get('services.etupay.key')), 'AES-256-CBC');
         $payload = $crypt->encrypt(json_encode([
-            'type' => 'authorisation',
+            'type' => 'checkout',
             'amount' => $amount,
             'client_mail' => $user->email,
             'firstname' => $user->first_name,

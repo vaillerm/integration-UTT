@@ -63,7 +63,7 @@ Programmation de l'envoi d'un mail
             <div class="form-group">
                 <label for="subject" class="col-lg-2 control-label">Heure d'envoi</label>
                 <div class="col-lg-10">
-                    <input type="time" name="send_date_time" value="{{ old('send_date_time') ?? (new \Datetime('now +10 minutes'))->format('h:i') }}" placeholder="hh:mm" />
+                    <input type="time" name="send_date_time" value="{{ old('send_date_time') ?? (new \Datetime('now +10 minutes'))->format('H:i') }}" placeholder="hh:mm" />
                 </div>
             </div>
 
