@@ -26,8 +26,6 @@
                             <ul class="nav navbar-nav">
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             @if (Auth::user()->isAdmin())
                                                 <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
@@ -37,10 +35,6 @@
                                             <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
                                         </ul>
                                     </li>
-<<<<<<< HEAD
-=======
-                                @endif
->>>>>>> master
                                 @if (Auth::user()->ce)
                                     @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>
