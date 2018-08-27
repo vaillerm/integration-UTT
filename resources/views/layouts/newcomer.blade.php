@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('sublayout-css')
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-<link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('bodycontent')
@@ -25,6 +25,17 @@
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ route('newcomer.profil') }}">Profil{!! Auth::user()->isPageChecked('profil')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
+                                @if(Auth::user()->team_id != null)
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
+                                            <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
+                                            <li><a href="{{ route("challenges.faction_leaderboard") }}">Classement des factions</a></li>
+                                        </ul>
+                                    </li>
+                                @endif
+
                                 <li><a href="{{ route('newcomer.referral') }}">Parrain{!! Auth::user()->isPageChecked('referral')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.team') }}">Équipe{!! Auth::user()->isPageChecked('team')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.backtoschool') }}">Partenaires{!! Auth::user()->isPageChecked('backtoschool')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>

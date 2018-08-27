@@ -255,7 +255,7 @@ class TeamController extends Controller
         $validations = ChallengeValidation::where([
                     ["team_id", "=", $team_id],
                 ])->orderBy("last_update", "asc")->get();
-        $score = Team::find($team_id)->challenges()->wherePivot("validated", 1)->sum("points");
+            $score = Team::find($team_id)->score();
         return view("dashboard.teams.challenges", compact("validations", "score"));
     }
 

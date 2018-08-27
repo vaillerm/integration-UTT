@@ -13,7 +13,7 @@ class ScoresTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/scores')
-             ->see('Que la meilleure faction gagnge !');
+         $this->visit('/scores')
+            ->see('Que la meilleure faction gagnge !'); 
     }
 }
