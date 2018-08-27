@@ -667,4 +667,8 @@ class User extends Model implements Authenticatable
         }
         $this->save();
     }
+
+    public function isOrga() : bool {
+        return $this->orga?true:false;
+    }
 }

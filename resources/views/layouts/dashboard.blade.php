@@ -27,7 +27,7 @@
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            @if (Auth::user()->isAdmin())
+                                            @if (Auth::user()->isOrga())
                                                 <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
                                                 <li><a href={{ route("validation.list") }}>Liste des validations</a></li>
                                             @endif
