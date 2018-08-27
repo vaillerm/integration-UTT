@@ -16,6 +16,7 @@ class ChallengeValidation extends Model
         'message',
         'submittedOn',
         'user_id',
+        'adjustment',
     ];
 
     public function user() {
