@@ -42,7 +42,10 @@
                     <label><input type="checkbox" name="categories[]" value="admin" @if(in_array('admin', $event->categories)) checked @endif>Admin</label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="categories[]" value="newcomer" @if(in_array('newcomer', $event->categories)) checked @endif>Nouveau</label>
+                  <label><input type="checkbox" name="categories[]" value="newcomerTC" @if(in_array('newcomerTC', $event->categories)) checked @endif>Nouveau TC</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="categories[]" value="newcomerBranch" @if(in_array('newcomerBranch', $event->categories)) checked @endif>Nouveau Branche</label>
                 </div>
                 <div class="checkbox">
                     <label><input type="checkbox" name="categories[]" value="volunteer" @if(in_array('volunteer', $event->categories)) checked @endif>Volontaire</label>

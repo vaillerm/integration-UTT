@@ -36,7 +36,12 @@ class EventController extends Controller
                 array_push('volunteer', $categories);
             }
             if ($user->is_newcomer) {
-                array_push('newcomer', $categories);
+              if($user->branch == 'TC') {
+                array_push('newcomerTC', $categories);
+              }
+              else {
+                array_push('newcomerBranch', $categories);
+              }
             }
             if ($user->referral) {
                 array_push('referral', $categories);

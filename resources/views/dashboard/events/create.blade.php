@@ -45,7 +45,10 @@
                     <label><input type="checkbox" name="categories[]" value="admin" @if(is_array(old('categories')) && in_array('admin', old('categories'))) checked @endif>Admin</label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="categories[]" value="newcomer" @if(is_array(old('categories')) && in_array('newcomer', old('categories'))) checked @endif>Nouveau</label>
+                  <label><input type="checkbox" name="categories[]" value="newcomerTC" @if(is_array(old('categories')) && in_array('newcomerTC', old('categories'))) checked @endif>Nouveau TC</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="categories[]" value="newcomerBranch" @if(is_array(old('categories')) && in_array('newcomerBranch', old('categories'))) checked @endif>Nouveau Branche</label>
                 </div>
                 <div class="checkbox">
                     <label><input type="checkbox" name="categories[]" value="volunteer" @if(is_array(old('categories')) && in_array('volunteer', old('categories'))) checked @endif>Volontaire</label>
