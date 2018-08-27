@@ -19,6 +19,10 @@ class Team extends Model
         'img_url'
     ];
 
+    public function score() : int {
+        return $this->challenges()->wherePivot("validated", 1)->sum("points");
+    }
+
     /**
      * All the challenges sent to validation by the team
      */

@@ -31,6 +31,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
                                             <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
+                                            <li><a href="{{ route("challenges.faction_leaderboard") }}">Classement des factions</a></li>
                                         </ul>
                                     </li>
                                 @endif
