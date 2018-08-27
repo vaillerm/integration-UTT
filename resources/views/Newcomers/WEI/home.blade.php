@@ -132,6 +132,7 @@ Le Week-End d'Intégration
 					<li>Un k-way</li>
 					<li>Ton autorisation parentale si tu es mineur</li>
 					<li>Un ananas (primordial)</li>
+					<li>Une boit à clous (primordial)</li>
 				</ul>
 			</div>
 		</div>
