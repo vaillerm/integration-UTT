@@ -26,7 +26,6 @@ Inscription au weekend ouvertes
         </ul>
     </div>
 
-@if ($user->team)
 </td></tr></table>
 <table style="max-width: 600px; width:100%; margin: 15px auto 0 auto; border-collapse: collapse; background-color: #fff; box-shadow: 0 1px 1px rgba(0,0,0,0,1);border-radius: 3px;border-bottom: 3px solid #d2d6de;">
 <tr><td style="color: #fff;background-color: #00c0ef;padding: 16px 16px 10px 16px;font-size:20px;font-weight:bold;text-align:center;">
@@ -37,7 +36,6 @@ Inscription au weekend ouvertes
         <img src="{{ asset('img/mails/wei/nutt.png') }}" style="width: 80%;margin-bottom:15px;" /><br/>
         <a href="{{ asset('docs/nutt.pdf') }}" target="_blank" style="background-color: #00c0ef;border-color: #00acd6;border-radius: 3px;color: #fff;padding: 10px 16px;text-decoration: none;font-size: 18px;line-height: 1.3333333;">Lire le N'UTT</a><br/>
     </div>
-@endif
 
 
 </td></tr></table>
