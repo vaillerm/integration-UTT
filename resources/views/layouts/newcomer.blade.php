@@ -25,22 +25,22 @@
                         <div class="collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ route('newcomer.profil') }}">Profil{!! Auth::user()->isPageChecked('profil')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
-                                @if(Auth::user()->team_id != null)
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
-                                            <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
-                                        </ul>
-                                    </li>
-                                @endif
-
                                 <li><a href="{{ route('newcomer.referral') }}">Parrain{!! Auth::user()->isPageChecked('referral')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.team') }}">Équipe{!! Auth::user()->isPageChecked('team')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.backtoschool') }}">Partenaires{!! Auth::user()->isPageChecked('backtoschool')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                                 <li><a href="{{ route('newcomer.wei') }}">Week-End{!! Auth::user()->isPageChecked('wei')?' <i class="fa fa-check" aria-hidden="true"></i>':'' !!}</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
+                                @if(Auth::user()->team_id != null)
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="">Défis <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
+                                            <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
+                                            {{-- <li><a href="{{ route("challenges.faction_leaderboard") }}">Classement des factions</a></li> --}}
+                                        </ul>
+                                    </li>
+                                @endif
                                 <li><a href="{{ route('newcomer.deals') }}" title="Bons plans"><i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="hidden-sm"> Bons plans</span></a></li>
                                 <li><a href="{{ route('newcomer.faq') }}" title="FAQ"><i class="fa fa-question-circle" aria-hidden="true"></i><span class="hidden-sm"> FAQ</span></a></li>
                                 <li><a href="{{ route('contact') }}" title="Nous contacter"><i class="fa fa-envelope" aria-hidden="true"></i><span class="hidden-sm"> Nous contacter</span></a></li>

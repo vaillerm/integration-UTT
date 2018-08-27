@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.auto')
 
 @section('title')
     Défis
@@ -44,7 +44,7 @@
                                         {{ method_field('DELETE') }}
                                         <input class="btn btn-danger btn-xs" type="submit" value="Supprimer">
                                     </form>
-                                    <div class="btn-group" role="group"> 
+                                    <div class="btn-group" role="group">
                                         <a href={{ route("challenges.modifyForm", ["challengeId" => $challenge->id]) }}><button class="btn btn-xs btn-primary">Modifier</button></a>
                                     @endif
                                     @if($team != null)

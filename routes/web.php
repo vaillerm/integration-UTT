@@ -791,4 +791,10 @@ Route::group(['prefix' => 'challenges'], function() {
         'uses' => 'Challenges\ChallengeController@list'
     ]);
 
+
+    Route::get('/leaderboard', [
+        'as' => 'challenges.faction_leaderboard',
+        'uses' => 'All\FactionsController@leaderboard'
+    ]);
+
 });
