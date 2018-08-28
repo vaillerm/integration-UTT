@@ -69,7 +69,7 @@ Modification de modèle de mail
                     <a href="#varlist" data-toggle="collapse">Liste des variables utilisateurs</a></h4>
                     <ul id="varlist" class="collapse">
                         @foreach ($varlist as $varname => $value)
-                            <li>%{{ $varname }}% = {!! nl2br(e($value)) !!}</li>
+                            <li>%{{ $varname }}% = {!! nl2br(e((string)$value)) !!}</li>
                         @endforeach
                     </ul>
                 </div>
