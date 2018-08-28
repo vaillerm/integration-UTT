@@ -66,7 +66,7 @@ class EventController extends Controller
         if (Request::wantsJson()) {
             return Response::json($events);
         }
-
+        $events = Event::orderBy('start_at')->get();
         return view('dashboard.events.index', compact('events'));
     }
 
