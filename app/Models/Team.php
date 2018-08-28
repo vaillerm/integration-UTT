@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Team extends Model
 {
@@ -20,7 +21,13 @@ class Team extends Model
     ];
 
     public function score() : int {
-        return $this->challenges()->wherePivot("validated", 1)->sum("points");
+        //I did not use Eloquent because I needed to sum to cols
+        //and it's not possible using Eloquent
+        $score = DB::table("challenges")
+            ->join("challenge_validations", "challenges.id", "=", "challenge_validations.challenge_id")
+            ->where("team_id", "=", $this->id)
+            ->sum(DB::raw("challenge_validations.adjustment + challenges.points"));
+        return $score;
     }
 
     /**
