@@ -7,6 +7,7 @@ use Request;
 use Response;
 use Validator;
 use Redirect;
+use App\Models\User;
 
 use App\Models\Event;
 
@@ -19,40 +20,47 @@ class EventController extends Controller
      */
     public function index()
     {
-        $query = Event::orderBy('start_at');
+        $events = [];
         // if there is a student, get only the events of this student
         if (Request::has('student')) {
             $user = User::find(Request::get('student'));
 
             // get the categories of this student
             $categories = [];
-            if ($user->admin) {
-                array_push('admin', $categories);
+            if ($user->isAdmin()) {
+                array_push($categories, 'admin');
             }
             if ($user->ce) {
-                array_push('ce', $categories);
+                array_push($categories, 'ce');
             }
             if ($user->volunteer) {
-                array_push('volunteer', $categories);
+                array_push($categories, 'volunteer');
             }
             if ($user->is_newcomer) {
               if($user->branch == 'TC') {
-                array_push('newcomerTC', $categories);
+                array_push($categories, 'newcomerTC');
               }
               else {
-                array_push('newcomerBranch', $categories);
+                array_push($categories, 'newcomerBranch');
               }
             }
             if ($user->referral) {
-                array_push('referral', $categories);
+                array_push($categories, 'referral');
             }
+            //return Response::json($categories);
             // add where conditions for each categories
-            $query = $query->where('categories', 'like', '%'.$categories[0].'%');
-            for ($i = 1; $i < sizeof($categories); $i++) {
-                $query = $query->orWhere('categories', 'like', '%'.$categories[0].'%');
+            if($categories != []) {
+              $query = Event::orderBy('start_at');
+              $query = $query->where('categories', 'like', '%'.$categories[0].'%');
+              for ($i = 1; $i < sizeof($categories); $i++) {
+                  $query = $query->orWhere('categories', 'like', '%'.$categories[$i].'%');
+              }
+              $events = $query->get();
+            }
+            else {
+              $events = [];
             }
         }
-        $events = $query->get();
 
         // handle api request
         if (Request::wantsJson()) {
