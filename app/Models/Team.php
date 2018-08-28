@@ -20,14 +20,18 @@ class Team extends Model
         'img_url'
     ];
 
-    public function score() : int {
-        //I did not use Eloquent because I needed to sum to cols
+    public function scoreQuery()  {
+        //I did not use Eloquent because I needed to sum 2 cols
         //and it's not possible using Eloquent
-        $score = DB::table("challenges")
-            ->join("challenge_validations", "challenges.id", "=", "challenge_validations.challenge_id")
-            ->where("team_id", "=", $this->id)
-            ->sum(DB::raw("challenge_validations.adjustment + challenges.points"));
-        return $score;
+       return DB::table("challenges")
+            ->select(DB::raw("SUM(challenges.points + challenge_validations.adjustment) score"))
+            ->join("challenge_validations", "challenges.id", "=", "challenge_validations.challenge_id");
+    }
+
+    public function score() : int {
+        $result_from_query = $this->scoreQuery()->where("challenge_validations.id", "=", $this->id)->first();
+        return $result_from_query->score;
+
     }
 
     /**
