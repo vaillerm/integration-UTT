@@ -29,6 +29,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/event', ['uses' => 'Admin\EventController@index']);
     Route::get('/event/{id}', ['uses' => 'Api\EventController@show']);
 
-    Route::post('/rallye', ['uses' => 'Api\RallyeController@store']);
+    Route::post('/rallye/{id}', ['uses' => 'Api\RallyeController@store']);
 
 });

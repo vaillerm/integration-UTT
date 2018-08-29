@@ -18,6 +18,7 @@ class CreatePointsTable extends Migration
             $table->text('reason');
             $table->integer('amount');
             $table->unsignedInteger('team_id')->nullable(false);
+            $table->unsignedInteger('added_by')->nullable(true);
             $table->timestamps();
         });
     }
