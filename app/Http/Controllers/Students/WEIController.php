@@ -105,12 +105,13 @@ class WEIController extends Controller
         //calculate price
         $price = Config::get('services.wei.price-other');
         $priceName = 'Ancien/Autre';
-        if (Auth::user()->ce && Auth::user()->team_accepted && Auth::user()->team_id) {
-            $price = Config::get('services.wei.price-ce');
-            $priceName = 'Chef d\'équipe';
-        } elseif (Auth::user()->orga) {
+        if (Auth::user()->orga) {
             $price = Config::get('services.wei.price-orga');
             $priceName = 'Orga';
+        }
+        elseif (Auth::user()->ce && Auth::user()->team_accepted && Auth::user()->team_id) {
+            $price = Config::get('services.wei.price-ce');
+            $priceName = 'Chef d\'équipe';
         }
 
         return View::make('dashboard.wei.pay', ['weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'weiPrice' => $price, 'weiPriceName' => $priceName]);
@@ -145,10 +146,10 @@ class WEIController extends Controller
 
         //calculate price
         $price = Config::get('services.wei.price-other');
-        if (Auth::user()->ce && Auth::user()->team_accepted && Auth::user()->team_id) {
-            $price = Config::get('services.wei.price-ce');
-        } elseif (Auth::user()->orga) {
+        if (Auth::user()->orga) {
             $price = Config::get('services.wei.price-orga');
+        } elseif (Auth::user()->ce && Auth::user()->team_accepted && Auth::user()->team_id) {
+            $price = Config::get('services.wei.price-ce');
         }
 
         // Calculate amount
