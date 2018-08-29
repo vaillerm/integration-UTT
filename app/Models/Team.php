@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Point;
 
 class Team extends Model
 {
@@ -20,7 +21,13 @@ class Team extends Model
     ];
 
     public function score() : int {
-        return $this->challenges()->wherePivot("validated", 1)->sum("points");
+        $score = $this->challenges()->wherePivot("validated", 1)->sum("points");
+        $score = $score + $this->points()->sum('amount');
+        return $score;
+    }
+
+    public function points() {
+      return $this->hasMany('App\Models\Point');
     }
 
     /**
