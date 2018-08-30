@@ -771,6 +771,10 @@ Route::group(['prefix' => 'challenges'], function() {
             Route::get('{name}', 'Challenges\ValidationPic@show')->name('validation_proofs.normal');
         });
 
+        Route::group(["prefix" => "points"], function(){
+            Route::get("/", "Challenges\PointsController@manage")->name("points.manage");
+        });
+
 
     });
     Route::get('{id}/submit', [

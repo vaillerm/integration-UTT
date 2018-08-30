@@ -30,10 +30,11 @@
                                             @if (Auth::user()->isOrga())
                                                 <li><a href="{{ route('challenges.add') }}">Ajouter un défis</a></li>
                                                 <li><a href={{ route("validation.list") }}>Liste des validations</a></li>
+                                                <li><a href="{{ route("points.manage") }}"><p class="text-warning">Ajouter des points</p></a></li>
                                             @endif
                                             <li><a href={{ route('challenges.list') }}>Accéder à la liste des défis</a></li>
                                             @if(Auth::user()->team_id != null)
-                                            <li><a href={{ route("challenges.sent") }}>Défis relevés </a></li>
+                                            <li><a href={{ route("challenges.sent") }}>Les défis relevés</a></li>
                                             @endif
                                         </ul>
                                     </li>
