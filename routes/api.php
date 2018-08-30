@@ -29,4 +29,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/event', ['uses' => 'Admin\EventController@index']);
     Route::get('/event/{id}', ['uses' => 'Api\EventController@show']);
 
+    Route::get('/gubu/{id}', ['uses' => 'Api\GubuController@show']);
+    Route::get('/gubu', ['uses' => 'Api\GubuController@index']);
 });
