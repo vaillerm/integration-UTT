@@ -24,7 +24,7 @@ class Team extends Model
         //I did not use Eloquent because I needed to sum 2 cols
         //and it's not possible using Eloquent
        return DB::table("challenges")
-            ->select(DB::raw("SUM(challenges.points + challenge_validations.adjustment) score"))
+            ->select(DB::raw("SUM(challenges.points) score"))
             ->join("challenge_validations", "challenges.id", "=", "challenge_validations.challenge_id");
     }
 
