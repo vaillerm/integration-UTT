@@ -68,9 +68,11 @@ Modification de modèle de mail
                     <textarea class="form-control" rows="16" id="form_content" name="content">{{{ old('content') ?? $template->content }}}</textarea>
                     <a href="#varlist" data-toggle="collapse">Liste des variables utilisateurs</a></h4>
                     <ul id="varlist" class="collapse">
-                        @foreach ($varlist as $varname => $value)
-                            <li>%{{ $varname }}% = {!! nl2br(e($value)) !!}</li>
-                        @endforeach
+                        {{--
+                            @foreach ($varlist as $varname => $value)
+                                <li>%{{ $varname }}% = {!! nl2br(e($value)) !!}</li>
+                            @endforeach
+                        --}}
                     </ul>
                 </div>
             </div>

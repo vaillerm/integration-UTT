@@ -5,7 +5,7 @@
 @endsection
 
 @section("smalltitle")
-    Faire valider la réussite de ton équipe par un admin 😀	
+    Faire valider la réussite de ton équipe par un admin 😀
 @endsection
 
 @section("content")

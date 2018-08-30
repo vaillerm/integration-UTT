@@ -83,7 +83,8 @@ class ExportController extends Controller
         ->whereNotNull('team_id')
         ->where('team_accepted', 1)
         ->join('teams as t', 't.id', '=', 'users.team_id')
-        ->addSelect(\DB::raw('t.name as team_name'))
+        ->join('factions as f', 'f.id', '=', 't.faction_id')
+        ->addSelect('t.faction_id', \DB::raw('t.name as team_name'), \DB::raw('f.name as faction_name'))
         ->get();
         return Excel::create('Equipe', function ($file) use ($users) {
             $file->sheet('', function ($sheet) use ($users) {

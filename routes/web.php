@@ -800,4 +800,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     });
 
+
+    Route::get('/leaderboard', [
+        'as' => 'challenges.faction_leaderboard',
+        'uses' => 'All\FactionsController@leaderboard'
+    ]);
+
 });

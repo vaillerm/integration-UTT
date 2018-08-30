@@ -48,8 +48,11 @@
                                 @if (in_array('admin', $event->categories))
                                     <span class="label label-danger">Admin</span>
                                 @endif
-                                @if (in_array('newcomer', $event->categories))
-                                    <span class="label label-dark">Nouveau</span>
+                                @if (in_array('newcomerTC', $event->categories))
+                                    <span class="label label-dark">Nouveau TC</span>
+                                @endif
+                                @if (in_array('newcomerBranch', $event->categories))
+                                    <span class="label label-dark">Nouveau branch</span>
                                 @endif
                                 @if (in_array('referral', $event->categories))
                                     <span class="label label-success">Parrain</span>

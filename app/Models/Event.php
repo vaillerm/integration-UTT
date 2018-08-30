@@ -37,7 +37,7 @@ class Event extends Model
             'end_at_hour'=> 'required|date_format:H:i',
             'categories' => 'required|array',
             'categories.*' => [
-                Rule::in(['admin', 'newcomer', 'ce', 'orga', 'volunteer', 'referral'])
+                Rule::in(['admin', 'newcomerTC', 'newcomerBranch', 'ce', 'orga', 'volunteer', 'referral'])
             ],
 		];
 	}
