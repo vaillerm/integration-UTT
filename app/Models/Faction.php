@@ -24,4 +24,12 @@ class Faction extends Model
     {
         return $this->hasMany('App\Models\Team');
     }
+
+    public function scord() {
+      $score = 0;
+      foreach($this->teams() as $team){
+        $score = $score + $team->score();
+      }
+      return $score;
+    }
 }

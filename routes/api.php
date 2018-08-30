@@ -31,4 +31,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('/rallye/{id}', ['uses' => 'Api\RallyeController@store']);
 
+    Route::get('/points', ['uses' => 'Api\PointController@show']);
+
 });
