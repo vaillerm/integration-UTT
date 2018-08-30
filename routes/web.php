@@ -724,72 +724,81 @@ Route::post('/etupay/callback', [
     'uses' => 'All\EtupayController@etupayCallback'
 ]);
 
-/**
- * Routes for challenges
- */
-Route::group(['prefix' => 'challenges'], function() {
+Route::group(['middleware' => 'auth'], function() {
+
+    Route::group(['prefix' => 'faction'], function() {
+        Route::get('leaderboard/', "All\FactionsController@leaderboard")->name("challenges.leaderboard");
+    });
 
     /**
-     * Admin authorization
+     * Routes for challenges
      */
-    Route::group(['middleware' => 'authorize:orga'], function() {
-
-        Route::get('add', [
-            'as' => 'challenges.add',
-            'uses' => 'Challenges\ChallengeController@addForm'
-        ]);
-
-        Route::post('add', [
-            'as' => 'challenges.add',
-            'uses' => 'Challenges\ChallengeController@add'
-        ]);
-
-        Route::delete('/{id}', [
-            'as' => 'challenges.delete',
-            'uses' => 'Challenges\ChallengeController@delete'
-        ]);
-
-        Route::get('{challengeId}/modify', 'Challenges\ChallengeController@modifyChallengeForm')->name('challenges.modifyForm');
-        Route::post('{challengeId}/modify', 'Challenges\ChallengeController@modify')->name('challenges.modify');
-
-        Route::group(['prefix' => 'validations'], function() {
-            Route::get('/','Challenges\ChallengeValidationController@list' )->name('validation.list');
-            Route::post('{validationId}/validate', 'Challenges\ChallengeValidationController@accept')->name('validation.accept');
-            Route::get('{validationId}/refuse', 'Challenges\ChallengeValidationController@refuseForm')->name('validation.refuseForm');
-            Route::post('{validationId}/refuse', 'Challenges\ChallengeValidationController@refuse')->name('validation.refuse');
-            Route::post('{validationId}/reset', 'Challenges\ChallengeValidationController@resetStatus')->name('validation.reset');
-        });
+    Route::group(['prefix' => 'challenges'], function() {
 
         /**
-         * Okay this part is to handle the images taken by
-         * the teams to validate their challenges
-         * It is not supposed to be public, that's why there's a controller
-         * doing the job
+         * Admin authorization
          */
-        Route::group(['prefix' => 'proof'], function(){
-            Route::get('{name}/smallpic', 'Challenges\ValidationPic@showSmall')->name('validation_proofs.small');
-            Route::get('{name}', 'Challenges\ValidationPic@show')->name('validation_proofs.normal');
+        Route::group(['middleware' => 'authorize:orga'], function() {
+
+            Route::get('add', [
+                'as' => 'challenges.add',
+                'uses' => 'Challenges\ChallengeController@addForm'
+            ]);
+
+            Route::post('add', [
+                'as' => 'challenges.add',
+                'uses' => 'Challenges\ChallengeController@add'
+            ]);
+
+            Route::delete('/{id}', [
+                'as' => 'challenges.delete',
+                'uses' => 'Challenges\ChallengeController@delete'
+            ]);
+
+            Route::get('{challengeId}/modify', 'Challenges\ChallengeController@modifyChallengeForm')->name('challenges.modifyForm');
+            Route::post('{challengeId}/modify', 'Challenges\ChallengeController@modify')->name('challenges.modify');
+
+            Route::group(['prefix' => 'validations'], function() {
+                Route::get('/','Challenges\ChallengeValidationController@list' )->name('validation.list');
+                Route::post('{validationId}/validate', 'Challenges\ChallengeValidationController@accept')->name('validation.accept');
+                Route::get('{validationId}/refuse', 'Challenges\ChallengeValidationController@refuseForm')->name('validation.refuseForm');
+                Route::post('{validationId}/refuse', 'Challenges\ChallengeValidationController@refuse')->name('validation.refuse');
+                Route::post('{validationId}/reset', 'Challenges\ChallengeValidationController@resetStatus')->name('validation.reset');
+            });
+
+            /**
+             * Okay this part is to handle the images taken by
+             * the teams to validate their challenges
+             * It is not supposed to be public, that's why there's a controller
+             * doing the job
+             */
+            Route::group(['prefix' => 'proof'], function(){
+                Route::get('{name}/smallpic', 'Challenges\ValidationPic@showSmall')->name('validation_proofs.small');
+                Route::get('{name}', 'Challenges\ValidationPic@show')->name('validation_proofs.normal');
+            });
+
+
         });
+
+        Route::get('{id}/submit', [
+            'as' => 'challenges.submitForm',
+            'uses' => 'Challenges\ChallengeController@submitChallengeForm'
+        ]);
+
+        Route::post('team/{teamId}/challenge/{challengeId}/submit', 'Challenges\ChallengeValidationController@create')->name('validation.create');
+        /**
+         * No specific authorization required here
+         */
+
+        Route::get('team/', 'Students\TeamController@challenges')->name('challenges.sent');
+
+        Route::get('/', [
+            'as' => 'challenges.list',
+            'uses' => 'Challenges\ChallengeController@list'
+        ]);
 
 
     });
-    Route::get('{id}/submit', [
-        'as' => 'challenges.submitForm',
-        'uses' => 'Challenges\ChallengeController@submitChallengeForm'
-    ]);
-
-    Route::post('team/{teamId}/challenge/{challengeId}/submit', 'Challenges\ChallengeValidationController@create')->name('validation.create');
-    /**
-     * No specific authorization required here
-     */
-
-    Route::get('team/', 'Students\TeamController@challenges')->name('challenges.sent');
-
-
-    Route::get('/', [
-        'as' => 'challenges.list',
-        'uses' => 'Challenges\ChallengeController@list'
-    ]);
 
 
     Route::get('/leaderboard', [

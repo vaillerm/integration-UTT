@@ -39,7 +39,7 @@
                             <td>{{ $challenge->points }}</td>
                             <td>{{ $challenge->deadline }}</td>
                             <td>
-                                @if(Auth::user()->admin)
+                                @if(Auth::user()->isOrga())
                                     <form action={{ route("challenges.delete", ["id"=>$challenge->id]) }} method="POST">
                                         {{ method_field('DELETE') }}
                                         <input class="btn btn-danger btn-xs" type="submit" value="Supprimer">

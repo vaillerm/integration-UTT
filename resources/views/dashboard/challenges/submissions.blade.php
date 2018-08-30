@@ -1,4 +1,4 @@
-@extends("layouts.dashboard")
+@extends("layouts.auto")
 
 @section("title")
     Les défis soumis
