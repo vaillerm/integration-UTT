@@ -24,11 +24,10 @@ class Faction extends Model
             ->join("challenges", "challenges")
             ;*/
         $score = 0;
-        foreach($this->teams() as $team) {
+        foreach($this->teams as $team) {
           $score += $team->score();
         }
         return $score;
-
     }
 
     /**
@@ -37,13 +36,5 @@ class Faction extends Model
     public function teams()
     {
         return $this->hasMany('App\Models\Team');
-    }
-
-    public function scord() {
-      $score = 0;
-      foreach($this->teams() as $team){
-        $score = $score + $team->score();
-      }
-      return $score;
     }
 }
