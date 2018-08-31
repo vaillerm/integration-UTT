@@ -63,8 +63,8 @@ class Checkin extends Model
                 'string',
                 Rule::unique('checkins')->ignore($checkinId)
             ],
-            'users' => 'required|array',
-            'users.*' => 'exists:users,id'
+      'users' => 'required|array',
+      'users.*' => 'exists:users,id'
 		];
 	}
 
