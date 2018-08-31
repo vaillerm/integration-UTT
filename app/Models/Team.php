@@ -37,10 +37,6 @@ class Team extends Model
 
     public function points() {
         return $this->hasMany('App\Models\Point');
-        $result_from_query = $this->scoreQuery()->where("challenge_validations.id", "=", $this->id)->first();
-        $score =$result_from_query->score ; 
-        return $score == null ? 0:$score;
-
     }
 
     /**
