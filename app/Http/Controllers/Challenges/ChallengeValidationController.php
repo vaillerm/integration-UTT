@@ -58,11 +58,11 @@ class ChallengeValidationController extends Controller
         return view('dashboard.challenges.refuse_form', compact('validationId'));
     }
 
-    private function setChallengeStatus(int $validationId, int $adjustment=0, int $validate=1, string $message=null)
+    private function setChallengeStatus(int $validationId, int $validate=1, string $message=null)
     {
         $validation = ChallengeValidation::find($validationId);
         //$challenge->teams()->updateExistingPivot($teamId, );
-        $validation->fill(['validated' => $validate, 'last_update' => new \DateTime('now'), 'update_author' => Auth::user()->id, 'message' => $message, 'adjustment' => $adjustment]);
+        $validation->fill(['validated' => $validate, 'last_update' => new \DateTime('now'), 'update_author' => Auth::user()->id, 'message' => $message]);
         $validation->save();
         return redirect(route('validation.list'));
     }
@@ -77,7 +77,7 @@ class ChallengeValidationController extends Controller
         $this->validate($request, [
             "adjustment" => "integer|"
         ]);
-        return $this->setChallengeStatus($validationId, $request->adjustment);
+        return $this->setChallengeStatus($validationId);
     }
 
     public function refuse(Request $request, int $validationId)
