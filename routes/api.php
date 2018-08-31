@@ -33,4 +33,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/points', ['uses' => 'Api\PointController@show']);
 
+    Route::get('/gubu/{id}', ['uses' => 'Api\GubuController@show']);
+    Route::get('/gubu', ['uses' => 'Api\GubuController@index']);
 });
