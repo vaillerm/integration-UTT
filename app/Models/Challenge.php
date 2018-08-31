@@ -23,6 +23,12 @@ class Challenge extends Model {
      */
     public function deadlineHasPassed() : bool {
         $challenge_date = new \DateTime($this->deadline);
+        /**P1D => Plus 1 Day
+         * one day is added so
+         * if the deadline is the 2018-08-31
+         * that include the 31
+         */
+        $challenge_date->add(new \DateInterval("P1D"));
         $now = new \DateTime('now');
         return !($challenge_date > $now);
     }
