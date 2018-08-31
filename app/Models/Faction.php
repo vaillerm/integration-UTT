@@ -18,12 +18,15 @@ class Faction extends Model
     public $timestamps = false;
 
     public function score() : int {
-        DB::table("factions")
+       /* DB::table("factions")
             ->join("teams",  "factions.team_id", "=", "teams.id")
             ->joint("challenges_validation", "challenge_validations.team_id", "=", "teams.id")
             ->join("challenges", "challenges")
-            ;
-
+            ;*/
+        $score = 0;
+        foreach($this->teams() as $team) {
+          $score += $team->score();
+        }
         return $score;
 
     }
