@@ -21,7 +21,7 @@ class CheckinController extends Controller
      */
     public function index()
     {
-        $checkins = Checkin::where('prefilled', true)->get();
+        $checkins = Checkin::all();
         return view('dashboard.checkins.index', compact('checkins'));
     }
 
