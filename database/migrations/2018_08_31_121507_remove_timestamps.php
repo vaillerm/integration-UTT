@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AdjustPointsChallengeValidations extends Migration
+class RemoveTimestamps extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AdjustPointsChallengeValidations extends Migration
      */
     public function up()
     {
-        Schema::table('challenge_validations', function (Blueprint $table) {
-            $table->integer("adjustment")->default(0);
+        Schema::table('points', function (Blueprint $table) {
+            $table->dropColumn("created_at");
+            $table->dropColumn("updated_at");
         });
     }
 
@@ -25,8 +26,8 @@ class AdjustPointsChallengeValidations extends Migration
      */
     public function down()
     {
-        Schema::table('challenge_validations', function (Blueprint $table) {
-            $table->dropColumn("adjustment");
+        Schema::table('points', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 }
