@@ -23,13 +23,13 @@ class RallyeController extends Controller
           $amount = 0;
           switch($params['result']) {
             case 'V':
-              $amount = 30;
+              $amount = 10;
               break;
             case 'D':
               $amount = 0;
               break;
             case 'E':
-              $amount = 15;
+              $amount = 5;
               break;
             default:
             break;
