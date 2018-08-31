@@ -10,7 +10,7 @@
 
 @section("content")
     <div class="box box-default">
-        <form action="" method="post">
+        <form action="{{ route("points.add") }}" method="post">
             <div class="form-group">
                 <label for="rsn" >Motif</label>
                 <input id="rsn" name="reason" class="form-control" type="text">
@@ -31,6 +31,8 @@
                 <label for="name">Auteur</label>
                 <input id="name" class="form-control" name="don't try to edit dis shit, it just won't work lmfao" type="text" value="{{ Auth::user()->first_name." ".Auth::user()->last_name }}" disabled>
             </div>
+
+            <input class="form-control btn btn-success" type="submit" value="Ajouter">
         </form>
     </div>
 @endsection
