@@ -36,10 +36,6 @@
                             <td>
                                 <form method="post" action={{ route("validation.accept", ["validationId" => $validation->id]) }}>
                                 <input class="btn btn-xs btn-primary" type="submit" value="Valider">
-                                <div class="form-group">
-                                    <label for="adj">Bonus/malus de points</label>
-                                    <input id="adj" name="adjustment" type="number">
-                                </div>
                                 </form>
                                 <a href="{{ route("validation.refuseForm", ["validationId" => $validation->id]) }}"><button class="btn btn-xs btn-danger">Refuser (avec un motif)</button></a>
                             </td>
