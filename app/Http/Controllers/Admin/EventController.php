@@ -47,6 +47,9 @@ class EventController extends Controller
             if ($user->referral) {
                 array_push($categories, 'referral');
             }
+            if ($user->orga) {
+                array_push($categories, 'orga');
+            }
             //return Response::json($categories);
             // add where conditions for each categories
             if($categories != []) {
