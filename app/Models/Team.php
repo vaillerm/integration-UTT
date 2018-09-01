@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Point;
 use DB;
 
 class Team extends Model
@@ -23,18 +24,19 @@ class Team extends Model
     public function scoreQuery()  {
         //I did not use Eloquent because I needed to sum 2 cols
         //and it's not possible using Eloquent
-       return DB::table("challenges")
+        return DB::table("challenges")
             ->select(DB::raw("SUM(challenges.points) score"))
             ->join("challenge_validations", "challenges.id", "=", "challenge_validations.challenge_id");
     }
 
     public function score() : int {
-        $result_from_query = $this->scoreQuery()
-            ->where("challenge_validations.team_id", "=", $this->id)
-            ->where("challenge_validations.validated", "=", 1)
-            ->first();
-        $score =$result_from_query->score ; 
-        return $score == null ? 0:$score;
+        $score = $this->challenges()->wherePivot("validated", 1)->sum("points");
+        $score = $score + $this->points()->sum('amount');
+        return $score;
+    }
+
+    public function points() {
+        return $this->hasMany('App\Models\Point');
     }
 
     /**
@@ -60,9 +62,9 @@ class Team extends Model
      * Returns all the pending validation : all the challenges where
      * 'validated' attribute is null
      *
-    public function getPendingValidations()  {
-        return $this->challenges()->wherePivot('validated', 0);
-    }*/
+     public function getPendingValidations()  {
+         return $this->challenges()->wherePivot('validated', 0);
+}*/
 
     /**
      * Return true if the team has already made a submission
