@@ -1,7 +1,7 @@
 @extends('layouts.auto')
 
 @section('title')
-    Valider un défis
+    Valider un défi
 @endsection
 
 @section("smalltitle")
