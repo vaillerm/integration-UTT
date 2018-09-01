@@ -33,7 +33,7 @@ class MailHelper
     const NEWCOMERS_ALL_WITH_GODFATHER  = 20;
     const WEI_SUSCBRIBED  = 18;
     const NEWCOMERS_CV_ING  = 21;
-    const EX  = 22;
+    const NEWCOMERS_CV_ING_WITH_TEAM  = 22;
 
     public static $listToFrench = [
         self::STUPRELISTE => 'Bénévoles et personnes inscrites sur la stupre-liste',
@@ -58,7 +58,7 @@ class MailHelper
         self::NEWCOMERS_ALL_WITH_GODFATHER => 'Tous les nouveaux ayant un parrain',
         self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI et ayant un numéro de bus',
         self::NEWCOMERS_CV_ING => 'Etudiants étrangers en échange (erasmus)',
-        self::EX => 'Utilisateurs ayant pour branche EX (Etudiants étrangers participants à l\'inté)', // Dirty hack because issue #14
+        self::NEWCOMERS_CV_ING_WITH_TEAM => 'Etudiants étrangers en échange avec une equipe',
     ];
 
     /**
@@ -156,8 +156,8 @@ class MailHelper
                 case MailHelper::NEWCOMERS_CV_ING:
                     $students = User::with(['mailHistories', 'team', 'godFather'])->where('branch', 'CV ING')->get();
                     break;
-                case MailHelper::EX:
-                    $students = User::with(['mailHistories', 'team', 'godFather'])->where('branch', 'EX')->get();
+                case MailHelper::NEWCOMERS_CV_ING_WITH_TEAM:
+                    $students = User::with(['mailHistories', 'team', 'godFather'])->where('branch', 'CV ING')->whereNotNull('team_id')->get();
                     break;
                 default:
                     echo 'Error : Unknown email list id';
