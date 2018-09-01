@@ -237,6 +237,15 @@ class User extends Model implements Authenticatable
     }
 
     /**
+     * Return password type
+     */
+
+    public function getPasswordType()
+    {
+        return password_get_info($this->password);
+    }
+    
+    /**
      * Change the identifier for passport ('email' field by default, we want 'login')
      *
      * @param String $identifier the value of the 'username' parameter sent in the request

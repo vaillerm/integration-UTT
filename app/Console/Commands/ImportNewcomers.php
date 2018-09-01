@@ -102,13 +102,17 @@ class ImportNewcomers extends Command
                 if($user) {
                     $user->fill($updatedData);
                     $action = 'Updated';
+
+                    //Si utilise un vieux truc de merde alors on update #API_CEDRE
+                    if (($user->getPasswordType())['algoName'] == "unknown")
+                        $user->password = $admitted->PASSWD;
                 }
                 else {
                     $user = new User($updatedData);
                     $action = 'Inserted';
+                    $user->password = $admitted->PASSWD;
                 }
                 $user->login = $admitted->LOGIN;
-                $user->password = $admitted->PASSWD;
                 $user->save();
             }
             else {

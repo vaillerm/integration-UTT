@@ -350,7 +350,7 @@ class StudentsController extends Controller
             $m->from('integration@utt.fr', 'Intégration UTT');
             $m->to($user->getBestEmail(), $user->fullName());
             $m->replyTo('integration@utt.fr', 'Intégration UTT');
-            $m->subject('[Intégration UTT] Vos identifiants de connexion');
+            $m->subject('[Intégration UTT] Vos identifiants de connexion / Login information');
         });
 
         return redirect(route('dashboard.students.list'))->withSuccess('Le mot de passe de '. $user->fullName() . ' a été généré et lui a été envoyé');
