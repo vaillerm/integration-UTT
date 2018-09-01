@@ -7,14 +7,14 @@ Your integration team / Ton équipe d'intégration
 @section('content')
     <div style="text-align:left;">
         <span style="font-size:30px">Hi {{ $user->first_name }} !</span>
-	<p> Welcome to UTT ! It's time for us to talk about what's going to happen at the beginning of semester.</p>
-        <p>The integration include several activities based on the theme of :
+	<p> Welcome to UTT ! It's time for us to talk about what's going to happen at the beginning of the semester.</p>
+        <p>The integration includes several activities related to :
         <div style="text-align:center; margin: 15px;font-size:20px;font-weight:bold;">
-            {{ Config::get('services.theme') }}
+            {{ Config::get('services.theme.english') }}
         </div>
 
 	<p>
-	  On this theme, {{ Config::get('services.ce.maxTeamTc')+Config::get('services.ce.maxTeamBranch') }} teams will be divided into <strong>two factions</strong> and will confront themselves during the week :
+	  {{ Config::get('services.ce.maxTeamTc')+Config::get('services.ce.maxTeamBranch') }} teams will be divided into <strong>two factions</strong> and will confront themselves during the week :
         </p>
         <div style="text-align:center;">
             <img src="{{ asset('/img/mails/teams/BadGuys.png') }}" alt="Bad Guys" style="width:45%"/>
@@ -36,14 +36,14 @@ Your integration team / Ton équipe d'intégration
     <img src="{{ asset('/uploads/teams-logo/'.$user->team->id.'.'.$user->team->img) }}" alt="Equipe" style="float:left;width:140px;"/>
     <div style="margin-bottom:5px;margin-left:155px;line-height:26px; font-size: 15px">
         Your team is <strong>{{ $user->team->safeName ?? $user->team->name }}</strong><br/>
-        Your faction <strong>{{ $user->team->faction->name }}</strong><br/>
+        Your faction is <strong>{{ $user->team->faction->name }}</strong><br/>
         @if(substr($user->team->facebook, 0, 4) == 'http')
-            You can join them on <a href="{{ $user->team->facebook }}" style="color: #3c8dbc;" target="_blank">groupe Facebook</a>
+            You can join them on their <a href="{{ $user->team->facebook }}" style="color: #3c8dbc;" target="_blank">Facebook group</a>
         @endif
     </div>
     <div style="clear:both"></div>
 
-    <h3>But we are going to let them introduce themselves ! !</h3>
+    <h3>But we are going to let them introduce themselves ! ! (in French)</h3>
     <p style="text-align:justify"><em>{!! nl2br(e($user->team->description)) !!}</em></p>
 
     @if(substr($user->team->facebook, 0, 4) == 'http')
@@ -61,7 +61,7 @@ Your integration team / Ton équipe d'intégration
 Planning
 </td></tr><tr><td style="padding: 10px;">
 <p>
-Here is the planning of all the activities planned for the 2 weeks of Integration. If you have some questions just send us a message !
+Here is the planning of all the activities for the next 2 weeks. If you have any question, just send us a message !
 <div style="text-align:center; margin-top: 30px;">
     <a href="{{ asset('/docs/foreigners.pdf') }}" target="_blank" style="background-color: #00c0ef;border-color: #00acd6;border-radius: 3px;color: #fff;padding: 10px 16px;text-decoration: none;font-size: 18px;line-height: 1.3333333;">Your planning</a><br/>
 </div>
@@ -75,12 +75,12 @@ Here is the planning of all the activities planned for the 2 weeks of Integratio
 Weekend
 </td></tr><tr><td style="padding: 10px;">
 <p>The integration weekend is coming !</p>
-<p>You will have the chance to dance all night, eat some meals made with love and participate in many outdoors activities !</p>
+<p>You will have the chance to dance all night, eat some meals made with love and engage in many outdoors activities !</p>
 <p>For the weekend :</p>
 <ul>
-    <li>The price is 55€ all included (meals, transport)</li>
-    <li>There is also a 60€ caution that will be refund if everything goes well during the weekend !</li>
-    <li>3€25 if you want to take the sandwich planned before the bus for the weekend on friday, on the other case please take a sandwich.</li>
+    <li>The price is 55€ all inclusive (meals, transport)</li>
+    <li>There is also a 60€ deposit that will be refunded if everything goes well during the weekend !</li>
+    <li>3€25 if you want to take the sandwich offered before the bus friday, otherwise please take a sandwich.</li>
 </ul>
 
 {{-- <div style="text-align:center; margin: 15px;">
