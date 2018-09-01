@@ -10,7 +10,7 @@ Your integration team / Ton équipe d'intégration
 	<p> Welcome to UTT ! It's time for us to talk about what's going to happen at the beginning of the semester.</p>
         <p>The integration includes several activities related to :
         <div style="text-align:center; margin: 15px;font-size:20px;font-weight:bold;">
-            {{ Config::get('services.theme.english') }}
+            {{ Config::get('services.theme') }}
         </div>
 
 	<p>
