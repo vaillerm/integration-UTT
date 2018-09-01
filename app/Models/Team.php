@@ -29,10 +29,12 @@ class Team extends Model
     }
 
     public function score() : int {
-        $result_from_query = $this->scoreQuery()->where("challenge_validations.id", "=", $this->id)->first();
+        $result_from_query = $this->scoreQuery()
+            ->where("challenge_validations.team_id", "=", $this->id)
+            ->where("challenge_validations.validated", "=", 1)
+            ->first();
         $score =$result_from_query->score ; 
         return $score == null ? 0:$score;
-
     }
 
     /**
