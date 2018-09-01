@@ -17,7 +17,7 @@
 	</p>
 	@else
 	<p>Pour les utiliser, rends toi sur <a style="color: #3c8dbc;" href="https://integration.utt.fr">integration.utt.fr</a> et clique sur "Je suis nouveau".
-		Tu pourras ensuite te connecter avec les identifiants afin de voir toutes les informations sur l'intégration et pour de pouvoir t'inscrire au WEI.
+		Tu pourras ensuite te connecter avec tes identifiants afin de voir toutes les informations sur l'intégration et pouvoir t'inscrire au WEI.
 	</p>
 	@endif
 	<p>À très bientôt pour l'Intégration UTT !</p>
@@ -26,10 +26,10 @@
 
 	<p>Hello <strong>{{ $user->fullName() }}</strong>,</p>
 	<p>
-		We have created a login and a password for you :</p>
+		In order to access the Integration UTT website, we created a login and a password for you :</p>
 	<ul>
-		<li><b>Identifiant : </b> {{ $user->login }}</li>
-		<li><b>Mot de passe : </b> {{ $password }}</li>
+		<li><b>Login : </b> {{ $user->login }}</li>
+		<li><b>Password : </b> {{ $password }}</li>
 	</ul>
 	<p>Use them by going to <a style="color: #3c8dbc;" href="https://integration.utt.fr">integration.utt.fr</a> and click on "Je suis nouveau".
 		You will then be able get all the informations about the integration and register for the Weekend.
