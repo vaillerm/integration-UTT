@@ -42,6 +42,7 @@ class ExportController extends Controller
         ->orderBy('last_name')
         ->rightjoin('users as n', 'users.id', '=', 'n.referral_id')
         ->addSelect([\DB::raw('n.branch as branch'), \DB::raw('n.first_name as newcomer_first_name'), \DB::raw('n.last_name as newcomer_last_name'), \DB::raw('n.phone as newcomer_phone')])
+        ->where('n.is_newcomer', true)
         ->get();
         return Excel::create('Parrains', function ($file) use ($referrals) {
             $file->sheet('', function ($sheet) use ($referrals) {
