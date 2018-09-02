@@ -36,7 +36,7 @@ class ExportController extends Controller
      *
      * @return string
      */
-    public function getExportReferrals()
+    public function getExportReferralsToNewcomers()
     {
         $referrals = User::select([\DB::raw('users.first_name'), \DB::raw('users.last_name')])
         ->orderBy('last_name')
@@ -55,7 +55,7 @@ class ExportController extends Controller
      *
      * @return string
      */
-    public function getExportNewcomers()
+    public function getExportNewcomersToReferrals()
     {
         $newcomers = User::select([\DB::raw('users.first_name'), \DB::raw('users.last_name'), \DB::raw('users.branch')])
         ->where('users.is_newcomer', true)
