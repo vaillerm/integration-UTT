@@ -54,7 +54,7 @@ class Team extends Model
          *  null: pending
          *  and laravel (at least in 5.2) doesn't seem to differenciate null and false
          */
-        $pivots = ['submittedOn', 'validated', 'pic_url', 'last_update', 'update_author', 'message'];
+        $pivots = ['submittedOn', 'validated', 'proof_url', 'last_update', 'update_author', 'message'];
         return $this->belongsToMany('App\Models\Challenge', 'challenge_validations')->withPivot($pivots)->where('team_id', '=', $this->id);
     }
 
