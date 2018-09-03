@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
+use Validator;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Validator::extend("google-drive-link", function($attribute, $value, $parameters, $validator){
+            return str_contains($value, "drive.google.com");
+        });
     }
 
     /**
