@@ -38,6 +38,7 @@
                                             @endif
                                         </ul>
                                     </li>
+                                    <li><a href="{{ route('challenges.leaderboard') }}">Factions</a></li>
                                 @if (Auth::user()->ce)
                                     @if (!Auth::user()->team()->count())
                                         <li><a href="{{ route('dashboard.ce.teamlist') }}">Créer une équipe</a></li>

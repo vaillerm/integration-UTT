@@ -34,5 +34,38 @@
 
             <input class="form-control btn btn-success" type="submit" value="Ajouter">
         </form>
+        <h1>Historique</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Auteur</th>
+                    <th>Nombre</th>
+                    <th>Équipe</th>
+                    <th>Raison</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @forelse($points as $point)
+                    <tr>
+                        <td>{{ $point->created_at }}</td>
+                        <td>{{ $point->author->first_name}} {{  $point->author->last_name }}</td>
+                        <td>{{ $point->amount }}</td>
+                        <td>{{ $point->team->name }}</td>
+                        <td>{{ $point->reason }}</td>
+                        <td>
+                            <form method="post" action="{{route("points.delete", ["id" => $point->id])}}">
+                                <input class="btn btn-danger" type="submit" value="Supprimer">
+                                {{ method_field("delete") }}
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    Aucun point bonus n'a été donné.
+                @endforelse
+            </tbody>
+        </table>
     </div>
 @endsection

@@ -1,11 +1,11 @@
 @extends("layouts.auto")
 
 @section("title")
-    Modifier un défis
+    Modifier un défi
 @endsection
 
 @section("smalltitle")
-    Tu as fais une erreur en ajoutant un nouveau défis ? pas de problème, corrige donc :)
+    Tu as fais une erreur en ajoutant un nouveau défi ? pas de problème, corrige donc :)
 @endsection
 
 @section("content")

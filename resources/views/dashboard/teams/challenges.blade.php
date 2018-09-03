@@ -40,5 +40,31 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="box box-default">
+             <h1>Détails des points bonus</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Raison</th>
+                            <th>Nombre</th>
+                            <th>Orga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @if($bonus_points != null)
+                                @forelse($bonus_points as $points)
+                        <tr>
+                                    <td>{{ $points->reason }}</td>
+                                    <td>{{ $points->amount }}</td>
+                                    <td>{{ $points->author->first_name }} {{ $points->author->last_name }}</td>
+                        </tr>
+                                @empty
+                                    aucun points bonus
+                                @endforelse
+                            @endif
+                    </tbody>
+                </table>
+            </h1>
+        </div>
     </div>
 @endsection

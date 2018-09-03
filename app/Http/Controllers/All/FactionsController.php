@@ -10,6 +10,10 @@ class FactionsController extends Controller
 {
     public function leaderboard() {
         $factions = Faction::All();
+
+        $factions = $factions->sortByDesc(function ($faction, $_) {
+            return $faction->score();
+        });
         return view("factions.leaderboard", compact("factions"));
     }
 }

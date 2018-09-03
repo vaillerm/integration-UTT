@@ -783,7 +783,8 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::group(["prefix" => "points"], function(){
             Route::get("/", "Challenges\PointsController@manage")->name("points.manage");
-            Route::post("add", "Challenges\PointsController@add")->name("points.add");
+            Route::post("/", "Challenges\PointsController@add")->name("points.add");
+            Route::delete("/{id}", "Challenges\PointsController@delete")->name("points.delete");
         });
 
         Route::get('{id}/submit', [

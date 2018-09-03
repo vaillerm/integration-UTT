@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Students;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\Point;
 use EtuUTT;
 use Request;
 use Config;
@@ -252,11 +253,12 @@ class TeamController extends Controller
      */
     public function challenges() {
         $team_id = Auth::user()->team_id;
+        $bonus_points = Point::where("team_id", "=", $team_id)->get();
         $validations = ChallengeValidation::where([
                     ["team_id", "=", $team_id],
                 ])->orderBy("last_update", "asc")->get();
-            $score = Team::find($team_id)->score();
-        return view("dashboard.teams.challenges", compact("validations", "score"));
+        $score = Team::find($team_id)->score();
+        return view("dashboard.teams.challenges", compact("validations", "score", "bonus_points"));
     }
 
 

@@ -13,7 +13,8 @@ class PointsController extends Controller
 {
     public function manage() {
         $teams = Team::all();
-        return view("dashboard.challenges.points", compact("teams"));
+        $points = Point::orderBy("created_at", "desc")->get();
+        return view("dashboard.challenges.points", compact("teams", "points"));
     }
 
     public function add(PointsRequest $request) 
@@ -22,5 +23,11 @@ class PointsController extends Controller
         $points["added_by"] = Auth::user()->id;
         Point::create($points);
         return redirect()->back()->withSuccess("points ajoutés");
+    }
+
+    public function delete(int $pointId)
+    {
+        Point::where("id", "=", $pointId)->delete();
+        return redirect()->back()->withSuccess("le point a été supprimé");
     }
 }

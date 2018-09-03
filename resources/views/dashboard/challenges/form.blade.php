@@ -1,7 +1,7 @@
 <div class="box box-default">
     <form action={{  $slot }} method="post">
         <div class="form-group">
-            <label for="name">Nom du défis</label>
+            <label for="name">Nom du défi</label>
             <input id="name" class="form-control" type="text" name="name" 
                                                               value="{{ isset($challenge)?$challenge->name:"" }}" required> 
         </div>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-            <label for="deadline">Date limite pour valider le défis</label>
+            <label for="deadline">Date limite pour valider le défi</label>
             <input id="deadline" class="form-control" type="date" name="deadline"
                                                                   value={{isset($challenge)?$challenge->deadline:""}}>
         </div>

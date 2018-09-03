@@ -1,7 +1,7 @@
 @extends("layouts.auto")
 
 @section("title")
-    Refuser un défis
+    Refuser un défi
 @endsection
 
 @section("smalltitle")

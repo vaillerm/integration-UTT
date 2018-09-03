@@ -10,7 +10,6 @@ use App\Models\Team;
 class Point extends Model
 {
     public $table = 'points';
-    public $timestamps = false;
 
     public $primaryKey = 'id';
 
@@ -34,4 +33,13 @@ class Point extends Model
 			'added_by' => 'required|exists:users,id',
 		];
 	}
+
+    public function team() {
+        return $this->belongsTo("App\Models\Team");
+    }
+
+    public function author()
+    {
+        return $this->belongsTo("App\Models\User", "added_by");
+    }
 }
