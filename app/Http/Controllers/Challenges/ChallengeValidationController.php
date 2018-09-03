@@ -28,18 +28,19 @@ class ChallengeValidationController extends Controller
         }
 
         $this->validate($request, [
-            'proof' => 'required|image'
+            'picProof' => 'sometimes|required|image',
+            'videoProof' => 'sometimes|required|text'
         ]);
 
-        $file = fopen($request->file('proof')->getRealPath(), 'r+');
-        $filename = uniqid().'.'.$request->file('proof')->guessExtension();
+        $file = fopen($request->file('picProof')->getRealPath(), 'r+');
+        $filename = uniqid().'.'.$request->file('picProof')->guessExtension();
         Storage::disk('validation-proofs')->put($filename, $file);
         fclose($file);
 
         $team = Team::find($teamId);
         $challenge = Challenge::find($challengeId);
         $user = Auth::user();
-        $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'pic_url' => $filename, 'team_id' => $user->team_id]);
+        $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'proof_url' => $filename, 'team_id' => $user->team_id]);
         $request->flash('success', 'La défis a bien été soumis à validation');
         return redirect(route('challenges.list'));
     }

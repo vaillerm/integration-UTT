@@ -29,8 +29,8 @@
                             <td>{{ $validation->teams()->first()->name }}</td>
                             <td>{{ $validation->challenges()->first()->name }}</td>
                             <td>
-                                <a href={{ route("validation_proofs.normal", ["name" => $validation->pic_url]) }}>
-                                            <img src="{{ route("validation_proofs.small", ["name" => $validation->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis">
+                                <a href={{ route("validation_proofs.normal", ["name" => $validation->proof_url]) }}>
+                                            <img src="{{ route("validation_proofs.small", ["name" => $validation->proof_url]) }}" class="img-fluid rounded" alt="Image de validation du défis">
                                 </a>
                             </td>
                             <td>
@@ -68,8 +68,8 @@
                             <td>{{ $validation->teams()->first()->name }}</td>
                             <td>{{ $validation->challenges()->first()->name }}</td>
                             <td>
-                                <a href={{ route("validation_proofs.normal", ["name" => $validation->pic_url]) }}>
-                                            <img src="{{ route("validation_proofs.small", ["name" => $validation->pic_url]) }}" class="img-fluid rounded" alt="Image de validation du défis">
+                                <a href={{ route("validation_proofs.normal", ["name" => $validation->proof_url]) }}>
+                                            <img src="{{ route("validation_proofs.small", ["name" => $validation->proof_url]) }}" class="img-fluid rounded" alt="Image de validation du défis">
                                 </a>
                             </td>
                             <td><span class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</span></td>
