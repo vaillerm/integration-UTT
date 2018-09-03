@@ -28,7 +28,7 @@ class ChallengeValidationController extends Controller
         }
 
         $this->validate($request, [
-            'proof' => 'required'
+            'proof' => 'required|image'
         ]);
 
         $file = fopen($request->file('proof')->getRealPath(), 'r+');
@@ -74,9 +74,6 @@ class ChallengeValidationController extends Controller
 
 
     public function accept(Request $request, int $validationId) {
-        $this->validate($request, [
-            "adjustment" => "integer|"
-        ]);
         return $this->setChallengeStatus($validationId);
     }
 
