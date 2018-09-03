@@ -27,7 +27,7 @@ class ValidationPic extends Controller
     {
         $pic = Storage::disk('validation-proofs')->get($name);
         $pic = Image::make($pic);
-        $pic->resize(null, 200, function($constraint) {
+        $pic->resize(200, 200, function($constraint) {
             $constraint->aspectRatio();
         });
         return $pic->response();
