@@ -29,19 +29,23 @@ class ChallengeValidationController extends Controller
 
         $this->validate($request, [
             'picProof' => 'sometimes|required|image',
-            'videoProof' => 'sometimes|required|text'
+            'videoProof' => 'sometimes|required|google-drive-link'
         ]);
 
-        $file = fopen($request->file('picProof')->getRealPath(), 'r+');
-        $filename = uniqid().'.'.$request->file('picProof')->guessExtension();
-        Storage::disk('validation-proofs')->put($filename, $file);
-        fclose($file);
+        if(isset($request->picProof))
+        {
+            $file = fopen($request->file('picProof')->getRealPath(), 'r+');
+            $filename = uniqid().'.'.$request->file('picProof')->guessExtension();
+            Storage::disk('validation-proofs')->put($filename, $file);
+            fclose($file);
 
-        $team = Team::find($teamId);
-        $challenge = Challenge::find($challengeId);
-        $user = Auth::user();
-        $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'proof_url' => $filename, 'team_id' => $user->team_id]);
-        $request->flash('success', 'La défis a bien été soumis à validation');
+            $team = Team::find($teamId);
+            $challenge = Challenge::find($challengeId);
+            $user = Auth::user();
+            $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'proof_url' => $filename, 'team_id' => $user->team_id]);
+            $request->flash('success', 'La défis a bien été soumis à validation');
+
+        }
         return redirect(route('challenges.list'));
     }
 
