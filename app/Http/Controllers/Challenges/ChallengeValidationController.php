@@ -29,7 +29,11 @@ class ChallengeValidationController extends Controller
 
         $this->validate($request, [
             'picProof' => 'sometimes|required|image',
-            'videoProof' => 'sometimes|required|google-drive-link'
+            'videoProof' => [
+                "sometimes",
+                "required",
+                "regex:(drive.google.com\/open\?id\=[\d|A-Za-z|_]*)"
+            ]
         ]);
 
         if(isset($request->picProof))
@@ -38,15 +42,27 @@ class ChallengeValidationController extends Controller
             $filename = uniqid().'.'.$request->file('picProof')->guessExtension();
             Storage::disk('validation-proofs')->put($filename, $file);
             fclose($file);
-
-            $team = Team::find($teamId);
-            $challenge = Challenge::find($challengeId);
             $user = Auth::user();
             $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'proof_url' => $filename, 'team_id' => $user->team_id]);
             $request->flash('success', 'La défis a bien été soumis à validation');
 
+        } else if(isset($request->videoProof)) {
+            $user = Auth::user();
+            $user->challenges()->save($challenge,['submittedOn' => new \DateTime('now'), 'proof_url' => $this->generateUrlForVideo($request->videoProof), 'team_id' => $user->team_id]);
+            $request->flash('success', 'La défis a bien été soumis à validation');
         }
         return redirect(route('challenges.list'));
+    }
+
+    /**
+     * The function extract the id from a google drive
+     * video
+     * and generate a viewable url
+     */
+    private function generateUrlForVideo(string $url) : string
+    {
+        $id = str_after($url, "=");
+        return "https://drive.google.com/file/d/".$id."/preview";
     }
 
     public function list() {

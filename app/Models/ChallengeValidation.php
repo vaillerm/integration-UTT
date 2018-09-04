@@ -18,6 +18,15 @@ class ChallengeValidation extends Model
         'user_id',
         'adjustment',
     ];
+    
+    /**
+     * Used in template in order to know what to display
+     * @return true if the proof from the validation is a picture
+     */
+    public function isPic() : bool
+    {
+        return str_contains($this->proof_url, ['jpg', 'png', 'jpeg']);
+    }
 
     public function user() {
         return $this->belongsTo("App\Models\User");
