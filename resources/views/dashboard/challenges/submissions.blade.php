@@ -29,9 +29,13 @@
                             <td>{{ $validation->teams()->first()->name }}</td>
                             <td>{{ $validation->challenges()->first()->name }}</td>
                             <td>
-                                <a href={{ route("validation_proofs.normal", ["name" => $validation->proof_url]) }}>
+                                @if($validation->isPic())
+                                    <a href={{ route("validation_proofs.normal", ["name" => $validation->proof_url]) }}>
                                             <img src="{{ route("validation_proofs.small", ["name" => $validation->proof_url]) }}" class="img-fluid rounded" alt="Image de validation du défis">
-                                </a>
+                                    </a>
+                                @else
+                                    <iframe class="embed-responsive-item" src="{{ $validation->proof_url }}" width=400 heigth=400></iframe>
+                                @endif
                             </td>
                             <td>
                                 <form method="post" action={{ route("validation.accept", ["validationId" => $validation->id]) }}>
@@ -68,9 +72,13 @@
                             <td>{{ $validation->teams()->first()->name }}</td>
                             <td>{{ $validation->challenges()->first()->name }}</td>
                             <td>
-                                <a href={{ route("validation_proofs.normal", ["name" => $validation->proof_url]) }}>
+                                @if($validation->isPic())
+                                    <a href={{ route("validation_proofs.normal", ["name" => $validation->proof_url]) }}>
                                             <img src="{{ route("validation_proofs.small", ["name" => $validation->proof_url]) }}" class="img-fluid rounded" alt="Image de validation du défis">
-                                </a>
+                                    </a>
+                                @else
+                                    <iframe class="embed-responsive-item" src="{{ $validation->proof_url }}" width=400 heigth=400></iframe>
+                                @endif
                             </td>
                             <td><span class="{{ $validation->prettyStatus()["css"] }}">{{ $validation->prettyStatus()["content"] }}</span></td>
                             <td>{{ $validation->message }}</td>

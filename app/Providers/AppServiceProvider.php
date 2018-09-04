@@ -19,9 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend("google-drive-link", function($attribute, $value, $parameters, $validator){
-            return str_contains($value, "drive.google.com");
-        });
     }
 
     /**
@@ -35,5 +32,5 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-    }
+   }
 }

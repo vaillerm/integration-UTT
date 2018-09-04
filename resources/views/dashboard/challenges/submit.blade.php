@@ -18,7 +18,7 @@ $('#proofTypeToggle').click(() =>{
         case false:
             activated=true;
             $('#proof').attr('type', 'text')
-            $('#proof').attr('name', 'urlProof');
+            $('#proof').attr('name', 'videoProof');
             button.text("Naan une photo c'est cool 📷")
             label.text('Url de la vidéo (google drive uniquement)')
             break;
