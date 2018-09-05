@@ -547,9 +547,7 @@ class WEIController extends Controller
     public function list()
     {
         // Find students
-        $students = User::select(['student_id','is_newcomer', 'id', 'first_name', 'last_name', 'phone',
-        'wei_payment', 'sandwich_payment', 'guarantee_payment', 'parent_authorization',
-        DB::raw('(ce AND team_accepted) AS ce'), 'volunteer', 'orga', 'wei_validated', 'checkin'])
+        $students = User::select(['*', DB::raw('(ce AND team_accepted) AS ce')])
         ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment')->get();
 
 
