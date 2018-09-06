@@ -61,8 +61,8 @@ class WEIController extends Controller
     public function adminBusList(Request $request)
     {
         $buses = User::where('wei', 1)->get()->groupBy('bus_id')->sort();
-        $buses->put(0,$buses->get(0)->merge($buses->get("")));
-        $buses->forget("");
+        // $buses->put(0,$buses->get(0)->merge($buses->get("")));
+        // $buses->forget("");
         return view('dashboard.wei.bus-list', compact('buses'));
     }
 
