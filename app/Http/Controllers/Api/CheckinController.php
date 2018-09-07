@@ -95,7 +95,7 @@ class CheckinController extends Controller
         }
 
         // the email is already check by the validator, so this user exists
-        
+
         $user = User::where('qrcode', Request::get('uid'))->firstOrFail();
 
         if ($checkin->prefilled) {

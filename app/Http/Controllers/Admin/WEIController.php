@@ -69,8 +69,8 @@ class WEIController extends Controller
     public function adminBusGenerateChecklist(Request $request)
     {
         $buses = User::where('wei', 1)->get()->groupBy('bus_id')->sort();
-        $buses->put(0,$buses->get(0)->merge($buses->get("")));
-        $buses->forget("");
+        // $buses->put(0,$buses->get(0)->merge($buses->get("")));
+        // $buses->forget("");
 
         foreach ($buses as $bus_id=>$students)
         {
