@@ -87,8 +87,8 @@ class WEIController extends Controller
                 $bus_check->save();
                 $bag_check->save();
 
-                $bus_check->students()->attach($students->pluck('id')->toArray());
-                $bag_check->students()->attach($students->pluck('id')->toArray());
+                $bus_check->users()->attach($students->pluck('id')->toArray());
+                $bag_check->users()->attach($students->pluck('id')->toArray());
             }
         }
         return redirect()->route('dashboard.checkin');

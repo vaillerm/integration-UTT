@@ -244,7 +244,7 @@ class User extends Model implements Authenticatable
     {
         return password_get_info($this->password);
     }
-    
+
     /**
      * Change the identifier for passport ('email' field by default, we want 'login')
      *
