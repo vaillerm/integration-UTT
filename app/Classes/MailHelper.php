@@ -31,6 +31,7 @@ class MailHelper
     const NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM  = 17;
     const NEWCOMERS_ALL_WITH_TEAM  = 19;
     const NEWCOMERS_ALL_WITH_GODFATHER  = 20;
+    const WEI  = 18;
     const WEI_SUSCBRIBED  = 18;
     const NEWCOMERS_CV_ING  = 21;
     const NEWCOMERS_CV_ING_WITH_TEAM  = 22;
@@ -56,6 +57,7 @@ class MailHelper
         self::NEWCOMERS_ALL_WITH_GODFATHER_AND_TEAM => 'Tous les nouveaux ayant un parrain et une équipe',
         self::NEWCOMERS_ALL_WITH_TEAM => 'Tous les nouveaux ayant une équipe',
         self::NEWCOMERS_ALL_WITH_GODFATHER => 'Tous les nouveaux ayant un parrain',
+        self::WEI => 'Toutes les personnes inscrites au WEI',
         self::WEI_SUSCBRIBED => 'Toutes les personnes inscrites au WEI et ayant un numéro de bus',
         self::NEWCOMERS_CV_ING => 'Etudiants étrangers en échange (erasmus)',
         self::NEWCOMERS_CV_ING_WITH_TEAM => 'Etudiants étrangers en échange avec une equipe',
@@ -152,6 +154,9 @@ class MailHelper
                     break;
                 case MailHelper::WEI_SUSCBRIBED:
                     $students = User::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->where('bus_id','>', 0)->get();
+                    break;
+                case MailHelper::WEI:
+                    $students = User::with(['mailHistories', 'team', 'godFather'])->where('wei', 1)->get();
                     break;
                 case MailHelper::NEWCOMERS_CV_ING:
                     $students = User::with(['mailHistories', 'team', 'godFather'])->where('branch', 'CV ING')->get();
