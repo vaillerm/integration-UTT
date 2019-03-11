@@ -105,6 +105,9 @@ Gestion des équipes
                                     <del><i class="fa fa-facebook" aria-hidden="true"></i>acebook</del>
                                 </span>
                             @endif
+                            @if (!$team->faction)
+                                <a href="{{ route('dashboard.teams.attribute.faction', ['id' => $team->id ]) }}" class="btn btn-xs btn-success">Attribuer Faction</a>
+                            @endif
                             @if (!$team->validated)
                                 <a href="{{ route('dashboard.teams.validate', ['id' => $team->id ]) }}" class="btn btn-xs btn-success">Approuver</a>
                             @else

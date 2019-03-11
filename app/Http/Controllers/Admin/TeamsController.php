@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Classes\NewcomerMatching;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Faction;
 use Request;
 use View;
 use Redirect;
@@ -61,8 +62,10 @@ class TeamsController extends Controller
     public function edit($id)
     {
         $team = Team::findOrFail($id);
+        $factions = Faction::All();
         return View::make('dashboard.teams.edit', [
-            'team' => $team
+            'team' => $team,
+            'factions' => $factions
         ]);
     }
 
@@ -75,7 +78,8 @@ class TeamsController extends Controller
     public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch']);
+        $factions = Faction::All();
+        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch', 'faction']);
         $this->validate(Request::instance(), [
             'name' => 'required|min:3|max:70|unique:teams,name,'.$team->id,
             'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.$team->id,
@@ -96,7 +100,7 @@ class TeamsController extends Controller
                 $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
                 move_uploaded_file($_FILES['img']['tmp_name'], public_path() . '/uploads/teams-logo/' . $team->id . '.' . $extension);
             } else {
-                $imageError = 'Cependant l\'image n\'a pas pus être sauvegardé car elle a une taille différente d\'un carré de 200px par 200px. Veuillez la redimensionner.';
+                $imageError = 'Cependant l\'image n\'a pas pu être sauvegardée car elle a une taille différente d\'un carré de 200px par 200px. Veuillez la redimensionner.';
             }
         }
 
@@ -107,6 +111,7 @@ class TeamsController extends Controller
         $team->facebook = $data['facebook'];
         $team->comment = $data['comment'];
         $team->branch = $data['branch'];
+        $team->faction_id = $data['faction'];
         if ($extension) {
             $team->img = $extension;
         }
@@ -157,7 +162,7 @@ class TeamsController extends Controller
             $team->save();
             return $this->success('L\'équipe a été approuvée !');
         }
-        return $this->error('L\'equipe n\'a pas été trouvé !');
+        return $this->error('L\'équipe n\'a pas été trouvée !');
     }
 
     public function adminUnvalidate($id)
@@ -168,7 +173,20 @@ class TeamsController extends Controller
             $team->save();
             return $this->success('L\'équipe a été désapprouvée !');
         }
-        return $this->error('L\'equipe n\'a pas été trouvé !');
+        return $this->error('L\'équipe n\'a pas été trouvée !');
+    }
+
+    public function attributeFaction($id)
+    {
+        $team = Team::find($id);
+        if($team && !$team->faction) {
+            $factions = Faction::all();
+            $newFaction = $factions[rand(0, count($factions)-1)]->id;
+            $team->faction_id = $newFaction;
+            $team->save();
+            return $this->success('L\'équipe est désormais dans une faction !');
+        }
+        return $this->error('L\'équipe est déjà dans une faction !');
     }
 
     public function matchToNewcomers()
