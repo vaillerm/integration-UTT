@@ -191,11 +191,28 @@ class TeamsController extends Controller
         return $this->success('L\'utilisateur est maintenant chef de son équipe !');
     }
 
+    public function adminRemoveUser($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+          return $this->error('L\'utilisateur n\'existe pas !');
+        }
+        $team = $user->team()->get();
+        if(!$team || !$team[0]) {
+          return $this->error('L\'utilisateur n\'a pas d\'équipe !');
+        }
+        if ($team[0]->respo_id == $user->id) {
+          return $this->error('Vous ne pouvez pas supprimer le chef de l\'équipe');
+        }
+        $user->team_id = null;
+        $user->save();
+        return $this->success('L\'utilisateur a été retiré de l\'équipe !');
+    }
+
     public function adminDelete($id)
     {
         $team = Team::find($id);
         if ($team) {
-            $team->
             $team->delete();
             return $this->success('L\'équipe a été supprimé !');
         }

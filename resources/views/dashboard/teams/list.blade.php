@@ -71,18 +71,17 @@ Gestion des équipes
                                                 {{{ $student->branch }}}{{{ $student->level }}}
                                             </td>
                                             <td>
-                                                @if ($student->id == $team->respo_id)
-                                                    <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span><br/>
-                                                @else
+                                                @if ($student->id != $team->respo_id)
                                                     <a href="{{ route('dashboard.teams.setrespo', ['teamId' => $team->id, 'studentId' => $student->id ]) }}" class="btn btn-xs btn-primary">Définir chef d'équipe</a><br/>
+                                                    <a href="{{ route('dashboard.teams.removeuser', ['studentId' => $student->id ]) }}" class="btn btn-xs btn-danger">Supprimer de l'équipe</a><br/>
+                                                @endif
+                                                @if ($student->id == $team->respo_id)
+                                                  <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span>
                                                 @endif
                                                 @if ($student->team_accepted)
                                                     <span class="label label-success" title="A validé sa participation à l'équipe"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 @else
                                                     <span class="label label-warning" title="N'a pas encore validé sa participation à l'équipe"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                                                @endif
-                                                @if ($student->id != $team->respo_id)
-                                                    
                                                 @endif
                                             </td>
                                         </tr>

@@ -523,6 +523,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\StudentsController@editSubmit'
             ]);
+            Route::get('/{id}/removeteam', [
+                'as'   => 'dashboard.teams.removeuser',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@adminRemoveUser'
+            ]);
             Route::get('/add', [
                 'as'   => 'dashboard.students.add',
                 'middleware' => 'authorize:admin',
