@@ -111,6 +111,7 @@ Gestion des équipes
                                 <a href="{{ route('dashboard.teams.unvalidate', ['id' => $team->id ]) }}" class="btn btn-xs btn-danger">Désapprouver</a>
                             @endif
                             <a href="{{ route('dashboard.teams.edit', ['id' => $team->id ]) }}" class="btn btn-xs btn-warning">Modifier</a>
+                                <a href="{{ route('dashboard.teams.delete', ['id' => $team->id ]) }}" class="btn btn-xs btn-danger"> /!\ Supprimer</a>
                         </td>
                     </tr>
                 @endforeach

@@ -171,6 +171,17 @@ class TeamsController extends Controller
         return $this->error('L\'equipe n\'a pas été trouvé !');
     }
 
+    public function adminDelete($id)
+    {
+        $team = Team::find($id);
+        if ($team) {
+            $team->
+            $team->delete();
+            return $this->success('L\'équipe a été supprimé !');
+        }
+        return $this->error('L\'equipe n\'a pas été trouvé !');
+    }
+
     public function matchToNewcomers()
     {
         NewcomerMatching::matchTeams();

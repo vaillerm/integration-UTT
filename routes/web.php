@@ -227,6 +227,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\TeamsController@adminValidate'
             ]);
+            Route::get('/{id}/delete', [
+                'as'   => 'dashboard.teams.delete',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@adminDelete'
+            ]);
             Route::get('/{id}/unvalidate', [
                 'as'   => 'dashboard.teams.unvalidate',
                 'middleware' => 'authorize:admin',
