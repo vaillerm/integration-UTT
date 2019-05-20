@@ -226,7 +226,7 @@ class User extends Model implements Authenticatable
             'description' => 'L\'UTT c\'est 24% d\'étrangers, et si on les intégrait aussi ?',
         ],
         'media' => [
-            'title' => 'Média',
+            'title' => 'Argentique/Média',
             'description' => 'Si tu aimes documenter la vie du jeune étudiant et mettre à profit toutes des compétences de photographie ou de création de vidéo cette com est pour toi ! L\'inté a besoin de toi pour les photos des soirées et durant toute la semaine, mais aussi pour les films de présentation et les Interview du wei !',
         ],
     ];
