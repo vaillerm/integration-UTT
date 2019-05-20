@@ -171,6 +171,26 @@ class TeamsController extends Controller
         return $this->error('L\'equipe n\'a pas été trouvé !');
     }
 
+    public function adminSetRespo($teamId, $studentId)
+    {
+        $team = Team::find($teamId);
+        if (!$team) {
+          return $this->error('L\'equipe n\'a pas été trouvé !');
+        }
+        $ce = $team->ce()->get();
+        $newrespo = null;
+        foreach($ce as $user) {
+          if($user->id == $studentId) $newrespo = $user;
+        }
+        if($newrespo == null) {
+          return $this->error('L\'étudiant ne fait pas parti de cette équipe !');
+        }
+        
+        $team->respo_id = $newrespo->id;
+        $team->save();
+        return $this->success('L\'utilisateur est maintenant chef de son équipe !');
+    }
+
     public function adminDelete($id)
     {
         $team = Team::find($id);

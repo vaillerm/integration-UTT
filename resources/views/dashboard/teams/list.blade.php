@@ -41,6 +41,8 @@ Gestion des équipes
                             @endif
                             @if($team->faction_id)
                                 <br/>({{{ $team->faction->name }}})
+                            @else
+                                <br/><strong>(Pas encore de faction)</strong>
                             @endif
                             <br/><a href="{{ route('dashboard.teams.members', ['id' => $team->id ]) }}" class="btn btn-sm btn-default">{{{ $team->newcomers()->count() }}} {{ $team->branch != null ? $team->branch : 'Branches' }}</a>
                         </td>
@@ -70,12 +72,17 @@ Gestion des équipes
                                             </td>
                                             <td>
                                                 @if ($student->id == $team->respo_id)
-                                                    <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                                    <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span><br/>
+                                                @else
+                                                    <a href="{{ route('dashboard.teams.setrespo', ['teamId' => $team->id, 'studentId' => $student->id ]) }}" class="btn btn-xs btn-primary">Définir chef d'équipe</a><br/>
                                                 @endif
                                                 @if ($student->team_accepted)
                                                     <span class="label label-success" title="A validé sa participation à l'équipe"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                                 @else
                                                     <span class="label label-warning" title="N'a pas encore validé sa participation à l'équipe"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                                                @endif
+                                                @if ($student->id != $team->respo_id)
+                                                    
                                                 @endif
                                             </td>
                                         </tr>
@@ -92,7 +99,7 @@ Gestion des équipes
                             </td>
                         @else
                             <td>
-                                <em>Aucune</em>
+                                <em>Aucune image</em>
                             </td>
                         @endif
                         <td>

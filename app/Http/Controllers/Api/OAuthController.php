@@ -46,7 +46,7 @@ class OAuthController extends Controller
     {
         // authorization code required to continue
         if (! Request::has('authorization_code')) {
-            return Response::json(["message" => "misssing parameter : authorization_code"], 401);
+            return Response::json(["message" => "missing parameter : authorization_code"], 401);
         }
 
         $client = new \GuzzleHttp\Client([
