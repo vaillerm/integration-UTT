@@ -14,7 +14,7 @@ class CascadeFK extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('team_id');
+            $table->dropForeign(['team_id']);
             $table->foreign('team_id')
                 ->references('id')->on('teams')
                 ->onDelete('cascade');
