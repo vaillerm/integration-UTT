@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Classes\NewcomerMatching;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Faction;
 use Request;
 use View;
 use Redirect;
@@ -61,8 +62,10 @@ class TeamsController extends Controller
     public function edit($id)
     {
         $team = Team::findOrFail($id);
+        $factions = Faction::all();
         return View::make('dashboard.teams.edit', [
-            'team' => $team
+            'team' => $team,
+            'factions' => $factions
         ]);
     }
 
@@ -75,10 +78,18 @@ class TeamsController extends Controller
     public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch']);
+        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch', 'faction']);
+        $uniqueName = '';
+        if($data['name'] != '') {
+          $uniqueName = '|unique:teams';
+        }
+        $uniqueSafeName = '';
+        if($data['safe_name'] != '') {
+          $uniqueSafeName = '|unique:teams';
+        }
         $this->validate(Request::instance(), [
-            'name' => 'required|min:3|max:70|unique:teams,name,'.$team->id,
-            'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.$team->id,
+            'name' => 'min:3|max:70'.$uniqueName.',name,'.$team->id,
+            'safe_name' => 'min:3|max:30'.$uniqueSafeName.',safe_name,'.$team->id,
             'img' => 'image',
             'facebook' => 'url'
         ],
@@ -101,12 +112,17 @@ class TeamsController extends Controller
         }
 
         // Update team informations
-        $team->name = $data['name'];
-        $team->safe_name = $data['safe_name'];
+        if($data['name'] != '') {
+          $team->name = $data['name'];
+        }
+        if($data['safe_name'] != '') {
+          $team->safe_name = $data['safe_name'];
+        }
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->comment = $data['comment'];
         $team->branch = $data['branch'];
+        $team->faction_id = $data['faction'];
         if ($extension) {
             $team->img = $extension;
         }
