@@ -19,7 +19,7 @@
 
     <div class="box box-default">
         <div class="box-body table-responsive">
-            <form autocomplete="off" action="{{ url('dashboard/checkin') }}" method="post" id="checkinForm">
+            <form autocomplete="off" action="{{ url('dashboard/checkin') }}" method="post" id="form">
                 <div class="form-group">
                     <label for="name">Nom du checkin</label>
                     <input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -34,7 +34,7 @@
                 </div>
                 <ul class="list-group" id="student_autocomplete_selected_container"></ul>
 
-                <button type="submit" id="checkinFormSubmit" class="btn btn-success">Créer le checkin</button>
+                <button type="submit" id="formSubmit" class="btn btn-success">Créer le checkin</button>
             </form>
         </div>
     </div>

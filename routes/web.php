@@ -96,6 +96,26 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::put('/event/{id}', ['uses' => 'Admin\EventController@update']);
         });
 
+        // Perm model's routes
+        Route::group(['middleware' => 'authorize:admin'], function () {
+            Route::get('/perm', ['uses' => 'Admin\PermController@index']);
+            Route::get('/perm/create', ['uses' => 'Admin\PermController@create']);
+            Route::get('/perm/edit/{id}', ['uses' => 'Admin\PermController@edit']);
+            Route::post('/perm', ['uses' => 'Admin\PermController@store']);
+            Route::delete('/perm/{id}', ['uses' => 'Admin\PermController@destroy']);
+            Route::put('/perm/{id}', ['uses' => 'Admin\PermController@update']);
+         });
+
+        // PermType model's routes
+        Route::group(['middleware' => 'authorize:admin'], function () {
+          Route::get('/permType', ['uses' => 'Admin\PermTypeController@index']);
+          Route::get('/permType/create', ['uses' => 'Admin\PermTypeController@create']);
+          Route::get('/permType/edit/{id}', ['uses' => 'Admin\PermTypeController@edit']);
+          Route::post('/permType', ['uses' => 'Admin\PermTypeController@store']);
+          Route::delete('/permType/{id}', ['uses' => 'Admin\PermTypeController@destroy']);
+          Route::put('/permType/{id}', ['uses' => 'Admin\PermTypeController@update']);
+      });
+
         // Checkin model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
             Route::get('/checkin', ['uses' => 'Admin\CheckinController@index', 'as'=> 'dashboard.checkin']);

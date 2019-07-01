@@ -72,6 +72,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>
+                                    <li><a href="{{ url('dashboard/perm') }}">Permanences</a></li>
                                     <li><a href="{{ url('dashboard/checkin') }}">Checkins</a></li>
                                     <li><a href="{{ route('dashboard.emails.index') }}">Mails</a></li>
                                     <li class="dropdown">

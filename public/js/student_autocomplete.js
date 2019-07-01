@@ -11,10 +11,10 @@ $(document).ready(function() {
         }
     });
 
-    $('#checkinFormSubmit').on('click', function(event) {
+    $('#formSubmit').on('click', function(event) {
         event.preventDefault();
         getSelectedStudentsIds().map(id => $(this).append(`<input name="users[]" type="hidden" value=${id}>`))
-        $("#checkinForm").submit();
+        $("#form").submit();
     });
 
     function refreshStudents(name) {
