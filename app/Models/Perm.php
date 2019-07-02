@@ -89,11 +89,16 @@ class Perm extends Model
   }
 
   /**
-   * The respo of the PermType.
+   * The respos of the Perm.
    */
   public function permanenciers()
   {
-    return $this->belongsToMany(User::class, 'perm_users', 'perm_id', 'user_id')->wherePivot('respo', false)->withPivot('presence')->withPivot('absence_reason');
+    return $this->belongsToMany(User::class, 'perm_users', 'perm_id', 'user_id')
+      ->wherePivot('respo', false)
+      ->withPivot('presence')
+      ->withPivot('pointsPenalty')
+      ->withPivot('commentary')
+      ->withPivot('absence_reason');
   }
 
   /**

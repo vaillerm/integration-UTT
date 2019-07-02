@@ -52,9 +52,6 @@
                               @foreach ($perm->respos as $respo)
                                   <span class="label label-info">{{ $respo->first_name.' '.$respo->last_name }}</span>
                               @endforeach
-                              @foreach ($perm->type->respos as $respo)
-                                  <span class="label label-info">{{ $respo->first_name.' '.$respo->last_name }}</span>
-                              @endforeach
                             </td>
                             <td>{{ $perm->type->points }}</td>
                             <td>

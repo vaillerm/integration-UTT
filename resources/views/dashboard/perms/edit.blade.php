@@ -48,7 +48,16 @@
                 <div id="student_autocomplete_matches_container">
                     <div id="student_autocomplete_matches"></div>
                 </div>
-                <ul class="list-group" id="student_autocomplete_selected_container"></ul>
+                <ul class="list-group" id="student_autocomplete_selected_container">
+
+                  @foreach ($perm->respos as $respo)
+                      <li class="list-group-item" data-id="{{ $respo->id }}">
+                          {{ $respo->first_name.' '.$respo->last_name }}
+                          <span class="autocomplete_remove">x</span>
+                      </li>
+                  @endforeach
+
+                </ul>
 
                 <button type="submit" class="btn btn-success" id="formSubmit">Modifier la permanence</button>
             </form>

@@ -37,6 +37,8 @@
                         <th>Prénom</th>
                         <th>Présence</th>
                         <th>Raison de l'absence</th>
+                        <th>Commentaire</th>
+                        <th>Points</th>
                         <th>Actions</th>
                     </tr>
                     @foreach ($perm->permanenciers as $user)
@@ -45,11 +47,10 @@
                             <td>{{ $user->first_name }}</td>
                             <td>{{ $user->pivot->presence }}</td>
                             <td>{{ $user->pivot->absence_reason }}</td>
+                            <td>{{ $user->pivot->commentary }}</td>
+                            <td>{{ $perm->type->points - $user->pivot->pointsPenalty }}</td>
                             <td>
-                                <form action="{{ url('dashboard/perm/'.$perm->id.'/users/'.$user->id) }}" method="post">
-                                    {{ method_field('PUT') }}
-                                    <button class="btn btn-xs btn-success" type="submit">Présent</button>
-                                </form>
+                                <a class="btn btn-xs btn-success" href="{{ url('dashboard/perm/'.$perm->id.'/users/'.$user->id.'/present') }}">Présent</a>
                                 <a class="btn btn-xs btn-danger" href="{{ url('dashboard/perm/'.$perm->id.'/users/'.$user->id.'/absent') }}">Absent</a>
                                 <form action="{{ url('dashboard/perm/'.$perm->id.'/users/'.$user->id) }}" method="post">
                                     {{ method_field('DELETE') }}

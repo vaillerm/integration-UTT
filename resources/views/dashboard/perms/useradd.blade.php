@@ -30,7 +30,7 @@
                 </div>
                 <ul class="list-group" id="student_autocomplete_selected_container"></ul>
 
-                <button type="submit" class="btn btn-success" id="formSubmit">Créer la permanence</button>
+                <button type="submit" class="btn btn-success" id="formSubmit">Ajouter l'étudiant à la perm</button>
             </form>
         </div>
     </div>

@@ -26,6 +26,29 @@ class PermController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recap()
+    {
+        $users = User::has('perms')->get();
+        return view('dashboard.perms.recap', compact('users'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userperms($id)
+    {
+        $user = User::find($id);
+        return view('dashboard.perms.userperms', compact('user'));
+    }
+
+    /**
      * Show the form for choosing a type
      *
      * @return \Illuminate\Http\Response
@@ -117,7 +140,6 @@ class PermController extends Controller
         $perm->place = Request::get('place');
         $perm->nbr_permanenciers = Request::get('nbr_permanenciers');
         $perm->free_join = Request::has('free_join');
-        $perm->perm_type_id = Request::get('perm_type_id');
         $perm->save();
         $perm->respos()->sync(Request::get('users'));
 
@@ -199,11 +221,11 @@ class PermController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userpresent($id, $userId)
+    public function userpresentform($id, $userId)
     {
-      $perm = Perm::find($id);
-      $perm->permanenciers()->updateExistingPivot($userId, ['presence' => 'present', 'absence_reason' => '']);
-      return redirect('dashboard/perm/'.$id.'/users');
+        $perm = Perm::find($id);
+        $user = User::find($userId);
+        return view('dashboard.perms.userpresent', compact('perm', 'user'));
     }
 
     /**
@@ -230,12 +252,42 @@ class PermController extends Controller
     public function userabsent($id, $userId)
     {
         // validate the request inputs
-        $validator = Validator::make(Request::all(), ['absence_reason' => 'string']);
+        $validator = Validator::make(Request::all(), ['absence_reason' => 'string', 'commentary' => 'string', 'pointsPenalty' => 'integer']);
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator);
         }
         $perm = Perm::find($id);
-        $perm->permanenciers()->updateExistingPivot($userId, ['presence' => 'absent', 'absence_reason' => Request::get('absence_reason')]);
+        $perm->permanenciers()->updateExistingPivot($userId, [
+          'presence' => 'absent',
+          'absence_reason' => Request::get('absence_reason'),
+          'commentary' => Request::get('commentary'),
+          'pointsPenalty' => Request::get('pointsPenalty') + $perm->type->points,
+        ]);
+
+        return redirect('dashboard/perm/'.$id.'/users');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function userpresent($id, $userId)
+    {
+        // validate the request inputs
+        $validator = Validator::make(Request::all(), ['commentary' => 'string', 'pointsPenalty' => 'integer']);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+        $perm = Perm::find($id);
+        $perm->permanenciers()->updateExistingPivot($userId, [
+          'presence' => 'present',
+          'absence_reason' => '',
+          'commentary' => Request::get('commentary'),
+          'pointsPenalty' => Request::get('pointsPenalty'),
+        ]);
 
         return redirect('dashboard/perm/'.$id.'/users');
     }
