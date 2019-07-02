@@ -93,7 +93,7 @@ class Perm extends Model
    */
   public function permanenciers()
   {
-    return $this->belongsToMany(User::class, 'perm_users', 'perm_id', 'user_id')->wherePivot('respo', false);
+    return $this->belongsToMany(User::class, 'perm_users', 'perm_id', 'user_id')->wherePivot('respo', false)->withPivot('presence')->withPivot('absence_reason');
   }
 
   /**

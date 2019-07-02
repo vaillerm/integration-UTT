@@ -58,7 +58,7 @@
                             </td>
                             <td>{{ $perm->type->points }}</td>
                             <td>
-                                <a class="btn btn-xs btn-info" href="{{ url('dashboard/perm/adduser/'.$perm->id) }}">Ajouter un permanencier</a>
+                                <a class="btn btn-xs btn-info" href="{{ url('dashboard/perm/'.$perm->id.'/users') }}">Liste des permanenciers</a>
                                 <a class="btn btn-xs btn-warning" href="{{ url('dashboard/perm/edit/'.$perm->id) }}">Modifier</a>
                                 <form action="{{ url('dashboard/perm/'.$perm->id) }}" method="post">
                                     {{ method_field('DELETE') }}

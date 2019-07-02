@@ -10,6 +10,7 @@ use Redirect;
 
 use App\Models\Perm;
 use App\Models\PermType;
+use App\Models\User;
 
 class PermController extends Controller
 {
@@ -133,5 +134,109 @@ class PermController extends Controller
     {
         Perm::destroy($id);
         return redirect('dashboard/perm');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function usersindex($id)
+    {
+        $perm = Perm::find($id);
+        return view('dashboard.perms.usersindex', compact('perm'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function useradd($id)
+    {
+      $perm = Perm::find($id);
+      return view('dashboard.perms.useradd', compact('perm'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userstore($id)
+    {
+        Request::flash();
+
+        // validate the request inputs
+        $validator = Validator::make(Request::all(), [
+          'users' => 'array',
+          'users.*' => 'exists:users,id',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+        $perm = Perm::find($id);
+        $perm->permanenciers()->attach(Request::get('users'), ['respo' => false]);
+        return redirect('dashboard/perm/'.$id.'/users');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @param  int  $userid
+     * @return \Illuminate\Http\Response
+     */
+    public function userdestroy($id, $userId)
+    {
+        $perm = Perm::find($id);
+        $perm->permanenciers()->detach($userId);
+        return redirect('dashboard/perm/'.$id.'/users');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userpresent($id, $userId)
+    {
+      $perm = Perm::find($id);
+      $perm->permanenciers()->updateExistingPivot($userId, ['presence' => 'present', 'absence_reason' => '']);
+      return redirect('dashboard/perm/'.$id.'/users');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function userabsentform($id, $userId)
+    {
+        $perm = Perm::find($id);
+        $user = User::find($userId);
+        return view('dashboard.perms.userabsent', compact('perm', 'user'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function userabsent($id, $userId)
+    {
+        // validate the request inputs
+        $validator = Validator::make(Request::all(), ['absence_reason' => 'string']);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+        $perm = Perm::find($id);
+        $perm->permanenciers()->updateExistingPivot($userId, ['presence' => 'absent', 'absence_reason' => Request::get('absence_reason')]);
+
+        return redirect('dashboard/perm/'.$id.'/users');
     }
 }
