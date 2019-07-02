@@ -23,16 +23,16 @@
                     <input type="text" class="form-control" name="name" value="{{ $permType->name }}">
                 </div>
                 <div class="form-group">
-                    <label for="name">Description</label>
+                    <label for="description">Description</label>
                     <textarea name="description" class="form-control">{{ $permType->description }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="name">Points</label>
+                    <label for="points">Points</label>
                     <input type="number" name="points" class="form-control" value="{{ $permType->points }}">
                 </div>
 
                 <div class="form-group" id="student_autocomplete_container">
-                    <label for="name">Ajouter des respos par nom/prénom (il faut rentrer tout les respos à chaque modification)</label>
+                    <label>Ajouter des respos par nom/prénom (il faut rentrer tout les respos à chaque modification)</label>
                     <input type="text" class="form-control" id="student_autocomplete">
                 </div>
                 <div id="student_autocomplete_matches_container">

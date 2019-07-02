@@ -99,7 +99,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         // Perm model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
             Route::get('/perm', ['uses' => 'Admin\PermController@index']);
-            Route::get('/perm/create', ['uses' => 'Admin\PermController@create']);
+            Route::get('/perm/create', ['uses' => 'Admin\PermController@selectType']);
+            Route::post('/perm/create', ['uses' => 'Admin\PermController@create']);
             Route::get('/perm/edit/{id}', ['uses' => 'Admin\PermController@edit']);
             Route::post('/perm', ['uses' => 'Admin\PermController@store']);
             Route::delete('/perm/{id}', ['uses' => 'Admin\PermController@destroy']);

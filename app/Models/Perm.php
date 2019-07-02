@@ -30,12 +30,13 @@ class Perm extends Model
   public static function webStoreRules()
   {
     return [
-      'start' => 'required|date|date_format:Y-m-d|before_or_equal:end',
-      'end'=> 'required|date|date_format:Y-m-d|after_or_equal:start',
+      'start_date' => 'required|date|date_format:Y-m-d|before_or_equal:end_date',
+      'end_date'=> 'required|date|date_format:Y-m-d|after_or_equal:start_date',
+      'start_hour'=> 'required|date_format:H:i',
+      'end_hour'=> 'required|date_format:H:i',
       'description' => 'required|string',
       'place' => 'required|string',
       'nbr_permanenciers' => 'required|integer',
-      'free_join' => 'required|boolean',
       'respos' => 'array',
       'respos.*' => 'exists:users,id',
       'permanenciers' => 'array',
@@ -72,7 +73,7 @@ class Perm extends Model
    */
   public function respos()
   {
-    return $this->belongsToMany(User::class);
+    return $this->belongsToMany(User::class, 'perm_users', 'perm_id', 'user_id')->wherePivot('respo', true);
   }
 
   /**
@@ -92,7 +93,7 @@ class Perm extends Model
    */
   public function permanenciers()
   {
-    return $this->belongsToMany(User::class);
+    return $this->belongsToMany(User::class, 'perm_users', 'perm_id', 'user_id')->wherePivot('respo', false);
   }
 
   /**

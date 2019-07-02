@@ -35,7 +35,7 @@
                         <th>Nom</th>
                         <th>Description</th>
                         <th>Points</th>
-                        <th>Responsables</th>
+                        <th>Responsables par défaut</th>
                         <th>Actions</th>
                     </tr>
                     @foreach ($permTypes as $permType)
