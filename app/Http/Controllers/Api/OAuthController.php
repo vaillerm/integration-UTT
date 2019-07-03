@@ -85,9 +85,11 @@ class OAuthController extends Controller
         // generate auth token for this student
         $createdToken = $user->createToken("etu utt");
         $passport_access_token = $createdToken->accessToken;
+        $passport_expires_at = $createdToken->token->expires_at;
 
         return Response::json([
-            "access_token" => $passport_access_token
+            "access_token" => $passport_access_token,
+            "expires_at" => $passport_expires_at,
         ]);
     }
 
