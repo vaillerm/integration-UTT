@@ -32,6 +32,7 @@ trait PushNotifications {
                 "Authorization" => "Bearer ".env("IONIC_API_TOKEN")
             ]
         ]);
+        return $result;
     }
 
 }
