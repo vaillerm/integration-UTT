@@ -17,19 +17,21 @@ trait PushNotifications {
      */
     public function postNotification($tokens, $message, $title = "")
     {
+        $data = ['title' => $title, 'message' => $message];
+        $notifs = [];
+        foreach ($tokens as $token) {
+            array_push($notifs, [
+              "to" => "ExponentPushToken[".$token."]",
+              "title" => $title,
+              "body" => $message,
+              "data" => $data
+            ]);
+        }
         $client = new Client();
-        $result = $client->post('https://api.ionic.io/push/notifications', [
-            "body" => json_encode([
-                "tokens" => $tokens,
-                "profile" => env("IONIC_PUSH_PROFILE"),
-                "notification" => [
-                    "message" => $message,
-                    "title" => $title
-                ]
-            ]),
+        $result = $client->post('https://exp.host/--/api/v2/push/send', [
+            "body" => json_encode($notifs),
             "headers" => [
-                'content-type' => 'application/json',
-                "Authorization" => "Bearer ".env("IONIC_API_TOKEN")
+                'content-type' => 'application/json'
             ]
         ]);
         return $result;

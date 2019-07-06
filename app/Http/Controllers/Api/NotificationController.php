@@ -39,7 +39,7 @@ class NotificationController extends Controller
         }
 
         $requestTargets = Request::get('targets');
-        $notificationTargets = User::whereNotNull('device_token');
+        $notificationTargets = User::whereHas('devices');
         if (!in_array("all", $requestTargets)) {
             $notificationTargets = $notificationTargets->where($requestTargets[0], '>', 0);
             for ($i = 1; $i < sizeof($requestTargets); $i++) {
@@ -47,9 +47,14 @@ class NotificationController extends Controller
             }
         }
 
-        $notificationTargets = $notificationTargets->pluck('device_token')->toArray();
-
-        $this->postNotification($notificationTargets, Request::get('message'), Request::get('title'));
+        $targets = $notificationTargets->get();
+        $devices = [];
+        foreach($targets as $target) {
+          foreach($target->devices as $device) {
+            array_push($devices, $device->push_token);
+          }
+        }
+        $this->postNotification($devices, Request::get('message'), Request::get('title'));
 
         return Response::json();
     }
