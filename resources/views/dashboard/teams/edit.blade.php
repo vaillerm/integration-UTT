@@ -104,6 +104,17 @@ Gestion des équipes
                     @endif
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="faction" class="col-lg-2 control-label">Faction</label>
+                <div class="col-lg-10">
+                    <select id="faction" name="faction" class="form-control">
+                        @foreach($factions as $faction)
+                            <option value="{{{$faction->id}}}" @if ($team->faction == $faction) selected="selected" @endif >{{{$faction->name}}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <input type="submit" class="btn btn-success form-control" value="Mettre à jour les informations" />
         </form>
     </div>

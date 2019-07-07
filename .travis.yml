@@ -27,11 +27,5 @@ script:
   - phpunit
 
 notifications:
-  webhooks:
-    urls:
-    - https://integration.utt.fr/deploy
-    on_failure: never
-    on_start: never
-    on_pull_requests: false
   slack:
     secure: rEM6pnoMzAT7qCT4l65zk+Nix5rTUVoenBNAHQV7xBRdfDZRfH1JpyJRf9QgThqaxeSykwPxm8CQhC3GtVC1HnWOvmNQGqIR5tQfuMGbCZBJct1vHmdkjGnr2Yp40OPxrumJVh2ZgI45Rmx7whhVXehYTvtJBj9WLwaablIHfBEfjYsOnJjRupipnZEw1R17Yds/FE6dkdW1253u/MT6y5OaX0WFunsSjitrDcUNIKtvqFDfwgib91fLqdfoyZi2u832Bpx/sAUZG888QBS01M80N+i95lSlJQsKnLAIda25DMSkyqOROghEC5CF8wE71a6j7AKG+Q6agQbC8Lro3wgUYcb0BUwt7u+tGegfzmpp1t6cDeVbrR08zv/0RCiC0rnYuz0Uo4tQEtd10zZPQ9q4tpYSUY4+ri48qMmnjrPNmyrsnUhdUQkdN9yseLWO36nqdR7Z+ADhCW/vs7V6Wsya4QQoBzNcQangjl2d0+pBpcPjDj1TvHiGIMS9dGbo7/Us88wgp0s3vVwn9zBqvuB87wwtTmIobiV+MXTR1X5ScqSM1jF+rgxS5DPIlBncQQL4oNpFIdnvcvGL3YV/W8RtHhU5yD1+5C2g0bE7OjXRS0BLHneSE9KQ62I0g3ZoTrX/6wVS/9QpG7MOrPHpXHJ52sFdWKGnjD2CrPQ+vFc=

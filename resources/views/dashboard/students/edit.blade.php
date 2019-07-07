@@ -34,7 +34,7 @@ Modification de profil
 
             @if (!$student->is_newcomer)
                 <div class="form-group">
-                    <label for="is_newcomer" class="col-lg-2 text-right">Status</label>
+                    <label for="is_newcomer" class="col-lg-2 text-right">Statut</label>
                     <div class="col-lg-10">
                         Ancien
                     </div>
@@ -59,7 +59,7 @@ Modification de profil
                 </div>
             @else
                 <div class="form-group">
-                    <label for="is_newcomer" class="col-lg-2 text-right">Status</label>
+                    <label for="is_newcomer" class="col-lg-2 text-right">Statut</label>
                     <div class="col-lg-10">
                         Nouveau
                     </div>

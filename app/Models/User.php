@@ -719,4 +719,8 @@ class User extends Model implements Authenticatable
         ->wherePivot('respo', false)
         ->wherePivot('presence', 'absent');
     }
+
+    public function devices() {
+        return $this->hasMany('App\Models\Device');
+    }
 }
