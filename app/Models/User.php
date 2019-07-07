@@ -684,4 +684,8 @@ class User extends Model implements Authenticatable
     public function isOrga() : bool {
         return $this->orga?true:false;
     }
+
+    public function devices() {
+        return $this->hasMany('App\Models\Device');
+    }
 }
