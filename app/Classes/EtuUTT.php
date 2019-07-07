@@ -111,7 +111,7 @@ class EtuUTT
             $student->etuutt_login = $json['login'];
 
             // Error here a ignored, we just keep user without a picture if we cannot download it
-            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
+            $picture = @file_get_contents('https://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
             @file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
 
             if ($json['sex'] == 'male') {
@@ -175,7 +175,7 @@ class EtuUTT
             $user->save();
 
             // Error here a ignored, we just keep user without a picture if we cannot download it
-            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $json['studentId'] . '.jpg');
+            $picture = @file_get_contents('https://local-sig.utt.fr/Pub/trombi/individu/' . $json['studentId'] . '.jpg');
             @file_put_contents(public_path() . '/uploads/students-trombi/' . $json['studentId'] . '.jpg', $picture);
         }
 

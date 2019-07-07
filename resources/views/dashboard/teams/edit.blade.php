@@ -76,6 +76,18 @@ Gestion des équipes
                 </div>
             </div>
 
+
+            <div class="form-group">
+                <label for="faction" class="col-lg-2 control-label">Faction</label>
+                <div class="col-lg-10">
+                  <select class="form-control" id="faction" name="faction" value="{{{ old('faction') ?? $team->faction }}}">
+                    @foreach ($factions as $faction)
+                      <option value="{{{ $faction->id }}}">{{{ $faction->name }}}</option>
+                    @endforeach
+                  </select>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="comment" class="col-lg-2 control-label">Commentaire administrateur</label>
                 <div class="col-lg-10">

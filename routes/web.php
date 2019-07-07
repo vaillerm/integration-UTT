@@ -227,6 +227,16 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\TeamsController@adminValidate'
             ]);
+            Route::get('/{teamId}/setrespo/{studentId}', [
+                'as'   => 'dashboard.teams.setrespo',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@adminSetRespo'
+            ]);
+            Route::get('/{id}/delete', [
+                'as'   => 'dashboard.teams.delete',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@adminDelete'
+            ]);
             Route::get('/{id}/unvalidate', [
                 'as'   => 'dashboard.teams.unvalidate',
                 'middleware' => 'authorize:admin',
@@ -517,6 +527,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'as'   => 'dashboard.students.edit.submit',
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\StudentsController@editSubmit'
+            ]);
+            Route::get('/{id}/removeteam', [
+                'as'   => 'dashboard.teams.removeuser',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@adminRemoveUser'
             ]);
             Route::get('/add', [
                 'as'   => 'dashboard.students.add',

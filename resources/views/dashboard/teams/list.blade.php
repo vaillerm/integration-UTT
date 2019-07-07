@@ -41,6 +41,8 @@ Gestion des équipes
                             @endif
                             @if($team->faction_id)
                                 <br/>({{{ $team->faction->name }}})
+                            @else
+                                <br/><strong>(Pas encore de faction)</strong>
                             @endif
                             <br/><a href="{{ route('dashboard.teams.members', ['id' => $team->id ]) }}" class="btn btn-sm btn-default">{{{ $team->newcomers()->count() }}} {{ $team->branch != null ? $team->branch : 'Branches' }}</a>
                         </td>
@@ -69,8 +71,12 @@ Gestion des équipes
                                                 {{{ $student->branch }}}{{{ $student->level }}}
                                             </td>
                                             <td>
+                                                @if ($student->id != $team->respo_id)
+                                                    <a href="{{ route('dashboard.teams.setrespo', ['teamId' => $team->id, 'studentId' => $student->id ]) }}" class="btn btn-xs btn-primary">Définir chef d'équipe</a><br/>
+                                                    <a href="{{ route('dashboard.teams.removeuser', ['studentId' => $student->id ]) }}" class="btn btn-xs btn-danger">Supprimer de l'équipe</a><br/>
+                                                @endif
                                                 @if ($student->id == $team->respo_id)
-                                                    <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                                  <span class="label label-primary" title="Responsable de l'équipe"><i class="fa fa-star" aria-hidden="true"></i></span>
                                                 @endif
                                                 @if ($student->team_accepted)
                                                     <span class="label label-success" title="A validé sa participation à l'équipe"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
@@ -92,7 +98,7 @@ Gestion des équipes
                             </td>
                         @else
                             <td>
-                                <em>Aucune</em>
+                                <em>Aucune image</em>
                             </td>
                         @endif
                         <td>
@@ -114,6 +120,7 @@ Gestion des équipes
                                 <a href="{{ route('dashboard.teams.unvalidate', ['id' => $team->id ]) }}" class="btn btn-xs btn-danger">Désapprouver</a>
                             @endif
                             <a href="{{ route('dashboard.teams.edit', ['id' => $team->id ]) }}" class="btn btn-xs btn-warning">Modifier</a>
+                            <a href="{{ route('dashboard.teams.delete', ['id' => $team->id ]) }}" class="btn btn-xs btn-danger"> /!\ Supprimer</a>
                         </td>
                     </tr>
                 @endforeach

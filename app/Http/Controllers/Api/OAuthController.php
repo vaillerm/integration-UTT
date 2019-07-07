@@ -46,7 +46,7 @@ class OAuthController extends Controller
     {
         // authorization code required to continue
         if (! Request::has('authorization_code')) {
-            return Response::json(["message" => "misssing parameter : authorization_code"], 401);
+            return Response::json(["message" => "missing parameter : authorization_code"], 401);
         }
 
         $client = new \GuzzleHttp\Client([
@@ -85,9 +85,11 @@ class OAuthController extends Controller
         // generate auth token for this student
         $createdToken = $user->createToken("etu utt");
         $passport_access_token = $createdToken->accessToken;
+        $passport_expires_at = $createdToken->token->expires_at;
 
         return Response::json([
-            "access_token" => $passport_access_token
+            "access_token" => $passport_access_token,
+            "expires_at" => $passport_expires_at,
         ]);
     }
 

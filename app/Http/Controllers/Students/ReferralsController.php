@@ -4,14 +4,10 @@ namespace App\Http\Controllers\Students;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Newcomer;
-use App\Classes\NewcomerMatching;
+use Auth;
+use Redirect;
 use Request;
 use View;
-use Session;
-use Redirect;
-use EtuUTT;
-use Auth;
 
 /**
  * @author  Thomas Chauchefoin <thomas@chauchefoin.fr>
@@ -46,7 +42,7 @@ class ReferralsController extends Controller
         $student->save();
 
         return View::make('referrals.edit', [
-            'referral' => $student
+            'referral' => $student,
         ]);
     }
 
@@ -76,7 +72,7 @@ class ReferralsController extends Controller
             if (strlen($referral->country) < 2) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton pays d\'origine :/');
             }
-            if (strlen($referral->postal_code) !== 5 && $referral->postal_code !== '0') {
+            if (strlen($referral->postal_code) !== 5 && $referral->postal_code != '0') {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas donné ton code postal :/ (Pour les étudiants venant de l\'étranger, indiquez 0) ');
             } elseif (strlen($referral->referral_text) < 140) {
                 return $this->warning('Ton profil a été sauvegardé, mais tu n\'as pas écris un texte assez long :/');

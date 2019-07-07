@@ -175,9 +175,9 @@ Gestion de mon équipe
                 </fieldset>
 
                 <div class="form-group">
-                    <label for="facebook" class="col-lg-2 control-label">Lien vers le groupe Facebook</label>
+                    <label for="facebook" class="col-lg-2 control-label">Lien vers le groupe Facebook (attribué par l'orga, n'en créez pas vous même)</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="facebook" name="facebook" @if(!Authorization::can('ce','editName')) disabled @endif placeholder="https://facebook.com/.." @if(!Authorization::can('ce','edit')) disabled @endif value="{{{ old('facebook') ?? $team->facebook }}}">
+                        <input class="form-control" type="text" id="facebook" name="facebook" disabled placeholder="https://facebook.com/.." value="{{{ old('facebook') ?? $team->facebook }}}">
                     </div>
                 </div>
 

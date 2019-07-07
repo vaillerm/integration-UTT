@@ -78,11 +78,18 @@ class TeamsController extends Controller
     public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $factions = Faction::All();
         $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch', 'faction']);
+        $uniqueName = '';
+        if($data['name'] != '') {
+          $uniqueName = '|unique:teams';
+        }
+        $uniqueSafeName = '';
+        if($data['safe_name'] != '') {
+          $uniqueSafeName = '|unique:teams';
+        }
         $this->validate(Request::instance(), [
-            'name' => 'required|min:3|max:70|unique:teams,name,'.$team->id,
-            'safe_name' => 'min:3|max:30|unique:teams,safe_name,'.$team->id,
+            'name' => 'min:3|max:70'.$uniqueName.',name,'.$team->id,
+            'safe_name' => 'min:3|max:30'.$uniqueSafeName.',safe_name,'.$team->id,
             'img' => 'image',
             'facebook' => 'url'
         ],
@@ -105,8 +112,12 @@ class TeamsController extends Controller
         }
 
         // Update team informations
-        $team->name = $data['name'];
-        $team->safe_name = $data['safe_name'];
+        if($data['name'] != '') {
+          $team->name = $data['name'];
+        }
+        if($data['safe_name'] != '') {
+          $team->safe_name = $data['safe_name'];
+        }
         $team->description = $data['description'];
         $team->facebook = $data['facebook'];
         $team->comment = $data['comment'];
@@ -187,6 +198,54 @@ class TeamsController extends Controller
             return $this->success('L\'équipe est désormais dans une faction !');
         }
         return $this->error('L\'équipe est déjà dans une faction !');
+    }
+
+    public function adminSetRespo($teamId, $studentId)
+    {
+        $team = Team::find($teamId);
+        if (!$team) {
+          return $this->error('L\'equipe n\'a pas été trouvé !');
+        }
+        $ce = $team->ce()->get();
+        $newrespo = null;
+        foreach($ce as $user) {
+          if($user->id == $studentId) $newrespo = $user;
+        }
+        if($newrespo == null) {
+          return $this->error('L\'étudiant ne fait pas parti de cette équipe !');
+        }
+        
+        $team->respo_id = $newrespo->id;
+        $team->save();
+        return $this->success('L\'utilisateur est maintenant chef de son équipe !');
+    }
+
+    public function adminRemoveUser($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+          return $this->error('L\'utilisateur n\'existe pas !');
+        }
+        $team = $user->team()->get();
+        if(!$team || !$team[0]) {
+          return $this->error('L\'utilisateur n\'a pas d\'équipe !');
+        }
+        if ($team[0]->respo_id == $user->id) {
+          return $this->error('Vous ne pouvez pas supprimer le chef de l\'équipe');
+        }
+        $user->team_id = null;
+        $user->save();
+        return $this->success('L\'utilisateur a été retiré de l\'équipe !');
+    }
+
+    public function adminDelete($id)
+    {
+        $team = Team::find($id);
+        if ($team) {
+            $team->delete();
+            return $this->success('L\'équipe a été supprimé !');
+        }
+        return $this->error('L\'equipe n\'a pas été trouvé !');
     }
 
     public function matchToNewcomers()
