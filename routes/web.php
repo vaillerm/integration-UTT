@@ -252,6 +252,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\TeamsController@editSubmit'
             ]);
+            Route::get('/{id}/attributeFaction', [
+                'as'   => 'dashboard.teams.attribute.faction',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\TeamsController@attributeFaction'
+            ]);
             // Not tested : TODO Test it !
             Route::get('/match', [
                 'as'   => 'dashboard.teams.match',
@@ -743,6 +748,23 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::group(['prefix' => 'faction'], function() {
         Route::get('leaderboard/', "All\FactionsController@leaderboard")->name("challenges.leaderboard");
+        Route::get('create/', [
+        	'as' => 'faction.create',
+       	    'middleware' => 'authorize:admin',
+       	    'uses' => 'Admin\FactionsController@create'
+        ]);
+        Route::post('/create', ['uses' => 'Admin\FactionsController@store']);
+        Route::get('/{id}/edit/', [
+            'as' => 'faction.edit',
+            'middleware', 'authorize:admin',
+            'uses' => 'Admin\FactionsController@edit'
+        ]);
+        Route::post('/{id}/edit/', [
+            'as' => 'faction.edit.submit',
+            'middleware' => 'authorize:admin',
+            'uses' => 'Admin\FactionsController@editSubmit'
+        ]);
+
     });
 
     /**

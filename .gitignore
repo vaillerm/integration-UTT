@@ -5,6 +5,11 @@ Homestead.yaml
 Homestead.json
 .env
 .idea
+composer.sublime-workspace
+drop_all_tables.sql
+integration-UTT.sublime-project
+integration-UTT.sublime-workspace
+site.sh
 storage/debugbar
 storage/qrcodes/
 storage/trombi-phones/

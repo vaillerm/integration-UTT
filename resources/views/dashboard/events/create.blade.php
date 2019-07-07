@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="callout callout-info">
-        <h4>Création d'un nouvel évènements</h4>
+        <h4>Création d'un nouvel évènement</h4>
         <p>
             Pour créér un évènement, choisissez une date de début ainsi qu'une date de fin (date et heure). Renseignez un nom
             et une description qui définissent l'évènement, ainsi que l'endroit où il aura lieu. Pour finir, vous devez selectionner
