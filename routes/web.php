@@ -88,7 +88,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         // Event model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
-            Route::get('/event', ['uses' => 'Admin\EventController@index']);
+            Route::get('/event', ['as' => 'event.index', 'uses' => 'Admin\EventController@index']);
             Route::get('/event/create', ['uses' => 'Admin\EventController@create']);
             Route::get('/event/edit/{id}', ['uses' => 'Admin\EventController@edit']);
             Route::post('/event', ['uses' => 'Admin\EventController@store']);
@@ -98,13 +98,13 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         // Perm model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
-            Route::get('/perm', ['uses' => 'Admin\PermController@index']);
+            Route::get('/perm', ['as' => 'perm.index', 'uses' => 'Admin\PermController@index']);
             Route::get('/perm/users', ['uses' => 'Admin\PermController@recap']);
             Route::get('/user/{id}/perms', ['uses' => 'Admin\PermController@userperms']);
             Route::get('/perm/create', ['uses' => 'Admin\PermController@selectType']);
             Route::post('/perm/create', ['uses' => 'Admin\PermController@create']);
             Route::get('/perm/edit/{id}', ['uses' => 'Admin\PermController@edit']);
-            Route::get('/perm/{id}/users', ['uses' => 'Admin\PermController@usersindex']);
+            Route::get('/perm/{id}/users', ['as' => 'perm.users', 'uses' => 'Admin\PermController@usersindex']);
             Route::get('/perm/{id}/users/new', ['uses' => 'Admin\PermController@useradd']);
             Route::post('/perm/{id}/users', ['uses' => 'Admin\PermController@userstore']);
             Route::delete('/perm/{id}/users/{userId}', ['uses' => 'Admin\PermController@userdestroy']);
@@ -119,7 +119,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         // PermType model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
-          Route::get('/permType', ['uses' => 'Admin\PermTypeController@index']);
+          Route::get('/permType', ['as' => 'permType.index', 'uses' => 'Admin\PermTypeController@index']);
           Route::get('/permType/create', ['uses' => 'Admin\PermTypeController@create']);
           Route::get('/permType/edit/{id}', ['uses' => 'Admin\PermTypeController@edit']);
           Route::post('/permType', ['uses' => 'Admin\PermTypeController@store']);

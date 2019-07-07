@@ -98,7 +98,7 @@ class PermController extends Controller
         $perm->perm_type_id = Request::get('perm_type_id');
         $perm->save();
         $perm->respos()->attach(Request::get('users'), ['respo' => true]);
-        return redirect('dashboard/perm');
+        return redirect()->route('perm.index');
     }
 
 
@@ -143,7 +143,7 @@ class PermController extends Controller
         $perm->save();
         $perm->respos()->sync(Request::get('users'));
 
-        return redirect('dashboard/perm');
+        return redirect()->route('perm.index');
     }
 
     /**
@@ -155,7 +155,7 @@ class PermController extends Controller
     public function destroy($id)
     {
         Perm::destroy($id);
-        return redirect('dashboard/perm');
+        return redirect()->route('perm.index');
     }
 
     /**
@@ -199,7 +199,7 @@ class PermController extends Controller
         }
         $perm = Perm::find($id);
         $perm->permanenciers()->attach(Request::get('users'), ['respo' => false]);
-        return redirect('dashboard/perm/'.$id.'/users');
+        return redirect()->route('perm.users', ['id' => $id]);
     }
 
     /**
@@ -213,7 +213,7 @@ class PermController extends Controller
     {
         $perm = Perm::find($id);
         $perm->permanenciers()->detach($userId);
-        return redirect('dashboard/perm/'.$id.'/users');
+        return redirect()->route('perm.users', ['id' => $id]);
     }
 
     /**
@@ -264,7 +264,7 @@ class PermController extends Controller
           'pointsPenalty' => Request::get('pointsPenalty') + $perm->type->points,
         ]);
 
-        return redirect('dashboard/perm/'.$id.'/users');
+        return redirect()->route('perm.users', ['id' => $id]);
     }
 
     /**
@@ -289,6 +289,6 @@ class PermController extends Controller
           'pointsPenalty' => Request::get('pointsPenalty'),
         ]);
 
-        return redirect('dashboard/perm/'.$id.'/users');
+        return redirect()->route('perm.users', ['id' => $id]);
     }
 }

@@ -51,7 +51,7 @@ class CheckinController extends Controller
 
         $checkin = Checkin::create(array_merge(Request::all(), ['prefilled' => true]));
         $checkin->users()->attach(Request::get('users'));
-        return redirect('dashboard/checkin');
+        return redirect()->route('dashboard.checkin');
     }
 
     /**
@@ -85,7 +85,7 @@ class CheckinController extends Controller
         $checkin->save();
         $checkin->users()->sync(Request::get('users'));
 
-        return redirect('dashboard/checkin');
+        return redirect()->route('dashboard.checkin');
     }
 
     /**
@@ -97,7 +97,7 @@ class CheckinController extends Controller
     public function destroy($id)
     {
         Checkin::destroy($id);
-        return redirect('dashboard/checkin');
+        return redirect()->route('dashboard.checkin');
     }
 
 }

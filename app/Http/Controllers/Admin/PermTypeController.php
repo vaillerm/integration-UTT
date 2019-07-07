@@ -56,7 +56,7 @@ class PermTypeController extends Controller
         $permType->save();
         $permType->respos()->attach(Request::get('users'));
 
-        return redirect('dashboard/permType');
+        return redirect()->route('permType.index');
     }
 
 
@@ -91,7 +91,7 @@ class PermTypeController extends Controller
         $permType->save();
         $permType->respos()->sync(Request::get('users'));
 
-        return redirect('dashboard/permType');
+        return redirect()->route('permType.index');
     }
 
     /**
@@ -103,6 +103,6 @@ class PermTypeController extends Controller
     public function destroy($id)
     {
         PermType::destroy($id);
-        return redirect('dashboard/permType');
+        return redirect()->route('permType.index');
     }
 }
