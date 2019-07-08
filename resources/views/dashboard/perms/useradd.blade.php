@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Creation d'un checkin pré-rempli
+    Ajout de permanenciers à la perm {{ $perm->type->name }}
 @endsection
 
 @section('css')
@@ -11,22 +11,18 @@
 @section('content')
 
     <div class="callout callout-info">
-        <h4>Création d'un nouveau checkin</h4>
+    <h4>Ajout de permanenciers à la perm {{ $perm->type->name }}</h4>
         <p>
-            Pour un créer un checkin, renseignez un nom à celui et choisissez les étudiants qui feront partit de ce checkin.
+            Sélectionnez des étudiants à ajouter à la perm 
         </p>
     </div>
 
     <div class="box box-default">
         <div class="box-body table-responsive">
-            <form autocomplete="off" action="{{ url('dashboard/checkin') }}" method="post" id="form">
-                <div class="form-group">
-                    <label for="name">Nom du checkin</label>
-                    <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-                </div>
-
+            <form autocomplete="off" action="{{ url('dashboard/perm/'.$perm->id.'/users') }}" method="post" id="form">
+                
                 <div class="form-group" id="student_autocomplete_container">
-                    <label for="name">Ajouter par nom</label>
+                    <label for="name">Ajouter des respos par nom/prénom</label>
                     <input type="text" class="form-control" id="student_autocomplete">
                 </div>
                 <div id="student_autocomplete_matches_container">
@@ -34,7 +30,7 @@
                 </div>
                 <ul class="list-group" id="student_autocomplete_selected_container"></ul>
 
-                <button type="submit" id="formSubmit" class="btn btn-success">Créer le checkin</button>
+                <button type="submit" class="btn btn-success" id="formSubmit">Ajouter l'étudiant à la perm</button>
             </form>
         </div>
     </div>

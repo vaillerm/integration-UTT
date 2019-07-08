@@ -685,6 +685,41 @@ class User extends Model implements Authenticatable
         return $this->orga?true:false;
     }
 
+
+    /**
+     * The perms of the User.
+     */
+    public function perms()
+    {
+      return $this->belongsToMany(Perm::class, 'perm_users', 'user_id', 'perm_id')
+        ->wherePivot('respo', false)
+        ->withPivot('presence')
+        ->withPivot('pointsPenalty')
+        ->withPivot('commentary')
+        ->withPivot('absence_reason');
+    }
+    /**
+     * Points of the User.
+     */
+    public function points()
+    {
+      $points = 0;
+      foreach ($this->perms as $perm) {
+        $points += $perm->type->points;
+        $points -= $perm->pivot->pointsPenalty;
+      }
+      return $points;
+    }
+    /**
+     * Absences of the User.
+     */
+    public function absences()
+    {
+      return $this->belongsToMany(Perm::class, 'perm_users', 'user_id', 'perm_id')
+        ->wherePivot('respo', false)
+        ->wherePivot('presence', 'absent');
+    }
+
     public function devices() {
         return $this->hasMany('App\Models\Device');
     }

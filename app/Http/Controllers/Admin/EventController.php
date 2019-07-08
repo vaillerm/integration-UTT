@@ -107,7 +107,7 @@ class EventController extends Controller
         $event->end_at = $this->formatEventDate(Request::get('end_at_date'), Request::get('end_at_hour'));
         $event->save();
 
-        return redirect('dashboard/event');
+        return redirect()->route('event.index');
     }
 
     private function formatEventDate($date, $hour)
@@ -150,7 +150,7 @@ class EventController extends Controller
         $event->end_at = $this->formatEventDate(Request::get('end_at_date'), Request::get('end_at_hour'));
         $event->save();
 
-        return redirect('dashboard/event');
+        return redirect()->route('event.index');
     }
 
     /**
@@ -162,6 +162,6 @@ class EventController extends Controller
     public function destroy($id)
     {
         Event::destroy($id);
-        return redirect('dashboard/event');
+        return redirect()->route('event.index');
     }
 }

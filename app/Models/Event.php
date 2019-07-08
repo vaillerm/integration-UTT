@@ -31,14 +31,14 @@ class Event extends Model
 			'name' => 'required|string',
 			'description' => 'required|string',
 			'place' => 'required|string',
-            'start_at_date' => 'required|date|date_format:Y-m-d|before_or_equal:end_at_date',
-            'end_at_date'=> 'required|date|date_format:Y-m-d|after_or_equal:start_at_date',
-            'start_at_hour'=> 'required|date_format:H:i',
-            'end_at_hour'=> 'required|date_format:H:i',
-            'categories' => 'required|array',
-            'categories.*' => [
-                Rule::in(['admin', 'newcomerTC', 'newcomerBranch', 'ce', 'orga', 'volunteer', 'referral'])
-            ],
+      'start_at_date' => 'required|date|date_format:Y-m-d|before_or_equal:end_at_date',
+      'end_at_date'=> 'required|date|date_format:Y-m-d|after_or_equal:start_at_date',
+      'start_at_hour'=> 'required|date_format:H:i',
+      'end_at_hour'=> 'required|date_format:H:i',
+      'categories' => 'required|array',
+      'categories.*' => [
+          Rule::in(['admin', 'newcomerTC', 'newcomerBranch', 'ce', 'orga', 'volunteer', 'referral'])
+      ],
 		];
 	}
 }
