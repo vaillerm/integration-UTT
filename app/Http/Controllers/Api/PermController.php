@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Request;
+use Response;
+use Validator;
+use Auth;
+
+use App\Models\Perm;
+
+class PermController extends Controller
+{
+  public function show()
+  {
+    $user = Auth::guard('api')->user();
+    $result = [];
+    foreach (Perm::all() as $perm) {
+      $perm->type = $perm->type;
+      unset($perm['perm_type_id']);
+      $permanenciers = $this->removeFieldsFromArray($perm->permanenciers, !!$user->admin);
+      unset($perm['permanenciers']);
+      $perm['permanenciers'] = $permanenciers;
+      $respos = $this->removeFieldsFromArray($perm->respos);
+      unset($perm['respos']);
+      $perm['respos'] = $respos;
+      array_push($result, $perm);
+    }
+    return Response::json($result);
+  }
+
+  /*
+    *   only get user's perms
+    */
+  public function index()
+  {
+    $user = Auth::guard('api')->user();
+    $result = [];
+    foreach ($user->perms as $perm) {
+      $perm->type = $perm->type;
+      unset($perm['perm_type_id']);
+      $permanenciers = $this->removeFieldsFromArray($perm->permanenciers);
+      unset($perm['permanenciers']);
+      $perm['permanenciers'] = $permanenciers;
+      $respos = $this->removeFieldsFromArray($perm->respos);
+      unset($perm['respos']);
+      $perm['respos'] = $respos;
+      array_push($result, $perm);
+      //unset($perm['pivot']);
+    }
+    return Response::json($result);
+  }
+
+  /*
+    *   add user to perm
+    */
+  public function join($id)
+  {
+    $validator = Validator::make(Request::all(), Perm::apiJoinRules());
+    if ($validator->fails()) {
+      return Response::json(["errors" => $validator->errors()], 400);
+    }
+    $user = Auth::guard('api')->user(); // user that make the request
+    $perm = Perm::find($id);
+    $userId = Request::get('userId'); // user to add
+    if ($user->is_newcomer) {
+      return Response::json(["message" => "You are not allowed."], 403);
+    }
+
+    $found = false;
+    foreach ($perm->respos as $respo) {
+      if ($respo->id == $user->id) {
+        $found = true;
+      }
+    }
+    if ($user->id != $userId && !$user->admin && !$found) {
+      return Response::json(["message" => "You are not allowed."], 403);
+    }
+    $perm->permanenciers()->attach($userId, ['respo' => false]);
+
+    return Response::json('OK');
+  }
+  /*
+    *   remove user from perm
+    */
+  public function leave($id)
+  {
+    $validator = Validator::make(Request::all(), Perm::apiJoinRules());
+    if ($validator->fails()) {
+      return Response::json(["errors" => $validator->errors()], 400);
+    }
+    $user = Auth::guard('api')->user(); // user that make the request
+    $perm = Perm::find($id);
+    $userId = Request::get('userId'); // user to add
+    if ($user->is_newcomer) {
+      return Response::json(["message" => "You are not allowed."], 403);
+    }
+
+    $found = false;
+    foreach ($perm->respos as $respo) {
+      if ($respo->id == $user->id) {
+        $found = true;
+      }
+    }
+    if ($user->id != $userId && !$user->admin && !$found) {
+      return Response::json(["message" => "You are not allowed."], 403);
+    }
+    $perm->permanenciers()->detach($userId);
+
+    return Response::json('OK');
+  }
+
+  private function removeFieldsFromArray($students, $withPivot = false)
+  {
+    $output = [];
+    foreach ($students as $student) {
+      array_push($output, $this->removeFields($student, $withPivot));
+    }
+    return $output;
+  }
+
+  private function removeFields($student, $withPivot = false)
+  {
+    $output = $student->toArray();
+    $fields = [
+      'id',
+      'first_name',
+      'last_name',
+      'surname',
+      'student_id'
+    ];
+
+    // Remove fields
+    $filtered = array_diff(array_keys($output), $fields);
+    foreach ($filtered as $value) {
+      unset($output[$value]);
+    }
+    if ($withPivot) {
+      $output['presence'] = $student->pivot->presence;
+      $output['pointsPenalty'] = $student->pivot->pointsPenalty;
+      $output['commentary'] = $student->pivot->commentary;
+      $output['absence_reason'] = $student->pivot->absence_reason;
+    }
+    return $output;
+  }
+}

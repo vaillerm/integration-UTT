@@ -110,4 +110,17 @@ class Perm extends Model
   {
       return $this->belongsTo(PermType::class, 'perm_type_id', 'id');
   }
+
+
+  /**
+	 * Define constraints of the Model's attributes for store action
+     * from api requests
+	 *
+	 * @return array
+	 */
+	public static function apiJoinRules() {
+		return [
+			'userId' => 'required|exists:users,id'
+		];
+	}
 }
