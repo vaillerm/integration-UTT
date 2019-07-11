@@ -14,12 +14,14 @@ class PermController extends Controller
 {
   public function show()
   {
-    $user = Auth::guard('api')->user();
     $result = [];
     foreach (Perm::all() as $perm) {
       $perm->type = $perm->type;
       unset($perm['perm_type_id']);
-      $permanenciers = $this->removeFieldsFromArray($perm->permanenciers, !!$user->admin);
+      $permanenciers = $this->removeFieldsFromArray($perm->permanenciers, $this->isAllowed($perm));
+      if (!$this->isAllowed($perm)) {
+        unset($perm->type['points']);
+      }
       unset($perm['permanenciers']);
       $perm['permanenciers'] = $permanenciers;
       $respos = $this->removeFieldsFromArray($perm->respos);
@@ -67,16 +69,13 @@ class PermController extends Controller
     if ($user->is_newcomer) {
       return Response::json(["message" => "You are not allowed."], 403);
     }
-
-    $found = false;
-    foreach ($perm->respos as $respo) {
-      if ($respo->id == $user->id) {
-        $found = true;
-      }
-    }
-    if ($user->id != $userId && !$user->admin && !$found) {
+    if ($user->id != $userId && !$this->isAllowed($perm)) {
       return Response::json(["message" => "You are not allowed."], 403);
     }
+    if ($user->id == $userId && !$perm->free_join) {
+      return Response::json(["message" => "You are not allowed."], 403);
+    }
+
     $perm->permanenciers()->attach($userId, ['respo' => false]);
 
     return Response::json('OK');
@@ -97,13 +96,10 @@ class PermController extends Controller
       return Response::json(["message" => "You are not allowed."], 403);
     }
 
-    $found = false;
-    foreach ($perm->respos as $respo) {
-      if ($respo->id == $user->id) {
-        $found = true;
-      }
+    if ($user->id != $userId && !$this->isAllowed($perm)) {
+      return Response::json(["message" => "You are not allowed."], 403);
     }
-    if ($user->id != $userId && !$user->admin && !$found) {
+    if ($user->id == $userId && !$perm->free_join) {
       return Response::json(["message" => "You are not allowed."], 403);
     }
     $perm->permanenciers()->detach($userId);
@@ -143,5 +139,17 @@ class PermController extends Controller
       $output['absence_reason'] = $student->pivot->absence_reason;
     }
     return $output;
+  }
+
+  private function isAllowed($perm)
+  {
+    $user = Auth::guard('api')->user(); // user that make the request
+    $found = false;
+    foreach ($perm->respos as $respo) {
+      if ($respo->id == $user->id) {
+        $found = true;
+      }
+    }
+    return $user->admin || $found;
   }
 }
