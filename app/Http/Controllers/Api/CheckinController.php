@@ -9,7 +9,6 @@ use App\Models\User;
 use Request;
 use Response;
 use Validator;
-use Redirect;
 use Auth;
 
 class CheckinController extends Controller

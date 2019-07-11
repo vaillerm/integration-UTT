@@ -35,6 +35,11 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/points', ['uses' => 'Api\PointController@show']);
     Route::get('/factions', ['uses' => 'Api\FactionController@show']);
+
+    Route::get('/perms', ['uses' => 'Api\PermController@show']);
+    Route::post('/perms/{id}/join', ['uses' => 'Api\PermController@join']);
+    Route::post('/perms/{id}/leave', ['uses' => 'Api\PermController@leave']);
+    Route::get('/user/perms', ['uses' => 'Api\PermController@index']);
     
     Route::get('/gubu/{id}', ['uses' => 'Api\GubuController@show']);
     Route::get('/gubu', ['uses' => 'Api\GubuController@index']);
