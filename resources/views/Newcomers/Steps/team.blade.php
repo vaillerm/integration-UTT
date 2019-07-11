@@ -10,11 +10,10 @@ Ton équipe !
 @section('content')
 <div class="box box-default">
     @if (!Auth::user()->team || !Auth::user()->team->name)
-        <div class="callout callout-danger">
-            <h4>Tu n'es pas encore assigné à une équipe :/</h4>
+        <div class="callout">
+            <h4>Tu n'es pas encore assigné à une équipe</h4>
             <p>
-                Malheureusement, nous ne t'avons pas encore assigné à une équipe. Ça n'aurait pas vraiment dû arriver, mais bon.. manifestement c'est arrivé. <br/>
-                Préviens nous du problème via la petite enveloppe en haut à droite de la page ou par email à <a href="mailto:integration@utt.fr">integration@utt.fr</a>
+                L'assignation aux équipes n'a pas encore commencé, tu recevras un mail prochainement lorsque l'une d'elle te sera attribué ;)
             </p>
         </div>
     @else
