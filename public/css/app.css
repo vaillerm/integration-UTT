@@ -1,0 +1,16 @@
+.store-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.store-buttons > a {
+  width: 50%;
+  height: 10%;
+}
+.store-buttons > a > img {
+  max-width: 100%;
+  max-height: 100%;
+}

@@ -36,6 +36,16 @@ class PagesController extends Controller
     }
 
     /**
+     * App page to download app
+     *
+     * @return Response
+     */
+    public function getApppage()
+    {
+        return View::make('apppage');
+    }
+
+    /**
      * @return Response
      */
     public function getQrCode($id)

@@ -18,6 +18,11 @@ Route::get('/', [
     'uses' => 'All\PagesController@getHomepage'
 ]);
 
+Route::get('/app', [
+    'as'   => 'app',
+    'uses' => 'All\PagesController@getApppage'
+]);
+
 Route::get('/emails/unsubscribe/{email}', [
     'as'   => 'emails.unsubscribe',
     'uses' => 'All\EmailsController@getUnsubscribe'
