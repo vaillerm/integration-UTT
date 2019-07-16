@@ -25,10 +25,10 @@ Informations diverses pour toi !
                 Ta première semaine dans notre belle école sera plutôt chargée en activités,
                 mais ne t'inquiètes pas tu receveras un planning détaillé de ta semaine dès ton arrivée.
                 @if(Auth::user()->branch == 'TC')
-                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>lundi 03 septembre à 8h à l'UTT</strong>,
+                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>lundi 02 septembre à 8h à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
                 @elseif(Auth::user()->branch != 'MM')
-                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>mardi 04 septembre à 8h à l'UTT</strong>,
+                    Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>mardi 03 septembre à 8h à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
                 @endif
             </p><p>

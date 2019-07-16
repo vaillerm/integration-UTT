@@ -25,7 +25,7 @@ Pause partenaire !
                 <img src="{{ asset('img/sponsors/damonte.png') }}" class="img-thumbnail" />
             </a>
         </div>
-
+<!--
         <h3>Pour tes assurances</h3>
         <p>
             En arrivant dans une nouvelle école et dans une nouvelle ville, tu vas avoir besoin d'assurances : assurance responsabilité civile (obligatoire pour s'inscrire à l'UTT) et assurance logement.
@@ -45,7 +45,7 @@ Pause partenaire !
             <a href="http://www.popeye-troyes.fr" target="_blank"><img src="{{ asset('img/sponsors/deals/popeye_resultat.png') }}" class="img-thumbnail" /></a>
             <a href="http://www.popeye-troyes.fr" target="_blank" class="btn btn-primary btn-lg">popeye-troyes.fr</a>
         </div>
-
+-->
         <h3>Un compte bancaire pour te faire rembourser ton weekend</h3>
         <p>LCL t’offre 55€ à l’ouverture d’un compte chez eux (ça te rembourse ton WEI), un découvert autorisé de 400€, une carte bancaire Visa Premier LCL pour seulement 1€ par an, ainsi que de nombreux autres avantages.</p>
         <p>Rendez-vous le mardi après-midi pour ouvrir ton compte !</p>
