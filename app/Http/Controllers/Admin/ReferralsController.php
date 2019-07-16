@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\matchNewcomerGodfather;
 use App\Models\User;
 use App\Models\Newcomer;
 use App\Classes\NewcomerMatching;
@@ -86,10 +87,8 @@ class ReferralsController extends Controller
 
     public function matchToNewcomers($force = false)
     {
-        if (NewcomerMatching::matchReferrals($force == 'force')) {
-            return redirect(route('dashboard.newcomers.list'))->withSuccess('Les nouveaux ont maintenant un parrain !');
-        }
-        return redirect(route('dashboard.newcomers.list'))->withError('Il n\'y a pas assez de parrains pour cette algorithme. Veuillez le changer.');
+        $this->dispatch(new matchNewcomerGodfather($force));
+        return redirect(route('dashboard.newcomers.list'))->withSuccess('Algorithme lancé en arriere plans. Le résultat sera prochainement visible.');
     }
 
     public function prematch()

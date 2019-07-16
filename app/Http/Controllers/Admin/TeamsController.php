@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Classes\NewcomerMatching;
+use App\Jobs\matchNewcomerTeam;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Faction;
@@ -250,7 +251,7 @@ class TeamsController extends Controller
 
     public function matchToNewcomers()
     {
-        NewcomerMatching::matchTeams();
-        return redirect(route('dashboard.newcomers.list'))->withSuccess('Tous les nouveaux ont maintenant une équipe !');
+        $this->dispatch(new matchNewcomerTeam());
+        return redirect(route('dashboard.newcomers.list'))->withSuccess('Lancement de la procédure en arriere plan. Résultat dans quelques instants !');
     }
 }
