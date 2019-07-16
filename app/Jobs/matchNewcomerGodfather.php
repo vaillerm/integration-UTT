@@ -13,6 +13,7 @@ class matchNewcomerGodfather implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $force = false;
     /**
      * Create a new job instance.
      *
