@@ -427,6 +427,9 @@ class NewcomerMatching
             if ($value->branch == 'MM') {
                 unset($branchNotFound[$key]);
             }
+            if ($value->branch == 'CV ING') {
+                unset($branchNotFound[$key]);
+            }
         }
 
 
