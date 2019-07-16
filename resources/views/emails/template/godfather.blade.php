@@ -143,6 +143,7 @@ Ton parrain et ton équipe t’ont préparés un petit mot pour se présenter al
                   <span style="font-size:14px">Clique ici pour rejoindre le site :&nbsp;</span><br>
 <a href="https://integration.utt.fr/">https://integration.utt.fr/</a><br>
 <span style="font-size:14px"><em>Identifiant : {{ $user->login }}</em></span>
+                  <br><span style="font-size:14px"><em>Mot de passe : (celui de ton inscription utt)</em></span>
               </td>
           </tr>
       </tbody></table>
