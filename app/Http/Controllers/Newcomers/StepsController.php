@@ -213,6 +213,25 @@ class StepsController extends Controller
     }
 
     /**
+     * Display the team
+     *
+     * @return Response
+     */
+    public function appForm($step = '')
+    {
+        if ($step == 'yes') {
+            Auth::user()->setCheck('app_download', true);
+            Auth::user()->save();
+        } elseif ($step == 'cancel') {
+            Auth::user()->setCheck('app_download', false);
+            Auth::user()->save();
+        }
+        return View::make('Newcomers.Steps.app', [
+            'step' => $step
+        ]);
+    }
+
+    /**
      * Display the back to school page
      *
      * @return Response

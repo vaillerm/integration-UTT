@@ -118,6 +118,10 @@ class User extends Model implements Authenticatable
             'action' => 'Rejoindre le groupe facebook de ton équipe et faire ton déguisement ',
             'page' => 'team',
         ],
+        'app_download' => [
+            'action' => 'Télécharger l\'application de l\'intégration',
+            'page' => 'app',
+        ],
         'back_to_school' => [
             'action' => 'Pause partenaires !',
             'page' => 'backtoschool',

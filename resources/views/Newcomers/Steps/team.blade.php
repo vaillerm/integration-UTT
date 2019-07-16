@@ -70,7 +70,7 @@ Ton équipe !
                 <hr/>
                 <h4>Mais pourquoi avoir une équipe ?</h4>
                 <p>
-                    Ton équipe est composé de nouveaux et de {{ Auth::user()->team->ce->count() }} chefs d'équipes.
+                    Ton équipe est composée de nouveaux et de {{ Auth::user()->team->ce->count() }} chefs d'équipes.
                     Ils t'accompagneront pendant toute ta semaine d'intégration, au cours des différents jeux et activités te seront proposés.<br/>
                     Tout au long de la semaine, tu pourras rapporter des points à ton équipe et à ta faction en gagnant les différents jeux et en représentant au mieux ton équipe.<br/>
                 </p>

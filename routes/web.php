@@ -710,6 +710,12 @@ Route::get('/team/{step?}', [
     'uses' => 'Newcomers\StepsController@TeamForm'
 ]);
 
+Route::get('/appdownload/{step?}', [
+  'as'   => 'newcomer.app',
+  'middleware' => 'authorize:newcomer',
+  'uses' => 'Newcomers\StepsController@AppForm'
+]);
+
 Route::get('/backtoschool/{step?}', [
     'as'   => 'newcomer.backtoschool',
     'middleware' => 'authorize:newcomer',
