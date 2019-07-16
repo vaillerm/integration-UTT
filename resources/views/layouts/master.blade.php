@@ -39,17 +39,25 @@
 	    <script src="{{ asset('js/admin.min.js') }}" type="text/javascript"></script>
 	    @yield('js')
 	    @yield('sublayout-js')
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123148583-1"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		  @if (Auth::user())
-		  	gtag('set', {'user_id': '{{ Auth::user()->id }}'});
-		  @endif
-		  gtag('config', 'UA-123148583-1');
+
+		<!-- Matomo -->
+		<script type="text/javascript">
+			var _paq = window._paq || [];
+			/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+			_paq.push(["setCookieDomain", "*.integration.utt.fr"]);
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+			(function() {
+				var u="//piwik.uttnetgroup.fr/";
+				_paq.push(['setTrackerUrl', u+'matomo.php']);
+				_paq.push(['setSiteId', '5']);
+				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+			})();
 		</script>
+		<noscript><p><img src="//piwik.uttnetgroup.fr/matomo.php?idsite=5&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+		<!-- End Matomo Code -->
+
 		<!-- END Global site tag (gtag.js) - Google Analytics -->
 	</body>
 </html>
