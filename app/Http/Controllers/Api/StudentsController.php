@@ -119,7 +119,7 @@ class StudentsController extends Controller
      * @param Student $student
      * @return Array field list
      */
-    private function removeUnauthorizedFields($student)
+    private function removeUnauthorizedFields($student, $is_godfather = false)
     {
         $user = Auth::guard('api')->user();
         $output = $student->toArray();
@@ -159,11 +159,12 @@ class StudentsController extends Controller
                 'ce',
                 'wei_majority',
                 'team_id',
+                'god_father'
             ]);
 
             // filter godfather fields
             if ($student->godFather) {
-                $output['god_father'] = $this->removeUnauthorizedFields($student->godFather);
+                $output['god_father'] = $this->removeUnauthorizedFields($student->godFather, true);
             }
 
             // filter team fields
@@ -185,15 +186,36 @@ class StudentsController extends Controller
             }
         }
         else {
-            $authorizedFields = [
-                'id',
-                'first_name',
-                'last_name',
-                'surname',
-                'student_id',
-                'is_newcomer'
-            ];
-
+            if($is_godfather){
+                $authorizedFields = [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'surname',
+                    'student_id',
+                    'branch',
+                    'level',
+                    'is_newcomer',
+                    'referral_text',
+                    'city',
+                    'country',
+                    'email',
+                    'phone'
+                ];
+            }
+            else {
+                $authorizedFields = [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'surname',
+                    'student_id',
+                    'branch',
+                    'level',
+                    'email',
+                    'is_newcomer'
+                ];
+            }
             // For everyone else
             unset($output['god_father']);
             unset($output['team']);
