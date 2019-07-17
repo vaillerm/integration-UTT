@@ -76,6 +76,13 @@ Gestion des équipes
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="branch" class="col-lg-2 control-label">Forçage type équipe</label>
+                <div class="col-lg-10">
+                    <input class="form-control" type="checkbox" id="forceBranch" name="forceBranch" @if(old('forceBranch') ?? $team->forceBranch) checked @endif>
+                    <label class="text-muted" for="forceBranch">Forcer l'équipe en type branche.</label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="faction" class="col-lg-2 control-label">Faction</label>

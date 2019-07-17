@@ -123,6 +123,10 @@ class Team extends Model
      * @return boolean true if it's a TC team
      */
     public function isTC() {
+        if($this->forceBranch) {
+            return false;
+        }
+
         return $this->respo->branch == 'TC' && $this->respo->level < 4;
     }
 

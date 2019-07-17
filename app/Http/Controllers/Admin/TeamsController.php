@@ -79,7 +79,7 @@ class TeamsController extends Controller
     public function editSubmit($id)
     {
         $team = Team::findOrFail($id);
-        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch', 'faction']);
+        $data = Request::only(['name', 'safe_name', 'description', 'img', 'facebook', 'comment', 'branch', 'faction', 'forceBranch']);
         $uniqueName = '';
         if($data['name'] != '') {
           $uniqueName = '|unique:teams';
@@ -124,6 +124,7 @@ class TeamsController extends Controller
         $team->comment = $data['comment'];
         $team->branch = $data['branch'];
         $team->faction_id = $data['faction'];
+        $team->forceBranch = Request::has('forceBranch');
         if ($extension) {
             $team->img = $extension;
         }
