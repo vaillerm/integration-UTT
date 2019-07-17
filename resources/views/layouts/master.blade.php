@@ -49,13 +49,13 @@
 			_paq.push(['enableLinkTracking']);
 			(function() {
 				var u="//piwik.uttnetgroup.fr/";
-				_paq.push(['setTrackerUrl', u+'matomo.php']);
+				_paq.push(['setTrackerUrl', u+'piwik.php']);
 				_paq.push(['setSiteId', '5']);
 				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
 			})();
 		</script>
-		<noscript><p><img src="//piwik.uttnetgroup.fr/matomo.php?idsite=5&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+		<noscript><p><img src="//piwik.uttnetgroup.fr/piwik.php?idsite=5&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 		<!-- End Matomo Code -->
 
 		<!-- END Global site tag (gtag.js) - Google Analytics -->
