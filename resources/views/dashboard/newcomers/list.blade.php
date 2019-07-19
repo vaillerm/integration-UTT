@@ -84,6 +84,7 @@ Affichage des profils
     </div>
     <div class="box-body">
         <p>Merci de n'appuyer sur ces boutons qu'une fois tous les nouveaux ajoutés à la liste.</p>
+        <a href="{{{ route('dashboard.newcomers.sync') }}}" class="btn btn-success">Raffraichir la liste avec les serveurs UTT (asynchrone)</a>
         <a href="{{{ route('dashboard.teams.match') }}}" class="btn btn-danger">Répartir les nouveaux qui n'ont pas d'équipes dans les équipes</a>
         <a href="{{{ route('dashboard.referrals.prematch') }}}" class="btn btn-danger">Donner des parrains aux nouveaux qui n'en n'ont pas</a>
         <p>Pour annuler des répartitions, ça se passe en base de données.</p>

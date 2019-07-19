@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\refreshNewcomers;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -118,5 +119,15 @@ class NewcomersController extends Controller
 
         $user->save();
         return $this->success('Le compte nouveau a été désactivé définitivement !');
+    }
+
+    /**
+     * Create a job to sync newcomers from UTT API
+     * can be launched from cli too.
+     */
+    public function requestSync()
+    {
+        $this->dispatch(new refreshNewcomers());
+        return $this->success('Demande de rafraichissement demandé. Veulliez attendre quelques minutes.');
     }
 }
