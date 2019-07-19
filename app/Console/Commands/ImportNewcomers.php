@@ -3,10 +3,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\refreshNewcomers;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-use App\Models\User;
-use Config;
 
 /**
  * Import newcomers from UTT API
