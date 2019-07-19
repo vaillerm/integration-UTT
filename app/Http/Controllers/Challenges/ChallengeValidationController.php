@@ -66,7 +66,7 @@ class ChallengeValidationController extends Controller
     }
 
     public function list() {
-        $validations_pending = ChallengeValidation::where('validated', '=', 0)->orderBy('submittedOn', 'last_update', 'desc')->get();
+        $validations_pending = ChallengeValidation::where('validated', '=', 0)->orderBy('submittedOn','desc')->orderBy('last_update','desc')->get();
         $validations_treated = ChallengeValidation::where('validated', '=', -1)->orWhere('validated', '=', 1)->orderBy('last_update', 'desc')->get();
         return view('dashboard.challenges.submissions', compact('validations_pending', 'validations_treated'));
     }
