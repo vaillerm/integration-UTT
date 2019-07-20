@@ -331,6 +331,11 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\NewcomersController@Unsync'
             ]);
+            Route::get('/sync', [
+                'as'   => 'dashboard.newcomers.sync',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\NewcomersController@requestSync'
+            ]);
             Route::post('/createcsv', [
                 'as'   => 'dashboard.newcomers.createcsv',
                 'middleware' => 'authorize:admin',

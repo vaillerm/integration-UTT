@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use View;
-use EtuUTT;
-use Mail;
-use Request;
-use Redirect;
-use Response;
 use Auth;
 use DB;
+use EtuUTT;
+use Mail;
+use Redirect;
+use Request;
+use Response;
+use View;
 
 /**
  * Handle student management pages and administrators actions
