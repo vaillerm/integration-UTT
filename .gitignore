@@ -1,6 +1,9 @@
 /vendor
 /node_modules
 /public/uploads
+/public/hot
+/public/storage
+/storage/*.key
 Homestead.yaml
 Homestead.json
 .env
@@ -13,5 +16,7 @@ site.sh
 storage/debugbar
 storage/qrcodes/
 storage/trombi-phones/
-
+.phpunit.result.cache
+npm-debug.log
+yarn-error.log
 /storage/oauth-*

@@ -44,6 +44,7 @@ return [
         'api' => [
             'driver' => 'passport',
             'provider' => 'students',
+            'hash' => false,
         ],
     ],
 

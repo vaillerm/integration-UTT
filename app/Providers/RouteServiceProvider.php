@@ -36,11 +36,11 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function map(Router $router)
+    public function map()
     {
-        $this->mapWebRoutes($router);
+        $this->mapWebRoutes();
 
-        $this->mapApiRoutes($router);
+        $this->mapApiRoutes();
     }
 
     /**
@@ -48,33 +48,29 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapWebRoutes(Router $router)
+    protected function mapWebRoutes()
     {
-        $router->group([
-            'namespace' => $this->namespace, 'middleware' => 'web',
-        ], function ($router) {
-            require base_path('routes/web.php');
-        });
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web.php'));
     }
 
     /**
      * Define the "api" routes for the application
      *
-     * @param \Illuminate\Routing\Router $router
+     * These routes are typically stateless.
+     *
      * @return void
      */
-    protected function mapApiRoutes(Router $router)
+    protected function mapApiRoutes()
     {
-        $router->group([
-            'middleware' => ['cors'],
-            'namespace' => $this->namespace,
-            'prefix' => 'api',
-        ], function ($router) {
-            require base_path('routes/api.php');
-        });
+        Route::prefix('api')
+             ->middleware('api')
+             ->namespace($this->namespace)
+             ->prefix('api')
+             ->group(base_path('routes/api.php'));
     }
 
 }
