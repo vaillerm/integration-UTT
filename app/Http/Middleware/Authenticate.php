@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            return route('login');
+        if( $request->ajax() || $request->wantsJson())
+        {
+            return response('Unauthorized.', 401);
+        } else {
+            return route('index');
         }
     }
 
@@ -31,14 +35,21 @@ class Authenticate extends Middleware
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if (Auth::guard($guards)->guest()) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('login');
+        if (empty($guards)) {
+            $guards = [null];
+        }
+
+        foreach ($guards as $guard) {
+            if ($this->auth->guard($guard)->guest()) {
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response('Unauthorized.', 401);
+                } else {
+                    return redirect()->guest('login');
+                }
             }
         }
 
         return $next($request);
     }
+
 }

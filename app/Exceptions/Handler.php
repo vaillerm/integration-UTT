@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
-use Config;
+use Terbium\DbConfig\Facade as Config;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
