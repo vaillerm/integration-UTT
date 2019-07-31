@@ -64,7 +64,7 @@ class MailHelper
     ];
 
     /**
-     * @param $lists Tableau ou numéro de listes à utiliser
+     * @param array $lists Tableau ou numéro de listes à utiliser
      * @param bool $publicity Permet de filtrer les gens pour ou contre la publicité
      * @param MailTemplate|null $mailTemplate Instance du mail a envoyé
      * @param bool $unique S'assure qu'une personne ne recevra pas deux fois le même mail

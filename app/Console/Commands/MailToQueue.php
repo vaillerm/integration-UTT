@@ -2,14 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Classes\MailHelper;
-use App\Mail\DefaultMail;
-use App\Jobs\mailCron;
+use App\Jobs\generateMailBatch;
 use Illuminate\Console\Command;
-use Illuminate\Queue\Queue;
-use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
-use App\Models\MailTemplate;
 
 class MailToQueue extends Command
 {
@@ -44,28 +38,7 @@ class MailToQueue extends Command
      */
     public function handle()
     {
-        $crons = \App\Models\MailCron::where('send_date', '<=', Carbon::now())
-            ->where('is_sent', false)
-            ->get();
-
-        $this->line($crons->count().' MailCron ready.');
-
-        if($crons)
-        {
-            foreach ($crons as $cron)
-            {
-                $listes = MailHelper::mailFromLists(explode(',', $cron->lists), $cron->mail_template->isPublicity, $cron->mail_template, $cron->unique_send);
-                foreach ($listes as $mail=>$val)
-                {
-                    $message = (new DefaultMail($val['user'], $cron->mail_template, $cron))->onQueue('low');
-                    Mail::to($mail)
-                        ->queue($message);
-                }
-                $cron->is_sent = true;
-                $cron->lists_size = count($listes);
-                $cron->save();
-            }
-        }
-        $this->line('done.');
+        dispatch(new generateMailBatch());
+        $this->line('Tache programmé');
     }
 }

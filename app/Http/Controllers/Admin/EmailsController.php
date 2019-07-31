@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\generateMailBatch;
 use App\Models\Email;
 use App\Models\MailCron;
-use App\Models\MailHistory;
 use App\Models\MailTemplate;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Excel;
@@ -16,8 +15,6 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\EtuUTT;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use App\Classes\MailHelper;
 use App\Jobs\SendEmail;
@@ -201,6 +198,7 @@ class EmailsController extends Controller
         }
 
         if ($cron->save()) {
+            $this->dispatch(new generateMailBatch())->delay($cron->send_date);
             return Redirect::route('dashboard.emails.index')->withSuccess('L\'envoi a bien été programmé !');
         }
         return $this->error('Impossible de programmer l\'envoi !');
