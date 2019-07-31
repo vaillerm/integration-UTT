@@ -95,7 +95,10 @@ class PagesController extends Controller
             $phone = '+'.$m[1];
         }
 
-
+        if (empty($phone))
+        {
+            return response();
+        }
         $path = storage_path() . '/trombi-phones/' . $phone . '.png';
 
         if (!file_exists(storage_path() . '/trombi-phones/' . $phone . '.png')) {
