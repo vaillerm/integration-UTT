@@ -83,8 +83,8 @@ Modification de modèle de mail
                 <label for="sex" class="col-lg-2 control-label">Type</label>
                 <div class="col-lg-10">
                     <select name="isPublicity" class="form-control" class="">()
-                        <option value="0" @if (old('isPublicity') == 0) selected="selected" @endif >Email d'information</option>
-                        <option value="1" @if (old('isPublicity') == 1) selected="selected" @endif >Email publicitaire</option>
+                        <option value="0" @if (old('isPublicity') == 0 ?? !$template->isPublicity) selected="selected" @endif >Email d'information</option>
+                        <option value="1" @if (old('isPublicity') == 1 ?? $template->isPublicity) selected="selected" @endif >Email publicitaire</option>
                     </select>
                 </div>
             </div>
