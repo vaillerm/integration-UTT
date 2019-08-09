@@ -96,7 +96,7 @@ Ton équipe !
                         <a class="btn btn-primary" href="{{{ route('newcomer.'.Auth::user()->getNextCheck()['page']) }}}">Prochaine action à faire<br/><strong>{{{ Auth::user()->getNextCheck()['action'] }}}</strong></a>
                     </div>
                 @else
-                    <h4 id="question">As-tu fait ton déguisement et rejoint ton équipe sur Facebook ?</h4>
+                    <h4 id="question">As-tu fait ton déguisement et rejoins ton équipe sur Facebook ?</h4>
                     <a href="{{ route('newcomer.team', [ 'step' => 'yes']) }}#question" class="btn btn-success">Oui !</a>
                 @endif
                 </div>

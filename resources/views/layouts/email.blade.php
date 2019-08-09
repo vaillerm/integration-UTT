@@ -14,7 +14,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
-  
+
 <style type="text/css">
 p{
 margin:10px 0;
@@ -428,7 +428,7 @@ line-height:150% !important;
                     </tr>
                   </tbody>
                 </table>
-              </td>          
+              </td>
             </tr>
             <tr>
               <td valign="top" id="templateHeader">
@@ -436,7 +436,7 @@ line-height:150% !important;
                   <tbody class="mcnTextBlockOuter">
                     <tr>
                       <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-                        <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">             
+                        <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
                           <tbody>
                             <tr>
                               <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #222222;font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 14px;line-height: 150%;text-align: justify;">
@@ -469,17 +469,17 @@ line-height:150% !important;
   <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
   <tr>
   <![endif]-->
-    
+
   <!--[if mso]>
   <td valign="top" width="600" style="width:600px;">
   <![endif]-->
           <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
               <tbody><tr>
-                  
+
                   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-                  
+
                       <br>
-<span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif"><span style="color:#E74360"><span style="font-size:16px"><strong>Télécharge l'application et rejoint nous sur les réseaux</strong></span></span></span><br>
+<span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif"><span style="color:#E74360"><span style="font-size:16px"><strong>Télécharge l'application et rejoins nous sur les réseaux</strong></span></span></span><br>
 <br>
 <span style="color:#696969"><span style="font-size:14px">Pour une expérience optimale de ton intégration, nous avons mis au point une application qui te détaillera les infos pratiques des événements de la semaine. Il est important que tu la télécharge, elle nous permettra de communiquer avec toi plus facilement.</span></span><br>
 &nbsp;
@@ -489,7 +489,7 @@ line-height:150% !important;
   <!--[if mso]>
   </td>
   <![endif]-->
-          
+
   <!--[if mso]>
   </tr>
   </table>
@@ -517,12 +517,12 @@ line-height:150% !important;
 <tbody class="mcnTextBlockOuter">
   <tr>
       <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-          
+
           <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
               <tbody><tr>
-                  
+
                   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-                  
+
                       <div style="text-align: center;"><span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif"><span style="color:#E74360"><strong>Rejoins nous sur les réseaux !</strong></span></span></div>
 
                   </td>
@@ -544,8 +544,8 @@ line-height:150% !important;
                   <table align="center" border="0" cellpadding="0" cellspacing="0">
                       <tbody><tr>
                           <td align="center" valign="top">
-                              
-                                  
+
+
                                       <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
                                           <tbody><tr>
                                               <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -554,12 +554,12 @@ line-height:150% !important;
                                                           <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
                                                               <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
                                                                   <tbody><tr>
-                                                                      
+
                                                                           <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
                                                                               <a href="https://www.facebook.com/bde.utt/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" alt="Facebook" style="display:block;" height="24" width="24" class=""></a>
                                                                           </td>
-                                                                      
-                                                                      
+
+
                                                                   </tr>
                                                               </tbody></table>
                                                           </td>
@@ -568,8 +568,8 @@ line-height:150% !important;
                                               </td>
                                           </tr>
                                       </tbody></table>
-                                  
-                                  
+
+
                                       <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
                                           <tbody><tr>
                                               <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -578,12 +578,12 @@ line-height:150% !important;
                                                           <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
                                                               <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
                                                                   <tbody><tr>
-                                                                      
+
                                                                           <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
                                                                               <a href="https://www.instagram.com/bdeutt/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-instagram-48.png" alt="Instagram" style="display:block;" height="24" width="24" class=""></a>
                                                                           </td>
-                                                                      
-                                                                      
+
+
                                                                   </tr>
                                                               </tbody></table>
                                                           </td>
@@ -592,8 +592,8 @@ line-height:150% !important;
                                               </td>
                                           </tr>
                                       </tbody></table>
-                                  
-                                  
+
+
                                       <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
                                           <tbody><tr>
                                               <td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
@@ -602,12 +602,12 @@ line-height:150% !important;
                                                           <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
                                                               <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
                                                                   <tbody><tr>
-                                                                      
+
                                                                           <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
                                                                               <a href="https://www.snapchat.com/add/integrationutt" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-snapchat-48.png" alt="Snapchat" style="display:block;" height="24" width="24" class=""></a>
                                                                           </td>
-                                                                      
-                                                                      
+
+
                                                                   </tr>
                                                               </tbody></table>
                                                           </td>
@@ -635,9 +635,9 @@ line-height:150% !important;
       <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
           <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
               <tbody><tr>
-                  
+
                   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-                  
+
                       <div style="text-align: justify;"><span style="color:#696969"><span style="font-size:14px">
 Nous sommes présents tout l'été pour répondre à tes questions, ainsi n'hésite pas à nous contacter ou venir nous voir à l'UTT !</span></span></div>
 
@@ -654,12 +654,12 @@ Nous sommes présents tout l'été pour répondre à tes questions, ainsi n'hés
 <tbody class="mcnTextBlockOuter">
   <tr>
       <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-       
+
           <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
               <tbody><tr>
-                  
+
                   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-                  
+
                       <span style="font-size:12px"><em>Association BDE UTT - 12 rue Marie Curie - 10000 - Troyes<br>
 Contact : <a href='mailto:integration@utt.fr'>integration@utt.fr</a></em></span>
                   </td>
@@ -667,8 +667,8 @@ Contact : <a href='mailto:integration@utt.fr'>integration@utt.fr</a></em></span>
           </tbody></table>
           <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
             <tbody><tr>
-                
-              
+
+
                 <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                   <span style="font-size:12px">Généré et envoyé par le site de l'intégration de l'Université de Technologie de Troyes.<br />
                   @if(isset($mail) && isset($unsuscribe_link) && $mail->isPublicity)
