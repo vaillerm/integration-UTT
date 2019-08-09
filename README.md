@@ -7,7 +7,7 @@ Site réalisé pour le [BDE de l'UTT](http://bde.utt.fr), sous Laravel 5.2. Le b
 Un exemple de configuration est disponible dans `.env.example` : il suffit de le modifier et de le renommer en : `.env`.
 Il est présent dans le `.gitignore`, et ne sera ainsi pas ré-écrit ni commit.
 
-**À noter que les migrations continnent des instructions spécifiques à MySQL / MariaDB.**
+**À noter que les migrations contiennent des instructions spécifiques à MySQL / MariaDB.**
 
 ## Installation
 
