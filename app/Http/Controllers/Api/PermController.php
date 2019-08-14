@@ -72,8 +72,13 @@ class PermController extends Controller
     if ($user->id != $userId && !$this->isAllowed($perm)) {
       return Response::json(["message" => "You are not allowed."], 403);
     }
-    if ($user->id == $userId && !$perm->free_join) {
-      return Response::json(["message" => "You are not allowed."], 403);
+    if ($user->id == $userId && !$user->admin) {
+      if ($perm->open == null) {
+        return Response::json(["message" => "You can't join that perm."], 403);
+      }
+      if ($perm->open < new \DateTime('now')) {
+        return Response::json(["message" => "Perm not open."], 403);
+      }
     }
 
     $perm->permanenciers()->attach($userId, ['respo' => false]);
@@ -99,8 +104,13 @@ class PermController extends Controller
     if ($user->id != $userId && !$this->isAllowed($perm)) {
       return Response::json(["message" => "You are not allowed."], 403);
     }
-    if ($user->id == $userId && !$perm->free_join) {
-      return Response::json(["message" => "You are not allowed."], 403);
+    if ($user->id == $userId && !$user->admin) {
+      if ($perm->open == null) {
+        return Response::json(["message" => "You can't join that perm."], 403);
+      }
+      if ($perm->open < new \DateTime('now')) {
+        return Response::json(["message" => "Perm not open."], 403);
+      }
     }
     $perm->permanenciers()->detach($userId);
 

@@ -35,10 +35,10 @@
                     <input type="date" class="form-control" value="{{ date('Y-m-d', $perm->end) }}" name="end_date">
                     <input type="time" class="form-control" value="{{ date('H:i', $perm->end) }}" name="end_hour">
                 </div>
-
                 <div class="form-group">
-                    <label for="free_join">Inscription libre</label>
-                    <input type="checkbox" id="free_join" name="free_join" @if ($perm->free_join) checked="checked" @endif/>
+                    <label>Date d'ouverture (Vous pouvez laisser vide, les permanenciers devront être ajoutés à la main)</label>
+                    <input type="date" class="form-control" value="{{ $perm->open > 0 ? date('Y-m-d', $perm->open > 0) : '' }}" name="open_date">
+                    <input type="time" class="form-control" value="{{ $perm->open > 0 ? date('H:i', $perm->open) : '' }}" name="open_hour">
                 </div>
 
                 <div class="form-group" id="student_autocomplete_container">

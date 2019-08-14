@@ -35,6 +35,7 @@
                         <th>Nom</th>
                         <th>Lieu</th>
                         <th>Date</th>
+                        <th>Ouverture</th>
                         <th>Permanenciers</th>
                         <th>Description</th>
                         <th>Responsables</th>
@@ -46,6 +47,11 @@
                             <td>{{ $perm->type->name }}</td>
                             <td>{{ $perm->place }}</td>
                             <td>Le {{ date('d/m', $perm->start).' de '.date('H:i', $perm->start).' à '.date('H:i', $perm->end) }}</td>
+                            @if($perm->open)
+                              <td>Le {{ date('d/m', $perm->open).' à '.date('H:i', $perm->open) }}</td>
+                            @else
+                              <td>Jamais</td>
+                             @endif
                             <td>{{ $perm->permanenciers->count().'/'.$perm->nbr_permanenciers }}</td>
                             <td>{{ $perm->description }}</td>
                             <td>

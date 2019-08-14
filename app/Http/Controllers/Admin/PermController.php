@@ -21,7 +21,7 @@ class PermController extends Controller
      */
     public function index()
     {
-        $perms = Perm::all();
+        $perms = Perm::orderby('start')->get();
         return view('dashboard.perms.index', compact('perms'));
     }
 
@@ -92,9 +92,11 @@ class PermController extends Controller
         $perm->description = Request::get('description');
         $perm->start = $this->formatDate(Request::get('start_date'), Request::get('start_hour'));
         $perm->end = $this->formatDate(Request::get('end_date'), Request::get('end_hour'));
+        if(Request::get('open_date') != '' && Request::get('open_hour') != '') {
+            $perm->open = $this->formatDate(Request::get('open_date'), Request::get('open_hour'));
+        }
         $perm->place = Request::get('place');
         $perm->nbr_permanenciers = Request::get('nbr_permanenciers');
-        $perm->free_join = Request::has('free_join');
         $perm->perm_type_id = Request::get('perm_type_id');
         $perm->save();
         $perm->respos()->attach(Request::get('users'), ['respo' => true]);
@@ -139,7 +141,9 @@ class PermController extends Controller
         $perm->end = $this->formatDate(Request::get('end_date'), Request::get('end_hour'));
         $perm->place = Request::get('place');
         $perm->nbr_permanenciers = Request::get('nbr_permanenciers');
-        $perm->free_join = Request::has('free_join');
+        if(Request::get('open_date') != '' && Request::get('open_hour') != '') {
+            $perm->open = $this->formatDate(Request::get('open_date'), Request::get('open_hour'));
+        }
         $perm->save();
         $perm->respos()->sync(Request::get('users'));
 

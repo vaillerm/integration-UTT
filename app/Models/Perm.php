@@ -14,7 +14,7 @@ class Perm extends Model
    */
   public $table = 'perms';
 
-  public $fillable = ['start', 'end', 'description', 'place', 'nbr_permanenciers', 'free_join', 'perm_type_id'];
+  public $fillable = ['start', 'end', 'description', 'place', 'nbr_permanenciers', 'perm_type_id', 'open'];
 
   public $hidden = [
     'created_at',
@@ -31,9 +31,11 @@ class Perm extends Model
   {
     return [
       'start_date' => 'required|date|date_format:Y-m-d|before_or_equal:end_date',
-      'end_date'=> 'required|date|date_format:Y-m-d|after_or_equal:start_date',
       'start_hour'=> 'required|date_format:H:i',
+      'end_date'=> 'required|date|date_format:Y-m-d|after_or_equal:start_date',
       'end_hour'=> 'required|date_format:H:i',
+      'open_date'=> 'date|date_format:Y-m-d',
+      'open_hour'=> 'date_format:H:i',
       'description' => 'required|string',
       'place' => 'required|string',
       'nbr_permanenciers' => 'required|integer',

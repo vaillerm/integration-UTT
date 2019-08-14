@@ -43,10 +43,10 @@
                     <input type="date" class="form-control" value="{{ old('end_date') }}" name="end_date">
                     <input type="time" class="form-control" value="{{ old('end_hour') }}" name="end_hour">
                 </div>
-
                 <div class="form-group">
-                    <label for="free_join">Inscription libre</label>
-                    <input type="checkbox" id="free_join" name="free_join" @if (old('free_join')) checked="checked" @endif/>
+                    <label>Date d'ouverture (Vous pouvez laisser vide, les permanenciers devront être ajoutés à la main)</label>
+                    <input type="date" class="form-control" value="{{ old('open_date') }}" name="open_date">
+                    <input type="time" class="form-control" value="{{ old('open_hour') }}" name="open_hour">
                 </div>
 
                 <div class="form-group" id="student_autocomplete_container">
