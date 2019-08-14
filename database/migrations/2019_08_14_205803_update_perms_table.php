@@ -15,13 +15,13 @@ class UpdatePermsTable extends Migration
   {
     Schema::table('perms', function (Blueprint $table) {
       $table->dropColumn('free_join');
-      $table->text('open')->nullable();
+      $table->text('open')->nullable()->change();
     });
     Schema::table('perm_users', function (Blueprint $table) {
-      $table->text('presence')->nullable();
-      $table->text('commentary')->nullable();
-      $table->text('absence_reason')->nullable();
-      $table->text('pointsPenalty')->nullable();
+      $table->text('presence')->nullable()->change();
+      $table->text('commentary')->nullable()->change();
+      $table->text('absence_reason')->nullable()->change();
+      $table->text('pointsPenalty')->nullable()->change();
     });
   }
 
