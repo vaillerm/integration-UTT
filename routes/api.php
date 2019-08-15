@@ -42,8 +42,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/perms/{id}/leave', ['uses' => 'Api\PermController@leave']);
     Route::get('/user/perms', ['uses' => 'Api\PermController@index']);
 
-    Route::post('/perms/{id}/user/{userId}/present', ['uses' => 'Api\PermController@userpresent']);
-    Route::post('/perms/{id}/user/{userId}/absent', ['uses' => 'Api\PermController@userabsent']);
+    Route::post('/perms/{id}/users/{userId}/present', ['uses' => 'Api\PermController@userpresent']);
+    Route::post('/perms/{id}/users/{userId}/absent', ['uses' => 'Api\PermController@userabsent']);
     Route::post('/perms/{id}/users', ['uses' => 'Api\PermController@userstore']);
     Route::delete('/perms/{id}/users/{userId}', ['uses' => 'Api\PermController@userdestroy']);
     

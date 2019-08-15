@@ -179,7 +179,9 @@ class PermController extends Controller
     }
     $perm = Perm::find($id);
     $found = false;
-    foreach ($perm->permanenciers() as $student) {
+
+    foreach ($perm->permanenciers as $student) {
+
       if($student->id == $userId) {
         $found = true;
         break;
