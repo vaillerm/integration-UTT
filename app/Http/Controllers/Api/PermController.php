@@ -178,6 +178,16 @@ class PermController extends Controller
       return Redirect::back()->withErrors($validator);
     }
     $perm = Perm::find($id);
+    $found = false;
+    foreach ($perm->permanenciers() as $student) {
+      if($student->id == $userId) {
+        $found = true;
+        break;
+      }
+    }
+    if(!$found) {
+      $perm->permanenciers()->attach([$userId], ['respo' => false]);
+    }
     $perm->permanenciers()->updateExistingPivot($userId, [
       'presence' => 'present',
       'absence_reason' => '',
