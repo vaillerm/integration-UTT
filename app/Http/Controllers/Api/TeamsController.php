@@ -28,7 +28,7 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        $user = $user = Auth::guard('api')->user();
+        $user = Auth::guard('api')->user();
 
         if ($user->admin) {
             return Response::json(Team::with('ce', 'respo')->get());
