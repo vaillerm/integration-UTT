@@ -4,7 +4,6 @@ Route::get('/oauth/etuutt/link', ['uses' => 'Api\OAuthController@getRedirectLink
 Route::post('/oauth/etuutt/callback', ['uses' => 'Api\OAuthController@mobileCallback']);
 
 
-Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocomplete']);
 
 Route::get('/gubu/{payload}.pdf', ['uses' => 'Api\GubuController@download', 'as'   => 'api.gubu.pdf']);
 
@@ -16,6 +15,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/student/{id}', ['uses' => 'Api\StudentsController@show']);
     Route::get('/student', ['uses' => 'Api\StudentsController@index']);
     // Route::put('/student/{id}', ['uses' => 'Api\StudentsController@update']);
+    Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocomplete']);
 
     Route::get('/team/{id}', ['uses' => 'Api\TeamsController@show']);
     Route::get('/team', ['uses' => 'Api\TeamsController@index']);
