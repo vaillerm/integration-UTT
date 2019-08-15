@@ -49,7 +49,7 @@ class TeamsController extends Controller
 
         // if the requested team is the user's team, or if the user has rights, return the requested team
         if ($user->admin) {
-            return Response::json(Team::select(['id', 'name', 'description', 'img', 'facebook', 'respo_id', 'validated'])
+            return Response::json(Team::select(['id', 'name', 'description', 'img', 'facebook', 'respo_id', 'validated', 'faction_id'])
                 ->where('id', $id)->with('newcomers', 'ce', 'respo', 'faction')->first());
         }
         else if($id == $user->team_id) {
