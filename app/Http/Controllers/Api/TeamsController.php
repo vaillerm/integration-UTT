@@ -31,7 +31,7 @@ class TeamsController extends Controller
         $user = Auth::guard('api')->user();
 
         if ($user->admin) {
-            return Response::json(Team::with('ce', 'respo')->get());
+            return Response::json(Team::with('ce', 'respo', 'faction')->get());
         }
 
         return Response::json(["message" => "You are not allowed."], 403);

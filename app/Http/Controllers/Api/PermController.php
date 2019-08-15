@@ -205,8 +205,6 @@ class PermController extends Controller
    */
   public function userstore($id)
   {
-    Request::flash();
-
     // validate the request inputs
     $validator = Validator::make(Request::all(), [
       'users' => 'array',
