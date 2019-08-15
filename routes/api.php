@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/factions', ['uses' => 'Api\FactionController@show']);
 
     Route::get('/perms', ['uses' => 'Api\PermController@show']);
+    Route::get('/adminperms', ['uses' => 'Api\PermController@adminshow']);
     Route::post('/perms/{id}/join', ['uses' => 'Api\PermController@join']);
     Route::post('/perms/{id}/leave', ['uses' => 'Api\PermController@leave']);
     Route::get('/user/perms', ['uses' => 'Api\PermController@index']);

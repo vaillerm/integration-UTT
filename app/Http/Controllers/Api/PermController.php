@@ -32,6 +32,25 @@ class PermController extends Controller
     return Response::json($result);
   }
 
+  public function adminshow()
+  {
+    $result = [];
+    foreach (Perm::all() as $perm) {
+      if ($this->isAllowed($perm)) {
+        $perm->type = $perm->type;
+        unset($perm['perm_type_id']);
+        $permanenciers = $this->removeFieldsFromArray($perm->permanenciers, true);
+        unset($perm['permanenciers']);
+        $perm['permanenciers'] = $permanenciers;
+        $respos = $this->removeFieldsFromArray($perm->respos);
+        unset($perm['respos']);
+        $perm['respos'] = $respos;
+        array_push($result, $perm);
+      }
+    }
+    return Response::json($result);
+  }
+
   /*
     *   only get user's perms
     */
