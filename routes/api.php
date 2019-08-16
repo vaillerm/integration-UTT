@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/checkin', ['uses' => 'Api\CheckinController@index']);
     Route::post('/checkin', ['uses' => 'Api\CheckinController@store']);
     Route::put('/checkin/{id}/student', ['uses' => 'Api\CheckinController@addUser']);
+    Route::put('/checkin/{id}/student/remove', ['uses' => 'Api\CheckinController@removeUser']);
 
     Route::post('/notification', ['uses' => 'Api\NotificationController@send']);
     Route::post('/user/push-token', ['uses' => 'Api\NotificationController@store']);
