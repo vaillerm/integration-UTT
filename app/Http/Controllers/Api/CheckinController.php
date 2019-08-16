@@ -117,6 +117,43 @@ class CheckinController extends Controller
             }
         }
 
-        return Response::json(Checkin::with('users')->find($id));
+        return Response::json('OK');
+    }
+
+    /**
+     * Attach a user to a Checkin
+     *
+     * @param string $id: the checkin id
+     * @return Response
+     */
+    public function removeUser($id)
+    {
+        $user = $user = Auth::guard('api')->user();
+
+        if (!$user->ce && !$user->orga && !$user->admin) {
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
+        // validate the request inputs
+        $validator = Validator::make(Request::all(), Checkin::addUserRules()); // same rules than add
+        if ($validator->fails()) {
+            return Response::json(["errors" => $validator->errors()], 400);
+        }
+
+        $checkin = Checkin::find($id);
+        if (!$checkin) {
+            return Response::json(["message" => "Can't find this Checkin."], 404);
+        }
+
+        // the email is already check by the validator, so this user exists
+
+        $user = User::where('qrcode', Request::get('uid'))->firstOrFail();
+
+        if ($checkin->users->contains($user->id)) {
+            $checkin->users()->sync([$user->id => ['checked' => false] ], false);
+        } else {
+            // try to uncheck a user who is not in the prefilled user
+            return Response::json(["message" => "Pas dans la liste."], 403);
+        }
+        return Response::json('OK');
     }
 }
