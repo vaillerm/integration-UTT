@@ -53,7 +53,7 @@ class TeamsController extends Controller
                 ->where('id', $id)->with('newcomers', 'ce', 'respo', 'faction')->first());
         }
         else if($id == $user->team_id) {
-            return Response::json(Team::select(['id', 'name', 'description', 'img', 'facebook', 'respo_id', 'validated'])
+            return Response::json(Team::select(['id', 'name', 'description', 'img', 'facebook', 'respo_id', 'validated', 'faction_id'])
                 ->where('id', $id)->with('ce', 'respo', 'faction')->first());
         }
 
