@@ -35,18 +35,18 @@
                 </div>
                 <div class="form-group">
                     <label>Début (date et heure)</label>
-                    <input type="date" class="form-control" value="{{ old('start_date') }}" name="start_date">
-                    <input type="time" class="form-control" value="{{ old('start_hour') }}" name="start_hour">
+                    <input type="date" class="form-control" value="{{ date('Y-m-d')}}" name="start_date">
+                    <input type="time" class="form-control" value="{{ date('H:i')}}" name="start_hour">
                 </div>
                 <div class="form-group">
                     <label>Fin (date et heure)</label>
-                    <input type="date" class="form-control" value="{{ old('end_date') }}" name="end_date">
-                    <input type="time" class="form-control" value="{{ old('end_hour') }}" name="end_hour">
+                    <input type="date" class="form-control" value="{{ date('Y-m-d')}}" name="end_date">
+                    <input type="time" class="form-control" value="{{ date('H:i')}}" name="end_hour">
                 </div>
                 <div class="form-group">
                     <label>Date d'ouverture (Vous pouvez laisser vide, les permanenciers devront être ajoutés à la main)</label>
-                    <input type="date" class="form-control" value="{{ old('open_date') }}" name="open_date">
-                    <input type="time" class="form-control" value="{{ old('open_hour') }}" name="open_hour">
+                    <input type="date" class="form-control" value="{{ date('Y-m-d')}}" name="open_date">
+                    <input type="time" class="form-control" value="{{ date('H:i')}}" name="open_hour">
                 </div>
 
                 <div class="form-group" id="student_autocomplete_container">

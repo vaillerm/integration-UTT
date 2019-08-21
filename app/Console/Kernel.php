@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Schedule\NotificationScheduler;
 
 class Kernel extends ConsoleKernel
 {
@@ -28,6 +29,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('integration:mails:to-queue')->everyTenMinutes();
+        $schedule->call(function() {
+          $notificationScheduler = new NotificationScheduler();
+          $notificationScheduler->sendPassedNotifications();
+        })->everyMinute();
     }
 
     /**
