@@ -43,21 +43,24 @@ class sendNotifications implements ShouldQueue
         }
       }
       $data = ['title' => $this->title, 'message' => $this->message];
-        $notifs = [];
-        foreach ($devices as $token) {
-            array_push($notifs, [
-              "to" => "ExponentPushToken[".$token."]",
-              "title" => $this->title,
-              "body" => $this->message,
-              "data" => $data
-            ]);
-        }
-        $client = new Client();
+      $notifs = [];
+      foreach ($devices as $token) {
+          array_push($notifs, [
+            "to" => "ExponentPushToken[".$token."]",
+            "title" => $this->title,
+            "body" => $this->message,
+            "data" => $data
+          ]);
+      }
+      $client = new Client();
+      while (count($notifs) > 0) {
+        $toSend = array_splice($notifs, 0, 99);
         $client->post('https://exp.host/--/api/v2/push/send', [
-            "body" => json_encode($notifs),
-            "headers" => [
-                'content-type' => 'application/json'
-            ]
-        ]);
+          "body" => json_encode($toSend),
+          "headers" => [
+              'content-type' => 'application/json'
+          ]
+      ]);
+      }
     }
 }
