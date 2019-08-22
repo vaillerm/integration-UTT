@@ -8,24 +8,22 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
+use App\Models\NotificationCron;
+use App\Models\User;
 
 class sendNotifications implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $targets = [];
-    private $title = "";
-    private $message = "";
+    private $cronid = null;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($targets, $title, $message)
+    public function __construct($cronid)
     {
-      $this->targets = $targets;
-      $this->title = $title;
-      $this->message = $message;
+      $this->cronid = $cronid;
     }
 
     /**
@@ -35,20 +33,33 @@ class sendNotifications implements ShouldQueue
      */
     public function handle()
     {
-
+      $notification_cron = NotificationCron::find($this->cronid);
+      if(!$notification_cron) return; //cron was removed
+      if($notification_cron->is_sent) return; // just in case
+      $notification_cron->is_sent = true;
+      $notification_cron->save();
+      $requestTargets = explode(', ', $notification_cron->targets);
+      $notificationTargets = User::whereHas('devices');
+      if (!in_array("all", $requestTargets)) {
+        $notificationTargets = $notificationTargets->where($requestTargets[0], '>', 0);
+        for ($i = 1; $i < sizeof($requestTargets); $i++) {
+          $notificationTargets = $notificationTargets->orWhere($requestTargets[$i], '>', 0);
+        }
+      }
+      $targets = $notificationTargets->get();
       $devices = [];
-      foreach($this->targets as $target) {
+      foreach($targets as $target) {
         foreach($target->devices as $device) {
           array_push($devices, $device->push_token);
         }
       }
-      $data = ['title' => $this->title, 'message' => $this->message];
+      $data = ['title' => $notification_cron->title, 'message' => $notification_cron->message];
       $notifs = [];
       foreach ($devices as $token) {
           array_push($notifs, [
             "to" => "ExponentPushToken[".$token."]",
-            "title" => $this->title,
-            "body" => $this->message,
+            "title" => $notification_cron->title,
+            "body" => $notification_cron->message,
             "data" => $data
           ]);
       }

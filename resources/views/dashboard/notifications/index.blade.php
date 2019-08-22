@@ -44,7 +44,7 @@
                             <td>{{ $notification_cron->send_date }}</td>
                             <td>@if($notification_cron->createdBy != null){{ $notification_cron->createdBy->first_name }} {{ $notification_cron->createdBy->last_name }}@endif</td>
                             <td>
-                                <a class="btn btn-xs btn-warning" href="{{ url('dashboard/notifications/edit/'.$notification_cron->id) }}">Modifier</a>
+                                <!--<a class="btn btn-xs btn-warning" href="{{ url('dashboard/notifications/edit/'.$notification_cron->id) }}">Modifier</a>-->
                                 <form action="{{ url('dashboard/notifications/'.$notification_cron->id) }}" method="post">
                                     {{ method_field('DELETE') }}
                                     <button class="btn btn-xs btn-danger" type="submit">Supprimer</button>

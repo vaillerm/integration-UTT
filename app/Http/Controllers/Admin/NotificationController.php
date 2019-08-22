@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\NotificationCron;
+use App\Jobs\sendNotifications;
 
 use Request;
 use Response;
@@ -57,6 +58,8 @@ class NotificationController extends Controller
         $notification_cron->createdBy()->associate($user);
         $notification_cron->is_sent = false;
         $notification_cron->save();
+        dispatch(new sendNotifications($notification_cron->id))
+          ->delay(new \DateTime($this->formatDate(Request::get('send_date'), Request::get('send_hour'))));
         return redirect()->route('dashboard.notifications');
     }
 
