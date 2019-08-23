@@ -44,6 +44,11 @@
                     <input type="time" class="form-control" value="{{ old('end_hour') }}" name="end_hour">
                 </div>
                 <div class="form-group">
+                    <label>Date de pré ouverture (disponible depuis le wifi utt)</label>
+                    <input type="date" class="form-control" value="{{ old('pre_open_date') }}" name="pre_open_date">
+                    <input type="time" class="form-control" value="{{ old('pre_open_hour') }}" name="pre_open_hour">
+                </div>
+                <div class="form-group">
                     <label>Date d'ouverture (Vous pouvez laisser vide, les permanenciers devront être ajoutés à la main)</label>
                     <input type="date" class="form-control" value="{{ old('open_date') }}" name="open_date">
                     <input type="time" class="form-control" value="{{ old('open_hour') }}" name="open_hour">

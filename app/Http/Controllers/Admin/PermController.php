@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Request;
-use Response;
-use Validator;
-use Redirect;
-
 use App\Models\Perm;
 use App\Models\PermType;
 use App\Models\User;
+use Redirect;
+use Request;
+use Response;
+use Validator;
 
 class PermController extends Controller
 {
@@ -92,8 +91,11 @@ class PermController extends Controller
         $perm->description = Request::get('description');
         $perm->start = $this->formatDate(Request::get('start_date'), Request::get('start_hour'));
         $perm->end = $this->formatDate(Request::get('end_date'), Request::get('end_hour'));
-        if(Request::get('open_date') != '' && Request::get('open_hour') != '') {
+        if (Request::get('open_date') != '' && Request::get('open_hour') != '') {
             $perm->open = $this->formatDate(Request::get('open_date'), Request::get('open_hour'));
+        }
+        if (Request::get('pre_open_date') != '' && Request::get('pre_open_hour') != '') {
+            $perm->pre_open = $this->formatDate(Request::get('pre_open_date'), Request::get('pre_open_hour'));
         }
         $perm->place = Request::get('place');
         $perm->nbr_permanenciers = Request::get('nbr_permanenciers');
@@ -103,11 +105,10 @@ class PermController extends Controller
         return redirect()->route('perm.index');
     }
 
-
     private function formatDate($date, $hour)
     {
         $date = implode('-', array_reverse(explode('-', $date)));
-        return strtotime($date.' '.$hour);
+        return strtotime($date . ' ' . $hour);
     }
 
     /**
@@ -141,8 +142,11 @@ class PermController extends Controller
         $perm->end = $this->formatDate(Request::get('end_date'), Request::get('end_hour'));
         $perm->place = Request::get('place');
         $perm->nbr_permanenciers = Request::get('nbr_permanenciers');
-        if(Request::get('open_date') != '' && Request::get('open_hour') != '') {
+        if (Request::get('open_date') != '' && Request::get('open_hour') != '') {
             $perm->open = $this->formatDate(Request::get('open_date'), Request::get('open_hour'));
+        }
+        if (Request::get('pre_open_date') != '' && Request::get('pre_open_hour') != '') {
+            $perm->pre_open = $this->formatDate(Request::get('pre_open_date'), Request::get('pre_open_hour'));
         }
         $perm->save();
         $perm->respos()->sync(Request::get('users'));
@@ -180,8 +184,8 @@ class PermController extends Controller
      */
     public function useradd($id)
     {
-      $perm = Perm::find($id);
-      return view('dashboard.perms.useradd', compact('perm'));
+        $perm = Perm::find($id);
+        return view('dashboard.perms.useradd', compact('perm'));
     }
 
     /**
@@ -195,8 +199,8 @@ class PermController extends Controller
 
         // validate the request inputs
         $validator = Validator::make(Request::all(), [
-          'users' => 'array',
-          'users.*' => 'exists:users,id',
+            'users' => 'array',
+            'users.*' => 'exists:users,id',
         ]);
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator);
@@ -262,10 +266,10 @@ class PermController extends Controller
         }
         $perm = Perm::find($id);
         $perm->permanenciers()->updateExistingPivot($userId, [
-          'presence' => 'absent',
-          'absence_reason' => Request::get('absence_reason'),
-          'commentary' => Request::get('commentary'),
-          'pointsPenalty' => Request::get('pointsPenalty') + $perm->type->points,
+            'presence' => 'absent',
+            'absence_reason' => Request::get('absence_reason'),
+            'commentary' => Request::get('commentary'),
+            'pointsPenalty' => Request::get('pointsPenalty') + $perm->type->points,
         ]);
 
         return redirect()->route('perm.users', ['id' => $id]);
@@ -287,10 +291,10 @@ class PermController extends Controller
         }
         $perm = Perm::find($id);
         $perm->permanenciers()->updateExistingPivot($userId, [
-          'presence' => 'present',
-          'absence_reason' => '',
-          'commentary' => Request::get('commentary'),
-          'pointsPenalty' => Request::get('pointsPenalty'),
+            'presence' => 'present',
+            'absence_reason' => '',
+            'commentary' => Request::get('commentary'),
+            'pointsPenalty' => Request::get('pointsPenalty'),
         ]);
 
         return redirect()->route('perm.users', ['id' => $id]);

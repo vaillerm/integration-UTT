@@ -48,9 +48,12 @@
                             <td>{{ $perm->place }}</td>
                             <td>Le {{ date('d/m', $perm->start).' de '.date('H:i', $perm->start).' à '.date('H:i', $perm->end) }}</td>
                             @if($perm->open)
-                              <td>Le {{ date('d/m', $perm->open).' à '.date('H:i', $perm->open) }}</td>
+                              <td>
+                                  @if($perm->pre_open) <span class="label label-warning"><span class="glyphicon glyphicon-signal"></span> - {{ date('d/m', $perm->pre_open).' à '.date('H:i', $perm->pre_open) }}</span> @endif
+                                  <span class="label label-success">{{ date('d/m', $perm->open).' à '.date('H:i', $perm->open) }}</span>
+                                </td>
                             @else
-                              <td>Jamais</td>
+                              <td><span class="label label-danger">Jamais</span></td>
                              @endif
                             <td>{{ $perm->permanenciers->count().'/'.$perm->nbr_permanenciers }}</td>
                             <td>{{ $perm->description }}</td>
