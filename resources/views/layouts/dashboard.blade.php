@@ -81,7 +81,13 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{ url('dashboard/checkin') }}">Checkins</a></li>
-                                    <li><a href="{{ route('dashboard.emails.index') }}">Mails</a></li>
+                                    <li class="dropdown">
+                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Communication <span class="caret"></span></a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="{{ route('dashboard.emails.index') }}">Mails</a></li>
+                                          <li><a href="{{ route('dashboard.notifications') }}">Notifications</a></li>
+                                      </ul>
+                                  </li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
                                         <ul class="dropdown-menu">

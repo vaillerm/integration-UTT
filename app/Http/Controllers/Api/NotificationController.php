@@ -12,12 +12,11 @@ use Response;
 use Validator;
 use Auth;
 
-use App\Traits\PushNotifications;
+use App\Jobs\sendNotifications;
 
 class NotificationController extends Controller
 {
 
-    use PushNotifications;
 
     /**
      * Store a new message
@@ -48,14 +47,7 @@ class NotificationController extends Controller
         }
 
         $targets = $notificationTargets->get();
-        $devices = [];
-        foreach($targets as $target) {
-          foreach($target->devices as $device) {
-            array_push($devices, $device->push_token);
-          }
-        }
-        $this->postNotification($devices, Request::get('message'), Request::get('title'));
-
+        dispatch(new sendNotifications($targets, Request::get('title'), Request::get('message')));
         return Response::json();
     }
 

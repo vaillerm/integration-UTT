@@ -142,6 +142,16 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::put('/checkin/{id}', ['uses' => 'Admin\CheckinController@update']);
         });
 
+         // Notification Schedule routes
+         Route::group(['middleware' => 'authorize:admin'], function () {
+            Route::get('/notifications', ['uses' => 'Admin\NotificationController@index', 'as'=> 'dashboard.notifications']);
+            Route::get('/notifications/create', ['uses' => 'Admin\NotificationController@create']);
+            Route::get('/notifications/edit/{id}', ['uses' => 'Admin\NotificationController@edit']);
+            Route::post('/notifications', ['uses' => 'Admin\NotificationController@store']);
+            Route::delete('/notifications/{id}', ['uses' => 'Admin\NotificationController@destroy']);
+            Route::put('/notifications/{id}', ['uses' => 'Admin\NotificationController@update']);
+        });
+
         // Delete, validate and edit referrals.
         Route::group(['prefix' => 'referrals'], function () {
             Route::get('/validation', [

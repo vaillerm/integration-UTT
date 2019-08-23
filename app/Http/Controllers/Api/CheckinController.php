@@ -21,7 +21,7 @@ class CheckinController extends Controller
     public function index()
     {
         // api request
-        $user = $user = Auth::guard('api')->user();
+        $user = Auth::guard('api')->user();
 
         if (!$user->admin && !$user->secu && !$user->ce && !$user->orga) {
             return Response::json(["message" => "You are not allowed."], 403);
