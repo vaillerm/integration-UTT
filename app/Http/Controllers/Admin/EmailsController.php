@@ -198,7 +198,7 @@ class EmailsController extends Controller
         }
 
         if ($cron->save()) {
-            $this->dispatch(new generateMailBatch())->delay($cron->send_date);
+            generateMailBatch::dispatch()->delay($cron->send_date);
             return Redirect::route('dashboard.emails.index')->withSuccess('L\'envoi a bien été programmé !');
         }
         return $this->error('Impossible de programmer l\'envoi !');
