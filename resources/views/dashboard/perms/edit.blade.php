@@ -37,12 +37,12 @@
                 </div>
                 <div class="form-group">
                     <label>Date de pré ouverture (disponible depuis le wifi utt)</label>
-                    <input type="date" class="form-control" value="{{ $perm->pre_open > 0 ? date('Y-m-d', $perm->pre_open > 0) : '' }}"" name="pre_open_date">
+                    <input type="date" class="form-control" value="{{ $perm->pre_open > 0 ? date('Y-m-d', $perm->pre_open) : '' }}"" name="pre_open_date">
                     <input type="time" class="form-control" value="{{ $perm->pre_open > 0 ? date('H:i', $perm->pre_open) : '' }}" name="pre_open_hour">
                 </div>
                 <div class="form-group">
                     <label>Date d'ouverture (Vous pouvez laisser vide, les permanenciers devront être ajoutés à la main)</label>
-                    <input type="date" class="form-control" value="{{ $perm->open > 0 ? date('Y-m-d', $perm->open > 0) : '' }}" name="open_date">
+                    <input type="date" class="form-control" value="{{ $perm->open > 0 ? date('Y-m-d', $perm->open) : '' }}" name="open_date">
                     <input type="time" class="form-control" value="{{ $perm->open > 0 ? date('H:i', $perm->open) : '' }}" name="open_hour">
                 </div>
 
