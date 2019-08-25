@@ -9,6 +9,7 @@ use Validator;
 use Auth;
 
 use App\Models\Perm;
+use DateTime;
 
 class PermController extends Controller
 {
@@ -95,8 +96,25 @@ class PermController extends Controller
       if ($perm->open == null) {
         return Response::json(["message" => "You can't join that perm."], 403);
       }
-      if ($perm->open < new \DateTime('now')) {
+      // Cas d'une perm en préouverture
+      $open = new DateTime();
+      $open->setTimestamp($perm->open);
+      $pre_open = new DateTime();
+      $pre_open->setTimestamp($perm->pre_open);
+      $start = new DateTime();
+      $start->setTimestamp($perm->start);
+      $now = new \DateTime('now');
+
+      if ((!$this->isRequestFromUTT() && $open > $now) ||
+            ($this->isRequestFromUTT() && $pre_open > $now)) {
         return Response::json(["message" => "Perm not open."], 403);
+      }
+
+      //Rejoindre une heure avant max
+      $diff_h = $start->diff($now);
+      if($diff_h < 1 || $start < $now)
+      {
+        return Response::json(["message" => "Too late dude ! (less than 1 hour left before start)."], 403);
       }
     }
 
@@ -125,10 +143,19 @@ class PermController extends Controller
     }
     if ($user->id == $userId && !$user->admin) {
       if ($perm->open == null) {
-        return Response::json(["message" => "You can't join that perm."], 403);
+        return Response::json(["message" => "You can't leave that perm."], 403);
       }
-      if ($perm->open < new \DateTime('now')) {
-        return Response::json(["message" => "Perm not open."], 403);
+
+      //Test temps de leave
+      $start = new DateTime();
+      $start->setTimestamp($perm->start);
+      $now = new \DateTime('now');
+
+      //Rejoindre une heure avant max
+      $diff_h = $start->diff($now);
+      if($diff_h < 48 || $start < $now)
+      {
+        return Response::json(["message" => "Too late for leave dude ! (less than 48 hour left before start)."], 403);
       }
     }
     $perm->permanenciers()->detach($userId);
@@ -278,5 +305,37 @@ class PermController extends Controller
       }
     }
     return $user->admin || $found;
+  }
+
+  private function isRequestFromUTT()
+  {
+      $utt_subnets = explode(',', config('services.utt.wifi_subnet'));
+      foreach($utt_subnets as $subnet)
+      {
+          if($this->ip_in_range(Request::ip(), $subnet))
+          {
+              return true;
+          }
+      }
+
+      return false;
+  }
+  /**
+ * Check if a given ip is in a network
+ * @param  string $ip    IP to check in IPV4 format eg. 127.0.0.1
+ * @param  string $range IP/CIDR netmask eg. 127.0.0.0/24, also 127.0.0.1 is accepted and /32 assumed
+ * @return boolean true if the ip is in this range / false if not.
+ */
+  private function ip_in_range( $ip, $range ) {
+    if ( strpos( $range, '/' ) == false ) {
+      $range .= '/32';
+    }
+    // $range is in IP/CIDR format eg 127.0.0.1/24
+    list( $range, $netmask ) = explode( '/', $range, 2 );
+    $range_decimal = ip2long( $range );
+    $ip_decimal = ip2long( $ip );
+    $wildcard_decimal = pow( 2, ( 32 - $netmask ) ) - 1;
+    $netmask_decimal = ~ $wildcard_decimal;
+    return ( ( $ip_decimal & $netmask_decimal ) == ( $range_decimal & $netmask_decimal ) );
   }
 }

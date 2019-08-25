@@ -107,4 +107,8 @@ return [
     'slack' => [
         'exception_webhook' => env('SLACK_EXCEPTION_WEBHOOK', ''),
     ],
+
+    'utt' => [
+        'wifi_subnet' => env('UTT_WIFI_SUBNET', '10.25.0.0/16,10.18.0.0/16')
+    ],
 ];
