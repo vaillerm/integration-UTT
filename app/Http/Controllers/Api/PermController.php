@@ -87,14 +87,14 @@ class PermController extends Controller
     $perm = Perm::find($id);
     $userId = Request::get('userId'); // user to add
     if ($user->is_newcomer) {
-      return Response::json(["message" => "You are not allowed."], 403);
+      return Response::json(["message" => "Tu ne peux pas rentrer dans une perm en tant que nouveau !"], 403);
     }
     if ($user->id != $userId && !$this->isAllowed($perm)) {
-      return Response::json(["message" => "You are not allowed."], 403);
+      return Response::json(["message" => "Tu n'as pas le droit de faire ça"], 403);
     }
     if ($user->id == $userId && !$user->admin) {
       if ($perm->open == null) {
-        return Response::json(["message" => "You can't join that perm."], 403);
+        return Response::json(["message" => "Tu ne peux pas rejoindre cette perm, tu dois y être ajouté"], 403);
       }
       // Cas d'une perm en préouverture
       $open = new DateTime();
@@ -109,13 +109,13 @@ class PermController extends Controller
       {
           if($pre_open > $now)
           {
-            return Response::json(["message" => "Perm not open."], 403);
+            return Response::json(["message" => "Cette perm n'est pas encore ouverte pour toi"], 403);
           }
 
       } else {
           if($open > $now)
           {
-            return Response::json(["message" => "Perm not open."], 403);
+            return Response::json(["message" => "Cette perm n'est pas encore ouverte pour toi"], 403);
           }
       }
 
@@ -123,20 +123,20 @@ class PermController extends Controller
       $diff_h = $start->diff($now)->h;
       if($diff_h < 1 || $start < $now)
       {
-        return Response::json(["message" => "Too late dude ! (less than 1 hour left before start)."], 403);
+        return Response::json(["message" => "Trop tard, tu ne peux pas rejoindre moins d'une heure avant le début de la perm."], 403);
       }
     }
     foreach($perm->permanenciers as $permanencier) {
       if($permanencier->id == $userId) {
-        return Response::json(["message" => "Already in"], 400);
+        return Response::json(["message" => "Tu es déjà dans cette perm !"], 400);
       }
     }
 
-    if($perm->nbr_permanenciers > count($perm->permanenciers)){
+    if($perm->nbr_permanenciers > $perm->permanenciers()->count()){
       $perm->permanenciers()->attach($userId, ['respo' => false]);
       return Response::json('OK');
     } else {
-      return Response::json(["message" => "Perm full"], 403);
+      return Response::json(["message" => "Cette perm est complète !"], 403);
     }
 
     return Response::json('OK');
@@ -154,15 +154,15 @@ class PermController extends Controller
     $perm = Perm::find($id);
     $userId = Request::get('userId'); // user to add
     if ($user->is_newcomer) {
-      return Response::json(["message" => "You are not allowed."], 403);
+      return Response::json(["message" => "Tu ne peux pas faire ça"], 403);
     }
 
     if ($user->id != $userId && !$this->isAllowed($perm)) {
-      return Response::json(["message" => "You are not allowed."], 403);
+      return Response::json(["message" => "Tu ne peux pas faire ça"], 403);
     }
     if ($user->id == $userId && !$user->admin) {
       if ($perm->open == null) {
-        return Response::json(["message" => "You can't leave that perm."], 403);
+        return Response::json(["message" => "Cette perm est imposée, tu ne peux pas la quitter."], 403);
       }
 
       //Test temps de leave
