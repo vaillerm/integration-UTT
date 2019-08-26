@@ -120,7 +120,7 @@ class PermController extends Controller
       }
 
       //Rejoindre une heure avant max
-      $diff_h = $start->diff($now);
+      $diff_h = $start->diff($now)->h;
       if($diff_h < 1 || $start < $now)
       {
         return Response::json(["message" => "Too late dude ! (less than 1 hour left before start)."], 403);
@@ -161,7 +161,7 @@ class PermController extends Controller
       $now = new \DateTime('now');
 
       //Rejoindre une heure avant max
-      $diff_h = $start->diff($now);
+      $diff_h = $start->diff($now)->h;
       if($diff_h < 48 || $start < $now)
       {
         return Response::json(["message" => "Too late for leave dude ! (less than 48 hour left before start)."], 403);
