@@ -160,12 +160,14 @@ class PermController extends Controller
       $start->setTimestamp($perm->start);
       $now = new \DateTime('now');
 
+      /**
       //Rejoindre une heure avant max
       $diff_h = $start->diff($now)->h;
       if($diff_h < 48 || $start < $now)
       {
         return Response::json(["message" => "Too late for leave dude ! (less than 48 hour left before start)."], 403);
       }
+      **/
     }
     $perm->permanenciers()->detach($userId);
 
