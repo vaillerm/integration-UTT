@@ -126,8 +126,18 @@ class PermController extends Controller
         return Response::json(["message" => "Too late dude ! (less than 1 hour left before start)."], 403);
       }
     }
+    foreach($perm->permanenciers as $permanencier) {
+      if($permanencier->id == $userId) {
+        return Response::json(["message" => "Already in"], 400);
+      }
+    }
 
-    $perm->permanenciers()->attach($userId, ['respo' => false]);
+    if($perm->nbr_permanenciers > count($perm->permanenciers)){
+      $perm->permanenciers()->attach($userId, ['respo' => false]);
+      return Response::json('OK');
+    } else {
+      return Response::json(["message" => "Perm full"], 403);
+    }
 
     return Response::json('OK');
   }
@@ -254,12 +264,8 @@ class PermController extends Controller
       return Redirect::back()->withErrors($validator);
     }
     $perm = Perm::find($id);
-    if($perm->nbr_permanenciers > count($perm->permanenciers)){
-      $perm->permanenciers()->attach(Request::get('users'), ['respo' => false]);
-      return Response::json('OK');
-    } else {
-      return Response::json(["message" => "Perm full"], 403);
-    }
+    $perm->permanenciers()->attach(Request::get('users'), ['respo' => false]);
+    return Response::json('OK');
   }
 
   /**
