@@ -120,7 +120,8 @@ class PermController extends Controller
       }
 
       //Rejoindre une heure avant max
-      $diff_h = $start->diff($now)->h;
+      $diff = $start->diff($now);
+      $diff_h = $diff->d * 24 + $diff->h;
       if($diff_h < 1 || $start < $now)
       {
         return Response::json(["message" => "Trop tard, tu ne peux pas rejoindre moins d'une heure avant le début de la perm."], 403);
