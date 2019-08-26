@@ -6,6 +6,7 @@ Route::post('/oauth/etuutt/callback', ['uses' => 'Api\OAuthController@mobileCall
 
 
 Route::get('/gubu/{payload}.pdf', ['uses' => 'Api\GubuController@download', 'as'   => 'api.gubu.pdf']);
+Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocomplete']);
 
 Route::group(['middleware' => 'auth:api'], function () {
 
@@ -15,7 +16,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/student/{id}', ['uses' => 'Api\StudentsController@show']);
     Route::get('/student', ['uses' => 'Api\StudentsController@index']);
     // Route::put('/student/{id}', ['uses' => 'Api\StudentsController@update']);
-    Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocomplete']);
 
     Route::get('/team/{id}', ['uses' => 'Api\TeamsController@show']);
     Route::get('/team', ['uses' => 'Api\TeamsController@index']);
@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/perms/{id}/users/{userId}/absent', ['uses' => 'Api\PermController@userabsent']);
     Route::post('/perms/{id}/users', ['uses' => 'Api\PermController@userstore']);
     Route::delete('/perms/{id}/users/{userId}', ['uses' => 'Api\PermController@userdestroy']);
-    
+
     Route::get('/gubu/{id}', ['uses' => 'Api\GubuController@show']);
     Route::get('/gubu', ['uses' => 'Api\GubuController@index']);
 });
