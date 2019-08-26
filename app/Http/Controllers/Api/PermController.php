@@ -254,7 +254,7 @@ class PermController extends Controller
       return Redirect::back()->withErrors($validator);
     }
     $perm = Perm::find($id);
-    if($perm->nbr_permanenciers > count($perm->permanenciers())){
+    if($perm->nbr_permanenciers > count($perm->permanenciers)){
       $perm->permanenciers()->attach(Request::get('users'), ['respo' => false]);
       return Response::json('OK');
     } else {
