@@ -105,9 +105,18 @@ class PermController extends Controller
       $start->setTimestamp($perm->start);
       $now = new \DateTime('now');
 
-      if ((!$this->isRequestFromUTT() && $open > $now) ||
-            ($this->isRequestFromUTT() && $pre_open > $now)) {
-        return Response::json(["message" => "Perm not open."], 403);
+      if($this->isRequestFromUTT())
+      {
+          if($pre_open > $now)
+          {
+            return Response::json(["message" => "Perm not open."], 403);
+          }
+
+      } else {
+          if($open > $now)
+          {
+            return Response::json(["message" => "Perm not open."], 403);
+          }
       }
 
       //Rejoindre une heure avant max
