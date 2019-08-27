@@ -7,6 +7,7 @@ Route::post('/oauth/etuutt/callback', ['uses' => 'Api\OAuthController@mobileCall
 
 Route::get('/gubu/{payload}.pdf', ['uses' => 'Api\GubuController@download', 'as'   => 'api.gubu.pdf']);
 Route::get('/student/autocomplete', ['uses' => 'Api\StudentsController@autocomplete']);
+Route::get('/debug/ip', ['uses' => 'Api\PermController@debugIp']);
 
 Route::group(['middleware' => 'auth:api'], function () {
 
