@@ -199,12 +199,12 @@ class StudentsController extends Controller
         ]);
 
         // Add or remove from sympa
-        if (!$student->orga && $data['orga']) {
+        if (!$student->orga && Request::get('orga', false)) {
             $sent = Mail::raw('QUIET ADD integration-liste '.$student->email.' '.$student->first_name.' '.$student->last_name, function ($message) use ($student) {
                 $message->from('integrat@utt.fr', 'Intégration UTT');
                 $message->to('sympa@utt.fr');
             });
-        } elseif ($student->orga && !$data['orga']) {
+        } elseif ($student->orga && !Request::get('orga', false)) {
             $sent = Mail::raw('QUIET DELETE integration-liste '.$student->email, function ($message) use ($student) {
                 $message->from('integrat@utt.fr', 'Intégration UTT');
                 $message->to('sympa@utt.fr');
