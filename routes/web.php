@@ -872,14 +872,14 @@ Route::group(['middleware' => 'auth'], function() {
                 Route::get('{name}', 'Challenges\ValidationPic@show')->name('validation_proofs.normal');
             });
 
-
+            Route::group(["prefix" => "points"], function(){
+                Route::get("/", "Challenges\PointsController@manage")->name("points.manage");
+                Route::post("/", "Challenges\PointsController@add")->name("points.add");
+                Route::delete("/{id}", "Challenges\PointsController@delete")->name("points.delete");
+            });
         });
 
-        Route::group(["prefix" => "points"], function(){
-            Route::get("/", "Challenges\PointsController@manage")->name("points.manage");
-            Route::post("/", "Challenges\PointsController@add")->name("points.add");
-            Route::delete("/{id}", "Challenges\PointsController@delete")->name("points.delete");
-        });
+        
 
         Route::get('{id}/submit', [
             'as' => 'challenges.submitForm',
