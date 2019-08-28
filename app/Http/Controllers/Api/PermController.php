@@ -171,14 +171,12 @@ class PermController extends Controller
       $start->setTimestamp($perm->start);
       $now = new \DateTime('now');
 
-      /**
-      //Rejoindre une heure avant max
-      $diff_h = $start->diff($now)->h;
+      $diff = $start->diff($now);
+      $diff_h = $diff->d * 24 + $diff->h;
       if($diff_h < 48 || $start < $now)
       {
-        return Response::json(["message" => "Too late for leave dude ! (less than 48 hour left before start)."], 403);
+        return Response::json(["message" => "Trop tard, tu ne peux pas quitter une perm moins de 48 heure avant le début."], 403);
       }
-      **/
     }
     $perm->permanenciers()->detach($userId);
 
@@ -315,6 +313,19 @@ class PermController extends Controller
       $output['absence_reason'] = $student->pivot->absence_reason;
     }
     return $output;
+  }
+
+  /**
+   * Return utt network detection for debug purpose
+   *
+   * @return void
+   */
+  public function debugIp()
+  {
+    return Response::json([
+        'ip' => Request::ip(),
+        'fromUTT' => $this->isRequestFromUTT()
+        ], 200);
   }
 
   private function isAllowed($perm)
