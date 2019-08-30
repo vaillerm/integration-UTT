@@ -91,11 +91,14 @@ Route::group(['prefix' => 'dashboard'], function () {
             'uses' => 'Students\PagesController@getDashboardHome'
         ]);
 
+        Route::group(['middleware' => 'authorize:admin'], function () {
+            Route::get('/calendar', ['as' => 'calendar.index', 'uses' => 'Admin\CalendarController@index']);
+        });
         // Event model's routes
         Route::group(['middleware' => 'authorize:admin'], function () {
             Route::get('/event', ['as' => 'event.index', 'uses' => 'Admin\EventController@index']);
             Route::get('/event/create', ['uses' => 'Admin\EventController@create']);
-            Route::get('/event/edit/{id}', ['uses' => 'Admin\EventController@edit']);
+            Route::get('/event/edit/{id}', ['uses' => 'Admin\EventController@edit', 'as' => 'event.edit']);
             Route::post('/event', ['uses' => 'Admin\EventController@store']);
             Route::delete('/event/{id}', ['uses' => 'Admin\EventController@destroy']);
             Route::put('/event/{id}', ['uses' => 'Admin\EventController@update']);
@@ -879,7 +882,7 @@ Route::group(['middleware' => 'auth'], function() {
             });
         });
 
-        
+
 
         Route::get('{id}/submit', [
             'as' => 'challenges.submitForm',

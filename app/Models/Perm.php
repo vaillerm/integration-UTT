@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\PermType;
 
-class Perm extends Model
+class Perm extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
   /**
    * @var string
@@ -127,4 +128,54 @@ class Perm extends Model
 			'userId' => 'required|exists:users,id'
 		];
 	}
+
+    /**
+     * Get the event's title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->type->name;
+    }
+
+    /**
+     * Is it an all day event?
+     *
+     * @return bool
+     */
+    public function isAllDay()
+    {
+        return false;
+    }
+
+    /**
+     * Get the start time
+     *
+     * @return DateTime
+     */
+    public function getStart()
+    {
+        $d = new DateTime();
+        return $d->setTimestamp($this->start);
+    }
+
+    /**
+     * Get the end time
+     *
+     * @return DateTime
+     */
+    public function getEnd()
+    {
+        $d = new DateTime();
+        return $d->setTimestamp($this->end);
+    }
+
+    public function getEventOptions()
+    {
+        return [
+            'color' => '#c8c8c8',
+            'url' => url()->route('perm.users', ['id' => $this->id ])
+        ];
+    }
 }

@@ -71,10 +71,11 @@
                                             <li><a href="{{ route('dashboard.newcomers.list-progress') }}">Nouveaux avec progression</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>
+                                    <li><a href="{{ route('calendar.index') }}">Calendrier</a></li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Permanences <span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Évènements / Perms <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
+                                            <li><a href="{{ url('dashboard/event') }}">Évènements</a></li>
                                             <li><a href="{{ url('dashboard/perm/users') }}">Récapitulatif des permanences des bénévoles</a></li>
                                             <li><a href="{{ url('dashboard/perm') }}">Liste des permanences</a></li>
                                             <li><a href="{{ url('dashboard/permType') }}">Types de permanences</a></li>
