@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     function refreshStudents(name) {
         $.ajax({
-            url: `/api/student/autocomplete?name=${name}`,
+            url: `/student/autocomplete?name=${name}`,
             success: function(students) {
                 let html = "";
                 students.map(student => {

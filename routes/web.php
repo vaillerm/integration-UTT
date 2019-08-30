@@ -41,6 +41,14 @@ Route::group(['middleware' => 'oauth'], function () {
     ]);
 });
 
+Route::group(['middleware' => 'oauth'], function () {
+    Route::get('/student/autocomplete', [
+        'as'   => 'web.autocomplete',
+        'middleware' => 'authorize:orga',
+        'uses' => 'Api\StudentsController@autocomplete'
+    ]);
+});
+
 Route::get('/trombi', [
     'as'   => 'trombi',
     'uses' => 'All\PagesController@getTrombi'
