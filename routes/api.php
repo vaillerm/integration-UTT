@@ -50,4 +50,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/gubu/{id}', ['uses' => 'Api\GubuController@show']);
     Route::get('/gubu', ['uses' => 'Api\GubuController@index']);
+
+    Route::post('/coord', ['uses' => 'Api\LocalisationController@store']);
+
 });
