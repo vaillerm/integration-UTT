@@ -182,14 +182,14 @@ class WEIController extends Controller
         $crypt = new Encrypter(base64_decode(Config::get('services.etupay.key')), 'AES-256-CBC');
         $payload = $crypt->encrypt(json_encode([
             'type' => 'checkout',
-            'amount' => $amount,
+            'amount' => intval($amount),
             'client_mail' => $user->email,
             'firstname' => $user->first_name,
             'lastname' => $user->last_name,
             'description' => 'Formulaire de paiement du weekend d\'intégration et du panier repas',
             'articles' => [
-                ['name' => 'Week-end d\'intégration', 'price' => $price*100, 'quantity' => $wei],
-                ['name' => 'Panier repas du vendredi midi', 'price' => Config::get('services.wei.sandwichPrice')*100, 'quantity' => $sandwich],
+                ['name' => 'Week-end d\'intégration', 'price' => intval($price*100), 'quantity' => $wei],
+                ['name' => 'Panier repas du vendredi midi', 'price' => intval(Config::get('services.wei.sandwichPrice')*100), 'quantity' => $sandwich],
             ],
             'service_data' => $payment->id
         ]));
