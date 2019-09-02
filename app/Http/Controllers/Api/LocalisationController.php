@@ -7,7 +7,7 @@ use Request;
 use Response;
 use Auth;
 
-class RallyeController extends Controller
+class LocalisationController extends Controller
 {
     public function store()
     {
