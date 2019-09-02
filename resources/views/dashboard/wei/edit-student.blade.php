@@ -226,7 +226,7 @@ Modification d'un étudiant
                                                 Nous proposons donc un panier repas (sandwich, chips, fruit et bouteille d'eau) préparé par le CROUS (qui gère le restaurant universitaire).<br/>
                                                 </p>
                                             </td>
-                                            <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice')) }} €</td>
+                                            <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice'))/100 }} €</td>
                                             <td>
                                                 <select name="sandwich" class="quantity">
                                                     <option value="0" @if ((old('sandwich') ?? 1) == 0) selected="selected" @endif>0</option>
@@ -353,7 +353,7 @@ Modification d'un étudiant
                                                     Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                                 </p>
                                             </td>
-                                            <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>
+                                            <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice'))/100 }} €</td>
                                             <td>
                                                 <select name="guarantee" class="quantity">
                                                     <option value="1" selected>1</option>

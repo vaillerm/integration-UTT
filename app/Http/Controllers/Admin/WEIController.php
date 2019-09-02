@@ -178,9 +178,10 @@ class WEIController extends Controller
             ->orderBy('created_at')
             ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
 
+        //TODO NUL A JETER
         $graphFood = Payment::select(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\') as day'), DB::raw('COUNT(id) as sum'))
             ->where('type', 'payment')
-            ->where(DB::raw('`amount`%500'), 325)
+            ->where(DB::raw('`amount`%500'), Config::get('services.wei.sandwichPrice'))
             ->where('state', 'paid')
             ->orderBy('created_at')
             ->groupBy(DB::raw('DATE_FORMAT(created_at,\'%d-%m-%Y\')'))->get();
@@ -284,7 +285,7 @@ class WEIController extends Controller
         }
         return View::make('dashboard.wei.edit-student', [
             'user' => $student,
-            'price' => $price,
+            'price' => round($price/100,2),
             'priceName' => $priceName,
             'weiCount' => $weiCount,
             'sandwichCount' => $sandwichCount,
@@ -402,9 +403,9 @@ class WEIController extends Controller
             } elseif ($student->orga) {
                 $price = Config::get('services.wei.price-orga');
             }
-
+            $price = intval($price);
             // Calculate amount
-            $amount = ($sandwich * Config::get('services.wei.sandwichPrice') + $wei * $price)*100;
+            $amount = ($sandwich * intval(Config::get('services.wei.sandwichPrice')) + $wei * $price);
 
             if ($amount/100 != $input['wei-total']) {
                 return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
@@ -467,7 +468,7 @@ class WEIController extends Controller
             }
 
             // Calculate amount
-            $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
+            $amount = ($guarantee * intval(Config::get('services.wei.guaranteePrice')));
 
             if ($amount/100 != $input['guarantee-total']) {
                 return Redirect::back()->withError('Erreur interne sur le calcul des montants, contactez un administrateur')->withInput();
@@ -509,6 +510,7 @@ class WEIController extends Controller
             $student->parent_authorization = true;
             $student->updateWei();
             $student->save();
+            return Redirect(route('dashboard.wei.student.edit', ['id' => $student->id]))->withSuccess('Vos modifications ont été enregistrées.');
         }
 
 
@@ -518,6 +520,13 @@ class WEIController extends Controller
     public function checkIn($id)
     {
         $user = User::findOrFail($id);
+        /**
+        $date = new \DateTime(config('services.wei.start'));
+        if((new \DateTime('now')) > $date)
+        {
+            return Redirect(route('dashboard.wei.student.edit', ['id' => $user->id]))->withError('Impossible de checkin avant la date de début du wei !');
+        }**/
+
         $user->checkin = true;
         $user->save();
 

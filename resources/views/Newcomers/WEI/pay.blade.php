@@ -61,7 +61,7 @@ Le Week-End d'Intégration
     									<li>Repas compris</li>
     								</ul>
     							</td>
-    							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.price')) }} €</td>
+    							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.price'))/100 }} €</td>
 								<td>
                                     <select name="wei" class="quantity">
 		                               <option value="{{ $weiCount }}">{{ $weiCount }}</option>
@@ -78,7 +78,7 @@ Le Week-End d'Intégration
                                     Si tu as un régime particulier (sans porc, végétarien, ...) pense à le préciser dans <em>régime particulier</em> sur ton profil.
     								</p>
     							</td>
-    							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice')) }} €</td>
+    							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice'))/100 }} €</td>
     							<td>
     								<select name="sandwich" class="quantity">
     									<option value="0" @if ((old('sandwich') ?? 1) == 0) selected="selected" @endif>0</option>

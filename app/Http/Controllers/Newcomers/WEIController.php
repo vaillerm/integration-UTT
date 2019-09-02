@@ -93,7 +93,7 @@ class WEIController extends Controller
         }
 
         // Calculate amount
-        $amount = ($sandwich * Config::get('services.wei.sandwichPrice') + $wei * Config::get('services.wei.price'))*100;
+        $amount = ($sandwich * intval(Config::get('services.wei.sandwichPrice')) + $wei * intval(Config::get('services.wei.price')));
 
         // Create payment
         $payment = new Payment([
@@ -124,8 +124,8 @@ class WEIController extends Controller
             'lastname' => $user->last_name,
             'description' => 'Formulaire de paiement du weekend d\'intégration et du panier repas',
             'articles' => [
-                ['name' => 'Week-end d\'intégration', 'price' => Config::get('services.wei.price')*100, 'quantity' => $wei],
-                ['name' => 'Panier repas du vendredi midi', 'price' => Config::get('services.wei.sandwichPrice')*100, 'quantity' => $sandwich],
+                ['name' => 'Week-end d\'intégration', 'price' => intval(Config::get('services.wei.price')), 'quantity' => $wei],
+                ['name' => 'Panier repas du vendredi midi', 'price' => intval(Config::get('services.wei.sandwichPrice')), 'quantity' => $sandwich],
             ],
             'service_data' => $payment->id
         ]));
@@ -162,7 +162,7 @@ class WEIController extends Controller
             return Redirect::back()->withError('Vous devez accepter les conditions générales de vente')->withInput();
         }
         // Calculate amount
-        $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
+        $amount = ($guarantee * intval(Config::get('services.wei.guaranteePrice')));
         // Create payment
         $payment = new Payment([
             'type' => 'guarantee',
@@ -188,7 +188,7 @@ class WEIController extends Controller
             'lastname' => $user->last_name,
             'description' => 'Formulaire de dépôt de la caution du weekend d\'intégration',
             'articles' => [
-                ['name' => 'Caution du Week-end d\'intégration', 'price' => Config::get('services.wei.guaranteePrice')*100, 'quantity' => $guarantee],
+                ['name' => 'Caution du Week-end d\'intégration', 'price' => intval(Config::get('services.wei.guaranteePrice')), 'quantity' => $guarantee],
             ],
             'service_data' => $payment->id
         ]));
