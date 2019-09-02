@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Request;
 use Response;
+use Auth;
 
 class RallyeController extends Controller
 {
