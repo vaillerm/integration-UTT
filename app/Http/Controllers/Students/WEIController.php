@@ -152,8 +152,9 @@ class WEIController extends Controller
             $price = Config::get('services.wei.price-ce');
         }
 
+        $price = intval($price*100);
         // Calculate amount
-        $amount = ($sandwich * Config::get('services.wei.sandwichPrice') + $wei * $price)*100;
+        $amount = ($sandwich * intval(Config::get('services.wei.sandwichPrice')*100) + $wei * $price);
 
         if ($amount == 0) {
             return Redirect(route('dashboard.wei.guarantee'))->withSuccess('Wei payé !');
