@@ -70,7 +70,7 @@ Le Week-End d'Intégration
                                     Les conditions d'encaissement de la caution sont disponibles dans les <a href="{{asset('docs/cgv.pdf')}}">Conditions Générales de Vente</a>.
                                 </p>
                             </td>
-                            <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice')) }} €</td>
+                            <td class="price">{{ sprintf('%04.2f', Config::get('services.wei.guaranteePrice'))/100 }} €</td>
                             <td>
                                 <select name="guarantee" class="quantity">
                                     <option value="1" selected>1</option>

@@ -114,7 +114,7 @@ class WEIController extends Controller
             $priceName = 'Chef d\'équipe';
         }
 
-        return View::make('dashboard.wei.pay', ['weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'weiPrice' => $price, 'weiPriceName' => $priceName]);
+        return View::make('dashboard.wei.pay', ['weiCount' => $weiCount, 'sandwichCount' => $sandwichCount, 'weiPrice' => $price/100, 'weiPriceName' => $priceName]);
     }
 
     /**
@@ -140,7 +140,7 @@ class WEIController extends Controller
         if (!$input['wei'] && !$oldWei && $input['sandwich']) {
             return Redirect::back()->withError('Vous ne pouvez pas prendre un panier repas sans prendre le weekend')->withInput();
         }
-        if (!$input['cgv']) {
+        if (!isset($input['cgv'])) {
             return Redirect::back()->withError('Vous devez accepter les conditions générales de vente')->withInput();
         }
 
@@ -152,8 +152,9 @@ class WEIController extends Controller
             $price = Config::get('services.wei.price-ce');
         }
 
+        $price = intval($price);
         // Calculate amount
-        $amount = ($sandwich * Config::get('services.wei.sandwichPrice') + $wei * $price)*100;
+        $amount = ($sandwich * intval(Config::get('services.wei.sandwichPrice')) + $wei * $price);
 
         if ($amount == 0) {
             return Redirect(route('dashboard.wei.guarantee'))->withSuccess('Wei payé !');
@@ -188,8 +189,8 @@ class WEIController extends Controller
             'lastname' => $user->last_name,
             'description' => 'Formulaire de paiement du weekend d\'intégration et du panier repas',
             'articles' => [
-                ['name' => 'Week-end d\'intégration', 'price' => $price*100, 'quantity' => $wei],
-                ['name' => 'Panier repas du vendredi midi', 'price' => Config::get('services.wei.sandwichPrice')*100, 'quantity' => $sandwich],
+                ['name' => 'Week-end d\'intégration', 'price' => $price, 'quantity' => $wei],
+                ['name' => 'Panier repas du vendredi midi', 'price' => intval(Config::get('services.wei.sandwichPrice')), 'quantity' => $sandwich],
             ],
             'service_data' => $payment->id
         ]));
@@ -229,7 +230,7 @@ class WEIController extends Controller
         }
 
         // Calculate amount
-        $amount = ($guarantee * Config::get('services.wei.guaranteePrice'))*100;
+        $amount = ($guarantee * intval(Config::get('services.wei.guaranteePrice')));
 
         // Create payment
         $payment = new Payment([
@@ -257,7 +258,7 @@ class WEIController extends Controller
             'lastname' => $user->last_name,
             'description' => 'Formulaire de dépôt de la caution du weekend d\'intégration',
             'articles' => [
-                ['name' => 'Caution du Week-end d\'intégration', 'price' => Config::get('services.wei.guaranteePrice')*100, 'quantity' => $guarantee],
+                ['name' => 'Caution du Week-end d\'intégration', 'price' => $amount, 'quantity' => $guarantee],
             ],
             'service_data' => $payment->id
         ]));

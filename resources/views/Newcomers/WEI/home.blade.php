@@ -34,7 +34,7 @@ Le Week-End d'Intégration
 			</div>
 			<div class="box-body">
 				<p>Le Week-End d’Intégration commence le vendredi {{ (new Datetime(Config::get('services.wei.start')))->format('j') }} septembre à 11h30 par un voyage en bus dans un lieu dont on garde le mystère (c’est pas en Creuse promis !). Durant ce week-end, de nombreuses activités, soirées et surprises te seront proposées, c’est surtout l’occasion de rencontrer pleins de nouveaux, des futurs potes ;-). On te ramène à Troyes le dimanche au soir vers 18h.</p>
-				<p>Le prix du week-end est de 55€, on te demandera également une caution de 60€.</p>
+				<p>Le prix du week-end est de {{ config('services.wei.price')/100 }}€, on te demandera également une caution de {{ config('services.wei.guaranteePrice')/100 }}.</p>
 
 
 			@if(!Auth::user()->isPageChecked('profil'))

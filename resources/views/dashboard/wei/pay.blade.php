@@ -78,7 +78,7 @@ Le Week-End d'Intégration
     								Nous vous proposons donc un panier repas (sandwich, chips, fruit et bouteille d'eau) préparé par le CROUS (qui gère le restaurant universitaire).<br/>
     								</p>
     							</td>
-    							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice')) }} €</td>
+    							<td class="price">{{ sprintf('%04.2f', Config::get('services.wei.sandwichPrice')) / 100 }} €</td>
     							<td>
     								<select name="sandwich" class="quantity">
     									<option value="0" @if ((old('sandwich') ?? 1) == 0) selected="selected" @endif>0</option>
