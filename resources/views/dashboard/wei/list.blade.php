@@ -30,7 +30,7 @@ Liste de toutes les personnes inscrits au WEI
                     <th class=".hidden-print">Actions</th>
                 </tr>
                 @foreach ($users as $user)
-                    @if ($filter != 'invalid' || (!$user->weiPayment || $user->weiPayment->state != 'paid' || !$user->guaranteePayment || $user->guaranteePayment->state != 'paid'))
+                    @if ($filter != 'invalid' || (!$user->weiPayment || $user->weiPayment->state != 'paid' || !$user->guaranteePayment || $user->guaranteePayment->state != 'paid' || ($user->isUnderage() && !$user->parent_authorization)))
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{{ $user->first_name . ' ' . $user->last_name }}}</td>
