@@ -562,4 +562,25 @@ class WEIController extends Controller
 
         return View::make('dashboard.wei.list', ['users' => $students, 'filter' => $filter]);
     }
+
+    /**
+     * Display bus GPS Map
+     */
+
+    public function displayMap()
+    {
+        $buses = User::where('wei', 1)->whereNotNull('latitude')->whereNotNull('longitude')->orderBy('updated_at')->groupBy('bus_id')->get();
+
+        $pts = [];
+        foreach ($buses as $bus) {
+            $pts [] = [
+                'title' => 'Bus '.$bus->bus_id,
+                'lat' => $bus->latitude,
+                'lng' => $bus->longitude,
+                ];
+        }
+
+        return view('dashboard.maps.index', compact('pts'));
+
+    }
 }

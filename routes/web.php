@@ -466,6 +466,12 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'Admin\WEIController@adminGraph'
             ]);
 
+            Route::get('/map', [
+                'as'   => 'dashboard.wei.map',
+                'middleware' => 'authorize:admin',
+                'uses' => 'Admin\WEIController@displayMap'
+            ]);
+
             Route::get('/search', [
                 'as'   => 'dashboard.wei.search',
                 'middleware' => 'authorize:moderator',

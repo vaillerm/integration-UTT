@@ -12,6 +12,7 @@
         "chrisd-autume/db-config": "2.*",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
+        "gonoware/laravel-maps": "^1.0",
         "guzzlehttp/guzzle": "6.*",
         "intervention/image": "^2.5",
         "laravel/framework": "5.8.*",
