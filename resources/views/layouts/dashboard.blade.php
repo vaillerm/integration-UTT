@@ -98,6 +98,7 @@
                                             <li><a href="{{ route('dashboard.wei.list') }}">Liste</a></li>
                                             <li><a href="{{ route('dashboard.wei.assign.team') }}">BUS: assignation d'équipe</a></li>
                                             <li><a href="{{ route('dashboard.wei.bus.list') }}">BUS: liste</a></li>
+                                            <li><a href="{{ route('dashboard.wei.map') }}">Position gps des bus</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
