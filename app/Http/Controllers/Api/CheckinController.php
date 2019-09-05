@@ -77,7 +77,7 @@ class CheckinController extends Controller
      */
     public function addUser($id)
     {
-        $user = $user = Auth::guard('api')->user();
+        $user = Auth::guard('api')->user();
 
         if (!$user->ce && !$user->orga && !$user->admin) {
             return Response::json(["message" => "You are not allowed."], 403);
@@ -114,6 +114,9 @@ class CheckinController extends Controller
             if (!$checkin->users->contains($user->id)) {
                 $checkin->users()->attach($user->id);
                 $checkin->users()->sync([$user->id => ['checked' => true] ], false);
+            } else 
+            {
+                $checkin->users()->sync([$user->id => ['checked' => true] ], false);
             }
         }
 
@@ -128,7 +131,7 @@ class CheckinController extends Controller
      */
     public function removeUser($id)
     {
-        $user = $user = Auth::guard('api')->user();
+        $user = Auth::guard('api')->user();
 
         if (!$user->ce && !$user->orga && !$user->admin) {
             return Response::json(["message" => "You are not allowed."], 403);
