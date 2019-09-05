@@ -88,7 +88,7 @@ class WEIController extends Controller
         if (!$input['wei'] && !$oldWei && $input['sandwich']) {
             return Redirect::back()->withError('Vous ne pouvez pas prendre un panier repas sans prendre le weekend')->withInput();
         }
-        if (!$input['cgv']) {
+        if (!isset($input['cgv'])) {
             return Redirect::back()->withError('Vous devez accepter les conditions générales de vente')->withInput();
         }
 
