@@ -496,7 +496,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'Admin\WEIController@userSearchSubmit'
             ]);
 
-            Route::get('/list', [
+            Route::get('/list/{filter?}', [
                 'as'   => 'dashboard.wei.list',
                 'middleware' => 'authorize:admin',
                 'uses' => 'Admin\WEIController@list'

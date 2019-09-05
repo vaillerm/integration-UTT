@@ -30,6 +30,7 @@ Liste de toutes les personnes inscrits au WEI
                     <th class=".hidden-print">Actions</th>
                 </tr>
                 @foreach ($users as $user)
+                    @if ($filter != 'invalid' || (!$user->weiPayment || $user->weiPayment->state != 'paid' || !$user->guaranteePayment || $user->guaranteePayment->state != 'paid'))
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{{ $user->first_name . ' ' . $user->last_name }}}</td>
@@ -99,6 +100,7 @@ Liste de toutes les personnes inscrits au WEI
                             <a class="btn btn-xs btn-warning" href="{{ route('dashboard.wei.student.edit', [ 'id' => $user->id ])}}">WEI</a>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

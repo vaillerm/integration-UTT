@@ -544,13 +544,13 @@ class WEIController extends Controller
      *
      * @return Response
      */
-    public function list()
+    public function list($filter = '')
     {
         // Find students
         $students = User::select(['*', DB::raw('(ce AND team_accepted) AS ce')])
         ->where('wei', 1)->with('weiPayment')->with('sandwichPayment')->with('guaranteePayment')->get();
 
 
-        return View::make('dashboard.wei.list', ['users' => $students]);
+        return View::make('dashboard.wei.list', ['users' => $students, 'filter' => $filter]);
     }
 }
