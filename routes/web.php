@@ -490,7 +490,7 @@ Route::group(['prefix' => 'dashboard'], function () {
                 'uses' => 'Admin\WEIController@studentEditSubmit'
             ]);
 
-            Route::get('/checkin/{id}', [
+            Route::post('/checkin/{id}', [
                 'as'   => 'dashboard.wei.checkin',
                 'middleware' => 'authorize:moderator',
                 'uses' => 'Admin\WEIController@checkIn'

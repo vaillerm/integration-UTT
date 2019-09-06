@@ -458,7 +458,21 @@ Modification d'un étudiant
                     </div>
                     <div class="form-group">
                         @if(!$user->checkin)
-                            <a href="{{ route('dashboard.wei.checkin', ['id'=> (int)$user->id]) }}" class="btn btn-success form-control">Check-In</a>
+                            <form class="form-horizontal" action="{{ route('dashboard.wei.checkin', ['id'=> (int)$user->id]) }}" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <span class="col-lg-2 control-label">Sac de couchage</span>
+                                    <div class="col-lg-10">
+                                    <label><input type="radio" name="sleeping_bag" value="1" required>
+                                        Pris
+                                    </label><br/>
+                                    <label><input type="radio" name="sleeping_bag" value="0" required>
+                                        Oublié
+                                    </label><br/>
+                                    </div>
+                                </div>
+
+                                <input type="submit" class="btn btn-success form-control" value="Check-In"/>
+                            </form>
                         @else
                             <div class="callout callout-warning">
                                 Check-In déja effectué

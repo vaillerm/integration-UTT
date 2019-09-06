@@ -519,6 +519,8 @@ class WEIController extends Controller
 
     public function checkIn($id)
     {
+        $input = Request::only(['sleeping_bag']);
+
         $user = User::findOrFail($id);
         /**
         $date = new \DateTime(config('services.wei.start'));
@@ -528,9 +530,10 @@ class WEIController extends Controller
         }**/
 
         $user->checkin = true;
+        $user->sleeping_bag = $input['sleeping_bag'] == "1";
         $user->save();
 
-        //Gestion du repas
+        // Gestion du repas
         if($user->sandwichPayment && in_array($user->sandwichPayment->state, ['paid']))
         {
             $checkin = Checkin::where('name','Repas WEI')->first();
@@ -542,6 +545,20 @@ class WEIController extends Controller
                 $checkin->save();
             }
 
+            $checkin->users()->attach($user->id);
+        }
+
+        // Generate bus checkin
+        if ($user->bus_id) {
+            $checkin = Checkin::where('name','Check-in bus ' . $user->bus_id)->first();
+            if(!$checkin) {
+                $checkin = new Checkin([
+                    'name' => 'Check-in bus ' . $user->bus_id,
+                    'prefilled' => true,
+                ]);
+                $checkin->save();
+            }
+    
             $checkin->users()->attach($user->id);
         }
 
