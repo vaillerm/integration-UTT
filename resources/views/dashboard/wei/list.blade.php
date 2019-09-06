@@ -15,8 +15,8 @@ Liste de toutes les personnes inscrits au WEI
         <h3 class="box-title">Liste</h3>
     </div>
     <div class="box-body table-responsive no-padding">
-        <table class="table table-hover trombi">
-            <tbody>
+        <table class="table table-hover" id="maintable">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nom complet</th>
@@ -27,8 +27,11 @@ Liste de toutes les personnes inscrits au WEI
                     <th>Caution</th>
                     <th>Autorisation</th>
                     <th>CheckIn</th>
+                    <th>Bus</th>
                     <th class=".hidden-print">Actions</th>
                 </tr>
+            </thead>
+            <tbody>
                 @foreach ($users as $user)
                     @if ($filter != 'invalid' || (!$user->weiPayment || $user->weiPayment->state != 'paid' || !$user->guaranteePayment || $user->guaranteePayment->state != 'paid' || ($user->isUnderage() && !$user->parent_authorization)))
                     <tr>
@@ -94,6 +97,9 @@ Liste de toutes les personnes inscrits au WEI
                             @else
                                 <span class="label label-danger">Non</span>
                             @endif
+                        </td>
+                        <td>
+                            {{ $user->bus_id }}
                         </td>
                         <td class=".hidden-print">
                             <a class="btn btn-xs btn-info" href="{{ route('dashboard.students.edit', [ 'id' => $user->id ])}}">Utilisateur</a>

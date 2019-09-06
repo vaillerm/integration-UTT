@@ -37,8 +37,8 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga.
         </div>
     </div>
     <div class="box-body table-responsive no-padding">
-        <table class="table table-hover trombi">
-            <tbody>
+        <table class="table table-hover trombi" id="maintable">
+            <thead>
                 <tr>
                     <th>Photo</th>
                     <th>N° étu</th>
@@ -49,6 +49,8 @@ Liste de tous les étudiants inscrits sur le site en tant que parrain, CE, orga.
                     <th>Labels</th>
                     <th class="hidden-print">Actions</th>
                 </tr>
+            </thead>
+            <tbody>
                 @foreach ($students as $student)
                     <tr>
                         <td><a href="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}"><img src="{{ asset('/uploads/students-trombi/'.$student->student_id.'.jpg') }}" alt="Photo"/></a></td>
