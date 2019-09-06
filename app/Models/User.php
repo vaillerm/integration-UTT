@@ -723,6 +723,15 @@ class User extends Model implements Authenticatable
         ->wherePivot('respo', false)
         ->wherePivot('presence', 'absent');
     }
+    /**
+     * Presence of the User.
+     */
+    public function presences()
+    {
+      return $this->belongsToMany(Perm::class, 'perm_users', 'user_id', 'perm_id')
+        ->wherePivot('respo', false)
+        ->wherePivot('presence', 'present');
+    }
 
     public function devices() {
         return $this->hasMany('App\Models\Device');

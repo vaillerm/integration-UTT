@@ -28,8 +28,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Points</th>
-                        <th>Absences</th>
+                        <th>Présences/Absences</th>
                         <th>Nombre de perms</th>
+                        <th>Wei</th>
                         <th>Actions</th>
                     </tr>
                     @foreach ($users as $user)
@@ -37,8 +38,9 @@
                             <td>{{ $user->last_name }}</td>
                             <td>{{ $user->first_name }}</td>
                             <td>{{ $user->points() }}</td>
-                            <td>{{ $user->absences->count() }}</td>
+                            <td>{{ $user->presences->count() }}/{{ $user->absences->count() }}</td>
                             <td>{{ $user->perms->count() }}</td>
+                            <td>{{ $user-> wei ? 'Oui' : 'Non' }}</td>
                             <td><a class="btn btn-xs btn-info" href="{{ url('dashboard/user/'.$user->id.'/perms') }}">Liste des perms</a></td>
                         </tr>
                     @endforeach

@@ -16,6 +16,12 @@ class RallyeController extends Controller
 {
     public function store($id) // team id
     {
+        // api request
+        $user = Auth::guard('api')->user();
+
+        if (!$user->admin) { // add role for rallye later
+            return Response::json(["message" => "You are not allowed."], 403);
+        }
         $team = Team::find($id);
         $params = Request::all()['params'];
         if ($params['user'] && $params['stand'] && $params['result']) {
