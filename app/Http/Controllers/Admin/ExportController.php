@@ -111,4 +111,21 @@ class ExportController extends Controller
             });
         })->export('xls');
     }
+
+    /**
+     * Export all raw data about students
+     *
+     * @return string
+     */
+    public function getExportRawUsers()
+    {
+        $users = User::select(['*', \DB::raw('(ce AND team_accepted) AS ce')])
+        ->orderBy('last_name')->get();
+
+        return Excel::create('EtudiantsBrute', function ($file) use ($users) {
+            $file->sheet('', function ($sheet) use ($users) {
+                $sheet->fromArray($users);
+            });
+        })->export('xls');
+    }
 }

@@ -108,6 +108,7 @@
                                             <li><a href="{{ route('dashboard.exports.referrals') }}">Parrains -> nouveaux</a></li>
                                             <li><a href="{{ route('dashboard.exports.teams') }}">CE</a></li>
                                             <li><a href="{{ route('dashboard.exports.students') }}">Tous les utilisateurs</a></li>
+                                            <li><a href="{{ route('dashboard.exports.raw-students') }}">Export brute des utilisateurs</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
