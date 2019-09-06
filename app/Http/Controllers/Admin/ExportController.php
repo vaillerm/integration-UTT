@@ -102,7 +102,7 @@ class ExportController extends Controller
     public function getExportStudents()
     {
         $users = User::select(['first_name', 'last_name', 'student_id', 'phone', 'email',
-        \DB::raw('is_newcomer as nouveau'), \DB::raw('referral_validated as parrain'), \DB::raw('IF(team_id > 0,1,0) as ce'), \DB::raw('volunteer as benevole'), 'orga', 'secu'])
+        \DB::raw('is_newcomer as nouveau'), \DB::raw('referral_validated as parrain'), \DB::raw('IF(team_id > 0,1,0) as ce'), \DB::raw('volunteer as benevole'), 'orga', 'secu', 'wei', \DB::raw('checkin as checkin_wei'), 'wei_majority'])
         ->orderBy('last_name')
         ->get();
         return Excel::create('Etudiants', function ($file) use ($users) {
