@@ -33,7 +33,7 @@ server {
     server_name integration.utt.fr;
 
 
-    root /var/www/integration-UTT/public/;
+    root /var/www/integration-utt/public/;
     index index.php index.html index.htm;
 
     location / {
@@ -75,7 +75,7 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/var/www/integration-UTT
+WorkingDirectory=/var/www/integration-utt
 ExecStart=/usr/bin/php artisan queue:listen
 Restart=always
 
@@ -93,7 +93,7 @@ systemctl enable integration-queue
 
 L'envoi des mails utilise aussi le scheduler de laravel. Il faut donc ajouter ceci au fichier `/etc/crontab`
 ```
-* * * * * php /var/www/integration-UTT/artisan schedule:run >> /dev/null 2>&1
+* * * * * php /var/www/integration-utt/artisan schedule:run >> /dev/null 2>&1
 ```
 
 ## Week-end d'intégration
