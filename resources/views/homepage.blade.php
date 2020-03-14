@@ -59,10 +59,10 @@ Accueil
             <?php
                 $sponsors = [];
                 //$sponsors[] = [ 'link' => 'http://www.ada.fr/location-voiture-troyes.html', 'img' => asset("img/sponsors/ada.png"), 'alt' => 'ADA Location de véhicules' ];
-                $sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
+                //$sponsors[] = [ 'link' => 'http://www.yves-damonte.fr', 'img' => asset("img/sponsors/damonte.png"), 'alt' => 'Damonte Immobilier' ];
                 //$sponsors[] = [ 'link' => 'http://www.mgel.fr/', 'img' => asset("img/sponsors/mgel.png"), 'alt' => 'MGEL' ];
-                $sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => asset("img/sponsors/popeye-white-background.png"), 'alt' => 'Popeye auto-école' ];
-                $sponsors[] = [ 'link' => 'https://www.beijaflore.com/fr/', 'img' => asset("img/sponsors/beijaflore-2019.png"), 'alt' => 'Beijaflore' ];
+                //$sponsors[] = [ 'link' => 'http://www.auto-ecole-popeye.fr/', 'img' => asset("img/sponsors/popeye-white-background.png"), 'alt' => 'Popeye auto-école' ];
+                //$sponsors[] = [ 'link' => 'https://www.beijaflore.com/fr/', 'img' => asset("img/sponsors/beijaflore-2019.png"), 'alt' => 'Beijaflore' ];
                 shuffle($sponsors);
             ?>
             @foreach($sponsors as $sponsor)
