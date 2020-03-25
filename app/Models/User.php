@@ -245,7 +245,7 @@ class User extends Model implements Authenticatable
         'rallye' => [
             'title' => 'Coordinateur du Rallye',
             'description' => 'Organiser les activités du rallye du Jeudi après-midi, regroupant toutes les équipes de nouveaux.',
-        ]
+        ],
         'wei' => [
             'title' => 'Coordinateurs du WEI',
             'description' => 'Organiser le WEI.',
