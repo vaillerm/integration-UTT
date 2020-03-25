@@ -96,6 +96,10 @@ L'envoi des mails utilise aussi le scheduler de laravel. Il faut donc ajouter ce
 * * * * * php /var/www/integration-utt/artisan schedule:run >> /dev/null 2>&1
 ```
 
+## Ajout d'un administrateur
+
+Après une première connexion, il est possible de passer un utilisateur en administrateur en mettant son champ `admin` dans la base de données à `100`.
+
 ## Week-end d'intégration
 
 Les inscriptions au week-end d'intégration sont gérées depuis l'interface d'administration :
@@ -148,3 +152,5 @@ Ensuite il faut configurer les champs suivants dans le fichier `.env` :
 #### Dates
 * `WEI_DATES_START` : Date de départ vers le WEI (utilisé uniquement pour savoir
 si la personne a besoin de l'autorisation parentale).
+
+
