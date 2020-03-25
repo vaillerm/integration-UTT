@@ -203,32 +203,32 @@ class User extends Model implements Authenticatable
         ],
         'parrainages' => [
             'title' => 'Gestion des parrainages',
-            'description' => 'Gérer les parrainages et la rencontre nouveaux / parrains',
+            'description' => 'Gérer les parrainages et la rencontre nouveaux / parrains.',
         ],
         // Evènements
         'defi-tc' => [
             'title' => 'Coordinateur des Défis TC',
-            'description' => 'Préparer l\'aprèm où les nouveaux TC devront faire preuve d\'ingéniosité pour marquer des points',
+            'description' => 'Préparer l\'aprèm où les nouveaux TC devront faire preuve d\'ingéniosité pour marquer des points.',
         ],
         'animations-m104' => [
             'title' => 'Organisateur des animations en M104',
-            'description' => 'Organiser, avec les CEs et les assos, des animations chill en M104 le Mardi et le Mercredi matin',
+            'description' => 'Organiser, avec les CEs et les assos, des animations chill en M104 le Mardi et le Mercredi matin.',
         ],
         'visite' => [
             'title' => 'Organisateur de la visite des locaux',
-            'description' => 'Organiser la visite des locaux et la mettre en place',
+            'description' => 'Organiser la visite des locaux et la mettre en place.',
         ],
         'faux-discours' => [
             'title' => 'Faux discours',
-            'description' => 'Ecrire et réaliser un faux discours',
+            'description' => 'Ecrire et réaliser un faux discours.',
         ],
         'olympiades-asso' => [
             'title' => 'Coordinateur des Olympiades Assos',
-            'description' => 'Organiser les Olympiades associatives, démarcher les associatifs',
+            'description' => 'Organiser les Olympiades associatives, démarcher les associatifs.',
         ],
         'bbq-asso' => [
             'title' => 'Coordinateur du BBQ Asso',
-            'description' => 'Organiser le BBQ Asso, l\'agencement de l\'évènement et le animations de la soirée',
+            'description' => 'Organiser le BBQ Asso, l\'agencement de l\'évènement et le animations de la soirée.',
         ],
         'faux-test' => [
             'title' => 'Faux test',
@@ -244,15 +244,15 @@ class User extends Model implements Authenticatable
         ],
         'rallye' => [
             'title' => 'Coordinateur du Rallye',
-            'description' => 'Organiser les activités du rallye du Jeudi après-midi, regroupant toutes les équipes de nouveaux'.,
-        ],
+            'description' => 'Organiser les activités du rallye du Jeudi après-midi, regroupant toutes les équipes de nouveaux.',
+        ]
         'wei' => [
             'title' => 'Coordinateurs du WEI',
-            'description' => 'Organiser le WEI',
+            'description' => 'Organiser le WEI.',
         ],
         'orga-wei' => [
             'title' => 'Organisateur d\'animation du WEI',
-            'description' => 'Organiser différentes une ou plusieurs animations du WEI',
+            'description' => 'Organiser différentes une ou plusieurs animations du WEI.',
         ],
     ];
 
