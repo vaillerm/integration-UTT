@@ -250,10 +250,6 @@ class User extends Model implements Authenticatable
             'title' => 'Coordinateurs du WEI',
             'description' => 'Organiser le WEI.',
         ],
-        'orga-wei' => [
-            'title' => 'Organisateur d\'animation du WEI',
-            'description' => 'Organiser différentes une ou plusieurs animations du WEI.',
-        ],
     ];
 
     public function hasAlreadyValidatedChallenge(int $id) {
