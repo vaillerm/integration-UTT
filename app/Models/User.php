@@ -271,8 +271,7 @@ class User extends Model implements Authenticatable
 
     public function getPasswordType()
     {
-        // return password_get_info($this->password);
-        return NULL;
+        return password_get_info($this->password);
     }
 
     /**
@@ -516,7 +515,8 @@ class User extends Model implements Authenticatable
      */
     public function getAuthPassword()
     {
-        return $this->attributes['password'];
+        // return $this->attributes['password'];
+        return NULL;
     }
 
     /**
