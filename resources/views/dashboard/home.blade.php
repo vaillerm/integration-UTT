@@ -18,7 +18,7 @@ Informations diverses pour toi !
             <p>Si tu vois ce message, c'est que tu fais partie de la grande famille des bénévoles de l'intégration. <strong>Et nous t'en remercions !</strong></p>
             <p>Ta mission la plus importante sur ce site est de tenir tes informations de contact à jour et de rejoindre le groupe Facebook suivant afin de pouvoir être contacté lorsque l'intégration a besoin de toi !</p>
 
-            <p><a class="btn btn-success" href="https://www.facebook.com/groups/1071303749722817/" target="_blank">
+            <p><a class="btn btn-success" href="https://www.facebook.com/groups/591522154778460/" target="_blank">
                 <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 Rejoindre le groupe facebook des bénévoles
             </a></p>

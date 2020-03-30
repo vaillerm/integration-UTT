@@ -173,41 +173,9 @@ class User extends Model implements Authenticatable
             'title' => 'Partenariat',
             'description' => 'Aller voir des entreprises pour récupérer des goodies, des réductions pour les étudiants ou de l\'argent pour l\'inté.',
         ],
-        'soiree' => [
-            'title' => 'Soirée d’intégration',
-            'description' => 'Organiser une petite soirée de 1000 personnes dans l\'UTT.',
-        ],
-        'rallye' => [
-            'title' => 'Rallye',
-            'description' => 'Prévoir les différentes activités qui occuperont les 30 équipes pendant l\'après-midi du jeudi.',
-        ],
-        'village-asso' => [
-            'title' => 'Village asso',
-            'description' => 'Communiquer avec les assos de l\'UTT pour organiser une aprem de découverte des assos, sans que ce soit chiant pour les nouveaux.',
-        ],
-        'wei' => [
-            'title' => 'WEI',
-            'description' => 'Prévoir les différentes animations du weekend',
-        ],
-        'defi' => [
-            'title' => 'Défi TC',
-            'description' => 'Préparer l\'aprèm où les nouveaux TC devront faire preuve d\'ingéniosité pour marquer des points',
-        ],
-        'co-utt' => [
-            'title' => 'Course d\'orientation TC',
-            'description' => 'Organiser la course d\'orientation de découverte de l\'UTT, où les nouveaux pourront visiter des parties inaccessible de l’UTT.',
-        ],
-        'faux-test' => [
-            'title' => 'Faux test',
-            'description' => 'Organiser ce magnifique troll et faire un best-of des conneries qu\'ils auront écrits.',
-        ],
         'gubu' => [
             'title' => 'GUBU',
             'description' => 'Mettre à jour le GUBU avec les nouveaux bails.',
-        ],
-        'co-wei' => [
-            'title' => 'Course d\'orientation WEI',
-            'description' => 'Organiser les activités qui accueilleront les nouveaux sur le lieu du WEI.',
         ],
         'securite' => [
             'title' => 'Securité',
@@ -218,7 +186,7 @@ class User extends Model implements Authenticatable
             'description' => 'Quelques kilowatt de son, plein de lumières dans tous les sens et tout ça pour la soirée d\'intégration, le WEI et le M500.',
         ],
         'developpeur' => [
-            'title' => 'Développeur (PHP, Laravel, Ionic)',
+            'title' => 'Développeur',
             'description' => 'Il y a toujours de nouvelles fonctionnalités à ajouter au site de l\'inté et à l\'application mobile. A quand un décompte en temps réel du nombre de tour de rond points !',
         ],
         'dj' => [
@@ -232,6 +200,55 @@ class User extends Model implements Authenticatable
         'media' => [
             'title' => 'Argentique/Média',
             'description' => 'Si tu aimes documenter la vie du jeune étudiant et mettre à profit toutes des compétences de photographie ou de création de vidéo cette com est pour toi ! L\'inté a besoin de toi pour les photos des soirées et durant toute la semaine, mais aussi pour les films de présentation et les Interview du wei !',
+        ],
+        'parrainages' => [
+            'title' => 'Gestion des parrainages',
+            'description' => 'Gérer les parrainages et la rencontre nouveaux / parrains.',
+        ],
+        // Evènements
+        'defi-tc' => [
+            'title' => 'Coordinateur des Défis TC',
+            'description' => 'Préparer l\'aprèm où les nouveaux TC devront faire preuve d\'ingéniosité pour marquer des points.',
+        ],
+        'animations-m104' => [
+            'title' => 'Organisateur des animations en M104',
+            'description' => 'Organiser, avec les CEs et les assos, des animations chill en M104 le Mardi et le Mercredi matin.',
+        ],
+        'visite' => [
+            'title' => 'Organisateur de la visite des locaux',
+            'description' => 'Organiser la visite des locaux et la mettre en place.',
+        ],
+        'faux-discours' => [
+            'title' => 'Faux discours',
+            'description' => 'Ecrire et réaliser un faux discours.',
+        ],
+        'olympiades-asso' => [
+            'title' => 'Coordinateur des Olympiades Assos',
+            'description' => 'Organiser les Olympiades associatives, démarcher les associatifs.',
+        ],
+        'bbq-asso' => [
+            'title' => 'Coordinateur du BBQ Asso',
+            'description' => 'Organiser le BBQ Asso, l\'agencement de l\'évènement et les animations de la soirée.',
+        ],
+        'faux-test' => [
+            'title' => 'Faux test',
+            'description' => 'Organiser ce magnifique troll et faire un best-of des conneries qu\'ils auront écrits.',
+        ],
+        'co-utt' => [
+            'title' => 'Organisateur de la Course d\'Orientation à l\'UTT',
+            'description' => 'Organiser la course d\'orientation de découverte de l\'UTT, où les nouveaux pourront visiter des parties inaccessible de l’UTT.',
+        ],
+        'soiree-integration' => [
+            'title' => 'Coordinateur de la Soirée d’Intégration',
+            'description' => 'Organiser une petite soirée de 1000 personnes dans l\'UTT.',
+        ],
+        'rallye' => [
+            'title' => 'Coordinateur du Rallye',
+            'description' => 'Organiser les activités du rallye du Jeudi après-midi, regroupant toutes les équipes de nouveaux.',
+        ],
+        'wei' => [
+            'title' => 'Coordinateurs du WEI',
+            'description' => 'Organiser le WEI.',
         ],
     ];
 
@@ -494,7 +511,8 @@ class User extends Model implements Authenticatable
      */
     public function getAuthPassword()
     {
-        return $this->attributes['password'];
+        // return $this->attributes['password'];
+        return NULL;
     }
 
     /**
