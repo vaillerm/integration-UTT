@@ -228,7 +228,7 @@ class User extends Model implements Authenticatable
         ],
         'bbq-asso' => [
             'title' => 'Coordinateur du BBQ Asso',
-            'description' => 'Organiser le BBQ Asso, l\'agencement de l\'évènement et le animations de la soirée.',
+            'description' => 'Organiser le BBQ Asso, l\'agencement de l\'évènement et les animations de la soirée.',
         ],
         'faux-test' => [
             'title' => 'Faux test',
