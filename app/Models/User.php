@@ -250,6 +250,10 @@ class User extends Model implements Authenticatable
             'title' => 'Coordinateurs du WEI',
             'description' => 'Organiser le WEI.',
         ],
+        'benevole' => [
+            'title' => 'Bénévole',
+            'description' => 'Aider pendant la semaine.',
+        ],
     ];
 
     public function hasAlreadyValidatedChallenge(int $id) {
