@@ -155,7 +155,7 @@ class User extends Model implements Authenticatable
         ],
         'boisson' => [
             'title' => 'Respo boisson',
-            'description' => 'Gérer les boissons, les tireuses et la tenue des bars',
+            'description' => 'Gérer les boissons et les tireuses, tenir des bars',
         ],
         'communication' => [
             'title' => 'Communication',
@@ -210,32 +210,32 @@ class User extends Model implements Authenticatable
             'description' => 'Si tu aimes documenter la vie du jeune étudiant et mettre à profit toutes des compétences de photographie ou de création de vidéo cette com est pour toi ! L\'inté a besoin de toi pour les photos des soirées et durant toute la semaine, mais aussi pour les films de présentation et les Interview du wei !',
         ],
         'parrainages' => [
-            'title' => 'Gestion des parrainages',
-            'description' => 'Gérer les parrainages et la rencontre nouveaux / parrains.',
+            'title' => 'Parrainages',
+            'description' => 'Gérer les parrainages pendant l\'été, organiser la rencontre nouveaux / parrains.',
         ],
         // Evènements
         'defi-tc' => [
-            'title' => 'Coordinateur des Défis TC',
-            'description' => 'Préparer l\'aprèm où les nouveaux TC devront faire preuve d\'ingéniosité pour marquer des points.',
+            'title' => 'Défis TC',
+            'description' => 'Préparer l\'aprèm où les nouveaux TC devront faire preuve d\'ingéniosité.',
         ],
         'animations-m104' => [
-            'title' => 'Organisateur des animations en M104',
+            'title' => 'Animations en M104',
             'description' => 'Organiser, avec les CEs et les assos, des animations chill en M104 le Mardi et le Mercredi matin.',
         ],
         'visite' => [
-            'title' => 'Organisateur de la visite des locaux',
-            'description' => 'Organiser la visite des locaux et la mettre en place.',
+            'title' => 'Visite des locaux',
+            'description' => 'Organiser une visite des locaux.',
         ],
         'faux-discours' => [
             'title' => 'Faux discours',
             'description' => 'Ecrire et réaliser un faux discours.',
         ],
         'olympiades-asso' => [
-            'title' => 'Coordinateur des Olympiades Assos',
-            'description' => 'Organiser les Olympiades associatives, démarcher les associatifs.',
+            'title' => 'Olympiades Assos',
+            'description' => 'Organiser les Olympiades associatives, avec l\'aide des associations.',
         ],
         'bbq-asso' => [
-            'title' => 'Coordinateur du BBQ Asso',
+            'title' => 'BBQ Asso',
             'description' => 'Organiser le BBQ Asso, l\'agencement de l\'évènement et les animations de la soirée.',
         ],
         'faux-test' => [
@@ -243,24 +243,24 @@ class User extends Model implements Authenticatable
             'description' => 'Organiser ce magnifique troll et faire un best-of des conneries qu\'ils auront écrits.',
         ],
         'co-utt' => [
-            'title' => 'Organisateur de la Course d\'Orientation à l\'UTT',
+            'title' => 'Course d\'Orientation à l\'UTT',
             'description' => 'Organiser la course d\'orientation de découverte de l\'UTT, où les nouveaux pourront visiter des parties inaccessible de l’UTT.',
         ],
         'soiree-integration' => [
-            'title' => 'Coordinateur de la Soirée d’Intégration',
+            'title' => 'Soirée d’Intégration',
             'description' => 'Organiser une petite soirée de 1000 personnes dans l\'UTT.',
         ],
         'rallye' => [
-            'title' => 'Coordinateur du Rallye',
+            'title' => 'Rallye',
             'description' => 'Organiser les activités du rallye du Jeudi après-midi, regroupant toutes les équipes de nouveaux.',
         ],
         'wei' => [
-            'title' => 'Coordinateur du WEI',
+            'title' => 'WEI',
             'description' => 'Organiser le WEI.',
         ],
         'benevole' => [
             'title' => 'Bénévole',
-            'description' => 'Aider pendant la semaine.',
+            'description' => 'Pas dispos avant pour l\'organisation, t\inquiète il y aura l\occasion d\'aider pendant la semaine.',
         ],
     ];
 
