@@ -153,7 +153,7 @@ Parce que l'intégration, c'est surtout vous !
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="convention" name="convention" @if ($student->volunteer == 1) checked="checked" @endif/>
-                                <strong>Je comprend l'objectif de l'intégration et je comprend que mes actions peuvent être punies par une peine d'emprisonnement et 15 000 € d'amende.</strong>
+                                <strong>Je comprends l'objectif de l'intégration et je comprends que mes actions peuvent être punies par une peine d'emprisonnement et 15 000 € d'amende.</strong>
                             </label>
                         </div>
                     </div>
