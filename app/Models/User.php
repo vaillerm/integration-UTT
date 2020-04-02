@@ -145,9 +145,17 @@ class User extends Model implements Authenticatable
             'title' => 'Chef d\'équipe',
             'description' => 'Animer et accompagner une équipe de 25-30 nouveaux pendant toute l\'intégration.',
         ],
+        'respo-ce' => [
+            'title' => 'Respo CEs',
+            'description' => 'Gérer les CEs',
+        ],
         'logistique' => [
             'title' => 'Logistique',
             'description' => 'Jouer avec des transpalettes, rassembler et acheminer tout le matériel nécessaire pour chaque activité de l\'intégration.',
+        ],
+        'boisson' => [
+            'title' => 'Respo boisson',
+            'description' => 'Gérer les boissons, les tireuses et la tenue des bars',
         ],
         'communication' => [
             'title' => 'Communication',
@@ -249,6 +257,10 @@ class User extends Model implements Authenticatable
         'wei' => [
             'title' => 'Coordinateurs du WEI',
             'description' => 'Organiser le WEI.',
+        ],
+        'benevole' => [
+            'title' => 'Bénévole',
+            'description' => 'Aider pendant la semaine.',
         ],
     ];
 
