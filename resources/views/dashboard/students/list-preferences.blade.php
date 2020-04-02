@@ -12,7 +12,7 @@ Liste de tous les bénévoles classés par préférences
 
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Liste des étudiants</h3>
+        <h3 class="box-title">Liste des bénévoles</h3>
         <div class="pull-right">
             @foreach ($filterMenu as $key => $value)
                     <a class="btn btn-xs {{ $value['class'] }}"
