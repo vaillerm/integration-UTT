@@ -38,7 +38,7 @@ class ImportStudentPictures extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $i = 0;
         $list = User::student()->get();
