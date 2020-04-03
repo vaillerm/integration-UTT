@@ -39,7 +39,7 @@ class ImportNewcomers extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         dispatch(new refreshNewcomers());
     }
