@@ -100,6 +100,13 @@ L'envoi des mails utilise aussi le scheduler de laravel. Il faut donc ajouter ce
 
 Après une première connexion, il est possible de passer un utilisateur en administrateur en mettant son champ `admin` dans la base de données à `100`.
 
+## Import des photos de profile des étudiants
+
+Assurez vous que le dossier `public/uploads/students-trombi` existe, puis executez la commande suivante :
+```
+php artisan integration:students:importPictures
+```
+
 ## Week-end d'intégration
 
 Les inscriptions au week-end d'intégration sont gérées depuis l'interface d'administration :
