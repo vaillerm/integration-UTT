@@ -40,6 +40,9 @@ class ImportStudentPictures extends Command
      */
     public function handle()
     {
+        $students_profile_picture_path = public_path().'/uploads/students-trombi/';
+        File::makeDirectory($students_profile_picture_path, $mode = 0777, true);
+
         $i = 0;
         $list = User::student()->get();
         foreach ($list as $student) {
@@ -50,7 +53,7 @@ class ImportStudentPictures extends Command
                 echo "Error while trying to download student picture of ". $student->fullName() . " (" . $student->student_id . ")\n";
             }
             else {
-                file_put_contents(public_path() . '/uploads/students-trombi/' . $student->student_id . '.jpg', $picture);
+                file_put_contents($students_profile_picture_path . $student->student_id . '.jpg', $picture);
             }
         }
         $this->info('Done!');
