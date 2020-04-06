@@ -93,7 +93,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WEI <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ route('dashboard.wei') }}">Inscription</a></li>
-                                            <li><a href="{{ route('dashboard.wei.graph') }}">Graphique</a></li>
+                                            <li><a href="{{ route('dashboard.wei.graph') }}">Statistiques</a></li>
                                             <li><a href="{{ route('dashboard.wei.search') }}">Gérer</a></li>
                                             <li><a href="{{ route('dashboard.wei.list') }}">Liste</a></li>
                                             <li><a href="{{ route('dashboard.wei.assign.team') }}">BUS: assignation d'équipe</a></li>
