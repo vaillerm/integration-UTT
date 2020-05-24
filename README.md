@@ -160,4 +160,27 @@ Ensuite il faut configurer les champs suivants dans le fichier `.env` :
 * `WEI_DATES_START` : Date de départ vers le WEI (utilisé uniquement pour savoir
 si la personne a besoin de l'autorisation parentale).
 
+#### Application mobile
 
+Pour que l'application mobile puisse accéder au site etu, ses credentials doivent être configurés sur le site d'intégration.
+
+#### CE
+
+Pour configurer le shotgun CE, les variables suivantes doivent être configurées :
+```
+services.ce.maxTeamTc - Nombre maximum d'équipes TC
+services.ce.maxTeamBranch - Nombre maximum d'équipes de branche
+services.ce.opening - Date d'ouverture du shotgun ()
+services.ce.deadline - Date de fin de d'édition des équipes, pour l'envoi aux nouveaux
+services.ce.fakeDeadline - Date publique de fin d'édition des équipes
+services.ce.teamNameOpening - Date d'ouverture d'attribution des noms d'équipes
+```
+
+#### Parrains
+
+Pour configurer le shotgun CE, les variables suivantes doivent être configurées :
+```
+services.referral.opening - Date d'ouverture des inscriptions des parrains
+services.referral.deadline - Date de fermeture des inscriptions parrains
+services.referral.fakeDeadline
+```
