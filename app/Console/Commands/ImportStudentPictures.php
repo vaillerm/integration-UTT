@@ -5,6 +5,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Models\User;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ImportStudentPictures extends Command
 {
@@ -41,7 +42,12 @@ class ImportStudentPictures extends Command
     public function handle()
     {
         $students_profile_picture_path = public_path().'/uploads/students-trombi/';
-        File::makeDirectory($students_profile_picture_path, $mode = 0777, true);
+        $filesystem = new Filesystem();
+        try {
+            $filesystem->mkdir($students_profile_picture_path, 0777);
+        } catch (IOExceptionInterface $exception) {
+            echo "An error occurred while creating your directory at ".$exception->getPath();
+        }
 
         $i = 0;
         $list = User::student()->get();
