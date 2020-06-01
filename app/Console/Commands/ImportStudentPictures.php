@@ -54,7 +54,13 @@ class ImportStudentPictures extends Command
         foreach ($list as $student) {
             $i++;
             echo $i . "/" . $list->count() . " " . $student->fullName() . " " . "\n";
-            $picture = @file_get_contents('http://local-sig.utt.fr/Pub/trombi/individu/' . $student->student_id . '.jpg');
+            $picture = @file_get_contents('https://etu.utt.fr/uploads/photos/' . $student->etuutt_login . '.png');
+            if (empty($picture)) {
+                $picture = @file_get_contents('https://etu.utt.fr/uploads/photos/' . $student->etuutt_login . '.jpg');
+            }
+            if (empty($picture)) {
+                $picture = @file_get_contents('https://etu.utt.fr/uploads/photos/' . $student->etuutt_login . '_official.jpg');
+            }
             if (empty($picture)) {
                 echo "Error while trying to download student picture of ". $student->fullName() . " (" . $student->student_id . ")\n";
             }
