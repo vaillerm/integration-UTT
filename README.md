@@ -176,6 +176,8 @@ services.ce.fakeDeadline - Date publique de fin d'édition des équipes
 services.ce.teamNameOpening - Date d'ouverture d'attribution des noms d'équipes
 ```
 
+Pour pouvoir modifier les noms d'équipe, le thème (`services.theme`) doit avoir été configuré au préalable.
+
 #### Parrains
 
 Pour configurer le shotgun CE, les variables suivantes doivent être configurées :
