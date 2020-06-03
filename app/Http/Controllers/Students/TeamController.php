@@ -139,7 +139,7 @@ class TeamController extends Controller
         $team->name = $data['name'];
         $team->safe_name = $data['safe_name'];
         $team->description = $data['description'];
-        $team->facebook = $data['facebook'];
+        //$team->facebook = $data['facebook'];
         $team->validated = false;
 
         if ($extension) {
