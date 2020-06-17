@@ -213,6 +213,11 @@ class User extends Model implements Authenticatable
             'title' => 'Parrainages',
             'description' => 'Gérer les parrainages pendant l\'été, organiser la rencontre nouveaux / parrains.',
         ],
+        'prevention' => [
+            'title' => 'Prévention',
+            'description' => 'Incorporer plus d\'actions de prévention pendant l\'intégration.',
+        ],
+
         // Evènements
         'defi-tc' => [
             'title' => 'Défis TC',
