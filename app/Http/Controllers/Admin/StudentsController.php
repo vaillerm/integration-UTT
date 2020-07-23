@@ -228,7 +228,7 @@ class StudentsController extends Controller
         if ($student->is_newcomer) {
             $student->parent_name = $data['parent_name'];
             $student->parent_phone = $data['parent_phone'];
-            $student->birth = $data['birth'];
+            # $student->birth = $data['birth'];
             $student->allow_publicity = !empty($data['allow_publicity']);
         }
         else {
