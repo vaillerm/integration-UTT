@@ -212,7 +212,6 @@ class StudentsController extends Controller
         }
 
         // Update student informations
-        $student->sex = $data['sex'];
         $student->email = $data['email'];
         $student->phone = $data['phone'];
         $student->branch = $data['branch'];
@@ -233,6 +232,7 @@ class StudentsController extends Controller
             $student->allow_publicity = !empty($data['allow_publicity']);
         }
         else {
+            $student->sex = $data['sex'];
             $student->surname = $data['surname'];
             $student->level = $data['level'];
             $student->referral = !empty($data['referral']);
