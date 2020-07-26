@@ -10,7 +10,7 @@
         "aferrandini/phpqrcode": "^1.0",
         "barryvdh/laravel-cors": "^0.11",
         "chrisd-autume/db-config": "2.*",
-        "doctrine/dbal": "^2.9",
+        "doctrine/dbal": "2.9",
         "fideloper/proxy": "^4.0",
         "gonoware/laravel-maps": "^1.0",
         "guzzlehttp/guzzle": "6.*",
