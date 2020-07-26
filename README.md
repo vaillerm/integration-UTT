@@ -2,112 +2,150 @@
 
 Site réalisé pour le [BDE de l'UTT](http://bde.utt.fr), sous Laravel 5.2. Le but est de pouvoir importer, gérer les nouveaux étudiants, les assigner à une équipe, ...
 
-## Configuration
+## Getting started
 
-Un exemple de configuration est disponible dans `.env.example` : il suffit de le modifier et de le renommer en : `.env`.
-Il est présent dans le `.gitignore`, et ne sera ainsi pas ré-écrit ni commit.
+Pour développer le site d'inté, vous aurez besoin d'avoir les logiciels suivant installé sur votre ordinateur
 
-**À noter que les migrations contiennent des instructions spécifiques à MySQL / MariaDB.**
+* git
+* PHP 7.1+ (Avec les extensions: gd, mysql)
+* Composer
+* MariaDB (les migrations contiennent des instructions spécifiques à MySQL / MariaDB)
 
-## Installation
+Exemple d'installation de dépendance pour Ubuntu 20.04, ajustez cette commande pour votre système :
 
-Après avoir cloné le projet dans le repertoire que vous souhaitez.
-Configurez le fichier `.env`, comme indiqué ci-dessus.
-Créez la base de donnée et ajoutez les identifiants au fichier `.env`;
+```
+sudo apt install git php7.4 php7.4-gd php7.4-mysql composer mariadb-server mariadb-client
+```
 
-Ensuite executez les commandes suivantes :
+Commencez par cloner le repo git où vous le souhaitez
 
-```bash
+```
+git@github.com:ungdev/integration-UTT.git
+```
+
+Entrez ensuite dans ce dossier et installez toutes les dépendances composer:
+
+```
+cd integration-UTT
 composer install
-php artisan key:generate
+```
+
+### Configuration et initialisation de la base de donnée
+
+Une fois les dépendances installées, nous pouvons configurer la base de donnée. Coté MariaDB, il suffit de créer la base de donnée vide et un utilisateur associé:
+
+```
+sudo mysql
+create database integration;
+CREATE USER 'integration'@'localhost' IDENTIFIED BY 'TheDbPassword';
+GRANT ALL PRIVILEGES ON integration.* TO 'integration'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+Il faut ensuite indiquer à laravel comment se connecter à la base de donnée. Pour cela, on crée le fichier de config `.env`.
+
+```
+cp .env.example .env
+```
+
+Puis dans le `.env` modifiez les éléments suivants
+
+```
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=integration
+DB_USERNAME=integration
+DB_PASSWORD=TheDbPassword
+```
+
+Maintenant que la base de donnée est configuré, nous pouvons lancer les migrations. Cela permettra de créer la structure de la base de donnée.
+
+```
 php artisan migrate
 ```
 
-Si vous utilisez *Nginx* comme serveur web, vous pouvez vous inspirer du fichier
-suivant pour la configuration :
+### Génération des clés de chiffrement
+
+Juste avant de pouvoir lancer le site, vous devez lancer les commandes suivantes
 
 ```
-server {
-    listen 80;
-    server_name integration.uttnetgroup.net;
-    server_name integration.utt.fr;
+php artisan key:generate
+php artisan passport:install
+```
+
+### Lancement du site
+
+```
+php artisan serve
+```
+
+Vous devriez maintenant pouvoir accéder au site depuis http://127.0.0.1:8000. Vous ne pouvez par contre pas encore vous connecter..
 
 
-    root /var/www/integration-utt/public/;
-    index index.php index.html index.htm;
+### Configuration de la connexion via EtuUTT
 
-    location / {
-         try_files $uri $uri/ /index.php$is_args$args;
-    }
+L'une des façons de vous connecter au site, est de le relier à EtuUTT. Pour cela, rendez vous sur [la section developpeur d'EtuUTT](https://etu.utt.fr/api/panel) et créez une application
 
-    location ~ ^/index\.php$ {
-        try_files /index.php =404;
-        fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    }
-}
+Concernant l'URL de redirection, mettez `http://localhost/oauth/callback`. Si nécéssaire remplacez `localhost` avec le nom de domaine ou l'ip et le port sur lequel vous accédez à votre version de développement du site.
+
+Le site de l'intégration n'a besoin d'avoir accès que aux `Données publiques` puisqu'il se sert du site étudiant uniquement pour l'authentification.
+
+Une fois l'application créée sur EtuUTT, récupérez le `client id` et `client secret` pour les mettre dans le fichier `.env` sous les clées `ETUUTT_CLIENT_ID` et `ETUUTT_CLIENT_SECRET`.
+
+Une fois fait, vous devriez pouvoir vous connecter via le formulaire de connexion dédié aux étudiants.
+
+### Ajout d'un administrateur
+
+Vous pouvez vous connecter, mais vous ne serez qu'un simple bénévole. Pour devenir admin, il vous suffit de lancer la commande suivante
+
+```
+php artisan integration:user:set-admin
+```
+
+### Remplissage de la base de donnée
+
+Si vous ne disposez pas de données réelles, vous voudrez sans-doute remplir la base de donnée avec des utilisateurs et équipes aléatoires. Pour cela, lancez la commande suivante
+
+```
+php artisan db:seed
+```
+
+### Envoi des emails
+
+Le `MAIL_DRIVER` par défaut est `log`. Cela veut dire que tous les emails envoyés finiront dans les logs et que vous pouvez jouer avec le site sans craindre d'envoyer des emails en masses à tous les nouveaux. Vous retrouverez le contenu des emails envoyés dans `storage/logs/laravel-*.log`
+
+Cependant, comme l'envoi d'email se fait en asynchrone via le mécanisme de queue de laravel, l'envoi d'email ne fonctionnera pas jusqu'à ce que vous executiez la commande suivante
+
+```
+php artisan queue:listen
 ```
 
 
-En cas de problèmes de droits, veuillez executer les commandes suivantes, en remplacant `www-data` avec l'utilisateur qui execute *PHP*
-
-```bash
-chown -R www-data:www-data .
-find . -type d -exec chmod 755 {} \;
-find . -type d -exec chmod ug+s {} \;
-find . -type f -exec chmod 644 {} \;
-sudo chgrp -R www-data storage bootstrap/cache
-sudo chmod -R ug+rw storage bootstrap/cache
-
-# For Centos/Redhat (SELinux)
-chcon -Rt httpd_sys_content_t .
-chcon -Rt httpd_sys_rw_content_t storage bootstrap/cache .git .env
-```
-
-L'envoi d'emails et géré par les `queues` de laravel. Il faut donc que le daemon soit lancé. Pour cela, vous pouvez créer le service `systemd` suivant dans `/etc/systemd/system/integration-queue.service` :
+### Production
+Pour la mise en production, vous pouvez suivre une bonne partie des sections précédentes. Cependant, assurez vous aussi de lancer le processus de queue en tache de fond :
 
 ```
-[Unit]
-Description=Integration UTT website queue deamon
-After=network.target
-
-[Service]
-Type=simple
-WorkingDirectory=/var/www/integration-utt
-ExecStart=/usr/bin/php artisan queue:listen
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-
+php artisan queue:work --queue=high,low --sleep=3 --tries=3 --daemon
 ```
 
-Il suffira ensuite de l'activer en faisant
-```bash
-systemctl daemon-reload
-systemctl start integration-queue
-systemctl enable integration-queue
+Ainsi que les cron suivantes
+
+```
+# Import régulier des nouveaux utilisateurs depuis l'utt
+*/5 * * * * php artisan integration:newcomers:import
+# Divers taches dont l'envoi d'email
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 ```
 
-L'envoi des mails utilise aussi le scheduler de laravel. Il faut donc ajouter ceci au fichier `/etc/crontab`
-```
-* * * * * php /var/www/integration-utt/artisan schedule:run >> /dev/null 2>&1
-```
-
-## Ajout d'un administrateur
-
-Après une première connexion, il est possible de passer un utilisateur en administrateur en mettant son champ `admin` dans la base de données à `100`.
-
-## Import des photos de profile des étudiants
+## Documentation générale
+### Import des photos de profile des étudiants
 
 Assurez vous que le dossier `public/uploads/students-trombi` existe, puis executez la commande suivante :
 ```
 php artisan integration:students:importPictures
 ```
 
-## Week-end d'intégration
+### Week-end d'intégration
 
 Les inscriptions au week-end d'intégration sont gérées depuis l'interface d'administration :
 les personnes n'ont pas à renseigner elles-même leurs informations.
@@ -125,19 +163,6 @@ Les chèques sont gérés dans une table différente des inscriptions au WEI, da
 le but de pouvoir faire la distinction entre chèque de caution et de paiement.
 Les informations liées à chaque chèque (numéro, banque, émetteur) sont enregistrées
 dans la table `checks`.
-
-### Production
-Pour le fonctionnement du site, vous devez lancez le processus de queue en tache de fond :
-```
-php artisan queue:work --queue=high,low --sleep=3 --tries=3 --daemon
-```
-ainsi différentes cron
-```
-# Import régulier des nouveaux utilisateurs depuis l'utt
-*/5 * * * * php artisan integration:newcomers:import
-# Divers taches dont l'envoi d'email
-* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
-```
 
 ### Configuration
 

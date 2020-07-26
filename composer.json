@@ -69,12 +69,12 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",
-            "php artisan passport:install"
+            "php artisan passport:install-if-migrated"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize",
-            "php artisan passport:install"
+            "php artisan passport:install-if-migrated"
         ]
     }
 }
