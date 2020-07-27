@@ -7,11 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     /**
-     * The users that belong to the role.
+     * Users that have requested this role
      */
-    public function users()
+    public function requestUsers()
     {
-        return $this->belongsToMany('App\Models\User')
-            ->withPivot('assigned', 'user_requested', 'subrole');
+        return $this->belongsToMany('App\Models\User', 'role_user_requested');
+    }
+
+    /**
+     * The users that have been assigned to this role
+     */
+    public function assignedUsers()
+    {
+        return $this->belongsToMany('App\Models\User', 'role_user_assigned')
+            ->withPivot('subrole');
     }
 }

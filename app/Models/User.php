@@ -352,11 +352,20 @@ class User extends Model implements Authenticatable
     }
 
     /**
-     * The roles that belong to the user.
+     * The roles that have been requested by the user
      */
-    public function roles()
+    public function requestedRoles()
     {
-        return $this->belongsToMany('App\User\Role');
+        return $this->belongsToMany('App\Models\Role', 'role_user_requested');
+    }
+
+    /**
+     * The roles that have been assigned to the user
+     */
+    public function assignedRoles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'role_user_assigned')
+            ->withPivot('subrole');
     }
 
     /**

@@ -68,9 +68,8 @@ class PagesController extends Controller
      */
     public function getTrombi()
     {
-        $roles = Role::with(['users' => function ($q) {
-            $q->where('assigned', true)
-            ->orderBy('subrole', 'desc')
+        $roles = Role::with(['assignedUsers' => function ($q) {
+            $q->orderBy('subrole', 'desc')
             ->orderBy('last_name', 'asc');
         }])
         ->orderBy('order', 'desc')

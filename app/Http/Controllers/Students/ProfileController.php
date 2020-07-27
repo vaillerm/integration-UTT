@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Students;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use View;
 use EtuUTT;
@@ -26,7 +27,11 @@ class ProfileController extends Controller
     public function profil()
     {
         return View::make('dashboard.students.profil', [
-            'student' => Auth::user()
+            'student' => Auth::user(),
+            'roles' => Role::where('show_in_form', true)
+                ->orderBy('order', 'desc')
+                ->orderBy('name', 'asc')
+                ->get()
         ]);
     }
 
@@ -43,6 +48,16 @@ class ProfileController extends Controller
             'sex' => 'required|boolean',
             'email' => 'required|email',
             'phone' => 'required|min:8|max:20',
+            'role' => function ($attribute, $value, $fail) {
+                // All key should be id that can be selected in the form
+                $allowedIds = Role::where('show_in_form', true)->pluck('id');
+                $ids = array_keys($value);
+                // Check if ids is a subset of alllowedIds
+                $unexpectedIds = collect($ids)->diff($allowedIds);
+                if ($unexpectedIds->count() > 0) {
+                    $fail($attribute.' est invalide, veuillez réessayer.');
+                }
+            },
         ];
 
         $student = Auth::user();
@@ -63,13 +78,14 @@ class ProfileController extends Controller
             'email',
             'phone'
         ));
-        $volunteer_preferences = [];
-        foreach (User::VOLUNTEER_PREFERENCES as $key => $value) {
-            if(Request::get('volunteer_preferences')[$key] ?? '' == 'on') {
-                $volunteer_preferences[] = $key;
-            }
+
+        // Sync the pivot table by adding or removing entries
+        $roleIds = [];
+        if (Request::get('role') !== null) {
+            $roleIds = array_keys(Request::get('role'));
         }
-        $student->volunteer_preferences = $volunteer_preferences;
+        $student->requestedRoles()->sync($roleIds);
+
         $student->save();
         // Add or remove from sympa
         if (!$volunteer && $student->volunteer) {

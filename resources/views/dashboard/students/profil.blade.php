@@ -30,14 +30,14 @@ Parce que l'intégration, c'est surtout vous !
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Nom complet</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" id="name" name="name" disabled value="{{{ $student->first_name . ' ' . $student->last_name }}}">
+                        <input class="form-control" type="text" id="name" name="name" disabled value="{{ $student->first_name . ' ' . $student->last_name }}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="surname" class="col-lg-2 control-label">Surnom</label>
                     <div class="col-lg-10">
-                        <input class="form-control" type="text" name="surname" id="surname" value="{{{ old('surname') ?? Auth::user()->surname }}}">
+                        <input class="form-control" type="text" name="surname" id="surname" value="{{ old('surname') ?? Auth::user()->surname }}">
                     </div>
                 </div>
 
@@ -54,14 +54,14 @@ Parce que l'intégration, c'est surtout vous !
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Mail</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="email" id="email" placeholder="Adresse mail" type="text" value="{{{ old('email') ?? Auth::user()->email }}}">
+                        <input class="form-control" name="email" id="email" placeholder="Adresse mail" type="text" value="{{ old('email') ?? Auth::user()->email }}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="phone" class="col-lg-2 control-label">Portable</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="phone" id="phone" placeholder="Portable" type="text" value="{{{ old('phone') ?? Auth::user()->phone }}}">
+                        <input class="form-control" name="phone" id="phone" placeholder="Portable" type="text" value="{{ old('phone') ?? Auth::user()->phone }}">
                     </div>
                 </div>
 
@@ -69,7 +69,7 @@ Parce que l'intégration, c'est surtout vous !
                 <div class="form-group">
                     <label for="semester" class="col-lg-2 control-label">Semestre en cours</label>
                     <div class="col-lg-10">
-                        <input class="form-control" name="semester" id="semester" type="text" value="{{{ $student->branch . $student->level }}}" disabled>
+                        <input class="form-control" name="semester" id="semester" type="text" value="{{ $student->branch . $student->level }}" disabled>
                     </div>
                 </div>
             </fieldset>
@@ -82,11 +82,11 @@ Parce que l'intégration, c'est surtout vous !
                     </p>
 
                     <div class="form-group">
-                        @foreach (\App\Models\User::VOLUNTEER_PREFERENCES as $key => $preference)
+                        @foreach ($roles as $role)
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key, $student->volunteer_preferences ?? []) )) checked="checked" @endif/>
-                                <strong>{{{ $preference['title'] }}}</strong><span class="hidden-xs"> : {{{ $preference['description'] }}}</span>
+                                <input type="checkbox" name="role[{{ $role->id }}]" {!! old('role.'.$role->id, $student->requestedRoles->contains('id', $role->id)) ? 'checked="checked"' : '' !!}/>
+                                <strong>{{ $role['name'] }}</strong><span class="hidden-xs"> : {{ $role['description'] }}</span>
                             </label>
                         </div>
                         @endforeach

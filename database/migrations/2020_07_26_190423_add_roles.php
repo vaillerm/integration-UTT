@@ -16,6 +16,8 @@ class AddRoles extends Migration
     public function up()
     {
         // Create the new db structure
+        // Use two separate pivot table because code is a lot simpler
+        // for example with many-to-many relation `sync()` method
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
             $table->string('name');
@@ -24,12 +26,18 @@ class AddRoles extends Migration
             $table->integer('order')->nullable()->default(null)->unsigned();
             $table->timestamps();
         });
-        Schema::create('role_user', function (Blueprint $table) {
+        Schema::create('role_user_requested', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('user_id')->unsigned();
 
-            $table->boolean('assigned')->default(false);
-            $table->boolean('user_requested')->default(false);
+            $table->unique(['role_id', 'user_id']);
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+        Schema::create('role_user_assigned', function (Blueprint $table) {
+            $table->integer('role_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
             $table->string('subrole')->nullable()->default(null);
 
             $table->unique(['role_id', 'user_id']);
@@ -51,17 +59,16 @@ class AddRoles extends Migration
                         if (!isset($preferenceToRoleId[$preference])) {
                             $id = DB::table('roles')->insertGetId([
                                 'name' => $preference,
-                                'show_in_form' => false,
+                                'show_in_form' => true,
                                 'created_at' => Carbon::now(),
                                 'updated_at' => Carbon::now()
                             ]);
                             $preferenceToRoleId[$preference] = $id;
                         }
                         // Insert into the pivot table
-                        DB::table('role_user')->insertOrIgnore([
+                        DB::table('role_user_requested')->insertOrIgnore([
                             'role_id' => $preferenceToRoleId[$preference],
                             'user_id' => $user->id,
-                            'user_requested' => true,
                         ]);
                     }
                 }
@@ -74,19 +81,17 @@ class AddRoles extends Migration
                     $id = DB::table('roles')->insertGetId([
                         'name' => $user->mission,
                         'order' => $user->mission_order,
+                        'show_in_form' => false,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now()
                     ]);
                     $missionToRoleId[$user->mission] = $id;
                 }
                 // Insert into the pivot table
-                DB::table('role_user')->insertOrIgnore([
+                DB::table('role_user_assigned')->insertOrIgnore([
                     'role_id' => $missionToRoleId[$user->mission],
                     'user_id' => $user->id,
-                    'assigned' => true,
                     'subrole' => $user->mission_respo ? 'Respo' : null,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
                 ]);
             }
         }
@@ -109,7 +114,8 @@ class AddRoles extends Migration
     {
         // Drop new tables
         Schema::dropIfExists('roles');
-        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('role_user_requested');
+        Schema::dropIfExists('role_user_assigned');
 
         // Re-create old fields without data inside
         Schema::table('users', function (Blueprint $table) {

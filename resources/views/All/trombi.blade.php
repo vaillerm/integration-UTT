@@ -56,10 +56,10 @@ Des orgas tout plein
 <div class="trombi">
     <div>
         @foreach ($roles as $role)
-            @if ($role->users->count() > 0)
+            @if ($role->assignedUsers->count() > 0)
             <div class="trombi__mission">
                 <h3>{{ $role->name }}</h3>
-                @foreach ($role->users as $user)
+                @foreach ($role->assignedUsers as $user)
                     <div class="trombi_thumbnail-container">
                         <div class="thumbnail">
                             <img src="{{ asset('/uploads/students-trombi/'.$user->student_id.'.jpg') }}" alt="Photo" />
