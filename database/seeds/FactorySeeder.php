@@ -15,6 +15,7 @@ class FactorySeeder extends Seeder
         factory(App\Models\User::class, 100)->create();
         factory(App\Models\Team::class, 5)->create();
 		factory(App\Models\Challenge::class, 20)->create();
+		$this->call(RoleSeeder::class);
 
         // Round 2 (to use last created stuff as foreigner key)
         factory(App\Models\User::class, 100)->create();

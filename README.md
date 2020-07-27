@@ -107,7 +107,15 @@ php artisan integration:user:set-admin
 Si vous ne disposez pas de données réelles, vous voudrez sans-doute remplir la base de donnée avec des utilisateurs et équipes aléatoires. Pour cela, lancez la commande suivante
 
 ```
+# Ne pas utiliser en production
 php artisan db:seed
+```
+
+Notez que cette commande créera de faux utilisateurs, il ne faut pas lancer cette commande en production. Vous pouvez cependant lancer la commande suivante en production pour créer initialiser certains éléments comme les roles pour faciliter l'initialisation du site :
+
+```
+# Na lancez pas cette commande si vous avez déjà lancé `php artisan db:seed`
+php artisan db:seed --class ProdSeeder
 ```
 
 ### Envoi des emails
@@ -135,6 +143,12 @@ Ainsi que les cron suivantes
 */5 * * * * php artisan integration:newcomers:import
 # Divers taches dont l'envoi d'email
 * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+Si le site est vide, vous pouvez initialiser certain éléments comme les roles avec la commande suivante :
+
+```
+php artisan db:seed --class ProdSeeder
 ```
 
 ## Documentation générale
