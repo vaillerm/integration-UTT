@@ -8,6 +8,7 @@ use App\Models\Team;
 use App\Models\Faction;
 use App\Models\Newcomer;
 use App;
+use App\Models\Role;
 use View;
 use Auth;
 use Excel;
@@ -67,14 +68,17 @@ class PagesController extends Controller
      */
     public function getTrombi()
     {
-        $users = User::where('mission', '!=', '')
-            ->orderBy('mission_order', 'desc')
-            ->orderBy('mission', 'asc')
-            ->orderBy('mission_respo', 'desc')
-            ->orderBy('last_name', 'asc')->get();
+        $roles = Role::with(['users' => function ($q) {
+            $q->where('assigned', true)
+            ->orderBy('subrole', 'desc')
+            ->orderBy('last_name', 'asc');
+        }])
+        ->orderBy('order', 'desc')
+        ->orderBy('name', 'asc')
+        ->get();
 
         return View::make('All.trombi', [
-            'users' => $users,
+            'roles' => $roles,
         ]);
     }
 

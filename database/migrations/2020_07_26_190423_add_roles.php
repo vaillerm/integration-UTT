@@ -35,7 +35,6 @@ class AddRoles extends Migration
             $table->unique(['role_id', 'user_id']);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
         });
 
         // Convert old data
@@ -63,8 +62,6 @@ class AddRoles extends Migration
                             'role_id' => $preferenceToRoleId[$preference],
                             'user_id' => $user->id,
                             'user_requested' => true,
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now()
                         ]);
                     }
                 }
