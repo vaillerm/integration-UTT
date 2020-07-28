@@ -199,32 +199,28 @@ Modification de profil
             </div>
 
             <div class="form-group">
-                <label for="mission" class="col-lg-2 control-label">Commission</label>
+                <label class="col-lg-2 text-right">Rôle(s)</label>
                 <div class="col-lg-10">
-                    <input class="form-control" name="mission" id="mission" placeholder="Mission" type="text" value="{{ old('mission') ?? $student->mission }}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="mission_respo" class="col-lg-2 text-right">Responsable de commission</label>
-                <div class="col-lg-10">
-                    <input type="checkbox" id="mission_respo" name="mission_respo" @if (old('mission_respo') ?? ($student->mission_respo == 1)) checked="checked" @endif/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="mission_order" class="col-lg-2 control-label">Priorité de la commission</label>
-                <div class="col-lg-10">
-                    <input class="form-control" name="mission_order" id="mission_order" placeholder="Priorité dans le trombi" type="number" value="{{ old('mission_order') ?? $student->mission_order }}">
+                    @if ($student->assignedRoles->count() > 0)
+                        @foreach ($student->assignedRoles as $role)
+                            <strong>{{ $role['name'] }}</strong><span class="hidden-xs"> : {{ $role['description'] }}</span><br/>
+                            <a href="{{ route('dashboard.teams.edit', ['id' => 1 ]) }}" class="btn btn-xs btn-warning">Modifier</a><br/>
+                        @endforeach
+                    @else
+                        Aucun<br/>
+                    @endif
+                    <a href="{{ route('dashboard.teams.list') . '#' . 1 }}" class="btn btn-xs btn-success">Liste des roles</a>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-lg-2 control-label">Préférences</label>
                 <div class="col-lg-10">
-                    @foreach (\App\Models\User::VOLUNTEER_PREFERENCES as $key => $preference)
+                    @foreach ($roles as $role)
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="volunteer_preferences[{{{ $key }}}]" @if (( old('volunteer_preferences.'.$key) ?? in_array($key, $student->volunteer_preferences ?? []) )) checked="checked" @endif/>
-                            <strong>{{{ $preference['title'] }}}</strong><span class="hidden-xs"> : {{{ $preference['description'] }}}</span>
+                            <input type="checkbox" name="role[{{ $role->id }}]" {!! old('role.'.$role->id, $student->requestedRoles->contains('id', $role->id)) ? 'checked="checked"' : '' !!}/>
+                            <strong>{{ $role['name'] }}</strong><span class="hidden-xs"> : {{ $role['description'] }}</span>
                         </label>
                     </div>
                     @endforeach

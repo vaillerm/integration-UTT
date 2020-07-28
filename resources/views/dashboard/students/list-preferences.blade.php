@@ -46,8 +46,8 @@ Liste de tous les bénévoles filtrée par rôle demandé
                     <th>Photo</th>
                     <th>Nom complet</th>
                     <th>Téléphone</th>
-                    <th>Mission</th>
-                    <th>Préférences</th>
+                    <th>CE/Orga</th>
+                    <th>Rôles demandés (gris) et assignés (bleu)</th>
                     <th class="hidden-print">Actions</th>
                 </tr>
             </thead>
@@ -55,7 +55,7 @@ Liste de tous les bénévoles filtrée par rôle demandé
                 @foreach ($students as $student)
                     @php
                         $filteringIds = $student->getAllRoles()->pluck('id')->toArray();
-                        if ($student->ce) {
+                        if ($student->team_accepted && $student->ce && $student->team_id) {
                             $filteringIds[] = 'ce';
                         }
                         if ($student->orga) {
@@ -67,7 +67,9 @@ Liste de tous les bénévoles filtrée par rôle demandé
                         <td>{{{ $student->first_name . ' ' . $student->last_name }}}</td>
                         <td>{{{ $student->phone }}}</td>
                         <td>
-                            {{{ $student->mission }}}
+                            @if ($student->orga)
+                                <span class="label label-warning">Orga</span>
+                            @endif
                             @if ($student->team_accepted && $student->ce && $student->team_id)
                                 <span class="label label-primary">CE</span>
                             @endif

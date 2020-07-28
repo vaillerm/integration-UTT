@@ -66,8 +66,6 @@ class User extends Model implements Authenticatable
         'longitude',
         'bus_id',
         'wei_majority',
-        'mission_order',
-        'mission_respo',
     ];
 
     public $hidden = [

@@ -87,7 +87,12 @@ class PagesController extends Controller
      */
     public function getTrombiPhome($id)
     {
-        $user = User::where('mission', '!=', '')->findOrFail($id);
+        $user = User::findOrFail($id);
+
+        // Never show phone number from a user without role assigned
+        if ($user->assignedRoles->count() <= 0) {
+            return App::abort(403);
+        }
 
         // Try to uniformize phone format
         $phone = $user->phone;

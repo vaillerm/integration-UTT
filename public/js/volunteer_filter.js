@@ -14,6 +14,9 @@ $(document).ready(function () {
      */
     const filters = [];
 
+    /** contain the first filter id of the dropdown list */
+    let firstFilter = null;
+
     // Hide and show filter-list dropdown
     textInput.on("focus", updateFilterDropdown);
     textInput.on("click", (event) => {
@@ -36,6 +39,14 @@ $(document).ready(function () {
         const type = $(this).data("type");
         addToList(id, name, type);
         executeFilter();
+    });
+
+    // On press enter add the first filter of the list as whitelist
+    textInput.on("keyup", function(e) {
+        if (e.keyCode == 13 && firstFilter !== null) {
+            addToList(firstFilter.id, firstFilter.name, 'whitelist');
+            executeFilter();
+        }
     });
 
     /**
@@ -66,6 +77,7 @@ $(document).ready(function () {
         filterListContainer.show();
 
         // Filter the "filter list"
+        firstFilter = null;
         let value = textInput.val().toLowerCase();
         let items = filterListContainer.children();
         items.each((key, child) => {
@@ -73,6 +85,12 @@ $(document).ready(function () {
             let name = child.data("name");
             if (name.toLowerCase().indexOf(value) !== -1) {
                 child.show();
+                if (firstFilter === null) {
+                    firstFilter = {
+                        id: child.data('id'),
+                        name,
+                    };
+                }
             } else {
                 child.hide();
             }
