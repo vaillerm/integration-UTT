@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Auth;
 use DB;
@@ -58,78 +59,38 @@ class StudentsController extends Controller
      * @param  json $filter
      * @return Response
      */
-    public function listByPreferences($filter = '[]')
+    public function listByPreferences()
     {
-        parse_str($filter, $filterArray);
-
         // Convert filter to query
-        // For performance reasons we will not decode the volunteer_preferences
-        // field for each user, but just search by 'like' inside
-        $students = User::student()->orderBy('last_name', 'asc')->where('volunteer', true);
-        foreach ($filterArray as $key => $value) {
-            // Ignore if key is not in User::VOLUNTEER_PREFERENCES
-            if(array_key_exists($key, User::VOLUNTEER_PREFERENCES)) {
-                if ($value) {
-                    $students = $students->where('volunteer_preferences', 'LIKE', '%"' . $key . '"%');
-                }
-                else {
-                    $students = $students->where('volunteer_preferences', 'NOT LIKE', '%"' . $key . '"%');
-                }
-            }
-            elseif ($key == '__ce') {
-                if ($value) {
-                    $students = $students->where('ce', '1')->where('team_accepted', '1')->whereNotNull('team_id');
-                }
-                else {
-                    $students = $students->where(function ($query) { $query->where('ce', '0')->orWhere('team_accepted', '0')->orWhereNull('team_id'); });
-                }
-            }
-            elseif ($key == '__mission') {
-                if ($value) {
-                    $students = $students->where('mission', '!=', '');
-                }
-                else {
-                    $students = $students->where('mission', '');
-                }
-            }
-        }
-        $students = $students->get();
+        $students = User::student()
+            ->orderBy('last_name', 'asc')
+            ->where('volunteer', true)
+            ->get();
 
-        // Prepare filter menu
-        $filterMenu = User::VOLUNTEER_PREFERENCES;
-        $filterMenu['__ce'] = [
-            'title' => '*CE*',
+        // Populate filter menu
+        $roles = Role::orderBy('name', 'asc')->get();
+        $filterMenu = [];
+        foreach ($roles as $role) {
+            $filterMenu[$role->id] = [
+                    'id' => $role->id,
+                    'name' => $role->name,
+                    'description' => $role->description,
+            ];
+        }
+        $filterMenu['ce'] = [
+            'id' => 'ce',
+            'name' => '@CE',
             'description' => 'Filter les CE.',
         ];
-        $filterMenu['__mission'] = [
-            'title' => '*Mission*',
-            'description' => 'Filter bénévoles avec une mission.',
+        $filterMenu['orga'] = [
+            'id' => 'orga',
+            'name' => '@Orga',
+            'description' => 'Filter les orgas.',
         ];
-        foreach ($filterMenu as $key => $value) {
-            if (isset($filterArray[$key])) {
-                if ($filterArray[$key]) {
-                    $newFilter = array_merge($filterArray, [ $key => 0 ]);
-                    $filterMenu[$key]['newfilter'] = http_build_query($newFilter);
-                    $filterMenu[$key]['class'] = 'btn-success active';
-                }
-                else {
-                    $newFilter = $filterArray;
-                    unset($newFilter[$key]);
-                    $filterMenu[$key]['newfilter'] = http_build_query($newFilter);
-                    $filterMenu[$key]['class'] = 'btn-danger';
-                }
-            }
-            else {
-                $newFilter = array_merge($filterArray, [ $key => 1 ]);
-                $filterMenu[$key]['newfilter'] = http_build_query($newFilter);
-                $filterMenu[$key]['class'] = 'btn-default';
-            }
-        }
 
         return View::make('dashboard.students.list-preferences', [
             'filterMenu' => $filterMenu,
             'students' => $students,
-            'filter' => $filterArray
         ]);
     }
 

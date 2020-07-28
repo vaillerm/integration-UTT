@@ -28,7 +28,6 @@ class User extends Model implements Authenticatable
     public $primaryKey = 'id';
 
     protected $attributes = [
-        'volunteer_preferences' => '[]',
         'remember_token' => '',
     ];
 
@@ -69,15 +68,6 @@ class User extends Model implements Authenticatable
         'wei_majority',
         'mission_order',
         'mission_respo',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'volunteer_preferences' => 'array',
     ];
 
     public $hidden = [
@@ -366,6 +356,13 @@ class User extends Model implements Authenticatable
     {
         return $this->belongsToMany('App\Models\Role', 'role_user_assigned')
             ->withPivot('subrole');
+    }
+    
+    /**
+     * Merge assigned and requested roles and return a list
+     */
+    public function getAllRoles() {
+        return $this->requestedRoles->merge($this->assignedRoles)->unique('id');
     }
 
     /**

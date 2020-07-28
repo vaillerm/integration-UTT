@@ -1,0 +1,22 @@
+#volunteer-filter-list-container {
+    max-height: 150px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    display: none;
+    z-index: 1;
+}
+#volunteer-filter-list-container .list-group-item {
+    padding: 3px 8px;
+    border-radius: 0;
+    line-height: 20px;
+    height: 30px;
+}
+#volunteer-filter-list-container .list-group-item span {
+    margin-left: 4px;
+}
+#volunteer-filter-list-container .list-group-item:first {
+    border-top: 0;
+}
+#volunteer-filter-list-container .list-group-item:last-child {
+    border-bottom: 0;
+}
