@@ -128,10 +128,10 @@ return [
     ],
 
     'partners' => [
-        'ada' => true,
-        'mgel' => true,
-        'damonte' => true,
-        'beijaflore' => true,
-        'popeye' => true,
+        'ada' => 'true',
+        'mgel' => 'true',
+        'damonte' => 'true',
+        'beijaflore' => 'true',
+        'popeye' => 'true',
     ],
 ];
