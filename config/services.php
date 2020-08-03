@@ -101,7 +101,7 @@ return [
     ],
 
     'version' => [
-         'hash' => env('VERSION_HASH', 'none'),
+        'hash' => env('VERSION_HASH', 'none'),
     ],
 
     'slack' => [
@@ -113,24 +113,24 @@ return [
     ],
 
     'etuutt' => [
-         'baseuri' => [
-             'api'    => env('ETUUTT_BASEURI_API', 'https://etu.utt.fr'),
-             'public' => env('ETUUTT_BASEURI_PUBLIC', 'https://etu.utt.fr'),
-         ],
+        'baseuri' => [
+            'api'    => env('ETUUTT_BASEURI_API', 'https://etu.utt.fr'),
+            'public' => env('ETUUTT_BASEURI_PUBLIC', 'https://etu.utt.fr'),
+        ],
     ],
 
     'reentry' => [
         'tc' => [
-            'date' => env('REENTRY_TC_DATE'),
-            'time' => env('REENTRY_TC_TIME'),
+            'date' => env('REENTRY_TC_DATE', 'Lundi 31 Août'),
+            'time' => env('REENTRY_TC_TIME', '8h'),
         ],
         'branches' => [
-            'date' => env('REENTRY_MASTERS_DATE'),
-            'time' => env('REENTRY_MASTERS_TIME'),
+            'date' => env('REENTRY_MASTERS_DATE', 'Mardi 1 Septembre'),
+            'time' => env('REENTRY_MASTERS_TIME', '8h'),
         ],
         'masters' => [
-            'date' => env('REENTRY_MASTERS_DATE'),
-            'time' => env('REENTRY_MASTERS_TIME'),
+            'date' => env('REENTRY_MASTERS_DATE', 'Lundi 7 Septembre'),
+            'time' => env('REENTRY_MASTERS_TIME', '8h'),
         ],
     ],
 ];
