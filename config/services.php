@@ -126,4 +126,12 @@ return [
             'time' => env('REENTRY_MASTERS_TIME', '8h'),
         ],
     ],
+
+    'partners' => [
+        'ada' => true,
+        'mgel' => true,
+        'damonte' => true,
+        'beijaflore' => true,
+        'popeye' => true,
+    ],
 ];
