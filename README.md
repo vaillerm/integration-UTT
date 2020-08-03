@@ -152,37 +152,11 @@ Ensuite il faut configurer les champs suivants dans le fichier `.env` :
 * `ETUUTT_CLIENT_ID` : Application Id donné par EtuUTT
 * `ETUUTT_CLIENT_SECRET` : Application Secret donné par EtuUTT
 
-#### Weekend
-* `WEI_PRICES_REGISTRATION` : Prix de l'inscription.
-* `WEI_PRICES_DEPOSIT` : Montant de la caution.
-
-#### Dates
-* `WEI_DATES_START` : Date de départ vers le WEI (utilisé uniquement pour savoir
-si la personne a besoin de l'autorisation parentale).
-
 #### Application mobile
 
 Pour que l'application mobile puisse accéder au site etu, ses credentials doivent être configurés sur le site d'intégration.
 
-#### CE
+#### Reconfiguration annuelle
 
-Pour configurer le shotgun CE, les variables suivantes doivent être configurées :
-```
-services.ce.maxTeamTc - Nombre maximum d'équipes TC
-services.ce.maxTeamBranch - Nombre maximum d'équipes de branche
-services.ce.opening - Date d'ouverture du shotgun ()
-services.ce.deadline - Date de fin de d'édition des équipes, pour l'envoi aux nouveaux
-services.ce.fakeDeadline - Date publique de fin d'édition des équipes
-services.ce.teamNameOpening - Date d'ouverture d'attribution des noms d'équipes
-```
+Pour adapter le site de l'intégration à l'année, voir le document [Mise à jour annuelle](docs/annual_update.md).
 
-Pour pouvoir modifier les noms d'équipe, le thème (`services.theme`) doit avoir été configuré au préalable.
-
-#### Parrains
-
-Pour configurer le shotgun CE, les variables suivantes doivent être configurées :
-```
-services.referral.opening - Date d'ouverture des inscriptions des parrains
-services.referral.deadline - Date de fermeture des inscriptions parrains
-services.referral.fakeDeadline
-```
