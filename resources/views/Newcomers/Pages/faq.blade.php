@@ -16,9 +16,10 @@ Frequently Asked Questions
         <div class="box-body">
 	            <h4><a href="#question100" data-toggle="collapse">Quand est-ce que je dois venir à l’UTT ?</a></h4>
 	            <p id="question100" class="collapse">
-	                Pour les post-bac : lundi 3 septembre à 8h.<br/>
-	                Pour les branches (bac +2) et les masters : mardi 4 septembre à 8h.
-	                <strong>On t’offre le petit-déjeuner !</strong>
+	                Pour les post-bac : {{ Config::get('services.reentry.tc.date') }} à {{ Config::get('services.reentry.tc.time') }}.<br/>
+	                Pour les branches (bac +2) : {{ Config::get('services.reentry.branches.date') }} à {{ Config::get('services.reentry.branches.time') }}.
+	                Pour les masters : {{ Config::get('services.reentry.masters.date') }} à {{ Config::get('services.reentry.masters.time') }}.
+	                <!-- <strong>On t’offre le petit-déjeuner !</strong> # TODO : Uncomment year after COVID -->
 	            </p>
 
 				<h4><a href="#question200" data-toggle="collapse">Quel est l’emploi du temps de la semaine d’intégration ?</a></h4>
@@ -33,8 +34,9 @@ Frequently Asked Questions
 
 			    <h4><a href="#question400" data-toggle="collapse">Les repas sont-ils compris ?</a></h4>
 	            <p id="question400" class="collapse">
-					Le jour de ton arrivée (le lundi ou mardi), le petit déjeuner est offert par le BDE.
-					Pour les repas du lundi soir (pour les TC), mardi soir (pour tout le monde), jeudi midi et vendredi midi, il faudra prévoir un peu de monnaie mais pas de panique, cela reste à des prix très étudiants (entre 2 et 4€).
+                    Malheureusement, cette année en raison de la COVID-19 nous n'avons pas le droit de vous servir de repas.
+					<!-- Le jour de ton arrivée (le lundi ou mardi), le petit déjeuner est offert par le BDE.
+					Pour les repas du lundi soir (pour les TC), mardi soir (pour tout le monde), jeudi midi et vendredi midi, il faudra prévoir un peu de monnaie mais pas de panique, cela reste à des prix très étudiants (entre 2 et 4€). TODO : Remove year after COVID -->
 				</p>
 
 			    <h4><a href="#question500" data-toggle="collapse">Est-ce qu'il y a des cours la première semaine ?</a></h4>
@@ -92,7 +94,7 @@ Frequently Asked Questions
 
 				<h4><a href="#question2600" data-toggle="collapse">Combien ça coûte ?</a></h4>
 				<p id="question2600" class="collapse">
-					La totalité du week-end coûte 55€, nourriture et transport compris, prévoit juste de la monnaie pour tes consommations en soirée (entre 1€ et 2€ le verre).
+					La totalité du week-end coûte {{ Config::get('services.wei.price') }}€, nourriture et transport compris, prévoit juste de la monnaie pour tes consommations en soirée (entre 1€ et 2€ le verre).
 				</p>
 
 				<h4><a href="#question2700" data-toggle="collapse">Les repas sont-ils compris ?</a></h4>

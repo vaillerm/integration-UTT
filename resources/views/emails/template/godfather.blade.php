@@ -52,7 +52,7 @@ Bienvenue à l'UTT
                     <span style="color:#696969">
                       Nous sommes l'équipe d'intégration, des étudiants bénévoles qui préparent minutieusement ton arrivée pour que celle-ci reste inoubliable.<br>
                       &nbsp;<br>
-                      Activités, soirées, concerts... Un tas d'événements incroyables t'attendent dès le 2&nbsp;septembre et ce, durant toute la semaine, jusqu'au Week-End d'Intégration.<br>
+                      Activités, soirées, concerts... Un tas d'événements incroyables t'attendent dès le {{ Config::get('services.reentry.tc.date') }} et ce, durant toute la semaine, jusqu'au Week-End d'Intégration.<br>
                       Et pas de bizutage ! Tout est fait pour que tu t'éclates et que tu fasses des rencontres.
                     </span><br>
                       &nbsp;<br>
@@ -96,9 +96,9 @@ Bienvenue à l'UTT
         <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
           <tbody>
             <tr>
-  
+
   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-  
+
       <br>
 <span style="color:#E74360"><span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif"><span style="font-size:16px"><strong>Connecte toi sur le site d'intégration</strong></span></span></span><br>
 &nbsp;
@@ -134,9 +134,9 @@ Ton parrain et ton équipe t’ont préparés un petit mot pour se présenter al
 <![endif]-->
 <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnBoxedTextContentContainer">
 <tbody><tr>
-  
+
   <td style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:18px;">
-  
+
       <table border="0" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;background-color: #E74360;">
           <tbody><tr>
               <td valign="top" class="mcnTextContent" style="padding: 18px;color: #FFFFFF;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
@@ -165,5 +165,5 @@ Ton parrain et ton équipe t’ont préparés un petit mot pour se présenter al
 
 
 
-    
+
 @endsection

@@ -109,6 +109,28 @@ return [
     ],
 
     'utt' => [
-        'wifi_subnet' => env('UTT_WIFI_SUBNET', '10.25.0.0/16,10.18.0.0/16')
+        'wifi_subnet' => env('UTT_WIFI_SUBNET', '10.25.0.0/16,10.18.0.0/16'),
+    ],
+
+    'etuutt' => [
+         'baseuri' => [
+             'api'    => env('ETUUTT_BASEURI_API', 'https://etu.utt.fr'),
+             'public' => env('ETUUTT_BASEURI_PUBLIC', 'https://etu.utt.fr'),
+         ],
+    ],
+
+    'reentry' => [
+        'tc' => [
+            'date' => env('REENTRY_TC_DATE'),
+            'time' => env('REENTRY_TC_TIME'),
+        ],
+        'branches' => [
+            'date' => env('REENTRY_MASTERS_DATE'),
+            'time' => env('REENTRY_MASTERS_TIME'),
+        ],
+        'masters' => [
+            'date' => env('REENTRY_MASTERS_DATE'),
+            'time' => env('REENTRY_MASTERS_TIME'),
+        ],
     ],
 ];
