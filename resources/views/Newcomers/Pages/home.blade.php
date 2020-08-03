@@ -27,7 +27,7 @@ Informations diverses pour toi !
                 @if(Auth::user()->branch == 'TC')
                     Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>{{ Config::get('services.reentry.tc.date') }} à {{ Config::get('services.reentry.tc.time') }} à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
-                @elseif( in_array(array('ISC','PAIP', 'RE'), Auth::user()->branch) )
+                @elseif( in_array( Auth::user()->branch, array('ISC','PAIP', 'RE') ) )
                     Tout ce que tu as à savoir pour le moment, c'est que tu dois être là <strong>{{ Config::get('services.reentry.masters.date') }} à {{ Config::get('services.reentry.masters.time') }} à l'UTT</strong>,
                     pour que nous puissions <strong>t'offrir un petit dej'</strong> de bienvenue.
                 @elseif(Auth::user()->branch != 'MM')
