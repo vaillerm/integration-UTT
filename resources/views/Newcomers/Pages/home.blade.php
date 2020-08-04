@@ -38,7 +38,8 @@ Informations diverses pour toi !
                 Pour te tenir au courant des dernières infos sur ton intégration, tu <del>peux</del> <strong>dois</strong> suivre la page Facebook, l'insta et/ou le snapchat :)
             </p>
                 <div class="text-center">
-                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbde.utt&tabs&width=340&height=70&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=248954165119490" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    <!-- <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbde.utt&tabs&width=340&height=70&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=248954165119490" width="340" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe> TODO : Fix issue where iframe is not loaded (maybe because of headers ?) -->
+                    <a href="https://www.facebook.com/bde.utt/" /><img src="{{ asset('img/icons/facebook.png') }}" style="height: 70px; vertical-align:top;"/></a>
                     <a href="https://www.instagram.com/bdeutt/" /><img src="{{ asset('img/icons/instagram.png') }}" style="height: 70px; vertical-align:top;"/></a>
                     <a href="https://www.snapchat.com/add/integrationutt" /><img src="{{ asset('img/icons/snapchat.svg') }}" style="height: 70px; vertical-align:top;"/></a>
                 </div>
