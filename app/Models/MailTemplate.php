@@ -51,7 +51,7 @@ class MailTemplate extends Model
             }
         }
 
-        return view('emails.template.'.$this->template, [
+        return view('emails.templates.'.$this->template, [
             'subject' => $this->subject,
             'content'=> $content,
             'user' => $user,
