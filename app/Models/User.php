@@ -407,7 +407,7 @@ class User extends Model implements Authenticatable
     }
 
     /**
-     * Return newcomers referal
+     * Return newcomers referral
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function godFather()
