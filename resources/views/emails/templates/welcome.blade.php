@@ -69,5 +69,6 @@ Bienvenue à l'UTT
 
 @include('emails.parts.connect')
 @include('emails.parts.godfather')
+@include('emails.parts.covid')
 
 @endsection
