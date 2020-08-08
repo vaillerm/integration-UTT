@@ -212,8 +212,6 @@ class StudentsController extends Controller
         }
 
         // Update student informations
-        $student->surname = $data['surname'];
-        $student->sex = $data['sex'];
         $student->email = $data['email'];
         $student->phone = $data['phone'];
         $student->branch = $data['branch'];
@@ -230,10 +228,12 @@ class StudentsController extends Controller
         if ($student->is_newcomer) {
             $student->parent_name = $data['parent_name'];
             $student->parent_phone = $data['parent_phone'];
-            $student->birth = $data['birth'];
+            # $student->birth = $data['birth'];
             $student->allow_publicity = !empty($data['allow_publicity']);
         }
         else {
+            $student->sex = $data['sex'];
+            $student->surname = $data['surname'];
             $student->level = $data['level'];
             $student->referral = !empty($data['referral']);
             $student->facebook = $data['facebook'];

@@ -55,7 +55,7 @@ class EmailsController extends Controller
         return View::make('dashboard.emails.index', [
             'mail_templates' => MailTemplate::all(),
             'mail_crons'    => $crons,
-            'file_templates'    => File::allFiles(resource_path('views/emails/template')),
+            'file_templates'    => File::allFiles(resource_path('views/emails/templates')),
             'listToFrench' => MailHelper::$listToFrench,
             'updatedRecipients' => $updatedRecipients,
         ]);
@@ -104,7 +104,7 @@ class EmailsController extends Controller
         $template = MailTemplate::where('id', $id)->firstOrFail();
         return View::make('dashboard.emails.edit', [
             'template' => $template,
-            'file_templates'    => File::allFiles(resource_path('views/emails/template')),
+            'file_templates'    => File::allFiles(resource_path('views/emails/templates')),
             'varlist' => MailTemplate::getVarArray(Auth::user()),
         ]);
     }

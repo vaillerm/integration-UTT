@@ -1,4 +1,4 @@
-@extends('layouts.email')
+@extends('emails.master_layout')
 
 @section('title')
 Rentrée UTT

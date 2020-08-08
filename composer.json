@@ -10,7 +10,7 @@
         "aferrandini/phpqrcode": "^1.0",
         "barryvdh/laravel-cors": "^0.11",
         "chrisd-autume/db-config": "2.*",
-        "doctrine/dbal": "^2.9",
+        "doctrine/dbal": "2.9",
         "fideloper/proxy": "^4.0",
         "gonoware/laravel-maps": "^1.0",
         "guzzlehttp/guzzle": "6.*",
@@ -69,12 +69,12 @@
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",
-            "php artisan passport:install"
+            "php artisan passport:install-if-migrated"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize",
-            "php artisan passport:install"
+            "php artisan passport:install-if-migrated"
         ]
     }
 }

@@ -1,4 +1,5 @@
-@extends('layouts.email')
+@extends('emails.master_layout')
+
 
 @section('title')
 	Tes identifiants de connexion / Your login and password

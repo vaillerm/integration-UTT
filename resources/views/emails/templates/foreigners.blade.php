@@ -1,4 +1,4 @@
-@extends('layouts.email')
+@extends('emails.master_layout')
 
 @section('title')
 Your integration team / Ton équipe d'intégration

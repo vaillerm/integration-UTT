@@ -22,7 +22,6 @@ Que l'intégration a trouvé pour toi !
             <li><a href="#lcl">LCL</a></li>
             <li><a href="#popeye">Auto-école Popeye</a></li>
             <li><a href="#mgel">MGEL (Mutuelle Générale de Etudiants de l’Est)</a></li>
-            <li><a href="#dell">Dell : Opération de rentrée</a></li>
         </ul>
 
         <hr/>
@@ -80,12 +79,6 @@ Que l'intégration a trouvé pour toi !
         <p> <h4 id="mgel">MGEL (Mutuelle Générale de Etudiants de l’Est) </h4> </p>
         <p>C’est l'assurance étudiante qui s'occupe d'assurer ton logement, de prendre en charge tes dépenses médicales à l'étranger (AssurWorld) et tes maladresses au quotidien (Assurance responsabilité civil obligatoire pour ton inscription à l'UTT).</p>
         <p>Pour toutes ces assurances, une seule adresse : <a href="https://bde.utt.fr/assurances-integration">https://bde.utt.fr/assurances</a></p>
-
-        <p><a href="http://www.portable-etudiant.com/?Id=T305UEAUTMITZ4ICZJNN"><img src="img/sponsors/deals/dell_resultat.jpg" style="float:right" class="img-thumbnail" /></a></p>
-        <p> <h4 id="dell">Dell : Opération de rentrée</h4> </p>
-        <p>Tu crains que ton vieil ordi ne puisse pas tenir la cadence ?
-            Notre partenaire Dell te propose en passant par le biais de l’intégration des réductions !</p>
-        <p>Pour en bénéficier clique sur ce super lien : <a href="http://www.portable-etudiant.com/?Id=T305UEAUTMITZ4ICZJNN">“SUPER LIEN”</a>.</p>
 
         </div>
     </div>

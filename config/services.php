@@ -101,7 +101,7 @@ return [
     ],
 
     'version' => [
-         'hash' => env('VERSION_HASH', 'none'),
+        'hash' => env('VERSION_HASH', 'none'),
     ],
 
     'slack' => [
@@ -109,6 +109,29 @@ return [
     ],
 
     'utt' => [
-        'wifi_subnet' => env('UTT_WIFI_SUBNET', '10.25.0.0/16,10.18.0.0/16')
+        'wifi_subnet' => env('UTT_WIFI_SUBNET', '10.25.0.0/16,10.18.0.0/16'),
+    ],
+
+    'reentry' => [
+        'tc' => [
+            'date' => env('REENTRY_TC_DATE', 'Lundi 31 Août'),
+            'time' => env('REENTRY_TC_TIME', '8h'),
+        ],
+        'branches' => [
+            'date' => env('REENTRY_MASTERS_DATE', 'Mardi 1 Septembre'),
+            'time' => env('REENTRY_MASTERS_TIME', '8h'),
+        ],
+        'masters' => [
+            'date' => env('REENTRY_MASTERS_DATE', 'Lundi 7 Septembre'),
+            'time' => env('REENTRY_MASTERS_TIME', '8h'),
+        ],
+    ],
+
+    'partners' => [
+        'ada' => 'true',
+        'mgel' => 'true',
+        'damonte' => 'true',
+        'beijaflore' => 'true',
+        'popeye' => 'true',
     ],
 ];
