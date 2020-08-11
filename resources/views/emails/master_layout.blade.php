@@ -34,11 +34,7 @@
                                             <tr>
                                                <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;color: #222222;font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 14px;line-height: 150%;text-align: justify;">
                                                   <h1 style="text-align: center;">
-                                                     <span style="color:#E74360">
-                                                     <span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif">
-                                                     <span style="font-size:16px">@yield('title')</span>
-                                                     </span>
-                                                     </span>
+                                                     <span style="color:#E74360; font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif; font-size:16px">@yield('title')</span>
                                                   </h1>
                                                </td>
                                             </tr>
@@ -49,6 +45,29 @@
                              </tbody>
                           </table>
                        </td>
+                    </tr>
+                    <tr>
+                      <td valign="top" id="templatePreheader">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+                          <tbody class="mcnImageBlockOuter">
+                            <tr>
+                              <td valign="top" style="padding:9px" class="mcnImageBlockInner">
+                                <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+                                  <tbody>
+                                    <tr>
+                                      <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+                                        <a style="color: #fff;text-decoration:none;" href="{{ route('index') }}">
+                                          <img align="center" alt="" src="{{ URL::to('/img/mail_image.png') }}" width="200" style="max-width:400px; padding-bottom: 0; margin: auto;" class="mcnRetinaImage">
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
                     </tr>
                     <tr>
                        <td valign="top" id="templateBody">

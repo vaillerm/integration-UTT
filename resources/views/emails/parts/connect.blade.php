@@ -1,8 +1,9 @@
-<div style="background-color:#E74360; padding: 10px; text-align: center;">
-    <span style="color:#FFFFFF; font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif; font-size:1.2em">
-      <strong>Connecte toi sur le site d'intégration</strong>
-    </span>
+<div style="background-color: #E74360; text-align: center; padding: 15px">
+  <span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif; font-size: 1.3em; color: #FFFFFF">
+    <strong>Connecte toi sur le site d'intégration</strong>
+  </span>
 </div>
+
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
   <tbody class="mcnTextBlockOuter">
