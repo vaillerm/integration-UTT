@@ -1,7 +1,7 @@
-<div style="background-color:#E74360; padding: 10px; text-align: center;">
-    <span style="color:#FFFFFF; font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif; font-size:1.2em">
-      <strong>Attention COVID !</strong>
-    </span>
+<div style="background-color: #E74360; text-align: center; padding: 15px">
+  <span style="font-family:merriweather sans,helvetica neue,helvetica,arial,sans-serif; font-size: 1.3em; color: #FFFFFF">
+	<strong>Attention COVID !</strong>
+  </span>
 </div>
 
 <div style="margin: 10px; text-align: center">
