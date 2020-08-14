@@ -26,7 +26,9 @@ Le Week-End d'Intégration
 @endsection
 
 @section('content')
-    @if(Authorization::can('newcomer','wei'))
+    @if(Config::get('services.wei.open') === '-1')
+        <h3 class="box-title">En raison de la situation sanitaire actuelle, nous ne pouvons pas organiser de WEI cette année.</h3>
+    @elseif(Authorization::can('newcomer','wei'))
 
 		<div class="box box-default">
 			<div class="box-header with-border">
@@ -162,7 +164,7 @@ Le Week-End d'Intégration
             </div>
             @endif
         </div>
-	@endif
+    @endif
 
 
 @endsection
